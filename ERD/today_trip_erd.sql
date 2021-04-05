@@ -93,6 +93,7 @@ CREATE TABLE pic_tag
 (
 	tag_uid number NOT NULL,
 	pc_uid number NOT NULL
+	
 );
 
 
@@ -101,14 +102,13 @@ CREATE TABLE place
 	place_uid number NOT NULL,
 	contentid number NOT NULL,
 	contenttypeid number NOT NULL,
-	title varchar2(40) NOT NULL,
-	mapx float NOT NULL,
-	mapy float NOT NULL,
+	title varchar2(200) NOT NULL,
+	mapx float ,
+	mapy float ,
 	areaCode number,
 	sigunguCode number,
 	addr1 varchar2(200),
-	tel varchar2(20),
-	infotext clob,
+	tel varchar2(100),
 	firstimage2 varchar2(100),
 	PRIMARY KEY (place_uid)
 );
@@ -383,4 +383,6 @@ SELECT * FROM user_authority;
 SELECT * FROM users;
 
 SELECT * FROM user_log;
+
+
 
