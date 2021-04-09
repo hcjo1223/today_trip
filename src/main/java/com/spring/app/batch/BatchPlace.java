@@ -58,8 +58,11 @@ public class BatchPlace {
 				pstmt.setString(9, tel);
 				pstmt.setString(10, firstimage2);
 			
-				
-				pstmt.executeUpdate();
+				if (firstimage2 == null || firstimage2.trim().length() == 0) {
+					
+				} else {
+					pstmt.executeUpdate();
+				}
 				System.out.println("insert 성공");
 		} catch(Exception e){
 			e.printStackTrace();

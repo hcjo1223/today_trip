@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css"
-		href="${pageContext.request.contextPath }/resources/CSS/viewsCSS.css">
+		href="${pageContext.request.contextPath }/resources/CSS/adminCSS.css">
 <!-- <script type="text/javascript" src="${pageContext.request.contextPath}/resources/JS/viewsJS.js"></script> -->
 
 <title>관리자 페이지</title>
@@ -13,27 +13,23 @@
 <body>
 
 <div class="sidenav">
-	<a href="./admin/users">회원 관리</a>
-	<a href="./admin/calender">게시판 관리</a>
-	<a href="./admin/place/accommodation">장소 관리</a>
-<!-- 
-	<button class="board-btn">게시판 관리
-		<i class="fa fa-caret-down"></i>
-	</button>
-	<div class="board-contatiner">
-		<a href="./admin/calender">일정</a>
-		<a href="./admin/cards">사진</a>
-	</div>
-	<button class="place-btn">장소 관리
-		<i class="fa fa-caret-down"></i>
-	</button>
-	<div class="place-contatiner">
-		<a href="./admin/place/accommodation">숙소</a>
-		<a href="./admin/place/restarurant">식당</a>
-		<a href="./admin/place/sights">관광지</a>
-	</div>
- -->
-	<a href="./admin/stats">통계</a>
+	<a href="admin/users">회원 관리</a>
+	<div class="boardDrop">
+		<a href="admin/board/calender">게시판 관리</a>
+		<div class="board-content">
+		    <a href="admin/board/calender">일정</a>
+		    <a href="admin/board/cards">사진</a>
+	 	</div>
+	 </div>
+	 <div  class="placeDrop">
+		<a href="admin/place/accommodation">장소 관리</a>
+		<div class="place-content">
+		    <a href="admin/place/accommodation">숙소</a>
+		    <a href="admin/place/restarurant">음식점</a>
+		    <a href="admin/place/sights">관광지</a>
+	 	</div>
+	 </div>
+	<a href="admin/stats">통계</a>
 </div>
 </body>
 </html>
