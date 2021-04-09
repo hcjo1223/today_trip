@@ -164,6 +164,7 @@ public class BatchPlace {
 					
 					String tel;
 					if(place.get("tel") == null) {
+<<<<<<< HEAD
 						tel = " ";
 					} else {
 					tel = (String)place.get("tel");
@@ -172,6 +173,16 @@ public class BatchPlace {
 					String firstimage2;
 					if(place.get("firstimage2") == null) {
 						firstimage2 = " ";
+=======
+						tel = "";
+					} else {
+					tel = (String)place.get("tel");
+					}
+					
+					String firstimage2;
+					if(place.get("firstimage2") == null) {
+						firstimage2 = "";
+>>>>>>> branch 'master' of https://github.com/hcjo1223/today_trip.git
 					} else {
 					firstimage2 = (String)place.get("firstimage2");
 					}
