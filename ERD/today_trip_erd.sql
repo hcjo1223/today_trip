@@ -110,6 +110,7 @@ CREATE TABLE place
 	addr1 varchar2(200),
 	tel varchar2(100),
 	firstimage2 varchar2(100),
+	pl_viewcnt NUMBER DEFAULT 0,
 	PRIMARY KEY (place_uid)
 );
 
@@ -349,6 +350,7 @@ ALTER TABLE user_authority
 	REFERENCES users (us_uid)
 ;
 
+
 /*-------------------------------------------------------------- Select All From Table --------------------------------------------------------------*/
 SELECT * FROM pic_comment;
 
@@ -385,4 +387,7 @@ SELECT * FROM users;
 SELECT * FROM user_log;
 
 
-
+SELECT
+place_uid "uid", title, contentid, contenttypeid
+FROM place
+WHERE place_uid = 3413;
