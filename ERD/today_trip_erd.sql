@@ -384,5 +384,37 @@ SELECT * FROM users;
 
 SELECT * FROM user_log;
 
+/* test */
 
-
+SELECT 
+			place_uid, 
+			title, 
+			contentId,
+			mapx, 
+			mapy, 
+			addr1,
+			tel,
+			firstimage2
+		FROM 
+			place 
+		WHERE 
+			contentTypeId = 12
+		ORDER BY 
+			place_uid;
+		
+		
+SELECT 
+			place_uid, 
+			title, 
+			contentId,
+			mapx, 
+			mapy, 
+			addr1,
+			tel,
+			firstimage2
+		FROM 
+			place 
+		WHERE 
+			contentTypeId = 12
+		ORDER BY 
+			place_uid;
