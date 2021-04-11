@@ -59,7 +59,7 @@ img {
 				${dto.title}</a></span>
 
 			<p>${dto.areaCode} > ${dto.sigunguCode}</p>
-			<a class="like">좋아요</a>&nbsp&nbsp&nbsp<a class="review">리뷰</a>
+			<a class="like">좋아요</a>&nbsp<a class="review">리뷰</a>
 			</li>
 							
 			</c:forEach>

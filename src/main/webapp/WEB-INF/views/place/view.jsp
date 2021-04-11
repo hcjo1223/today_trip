@@ -18,6 +18,29 @@
 	<head>
 	<meta charset="UTF-8">
 	<title>읽기</title>
+<style>
+
+img {
+    vertical-align: middle;
+    border: 0px;
+}
+.mainImg {
+    width: 400px;
+    height: 274px;
+}
+.imgGallery {
+    position: relative;
+    overflow: hidden;
+    width: 866px;
+    margin: 0 auto;
+}
+.imgGallery > p > img {
+    width: 700px;
+    height: 467px;
+}
+
+
+</style>
 	</head>
 	
 
@@ -34,15 +57,14 @@
 			<h2 id="tltle"> ${list[0].title } </h2>
 			<script type="text/javascript">
 			var contentId = "${list[0].contentId }";
+			var contentTypeId = "${list[0].contentTypeId }";
 			</script> 
 			<div id="demoJSON1"></div>
 			<hr>
 			<h3>개요</h3><br>
 			<div id="demoJSON2"></div>
-			<p>infomemo(api)</p>
-			(api)<br>
-			
-			사진들(api)
+			<hr>
+			<div id="demoJSON3"></div>
 			<br>
 			
 	</body>

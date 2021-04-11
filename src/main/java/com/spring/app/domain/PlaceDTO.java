@@ -29,6 +29,8 @@ public class PlaceDTO {
 	String addr1;
 	String tel;
 	String firstimage2;
+	@JsonProperty("viewcnt")
+	int viewCnt;
 	
 	
 }
