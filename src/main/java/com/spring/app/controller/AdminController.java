@@ -23,6 +23,7 @@ public class AdminController {
 	@RequestMapping("/place/accommodation")
 	public String listAdminPlaceA(Model model) {
 		model.addAttribute("listAdminPlaceA", adminService.listAdminPlaceA());
+		System.out.println("adminService.listAdminPlaceA() : " + adminService.listAdminPlaceA());
 		return "admin/place/accommodation";
 	}
 	

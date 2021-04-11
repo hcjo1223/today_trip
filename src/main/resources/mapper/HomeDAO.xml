@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.app.domain.HomeDAO">
+
+	<insert id="insertLog" flushCache="true" parameterType="com.spring.app.domain.LogDTO">
+		INSERT INTO user_log
+			(log_uid, log_contents, log_date)
+		VALUES
+			(log_uid_seq.nextval, #{logContent}, SYSDATE)
+	</insert> 
+
+
+
+</mapper>
