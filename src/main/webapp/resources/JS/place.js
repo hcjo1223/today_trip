@@ -66,8 +66,9 @@ function parseJSON1(jsonObj){
 
 	var row = jsonObj.response.body.items.item;
 
-	table += "<div class='mainImg'><img src='" + row.firstimage + "' alt=''></div><br>";
-	table += row.overview;
+	table += "<div class='mainImg'><img src='" + row.firstimage + "' alt='메인이미지'></div><br>";
+	table += "<h3>개요</h3>";
+	table += "<div class='content'>" + row.overview + "</div>";
 	
 	$("#demoJSON1").html(table);
 }
@@ -79,7 +80,9 @@ function parseJSON2(jsonObj){
 	var row = jsonObj.response.body.items.item;
 
 	table += row.contentid + "<br>";
-	table += row.contenttypeid;
+	table += row.contenttypeid + "<br>";
+	table += row.chkbabycarriage + "<br>";
+	table += row.chkcreditcard;
 	
 	$("#demoJSON2").html(table);
 }
@@ -104,13 +107,13 @@ function parseJSON3(jsonObj){
 function chkContentTypeId(){
 	
 	switch(contentTypeId){
-		case 12:
+		case "12":
 			"<h3>관광지</h3>"
 			break;
-		case 32:
+		case "32":
 			"<h3>숙박</h3>"
 			break;
-		case 39:
+		case "39":
 			"<h3>음식점</h3>"
 			break;
 	}

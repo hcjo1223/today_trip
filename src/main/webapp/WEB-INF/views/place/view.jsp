@@ -24,7 +24,7 @@ img {
     vertical-align: middle;
     border: 0px;
 }
-.mainImg {
+.mainImg > img {
     width: 400px;
     height: 274px;
 }
@@ -53,26 +53,30 @@ img {
 			<c:if test="${list[0].contentTypeId == '12'}" var="관광지" scope="session"></c:if>
 			<c:if test="${list[0].contentTypeId == '32'}" var="숙박" scope="session"></c:if>
 			<c:if test="${list[0].contentTypeId == '39'}" var="식당" scope="session"></c:if>
-			
+			<div class="title">
 			<h2 id="tltle"> ${list[0].title } </h2>
+			</div>
+			
 			<script type="text/javascript">
 			var contentId = "${list[0].contentId }";
 			var contentTypeId = "${list[0].contentTypeId }";
 			</script> 
-			<div id="demoJSON1"></div>
-			<hr>
-			<h3>개요</h3><br>
-			<div id="demoJSON2"></div>
-			<hr>
-			<div id="demoJSON3"></div>
-			<br>
+			
+			<div id="demoJSON1"></div><hr>
+			
+			
+			<div id="demoJSON2"></div><hr>
+			
+			
+			<div id="demoJSON3"></div><hr>
+			
 			
 	</body>
 	</html>
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="https://kit.fontawesome.com/bb29575d31.js"></script>
-	<script src="${pageContext.request.contextPath }/resources/JS/placeJS.js" type="text/javascript"></script>
+	<script src="${pageContext.request.contextPath }/resources/JS/place.js" type="text/javascript"></script>
 					
 	</c:otherwise>
 </c:choose>
