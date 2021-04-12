@@ -15,4 +15,5 @@ public class LogDTO {
 	private int log_uid;
 	private String log_contents;
 	private LocalDateTime log_date;
+	private int log_count;
 }

@@ -90,5 +90,22 @@
 			<li><a href="../admin/stats"><img style="width: 20px" src="../resources/IMG/admin_chart.png"> 통계</a></li>
 		</ul>
 	</div><!--/.sidebar-->
+	
+	
+	<c:choose>
+	<c:when test="${empty listLogCount || fn:length(listLogCount) == 0 }">
+	</c:when>
+	<c:otherwise>
+		<c:forEach var="dto" items="${listLogCount }">
+			<span>${dto.log_date}</span><br>
+			<span>${dto.log_count}</span>
+		</c:forEach>
+	</c:otherwise>
+	</c:choose>
+	
+	
+	
+	
+	
 </body>
 </html>

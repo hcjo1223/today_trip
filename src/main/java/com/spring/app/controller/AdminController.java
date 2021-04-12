@@ -50,6 +50,7 @@ public class AdminController {
 	}
 	@RequestMapping("/stats")
 	public String listStats(Model model) {
+		model.addAttribute("listLogCount", adminService.listLogCount());
 		return "admin/stats";
 	}
 	@RequestMapping("/users")

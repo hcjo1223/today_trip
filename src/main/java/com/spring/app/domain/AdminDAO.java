@@ -2,6 +2,7 @@ package com.spring.app.domain;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.mybatis.spring.annotation.MapperScan;
 
 @MapperScan
@@ -13,5 +14,8 @@ public interface AdminDAO {
 		List<PlaceDTO> selectAdminPlaceR();
 		// 관리자 페이지 장소 select (관광지)
 		List<PlaceDTO> selectAdminPlaceS();
+		
+		// 관리자 페이지 log select (통계)
+		List<LogDTO> selectLogCount(@Param("nowDate") String nowDate,@Param("endDate") String endDate);
 	
 }

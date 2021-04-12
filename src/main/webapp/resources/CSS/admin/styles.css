@@ -1033,21 +1033,28 @@ p.back-link {
   text-transform: uppercase; }
     
   /*table style*/
-#place_table {
-	float: right;
-	width: 80%;
-	margin-right: 30px;
+table.tablePlace {
+  border-collapse: collapse;
+  text-align: left;
+  line-height: 1.5;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  margin: 20px 10px;
+  width:80%;
+  float: right;
+}
+table.tablePlace th {
+  width: 100px;
+  padding: 10px;
+  font-weight: bold;
+  vertical-align: top;
+}
+table.tablePlace td {
+  width: 200px;
+  padding: 10px;
+  vertical-align: top;
 }
 
-#place_table table,th,td{
-	border: 1px solid black;
-	border-collapse: collapse;
-}
- 
-#place_table img{
+.tablePlace img {
 	width: 200px;
-	margin: auto;
-	float: left;
 }
-
-

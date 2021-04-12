@@ -92,7 +92,7 @@
 	</div><!--/.sidebar-->
 
 <div>
-	<table id="place_table">
+	<table class="tablePlace">
 		<tr>
 			<th>번호</th>
 			<th>이름</th>
