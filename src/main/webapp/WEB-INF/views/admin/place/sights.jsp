@@ -7,35 +7,94 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css"
-		href="${pageContext.request.contextPath }/resources/CSS/adminCSS.css">
+		href="${pageContext.request.contextPath }/resources/CSS/admin/bootstrap.css">
+<link rel="stylesheet" type="text/css"
+		href="${pageContext.request.contextPath }/resources/CSS/admin/bootstrap.min.css">
+<link rel="stylesheet" type="text/css"
+		href="${pageContext.request.contextPath }/resources/CSS/admin/font-awesome.min.css">
+<link rel="stylesheet" type="text/css"
+		href="${pageContext.request.contextPath }/resources/CSS/admin/datepicker3.css">
+<link rel="stylesheet" type="text/css"
+		href="${pageContext.request.contextPath }/resources/CSS/admin/styles.css">
+		<!--Custom Font-->
+<link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+		
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/JS/admin/bootstrap.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/JS/admin/chart.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/JS/admin/chart-data.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/JS/admin/easypiechart.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/JS/admin/easypiechart-data.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/JS/admin/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/JS/admin/custom.js"></script>
+
 <title>관리자 페이지(관광지)</title>
 
 </head>
 <body>
-<div class="sidenav">
-	<a href="../users">회원 관리</a>
-	<div class="boardDrop">
-		<a href="../board/calender">게시판 관리</a>
-		<div class="board-content">
-		    <a href="../board/calender">일정</a>
-		    <a href="../board/cards">사진</a>
-	 	</div>
-	 </div>
-	 <div  class="placeDrop">
-		<a href="../place/accommodation">장소 관리</a>
-		<div class="place-content">
-		    <a href="../place/accommodation">숙소</a>
-		    <a href="../place/restarurant">음식점</a>
-		    <a href="../place/sights">관광지</a>
-	 	</div>
-	 </div>
-	<a href="../stats">통계</a>
-</div>
-<div>
+	<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#sidebar-collapse"><span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span></button>
+				<a class="navbar-brand" href="#"><span>TodayTrip</span>Admin</a>
+				<ul class="nav navbar-top-links navbar-right">
+				</ul>
+			</div>
+		</div><!-- /.container-fluid -->
+	</nav>
+
+<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
+		<div class="profile-sidebar">
+			<div class="profile-userpic">
+				<img src="http://placehold.it/50/30a5ff/fff" class="img-responsive" alt="">
+			</div>
+			<div class="profile-usertitle">
+				<div class="profile-usertitle-name">Username</div>
+				<div class="profile-usertitle-status"><span class="indicator label-success"></span>Online</div>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="divider"></div>
+		<ul class="nav menu">
+			<li class="active"><a href=".."><img style="width: 20px" src="../../resources/IMG/admin_home.png"> 홈</a></li>
+			<li><a href="../users"><img style="width: 20px" src="../../resources/IMG/admin_user.png"> 회원관리</a></li>
+			<li class="parent "><a data-toggle="collapse" href="#sub-item-1">
+				<img style="width: 20px" src="../../resources/IMG/admin_board.png"> 게시판관리 <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="fa fa-plus"></em></span>
+				</a>
+				<ul class="children collapse" id="sub-item-1">
+					<li><a class="" href="../board/calender">
+						<img style="width: 20px" src="../../resources/IMG/admin_plan.png"> 일정
+					</a></li>
+					<li><a class="" href="../board/cards">
+						<img style="width: 20px" src="../../resources/IMG/admin_picture.png"> 사진
+					</a></li>
+				</ul>
+			</li>
+			<li class="parent "><a data-toggle="collapse" href="#sub-item-2">
+				<img style="width: 20px" src="../../resources/IMG/admin_place.png"> 장소관리 <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="fa fa-plus"></em></span>
+				</a>
+				<ul class="children collapse" id="sub-item-2">
+					<li><a class="" href="../place/accommodation">
+						<img style="width: 20px" src="../../resources/IMG/admin_hotel.png"> 숙소
+					</a></li>
+					<li><a class="" href="../place/restarurant">
+						<img style="width: 20px" src="../../resources/IMG/admin_restarurant.png"> 음식점
+					</a></li>
+					<li><a class="" href="../place/sights">
+						<img style="width: 20px" src="../../resources/IMG/admin_sights.png"> 관광지
+					</a></li>
+				</ul>
+			</li>
+			<li><a href="../stats"><img style="width: 20px" src="../../resources/IMG/admin_chart.png"> 통계</a></li>
+		</ul>
+	</div><!--/.sidebar-->
 
 </div>
 <div>
-	<table>
+	<table id="place_table">
 		<tr>
 			<th>번호</th>
 			<th>이름</th>
