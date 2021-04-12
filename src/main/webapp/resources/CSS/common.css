@@ -198,7 +198,7 @@
    font-family:inherit;
    font-weight:700;
    margin:6px 4px;
-   padding:8px 4px 7px;
+   padding:8px 14px 7px;
    border:none;
    background:none;
    color:#424242;
@@ -210,7 +210,7 @@
       font-size:15px;
       line-height:23px;
       margin:8px 4px;
-      padding:6px 8px 4px;
+      padding:6px 18px 4px;
       color:#424242
    }
 }
@@ -709,6 +709,7 @@
    border-color:transparent transparent #fff
 }
 
+/* button */
 
 .button {
    -moz-user-select:-moz-none;
@@ -1337,3 +1338,25 @@
 }
 
 a{text-decoration: none;}
+
+
+.story-entry__image-wrap {
+    flex: 1 0 auto;
+    margin: 0;
+    padding: 0 4px;
+}
+
+@media (min-width: 768px){
+.story-entry__image-wrap {
+    padding: 0 0 0 40px;
+    margin: 0 8px 0 -12px;
+    text-align: left;
+}
+}
+
+@media (min-width: 1024px){
+.story-entry__image-wrap {
+    padding: 0 0 0 60px;
+}
+}
+

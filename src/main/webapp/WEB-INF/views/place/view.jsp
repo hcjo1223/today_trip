@@ -38,8 +38,23 @@ img {
     width: 700px;
     height: 467px;
 }
-
-
+.sumImg > ul > li > a > span > img {
+    max-width: 164px !important;
+    width: 164px;
+    height: 108px;
+}
+ul,ol {list-style:none;}
+.fixed_img_col ul{
+	border-bottom: 1px solid #aaa;
+}
+.fixed_img_col li{
+	float: left;
+	width: 200px;
+	height: 200px;
+	padding: 20px 15px;
+	margin-bottom: -1px;
+	border-bottom: 1px solid #aaa;
+}
 </style>
 	</head>
 	
@@ -47,12 +62,8 @@ img {
 	
 	<body>	
 		<h2>항목 보기</h2>
-			<br>	
-			콘텐츠id : ${list[0].contentId } <br>	
-			
-			<c:if test="${list[0].contentTypeId == '12'}" var="관광지" scope="session"></c:if>
-			<c:if test="${list[0].contentTypeId == '32'}" var="숙박" scope="session"></c:if>
-			<c:if test="${list[0].contentTypeId == '39'}" var="식당" scope="session"></c:if>
+			<p>	콘텐츠Id : ${list[0].contentId } </p>	
+			<p>	콘텐츠TypeId : ${list[0].contentTypeId } </p>	
 			<div class="title">
 			<h2 id="tltle"> ${list[0].title } </h2>
 			</div>
@@ -62,10 +73,15 @@ img {
 			var contentTypeId = "${list[0].contentTypeId }";
 			</script> 
 			
+	
+
+			
 			<div id="demoJSON1"></div><hr>
 			
 			
-			<div id="demoJSON2"></div><hr>
+			<div id="demoJSON2">
+				<div id="contentTypeId"></div>
+			</div><hr>
 			
 			
 			<div id="demoJSON3"></div><hr>
