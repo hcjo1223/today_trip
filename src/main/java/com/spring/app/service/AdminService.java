@@ -1,12 +1,16 @@
 package com.spring.app.service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
 import com.spring.app.domain.AdminDAO;
+import com.spring.app.domain.LogDTO;
 import com.spring.app.domain.PlaceDTO;
 
 @Service
@@ -35,4 +39,14 @@ public class AdminService {
 			dao = sqlSession.getMapper(AdminDAO.class);
 			return dao.selectAdminPlaceS();
 		}
+		public List<LogDTO> listLogCount() {
+			dao = sqlSession.getMapper(AdminDAO.class);
+			String nowDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+			String endDate = LocalDateTime.now().plusDays(7).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+			return dao.selectLogCount(nowDate, endDate);
+		}
+		
+	
+	
+		
 }

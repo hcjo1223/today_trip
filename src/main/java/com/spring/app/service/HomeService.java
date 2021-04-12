@@ -24,8 +24,12 @@ public class HomeService {
 	public void saveLog() {
 		dao = sqlSession.getMapper(HomeDAO.class);
 		String logContent;
+		String nowDate;
+		
 		logContent = "log] " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yy-MM-dd HH:mm:ss")) + " visit";
-		dao.insertLog(logContent);
+		nowDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+		
+		dao.insertLog(logContent, nowDate);
 		
 	}
 	

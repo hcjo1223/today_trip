@@ -57,5 +57,16 @@
 		ORDER BY 
 			place_uid
 	</select>
+	
+	<select id="selectLogCount" resultType="com.spring.app.domain.LogDTO">
+		SELECT
+			LOG_DATE, COUNT(*) log_count 
+		FROM 
+			user_log 
+		GROUP BY 
+			LOG_DATE 
+		HAVING 
+			LOG_DATE BETWEEN '2021-04-12' AND '2021-04-13'
+	</select>
 
 </mapper>
