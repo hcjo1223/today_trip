@@ -1,3 +1,115 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.spring.app.domain.CardsDAO"></mapper>
+
+<mapper namespace="com.spring.app.domain.CardsDAO">
+<select id="select" resultType="com.spring.app.domain.CardsDTO">
+		SELECT 
+			pc_uid "uid"
+			, us_uid usuid 
+			, pc_contents contents 
+			, pc_hits hits 
+			, pc_location location 
+			, pc_focus focus 
+			, pc_with withs 
+			, pc_write_date regDate 
+			, pc_del_ck delCheck
+		FROM picture 
+		WHERE pc_del_ck = 1
+		ORDER BY pc_uid DESC
+	</select>
+	
+	
+	<!-- 
+	<insert id="insert" flushCache="true"
+		parameterType="com.spring.app.domain.picDTO"
+		keyProperty="uid" useGeneratedKeys="true" keyColumn="pc_uid">
+		INSERT ALL
+		INTO picture
+			(pc_uid, us_uid, pc_contents, pc_location, pc_focus, pc_with, pc_write_date, pc_del_ck  )
+		VALUES
+			(picture_seq.nextval,1, #{contents}, #{location}, #{focus}, #{withs}, SYSDATE, 1)
+		INTO pic_lib
+			(pl_uid, pc_uid, pl_name, pl_type, pl_size, pl_path )
+		VALUES
+			(pic_lib_seq.nextval, 1, #{name}, #{type}, #{size}, #{path} )
+		SELECT * FROM DUAL
+	</insert>
+	 -->
+	<insert id="insert" flushCache="true"
+		parameterType="com.spring.app.domain.CardsDTO"
+		keyProperty="uid" useGeneratedKeys="true" keyColumn="pc_uid">
+		INSERT INTO picture
+			(pc_uid, us_uid, pc_contents, pc_location, pc_focus, pc_with, pc_write_date, pc_del_ck  )
+		VALUES
+			(pc_uid_seq.nextval,1, #{contents}, #{location}, #{focus}, #{withs}, SYSDATE, 1)
+		
+	</insert>
+	
+	
+     
+	<insert id="insertLib" flushCache="true" parameterType="com.spring.app.domain.picLibDTO"
+		keyProperty="uid" useGeneratedKeys="true" keyColumn="pc_uid">
+		INSERT INTO pic_lib
+			(pl_uid, pc_uid, pl_name, pl_type, pl_size, pl_path )
+		VALUES
+			(pl_uid_seq.nextval,#{pcuid}, #{name}, #{type}, #{size}, #{path} )
+	</insert>
+    
+    
+	
+	
+	<update id="incHits" flushCache="true">
+		UPDATE picture SET pc_hits = pc_hits + 1 WHERE pc_uid = #{param1}
+	</update>
+	
+	
+	
+	<select id="selectByUid" resultType="com.spring.app.domain.CardsDTO">
+	
+		SELECT 
+			pc_uid "uid"
+			, pc_contents contents 
+			, pc_hits hits 
+			, pc_location location 
+			, pc_focus focus 
+			, pc_with withs 
+			, pc_write_date regDate 
+		FROM picture 
+		WHERE pc_uid = #{param1}
+	</select>
+	<!--  
+	SELECT 
+	p.pc_uid "uid"
+	, p.pc_contents contents
+	, p.pc_hits hits
+	, p.pc_location location
+	, p.pc_focus focus
+	, p.pc_with withs
+	, p.pc_write_date regDate
+	, l.PL_PATH path
+	FROM picture p, PIC_LIB l
+	WHERE p.pc_uid = l.pc_uid AND p.PC_UID = #{param1}
+	
+	-->
+	<update id="update" flushCache="true">
+		UPDATE picture 
+		SET pc_contents = #{a.contents} 
+		WHERE pc_uid = #{param1}
+	</update>
+	
+	<update id="deleteByUid" flushCache="true">
+		UPDATE picture SET pc_del_ck = 0 WHERE pc_uid = #{param1}
+	</update>
+	
+	
+	<select id="selectFileByUid" flushCache="true"
+	resultType="com.spring.app.domain.picLibDTO">
+		SELECT pl_uid "plUid", pl_path path, pl_name name FROM pic_lib
+			WHERE pc_uid = #{param1} 
+	</select>
+	
+	<delete id="deleteFileByUid" flushCache="true">
+		DELETE FROM pic_lib WHERE pl_uid = #{param1}
+	</delete>
+
+</mapper>
