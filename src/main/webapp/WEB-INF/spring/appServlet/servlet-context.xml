@@ -16,6 +16,8 @@
 	<resources mapping="/resources/**" location="/resources/" />
 	<resources mapping="/CSS/**" location="/CSS/" />
 	<resources mapping="/JS/**" location="/JS/" />
+	<!-- 파일 절대경로 지정 -->
+	<resources mapping="/upload/**" location="file:///C:/upload/" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -58,6 +60,10 @@
 		<beans:property name="transactionManager" ref="transactionManager"/>
 	</beans:bean>
 	
-	
+	<!-- 파일업로드에 필요한 bean -->
+		<beans:bean id="mulitpartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    <!-- 파일업로드 용량 -->
+    <beans:property name="maxUploadSize" value="10485760"/>
+		</beans:bean>
 	
 </beans:beans>
