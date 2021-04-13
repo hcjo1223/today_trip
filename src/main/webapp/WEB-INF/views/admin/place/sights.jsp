@@ -21,8 +21,6 @@
 		
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/JS/admin/bootstrap.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/JS/admin/chart.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/JS/admin/chart-data.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/JS/admin/easypiechart.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/JS/admin/easypiechart-data.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/JS/admin/bootstrap-datepicker.js"></script>
@@ -41,6 +39,7 @@
 					<span class="icon-bar"></span></button>
 				<a class="navbar-brand" href="#"><span>TodayTrip</span>Admin</a>
 				<ul class="nav navbar-top-links navbar-right">
+					<a href="../../home" class="pull-right" style="padding: 20px 20px 0 0"><em class="fa fa-lg fa-close"></em></a>
 				</ul>
 			</div>
 		</div><!-- /.container-fluid -->
@@ -59,7 +58,7 @@
 		</div>
 		<div class="divider"></div>
 		<ul class="nav menu">
-			<li class="active"><a href=".."><img style="width: 20px" src="../../resources/IMG/admin_home.png"> 홈</a></li>
+			<li class="active"><a href="../../admin"><img style="width: 20px" src="../../resources/IMG/admin_home.png"> 홈</a></li>
 			<li><a href="../users"><img style="width: 20px" src="../../resources/IMG/admin_user.png"> 회원관리</a></li>
 			<li class="parent "><a data-toggle="collapse" href="#sub-item-1">
 				<img style="width: 20px" src="../../resources/IMG/admin_board.png"> 게시판관리 <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="fa fa-plus"></em></span>

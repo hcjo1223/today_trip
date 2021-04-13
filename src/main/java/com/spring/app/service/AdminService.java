@@ -41,9 +41,9 @@ public class AdminService {
 		}
 		public List<LogDTO> listLogCount() {
 			dao = sqlSession.getMapper(AdminDAO.class);
-			String nowDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-			String endDate = LocalDateTime.now().plusDays(7).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-			return dao.selectLogCount(nowDate, endDate);
+			String startDate = LocalDateTime.now().minusDays(7).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+			String endDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+			return dao.selectLogCount(startDate, endDate);
 		}
 		
 	

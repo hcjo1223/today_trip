@@ -1,5 +1,11 @@
 var randomScalingFactor = function(){ return Math.round(Math.random()*1000)};
-	
+	var count_date_arr	= count_date.split(';');
+	var log_date_arr = log_date.split(';');
+	var a = (log_count.split(';'));
+	var log_count_arr =[parseInt(a[0]), parseInt(a[1]), parseInt(a[2]), parseInt(a[3]), parseInt(a[4]), parseInt(a[5]),  parseInt(a[6])];//TODO 시발 뭐지
+	count_date_arr.shift();
+	alert(count_date_arr);
+
 	var lineChartData = {
 		labels : ["January","February","March","April","May","June","July"],
 		datasets : [
@@ -28,21 +34,21 @@ var randomScalingFactor = function(){ return Math.round(Math.random()*1000)};
 	}
 		
 	var barChartData = {
-		labels : ["January","February","March","April","May","June","July"],
+		labels : count_date_arr,
 		datasets : [
 			{
-				fillColor : "rgba(220,220,220,0.5)",
+				fillColor : "rgba(48, 164, 255, 0.2)",
 				strokeColor : "rgba(220,220,220,0.8)",
 				highlightFill: "rgba(220,220,220,0.75)",
 				highlightStroke: "rgba(220,220,220,1)",
-				data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
-			},
+				data : log_count_arr
+			 },
 			{
-				fillColor : "rgba(48, 164, 255, 0.2)",
+				fillColor : "rgba(0, 0, 0, 0)",
 				strokeColor : "rgba(48, 164, 255, 0.8)",
 				highlightFill : "rgba(48, 164, 255, 0.75)",
 				highlightStroke : "rgba(48, 164, 255, 1)",
-				data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
+				data : [0,0,0,0,0,0,0]
 			}
 		]
 

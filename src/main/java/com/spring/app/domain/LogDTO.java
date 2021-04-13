@@ -16,4 +16,5 @@ public class LogDTO {
 	private String log_contents;
 	private LocalDateTime log_date;
 	private int log_count;
+	private int count_date;
 }

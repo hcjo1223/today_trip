@@ -1058,3 +1058,8 @@ table.tablePlace td {
 .tablePlace img {
 	width: 200px;
 }
+div.row {
+	float: right;
+	width: 82%;
+	padding: 3px 30px 0 0;
+}

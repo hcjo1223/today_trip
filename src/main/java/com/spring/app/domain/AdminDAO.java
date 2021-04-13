@@ -16,6 +16,6 @@ public interface AdminDAO {
 		List<PlaceDTO> selectAdminPlaceS();
 		
 		// 관리자 페이지 log select (통계)
-		List<LogDTO> selectLogCount(@Param("nowDate") String nowDate,@Param("endDate") String endDate);
+		List<LogDTO> selectLogCount(@Param("startDate") String startDate,@Param("endDate") String endDate);
 	
 }

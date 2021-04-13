@@ -19,14 +19,6 @@
 		<!--Custom Font-->
 <link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 		
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/JS/admin/bootstrap.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/JS/admin/chart.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/JS/admin/chart-data.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/JS/admin/easypiechart.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/JS/admin/easypiechart-data.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/JS/admin/bootstrap-datepicker.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/JS/admin/custom.js"></script>
 
 <title>관리자 페이지(통계)</title>
 </head>
@@ -40,6 +32,9 @@
 					<span class="icon-bar"></span></button>
 				<a class="navbar-brand" href="#"><span>TodayTrip</span>Admin</a>
 				<ul class="nav navbar-top-links navbar-right">
+					<a href="../home" class="pull-right" style="padding: 20px 20px 0 0"><em class="fa fa-lg fa-close"></em></a>
+				
+				
 				</ul>
 			</div>
 		</div><!-- /.container-fluid -->
@@ -58,7 +53,7 @@
 		</div>
 		<div class="divider"></div>
 		<ul class="nav menu">
-			<li class="active"><a href="."><img style="width: 20px" src="../resources/IMG/admin_home.png"> 홈</a></li>
+			<li class="active"><a href="../admin"><img style="width: 20px" src="../resources/IMG/admin_home.png"> 홈</a></li>
 			<li><a href="../admin/users"><img style="width: 20px" src="../resources/IMG/admin_user.png"> 회원관리</a></li>
 			<li class="parent "><a data-toggle="collapse" href="#sub-item-1">
 				<img style="width: 20px" src="../resources/IMG/admin_board.png"> 게시판관리 <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="fa fa-plus"></em></span>
@@ -92,20 +87,61 @@
 	</div><!--/.sidebar-->
 	
 	
+	<div class="row">
+			<div class="col-lg-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						방문자 수
+						<span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span></div>
+					<div class="panel-body">
+						<div class="canvas-wrapper">
+							<canvas class="main-chart" id="bar-chart" height="200" width="600"></canvas>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!--/.row-->	
+		
+
+		
+	<script type="text/javascript">
+		var log_date ="";
+		var log_count = "";
+		var count_date = "";
+	</script>
 	<c:choose>
 	<c:when test="${empty listLogCount || fn:length(listLogCount) == 0 }">
 	</c:when>
 	<c:otherwise>
 		<c:forEach var="dto" items="${listLogCount }">
-			<span>${dto.log_date}</span><br>
-			<span>${dto.log_count}</span>
+			<script type="text/javascript">log_date += "${dto.log_date}" + ";";</script>
+			<script type="text/javascript">log_count += "${dto.log_count}" + ";";</script>
+			<script type="text/javascript">count_date += "${dto.count_date}" + "일 전;";</script>
 		</c:forEach>
 	</c:otherwise>
 	</c:choose>
-	
-	
+
 	
 	
 	
 </body>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/JS/admin/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/JS/admin/bootstrap.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/JS/admin/chart.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/JS/admin/chart-data.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/JS/admin/easypiechart.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/JS/admin/easypiechart-data.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/JS/admin/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/JS/admin/custom.js"></script>
+<script>
+	window.onload = function () {
+		var chart2 = document.getElementById("bar-chart").getContext("2d");
+		window.myBar = new Chart(chart2).Bar(barChartData, {
+		responsive: true,
+		scaleLineColor: "rgba(0,0,0,.2)",
+		scaleGridLineColor: "rgba(0,0,0,.05)",
+		scaleFontColor: "#c5c7cc"
+		});
+};
+	</script>
 </html>
