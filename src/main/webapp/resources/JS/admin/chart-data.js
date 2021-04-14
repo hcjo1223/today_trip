@@ -1,9 +1,13 @@
 var randomScalingFactor = function(){ return Math.round(Math.random()*1000)};
-	var count_date_arr	= count_date.split(';');
-	var log_date_arr = log_date.split(';');
-	var a = (log_count.split(';'));
-	var log_count_arr =[parseInt(a[0]), parseInt(a[1]), parseInt(a[2]), parseInt(a[3]), parseInt(a[4]), parseInt(a[5]),  parseInt(a[6])];//TODO 시발 뭐지
-	count_date_arr.shift();
+	var log_count_arr	= log_count.split(';');
+	var a = log_date.split(';');
+	var log_date_arr = new Array;
+	for(var i=0; i<a.length; i++){
+		log_date_arr.push(a[i].slice(0,10));
+	}
+console.log(a.length);
+	
+console.log(log_date_arr);
 
 	var lineChartData = {
 		labels : ["January","February","March","April","May","June","July"],
@@ -33,7 +37,7 @@ var randomScalingFactor = function(){ return Math.round(Math.random()*1000)};
 	}
 		
 	var barChartData = {
-		labels : count_date_arr,
+		labels : log_date_arr,
 		datasets : [
 			{
 				fillColor : "rgba(48, 164, 255, 0.2)",
@@ -44,9 +48,9 @@ var randomScalingFactor = function(){ return Math.round(Math.random()*1000)};
 			 },
 			{
 				fillColor : "rgba(0, 0, 0, 0)",
-				strokeColor : "rgba(48, 164, 255, 0.8)",
-				highlightFill : "rgba(48, 164, 255, 0.75)",
-				highlightStroke : "rgba(48, 164, 255, 1)",
+				strokeColor : "rgba(0, 0, 0, 0)",
+				highlightFill : "rgba(0, 0, 0, 0)",
+				highlightStroke : "rgba(0, 0, 0, 0)",
 				data : [0,0,0,0,0,0,0]
 			}
 		]

@@ -89,7 +89,13 @@
 			<li><a href="../stats"><img style="width: 20px" src="../../resources/IMG/admin_chart.png"> 통계</a></li>
 		</ul>
 	</div><!--/.sidebar-->
-
+<div class="topPlace">
+	<div class="buttonPlace">
+		<button class="btn btn-lg btn-info" onclick="location.href='../place/accommodation'">숙소</button>
+		<button class="btn btn-lg btn-info" onclick="location.href='../place/restarurant'">음식점</button>
+		<button class="btn btn-lg btn-info" onclick="location.href='../place/sights'">관광지</button>
+	</div>
+</div>
 <div>
 	<table class="tablePlace">
 		<tr>
@@ -109,11 +115,11 @@
 		<c:otherwise>
 			<c:forEach var="dto" items="${listAdminPlaceA }">
 				<tr>
-				 	<td>${dto.uid }</td>  <%-- dto.getUid() --%> 
+				 	<td class="W30">${dto.uid }</td>  <%-- dto.getUid() --%> 
 					<td>${dto.title }</td>
-					<td>${dto.contentId }</td>  <%-- dto.getName() --%>
-					<td>${dto.mapx }</td>
-					<td>${dto.mapy }</td> <%-- dto.getRegDateTime() --%>
+					<td class="W30">${dto.contentId }</td>  <%-- dto.getName() --%>
+					<td class="W30">${dto.mapx }</td>
+					<td class="W30">${dto.mapy }</td> <%-- dto.getRegDateTime() --%>
 					<td>${dto.addr1 }</td>  <%-- dto.getName() --%>
 					<td>${dto.tel }</td>
 					<td><img src="${dto.firstimage2 }"></td> <%-- dto.getRegDateTime() --%>

@@ -61,15 +61,13 @@
 	<select id="selectLogCount" resultType="com.spring.app.domain.LogDTO">
 	<![CDATA[  
 		SELECT 
-			H.HR "count_date", A.LOG_DATE "log_date", COUNT(LOG_DATE)  "log_count"
+			LOG_DATE, COUNT(LOG_DATE) "log_count"
 		FROM 
-			(SELECT LEVEL - 1 HR FROM DUAL CONNECT BY LEVEL < 8) H LEFT OUTER JOIN (SELECT * FROM user_log WHERE LOG_DATE BETWEEN #{startDate} AND #{endDate}) A
-		ON 
-			H.HR=TO_NUMBER(TO_CHAR(A.LOG_DATE, 'HH24')) 
+			user_log
 		GROUP BY 
-			H.HR, a.LOG_DATE
-		ORDER BY 1
-	
+			LOG_DATE
+		HAVING 
+			LOG_DATE BETWEEN #{startDate} AND #{endDate}
 		]]>	
 	</select>
 

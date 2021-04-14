@@ -89,5 +89,11 @@
 			<li><a href="../stats"><img style="width: 20px" src="../../resources/IMG/admin_chart.png"> 통계</a></li>
 		</ul>
 	</div><!--/.sidebar-->
+<div class="topPlace">
+	<div class="buttonPlace">
+			<button class="btn btn-lg btn-info" onclick="location.href='../board/calender'">일정</button>
+			<button class="btn btn-lg btn-info" onclick="location.href='../board/cards'">사진</button>
+	</div>
+</div>
 </body>
 </html>

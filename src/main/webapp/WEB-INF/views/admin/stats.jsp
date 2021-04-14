@@ -107,7 +107,6 @@
 	<script type="text/javascript">
 		var log_date ="";
 		var log_count = "";
-		var count_date = "";
 	</script>
 	<c:choose>
 	<c:when test="${empty listLogCount || fn:length(listLogCount) == 0 }">
@@ -116,7 +115,6 @@
 		<c:forEach var="dto" items="${listLogCount }">
 			<script type="text/javascript">log_date += "${dto.log_date}" + ";";</script>
 			<script type="text/javascript">log_count += "${dto.log_count}" + ";";</script>
-			<script type="text/javascript">count_date += "${dto.count_date}" + "일 전;";</script>
 		</c:forEach>
 	</c:otherwise>
 	</c:choose>
