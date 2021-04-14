@@ -61,7 +61,7 @@
 			<li class="active"><a href="../../admin"><img style="width: 20px" src="../../resources/IMG/admin_home.png"> 홈</a></li>
 			<li><a href="../users"><img style="width: 20px" src="../../resources/IMG/admin_user.png"> 회원관리</a></li>
 			<li class="parent "><a data-toggle="collapse" href="#sub-item-1">
-				<img style="width: 20px" src="../../resources/IMG/admin_board.png"> 게시판관리 <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="fa fa-plus"></em></span>
+				<img style="width: 20px" src="../../resources/IMG/admin_board.png"> 게시판관리 <span data-toggle="collapse" href="#sub-item-2" class="icon pull-right"><em class="fa fa-plus"></em></span>
 				</a>
 				<ul class="children collapse" id="sub-item-1">
 					<li><a class="" href="../board/calender">

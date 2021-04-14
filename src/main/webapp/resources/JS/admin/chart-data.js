@@ -5,9 +5,6 @@ var randomScalingFactor = function(){ return Math.round(Math.random()*1000)};
 	for(var i=0; i<a.length; i++){
 		log_date_arr.push(a[i].slice(0,10));
 	}
-console.log(a.length);
-	
-console.log(log_date_arr);
 
 	var lineChartData = {
 		labels : ["January","February","March","April","May","June","July"],
@@ -40,7 +37,7 @@ console.log(log_date_arr);
 		labels : log_date_arr,
 		datasets : [
 			{
-				fillColor : "rgba(48, 164, 255, 0.2)",
+				fillColor : "rgba(48, 165, 255, 0.5)",
 				strokeColor : "rgba(220,220,220,0.8)",
 				highlightFill: "rgba(220,220,220,0.75)",
 				highlightStroke: "rgba(220,220,220,1)",

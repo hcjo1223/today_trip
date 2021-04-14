@@ -16,6 +16,8 @@ public class AdminController {
 	
 	@RequestMapping("")
 	public String listHome(Model model) {
+		model.addAttribute("listLogCount", adminService.listLogCount());
+		model.addAttribute("listHomePlace", adminService.listHomePlace());
 		return "admin/home";
 	}
 	
@@ -23,7 +25,6 @@ public class AdminController {
 	@RequestMapping("/place/accommodation")
 	public String listAdminPlaceA(Model model) {
 		model.addAttribute("listAdminPlaceA", adminService.listAdminPlaceA());
-		System.out.println("adminService.listAdminPlaceA() : " + adminService.listAdminPlaceA());
 		return "admin/place/accommodation";
 	}
 	

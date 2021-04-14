@@ -19,12 +19,6 @@
 		<!--Custom Font-->
 <link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 		
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/JS/admin/bootstrap.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/JS/admin/easypiechart.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/JS/admin/easypiechart-data.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/JS/admin/bootstrap-datepicker.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/JS/admin/custom.js"></script>
 
 <title>관리자 페이지</title>
 </head>
@@ -72,7 +66,7 @@
 				</ul>
 			</li>
 			<li class="parent "><a data-toggle="collapse" href="#sub-item-2">
-				<img style="width: 20px" src="./resources/IMG/admin_place.png"> 장소관리 <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="fa fa-plus"></em></span>
+				<img style="width: 20px" src="./resources/IMG/admin_place.png"> 장소관리 <span data-toggle="collapse" href="#sub-item-2" class="icon pull-right"><em class="fa fa-plus"></em></span>
 				</a>
 				<ul class="children collapse" id="sub-item-2">
 					<li><a class="" href="./admin/place/accommodation">
@@ -89,7 +83,109 @@
 			<li><a href="./admin/stats"><img style="width: 20px" src="./resources/IMG/admin_chart.png"> 통계</a></li>
 		</ul>
 	</div><!--/.sidebar-->
+<div class="mainPlace">
+	<div class="home_user" >
+		<div class="element_title">
+			<span>회원</span>
+			<a href="./admin/users" class="icon pull-right" style="padding-right: 80px"><em class="fa fa-plus"></em></a>
+		</div>
+	</div>
+	<div class="home_board">
+		<div class="element_title">
+			<span>게시판</span>
+			<a href="./admin/board/calender" class="icon pull-right" style="padding-right: 80px"><em class="fa fa-plus"></em></a>
+		</div>
+	</div>
+	<div class="home_place">
+		<div class="element_title">
+			<span>장소</span>
+			<a href="./admin/place/accommodation" class="icon pull-right" style="padding-right: 80px"><em class="fa fa-plus"></em></a>
+		</div>
+		<div>
+			<table style="float: left; width: 80%" class="tablePlace">
+				<tr>
+					<th>번호</th>
+					<th>이름</th>
+					<th>주소</th>
+					<th>연락처</th>
+				</tr>
+		
+				<c:choose>
+				<c:when test="${empty listHomePlace || fn:length(listHomePlace) == 0 }">
+				</c:when>
+				<c:otherwise>
+					<c:forEach var="dto" items="${listHomePlace }">
+						<tr>
+						 	<td class="W30">${dto.uid }</td>  <%-- dto.getUid() --%> 
+							<td>${dto.title }</td>
+							<td>${dto.addr1 }</td>  <%-- dto.getName() --%>
+							<td>${dto.tel }</td>
+						</tr>			
+					</c:forEach>
+				</c:otherwise>
+				</c:choose>
+		
+			</table>
+		</div>
+	</div>
+	<div class="home_stats">
+		<div class="element_title">
+			<span>통계</span>
+			<a href="./admin/stats" class="icon pull-right" style="padding-right: 80px"><em class="fa fa-plus"></em></a>
+		</div>
+		<div class="row" style="width: 100%; float: left;">
+			<div class="col-lg-12" style="width: 100%">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						방문자 수
+						<span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span></div>
+					<div class="panel-body">
+						<div class="canvas-wrapper">
+							<canvas class="main-chart" id="bar-chart" height="200" width="600"></canvas>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!--/.row-->	
+		
+
+		
+		<script type="text/javascript">
+			var log_date ="";
+			var log_count = "";
+		</script>
+		<c:choose>
+		<c:when test="${empty listLogCount || fn:length(listLogCount) == 0 }">
+		</c:when>
+		<c:otherwise>
+			<c:forEach var="dto" items="${listLogCount }">
+				<script type="text/javascript">log_date += "${dto.log_date}" + ";";</script>
+				<script type="text/javascript">log_count += "${dto.log_count}" + ";";</script>
+			</c:forEach>
+		</c:otherwise>
+		</c:choose>
+	</div>
+</div>
 </body>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/JS/admin/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/JS/admin/bootstrap.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/JS/admin/chart.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/JS/admin/chart-data.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/JS/admin/easypiechart.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/JS/admin/easypiechart-data.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/JS/admin/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/JS/admin/custom.js"></script>
+<script>
+	window.onload = function () {
+		var chart2 = document.getElementById("bar-chart").getContext("2d");
+		window.myBar = new Chart(chart2).Bar(barChartData, {
+		responsive: true,
+		scaleLineColor: "rgba(0,0,0,.2)",
+		scaleGridLineColor: "rgba(0,0,0,.05)",
+		scaleFontColor: "#c5c7cc"
+		});
+};
+	</script>
 </html>
 
 

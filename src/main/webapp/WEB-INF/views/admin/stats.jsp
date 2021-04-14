@@ -68,7 +68,7 @@
 				</ul>
 			</li>
 			<li class="parent "><a data-toggle="collapse" href="#sub-item-2">
-				<img style="width: 20px" src="../resources/IMG/admin_place.png"> 장소관리 <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="fa fa-plus"></em></span>
+				<img style="width: 20px" src="../resources/IMG/admin_place.png"> 장소관리 <span data-toggle="collapse" href="#sub-item-2" class="icon pull-right"><em class="fa fa-plus"></em></span>
 				</a>
 				<ul class="children collapse" id="sub-item-2">
 					<li><a class="" href="../admin/place/accommodation">
@@ -87,7 +87,7 @@
 	</div><!--/.sidebar-->
 	
 	
-	<div class="row">
+	<div class="row" style="width: 82%">
 			<div class="col-lg-12">
 				<div class="panel panel-default">
 					<div class="panel-heading">

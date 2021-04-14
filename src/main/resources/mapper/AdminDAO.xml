@@ -70,5 +70,24 @@
 			LOG_DATE BETWEEN #{startDate} AND #{endDate}
 		]]>	
 	</select>
+	
+	<select id="selectHomePlace" resultType="com.spring.app.domain.PlaceDTO">
+	<![CDATA[  
+		SELECT * FROM (
+			SELECT 
+				place_uid "uid", 
+				title, 
+				addr1,
+				tel
+			FROM 
+				place 
+			WHERE 
+				contentTypeId = 32
+			ORDER BY 
+				place_uid
+				)
+		WHERE ROWNUM <8
+		]]>	
+	</select>
 
 </mapper>

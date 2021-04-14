@@ -39,6 +39,12 @@ public class AdminService {
 			dao = sqlSession.getMapper(AdminDAO.class);
 			return dao.selectAdminPlaceS();
 		}
+		
+		public List<PlaceDTO> listHomePlace(){
+			dao = sqlSession.getMapper(AdminDAO.class);
+			return dao.selectHomePlace();
+		}
+		
 		public List<LogDTO> listLogCount() {
 			dao = sqlSession.getMapper(AdminDAO.class);
 			String startDate = LocalDateTime.now().minusDays(7).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
