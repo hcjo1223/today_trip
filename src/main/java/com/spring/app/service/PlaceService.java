@@ -22,6 +22,16 @@ public class PlaceService {
 		this.sqlSession = sqlSession;
 	}
 	
+	public List<PlaceDTO> list(int from, int pageRows){
+		dao = sqlSession.getMapper(PlaceDAO.class);
+		return dao.selectFromRow(from, pageRows);
+	}
+	
+	public int count() {
+		dao = sqlSession.getMapper(PlaceDAO.class);
+		return dao.countAll();
+	}
+	
 	public List<PlaceDTO> list(){
 		dao = sqlSession.getMapper(PlaceDAO.class);
 		return dao.select();

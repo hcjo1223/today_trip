@@ -29,6 +29,8 @@ CREATE SEQUENCE pc_uid_seq;
 CREATE SEQUENCE cmt_uid_seq;
 CREATE SEQUENCE log_uid_seq;
 CREATE SEQUENCE place_uid_seq;
+CREATE SEQUENCE rv_uid_seq;
+
 
 /*-------------------------------------------------------------- Drop Sequence --------------------------------------------------------------*/
 DROP SEQUENCE us_uid_seq;
@@ -39,6 +41,7 @@ DROP SEQUENCE pc_uid_seq;
 DROP SEQUENCE cmt_uid_seq;
 DROP SEQUENCE log_uid_seq;
 DROP SEQUENCE place_uid_seq;
+DROP SEQUENCE rv_uid_seq;
 
 
 /*-------------------------------------------------------------- Create Tables --------------------------------------------------------------*/
@@ -127,9 +130,10 @@ CREATE TABLE review
 (
 	us_uid number NOT NULL,
 	place_uid number NOT NULL,
+	rv_uid NUMBER NOT NULL,
 	rv_content clob,
 	rv_rate number DEFAULT 0,
-	rv_write_date date
+	rv_write_date DATE DEFAULT SYSDATE
 );
 
 
@@ -388,7 +392,7 @@ SELECT * FROM user_log;
 
 /* test */
 
-<<<<<<< HEAD
+
 SELECT 
 			place_uid, 
 			title, 
@@ -421,9 +425,42 @@ SELECT
 			contentTypeId = 12
 		ORDER BY 
 			place_uid;
-=======
+
 SELECT
 place_uid "uid", title, contentid, contenttypeid
 FROM place
 WHERE place_uid = 3413;
->>>>>>> branch 'master' of https://github.com/hcjo1223/today_trip.git
+
+
+
+/* users 더미데이터 */
+BEGIN
+FOR i IN 1..50 LOOP
+insert into users(us_uid, us_id, us_pw, us_email)
+values(us_uid_seq.nextval, CONCAT('ID',i), CONCAT('PW',i),CONCAT(i,'@google.com'));
+END LOOP;
+END;
+/* review 더미데이터 */
+BEGIN
+FOR i IN 1..20 LOOP
+insert into review(us_uid, place_uid, rv_uid, rv_content, rv_write_date)
+values(i, 2, rv_uid_seq.nextval , CONCAT(i,'번째 리뷰남깁니다'), SYSDATE);
+END LOOP;
+END;
+
+
+/* test */
+SELECT * FROM tab;
+
+SELECT count(*) FROM REVIEW WHERE PLACE_UID = 3;
+
+SELECT * FROM review;
+
+INSERT INTO
+review (us_uid, place_uid, rv_uid, rv_content, rv_write_date)
+VALUES(1, 3, rv_uid_seq.nextval, '리뷰내용입니다', SYSDATE);
+ 
+UPDATE review SET rv_content = '리뷰수정입니다'
+WHERE rv_uid = 40;
+
+DELETE FROM review WHERE rv_uid = 41;

@@ -1,5 +1,5 @@
 var ServiceKey = "pJTimjFQ8JAUDC5tNBIN6Pq%2Fv%2Bn2Ttf4vF84sqbJCPzRtR3Sqc3EDbm9CwScgDxnHDZNYh3xlwVDwNvS1mdZag%3D%3D"; // 자신의 키값 입력하기!
-var detailCommon_url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon?&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&defaultYN=Y&firstImageYN=Y&areacodeYN=Y&catcodeYN=Y&addrinfoYN=Y&overviewYN=Y&transGuideYN=Y&_type=json";
+var detailCommon_url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon?MobileOS=ETC&MobileApp=TourAPI3.0_Guide&defaultYN=Y&firstImageYN=Y&areacodeYN=Y&catcodeYN=Y&addrinfoYN=Y&mapinfoYN=Y&overviewYN=Y&transGuideYN=Y&_type=json";
 var detailIntro_url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailIntro?MobileOS=ETC&MobileApp=TourAPI3.0_Guide&introYN=Y&_type=json";
 var detailImage_url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailImage?MobileOS=ETC&MobileApp=TourAPI3.0_Guide&imageYN=Y&_type=json";
 
@@ -69,11 +69,11 @@ function parseJSON1(jsonObj){
 
 	var row = jsonObj.response.body.items.item;
 
-	table += "<div class='mainImg'><img src='" + row.firstimage + "' alt='메인이미지'></div><br>";
-	table += "<h3>개요</h3>";
-	table += "<div class='content'>" + row.overview + "</div>";
+	table += "<p class='mainImg'><img src='" + row.firstimage + "' alt='대표이미지'></p>";
+	table += "<div class='summary'><strong calss='tit'>개요</strong>";
+	table += "<p>" + row.overview + "</p></div>";
 	
-	$("#demoJSON1").html(table);
+	$("#commonData").html(table);
 }
 
 function parseJSON2(contentTypeId, jsonObj){
@@ -97,25 +97,43 @@ function parseJSON2(contentTypeId, jsonObj){
 	
 
 
-	$("#demoJSON2").html(table);
+	$("#txtData").html(table);
 }
 
 function parseJSON3(jsonObj){
 	 
 	var table = "";
-
+	var result = "";
 	var row = jsonObj.response.body.items.item;
 
+	console.log(Object.keys(row).length);
+	console.log(Object.prototype.toString.call(row));
 	table += "<div class='tourView'>";
     table += "<div class='imgGallery'>";
-	table += "<p><img src='" + row[0].originimgurl + "'></p>"
-
-	table += "<div class='sumImg'><ul>"
-	for (i = 0; i < row.length; i++){
-		table += "<li><a><span><img src='" + row[i].smallimageurl + "'></span></a></li>";
+	if(Object.prototype.toString.call(row) == "[object Object]"){
+		table += "<p><img src='" + row.originimgurl+ "'></p>"
+	} else {
+	table += "<p><img src='" + row[0].originimgurl + "' alt='큰이미지'></p>"
 	}
-	table += "</div></div>"
-	$("#demoJSON3").html(table);
+	table += "<div class='sumImg'>"
+	table += "<div class='bx-wrapper' style='max-width: 164px;'>"
+			+ "<div class='bx-viewport' style='width: 100%; overflow: hidden; position: relative; height: 432px;'>"
+			+ "<ul style='width: auto; position: relative; transition-duration: 1s; transform: translate3d(0px, 0px, 0px);'>" 
+	for (i = 0; i < row.length; i++){
+		result += "<li class='on' style='float: none; list-style: none; position: relative; width: 164px;'>"
+				+ "<a href='#' onclick='javascript:imgClick(this, '" + row[i].originimgurl + "');return false;>"
+				+ "<span><img src=" + row[i].originimgurl + " alt='" + i + "' ></span></a></li>";
+	}
+
+
+	table += result + "</ul></div>";
+	table += "<div class='bx-controls bx-has-controls-direction'>"
+			+ "<div class='bx-controls-direction'>"
+			+ "<a class='bx-prev' href=''>Prev</a>"
+			+ "<a class='bx-next' href=''>Next</a></div></div></div></div>"
+			+ "<span class='txtSum' id='textSum'>1 / 2</span></div></div>";
+
+	$("#imgGallery").html(table);
 }
 
 var chkContentType = {
@@ -215,34 +233,127 @@ var chkareaCode = {
 	38 : '전라남도',
 	39 : '제주도'
 }
-/*
+
 var chksigunguCode = {
-	"1" : {
-		1:강남구,
-		2:강동구,
-		3:강북구,
-		4:강서구,
-		5:관악구,
-		6:광진구,
-		7:구로구,
-		8:금천구,
-		9:노원구,
-		10:도봉구,
-		11:동대문구,
-		12:동작구,
-		13:마포구,
-		14:서대문구,
-		15:서초구,
-		16:성동구,
-		17:성북구,
-		18:송파구,
-		19:양천구,
-		20:영등포구,
-		21:용산구,
-		22:은평구,
-		23:종로구,
-		24:중구,
-		25:중랑구
-	}
+	"1" : { 1:'강남구', 2:'강동구', 3:'강북구', 4:'강서구', 5:'관악구', 6:'광진구', 7:'구로구', 8:'금천구', 9:'노원구', 10:'도봉구', 11:'동대문구', 12:'동작구', 13:'마포구', 14:'서대문구', 15:'서초구', 16:'성동구', 17:'성북구', 18:'송파구', 19:'양천구', 20:'영등포구', 21:'용산구', 22:'은평구', 23:'종로구', 24:'중구', 25:'중랑구' },
+	"2" : {
+		1: "강화군",
+		2: "계양구",
+		3: "미추홀구",
+		4: "남동구",
+		5: "동구",
+		6: "부평구",
+		7: "서구",
+		8: "연수구",
+		9: "옹진군",
+		10: "중구"
+		},
+	3 : {
+		1: "대덕구",
+		2: "동구",
+		3: "서구",
+		4: "유성구",
+		5: "중구"
+		},
+	4 : {
+		1: "남구",
+		2: "달서구",
+		3: "달성군",
+		4: "동구",
+		5: "북구",
+		6: "서구",
+		7: "수성구",
+		8: "중구"
+	},
+	5 : {
+		1: "광산구",
+		2: "남구",
+		3: "동구",
+		4: "북구",
+		5: "서구"
+	},
+	6 : {
+		1: "강서구",
+		2: "금정구",
+		3: "기장군",
+		4: "남구",
+		5: "동구",
+		6: "동래구",
+		7: "부산진구",
+		8: "북구",
+		9: "사상구",
+		10: "사하구",
+		11: "서구",
+		12: "수영구",
+		13: "연제구",
+		14: "영도구",
+		15: "중구",
+		16: "해운대구"
+	},
+	7 : {
+		1: "중구",
+		2: "남구",
+		3: "동구",
+		4: "북구",
+		5: "울주군"
+	},
+	8 : {
+		1: "세종특별자치시"
+	},
+	31 : {
+		1: "가평군",
+		2: "고양시",
+		3: "과천시",
+		4: "광명시",
+		5: "광주시",
+		6: "구리시",
+		7: "군포시",
+		8: "김포시",
+		9: "남양주시",
+		10: "동두천시",
+		11: "부천시",
+		12: "성남시",
+		13: "수원시",
+		14: "시흥시",
+		15: "안산시",
+		16: "안성시",
+		17: "안양시",
+		18: "양주시",
+		19: "양평군",
+		20: "여주시",
+		21: "연천군",
+		22: "오산시",
+		23: "용인시",
+		24: "의왕시",
+		25: "의정부시",
+		26: "이천시",
+		27: "파주시",
+		28: "평택시",
+		29: "포천시",
+		30: "하남시",
+		31: "화성시"
+	},
+	32 : {
+		1: "강릉시",
+		2: "고성군",
+		3: "동해시",
+		4: "삼척시",
+		5: "속초시",
+		6: "양구군",
+		7: "양양군",
+		8: "영월군",
+		9: "원주시",
+		10: "인제군",
+		11: "정선군",
+		12: "철원군",
+		13: "춘천시",
+		14: "태백시",
+		15: "평창군",
+		16: "홍천군",
+		17: "화천군",
+		18: "횡성군"
+	},
+	39 : {
+
+	}	
 }
-*/

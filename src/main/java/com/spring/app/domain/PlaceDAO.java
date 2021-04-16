@@ -2,11 +2,25 @@ package com.spring.app.domain;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.mybatis.spring.annotation.MapperScan;
 
 @MapperScan
 public interface PlaceDAO {
 
+	/*
+	 *  페이징용 SELECT
+	 *  @Param from : 몇번째 row 부터
+	 *  @Param pageRows : 몇개의 데이터(게시글)
+	 *  @Return
+	 */
+	List<PlaceDTO> selectFromRow(
+			@Param("from") int from,
+			@Param("pageRows") int pageRows);
+	
+	// 전체 글의 개수
+	int countAll();
+	
 	// 전체 select
 	List<PlaceDTO> select();
 	

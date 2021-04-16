@@ -1,72 +1,86 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<!-- JSTL 버젼으로 바뀌니, import 의 번잡함도 사라진다!  JAVA 변수 선언도 사라진다! -->
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>        
 <!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>목록</title>
+<title>장소 리스트</title>
+<!-- 스타일, js 라이브러리 -->
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/resources/CSS/common.css"/>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/resources/CSS/place.css"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://kit.fontawesome.com/bb29575d31.js"></script>
+<script src="${pageContext.request.contextPath }/resources/JS/placepage.js"></script>
 <style>
-body{width:100%;
-	text-align: center; }
+body {
+    font-size: 13px;
+    color: #333;
+    -webkit-text-size-adjust: none;
+}
+ul {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+}
 ul,ol {list-style:none;}
-img {
-	width:200px;
-	height:120px;
-	object-fit: cover;
-}
-.wrap {
-	width: 800px;
-	margin: 0 auto;
-}
-.wrap h1{
-	padding 10px 0 4px;
-	border-bottom: 1px solid #aaa;
-}
-.fixed_img_col ul{
-	border-bottom: 1px solid #aaa;
-}
-.fixed_img_col li{
-	float: left;
-	width: 200px;
-	height: 200px;
-	padding: 20px 15px;
-	margin-bottom: -1px;
-	border-bottom: 1px solid #aaa;
-}
+a { text-decoration-line: none; }
 </style>
 </head>
 <body>
-<div class="wrap">
-	<h1>장소 게시판</h1>
-	<div class="fixed_img_col">
-		<ul>
-		<c:choose>
-		<c:when test="${empty list || fn:length(list) == 0 }">
-		</c:when>
-		<c:otherwise>
-			<c:forEach var="dto" items="${list}">
-				
-			<li>
-			<span class="thumb">
-				<a href="place/view?contentid=${dto.contentId }">
-				<img src="${dto.firstimage2}" alt="">
-				${dto.title}</a></span>
 
-			<p>${dto.areaCode} > ${dto.sigunguCode}</p>
-			<a class="like">좋아요</a>&nbsp<a class="review">리뷰</a>
-			</li>
-							
-			</c:forEach>
-		</c:otherwise>
-		</c:choose>
+<%--
+참조 : https://www.w3schools.com/howto/howto_css_login_form.asp
+ --%>
+<%-- 글 목록 --%>
+<div class="recommend_area">
+
+	<div id="list">
+		
+		
+		<%-- header --%>
+		<div class="theme_tit_area clear">
+		<h1>장소 게시판</h1>
+		<div class="d01">
+			<div class="left" id="pageinfo"></div>
+			<div class="right" id="pageRows"></div>
+		</div>
+		</div>
+		
+		<%-- 목록 --%>
+		<ul class="item_list type_thumb type_1 clear">
 		</ul>
 	</div>
+
+
+	<div class="clear"></div>
+
+	<%-- 페이징 --%>
+	<div class="center">
+		<ul class="pagination" id="pagination"></ul>
+	</div>
 </div>
+
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
