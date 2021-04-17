@@ -1073,6 +1073,7 @@ td.W30 {
 }
 .buttonPlace {
 	margin: 20px 0 0 -10px;
+	float: left;
 }
 .mainPlace {
 	width: 80%;
@@ -1106,4 +1107,21 @@ td.W30 {
 	float: left;
 	font-size: 1.8em;
 	
+}
+.center {
+	float: right;
+	margin-right: 100px;
+	margin-bottom: 30px;
+}
+.left{
+	float: right;
+	margin-right: 30px;
+}
+.right{
+	float: right;
+	margin-right: 20px;
+}
+#list{
+	float: right;
+	width: 100%;
 }
