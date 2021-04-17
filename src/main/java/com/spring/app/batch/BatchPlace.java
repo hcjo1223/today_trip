@@ -173,10 +173,10 @@ public class BatchPlace {
 					}
 					
 					String firstimage2;
-					if(place.get("firstimage2") == null) {
+					if(place.get("firstimage") == null) {
 						firstimage2 = "";
 					} else {
-					firstimage2 = (String)place.get("firstimage2");
+					firstimage2 = (String)place.get("firstimage");
 					}
 					
 					runBatchPlace(contentid, contenttypeid, title, mapx, mapy, areacode, sigungucode, addr1,tel, firstimage2);

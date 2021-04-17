@@ -1,0 +1,800 @@
+
+img {
+	 object-fit: cover
+}
+
+ .item_section {
+     float: left;
+     position: relative;
+     width: 270px;
+     height: 280px;
+     margin-left: 27px;
+     background: #fff;
+     -webkit-box-shadow: 3px 4px 5px 0 rgba(2, 2, 2, .2);
+     box-shadow: 3px 4px 5px 0 rgba(2, 2, 2, .2);
+     text-align: center
+}
+
+.item_section .item_top a {
+    display: block;
+    position: relative
+}
+
+.item_section .item_top a img {
+    display: block;
+    width: 270px;
+    height: 140px
+}
+
+.item_section .item_top .s_day {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 22px;
+    padding: 0 13px;
+    background: #333;
+    font-size: 13px;
+    color: #fff;
+    line-height: 22px
+}
+
+.item_section .item_top .s_tit {
+    margin-top: 19px;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 18px
+}
+
+.item_section .item_top .s_theme {
+    margin-top: 11px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 14px
+}
+
+.item_section .item_top .item_count {
+    padding: 15px 14px 8px
+}
+
+.item_section .item_top .item_count span {
+    font-size: 12px;
+    color: #8a8b8b;
+    line-height: 12px
+}
+
+.item_section .item_btm {
+    padding-top: 14px;
+    border-top: 1px solid #e0e0e0;
+    text-align: center
+}
+
+.item_section .item_btm p {
+    display: inline-block;
+    width: 33.333333%;
+    font-size: 12px;
+    font-weight: 700;
+    color: #666;
+    line-height: 16px
+}
+
+.item_section .item_btm p:first-child {
+    width: 33.333334%
+}
+
+.item_section .item_btm p.btn_zzim {
+    text-align: left
+}
+
+.item_section .item_btm p.btn_cart {
+    text-align: right
+}
+
+.item_section .item_btm p a {
+    display: inline-block;
+    padding-left: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #666;
+    line-height: 16px
+}
+
+.item_section .item_btm p.btn_zzim a {
+    margin-left: 14px;
+    background: url(/image/common/ico_zzim.jpg) no-repeat 0 50%
+}
+
+.item_section .item_btm p.btn_memo a {
+    background: url(/image/common/ico_memo.jpg) no-repeat 0 50%
+}
+
+.item_section .item_btm p.btn_cart a {
+    margin-right: 14px;
+    background: url(/image/common/ico_cart.jpg) no-repeat 0 50%
+}
+
+.item_section .item_btm p span {
+    display: inline-block;
+    padding-left: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #666;
+    line-height: 16px
+}
+
+.item_section .item_btm p.btn_zzim span {
+    margin-left: 14px;
+    background: url(/image/common/ico_zzim.jpg) no-repeat 0 50%
+}
+
+.item_section .item_btm p.btn_memo span {
+    background: url(/image/common/ico_memo.jpg) no-repeat 0 50%
+}
+
+.item_section .item_btm p.btn_cart span {
+    margin-right: 14px;
+    background: url(/image/common/ico_cart.jpg) no-repeat 0 50%
+}
+
+.item_section .item_del .btn_del_circle {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 20px;
+    height: 20px;
+    background: url(/image/common/btn_del_circle.png) no-repeat 0 0;
+    text-indent: -9999px
+}
+
+.item_section.add {
+    width: 268px;
+    height: 278px;
+    border: 1px solid #ef6d00;
+    -webkit-box-shadow: none;
+    box-shadow: none
+}
+
+.item_section.add dt {
+    padding-top: 54px;
+    font-size: 24px;
+    font-weight: 700;
+    color: #ef6d00;
+    line-height: 38px
+}
+
+.item_section.add .btn_add_schedule {
+    display: block;
+    width: 76px;
+    height: 76px;
+    margin: 18px auto 0;
+    background: url(/image/main/btn_add_schedule.png) no-repeat 0 0;
+    text-indent: -9999px
+}
+
+.item_section .item_count_area {
+    margin-top: 15px;
+    margin-left: 0px;
+}
+
+.item_section .item_count_area p {
+    float: left;
+    width: 33.333333%
+}
+
+.item_section .item_count_area p:first-child {
+    width: 33.333334%
+}
+
+.item_section .item_count_area .ico_type {
+    padding-top: 28px
+}
+
+.item_section .item_count_area .ico_type.like {
+    display: block;
+    background: url(https://www.visitjeju.net/image/common/ico_like.png) no-repeat 50% 2px
+}
+
+.item_section .item_count_area .ico_type.zzim {
+    background: url(https://www.visitjeju.net/image/common/ico_zzim_l.png) no-repeat 50% 0
+}
+
+.item_section .item_count_area .ico_type.review {
+    background: url(https://www.visitjeju.net/image/common/ico_review.png) no-repeat 50% 0
+}
+
+.item_section .item_count_area .ico_type.cart {
+    background: url(/image/common/ico_cart_l.jpg) no-repeat 50% 0
+}
+
+.item_section .item_count_area .ico_type span {
+    display: block;
+    font-size: 12px;
+    font-weight: 400;
+    color: #535353;
+    line-height: 14px
+}
+
+.item_section .item_count_area .ico_type span.count {
+    margin-top: 6px;
+    font-size: 13px;
+    font-weight: 400;
+    color: #8a8b8b;
+    line-height: 13px
+}
+
+.item_section .item_count_area .item_count_h_area {
+    clear: left;
+    width: 100%;
+    height: 30px;
+    margin-top: 10px;
+    background: #f4f4f4;
+    font-size: 12px;
+    color: #8a8b8b;
+    line-height: 30px
+}
+
+.item_section .item_top a .score_area {
+    position: absolute;
+    top: 150px;
+    right: 11px;
+    width: 88px;
+    height: 15px;
+    background: url(https://www.visitjeju.net/image/common/bg_star_off.png) no-repeat 0 0
+}
+
+.item_section .item_top a .score_area .score_count {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    font-size: 6px;
+    color: transparent;
+    line-height: 10px;
+    background: url(https://www.visitjeju.net/image/common/bg_star_on.png) no-repeat 0 0
+}
+
+.item_section .item_review {
+    display: table;
+    position: relative;
+    height: 65px;
+    padding: 12px 48px 0 22px
+}
+
+.item_section .item_review p {
+    display: -webkit-box;
+    overflow: hidden;
+    font-size: 12px;
+    color: #535353;
+    line-height: 18px;
+    text-align: left;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3
+}
+
+.item_section .item_review p .review_tit {
+    color: #ef6d00
+}
+
+.item_section .item_review .btn_del_review {
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    width: 10px;
+    height: 10px;
+    background: url(/image/common/btn_del_x.png) no-repeat 0 0;
+    text-indent: -9999px
+}
+
+
+.recommend_area {
+    margin: 0 auto;
+    padding: 0 20px;
+    width: 1200px;
+}
+
+
+#list{
+	padding-bottom: 100px;
+}
+
+.recommend_area .util_area {
+    padding-top: 20px;
+    text-align: center
+}
+
+.recommend_area .util_area .kind_list {
+    display: inline-block
+}
+
+.recommend_area .util_area .kind_list li {
+    float: left;
+    padding: 0 20px;
+    border-left: 1px solid #d9d9d9
+}
+
+.recommend_area .util_area .kind_list li:first-child {
+    border-left: 0
+}
+
+.recommend_area .util_area .kind_list li a {
+    font-size: 16px;
+    color: #8a8b8b;
+    line-height: 16px
+}
+
+.recommend_area .util_area .kind_list li.on a {
+    color: #535353
+}
+
+.recommend_area .util_area2 {
+    padding-top: 20px
+}
+
+.recommend_area .item_list.type_thumb li {
+    float: left;
+    margin: 25px 0 0 25px
+}
+
+.recommend_area .item_list.type_thumb li.fst,
+.recommend_area .item_list.type_thumb li:nth-child(3n+1) {
+    margin-left: 0
+}
+
+.recommend_area .item_list.type_thumb li .item_section {
+    float: none;
+    overflow: hidden;
+    width: 272px;
+    height: auto;
+    margin: 0;
+    text-align: center
+}
+
+.recommend_area .item_list.type_thumb li .item_section .item_top a img {
+    width: 272px;
+    height: 172px
+}
+
+.recommend_area .item_list.type_thumb li .item_section .item_top a .score_area {
+    position: absolute;
+    top: 150px;
+    right: 11px
+}
+
+.cont_wrap .layer_map_area .tag_txt_area span {
+    display: inline-block
+}
+
+.recommend_area .item_list.type_thumb li .item_section .item_top .s_tit {
+    overflow: hidden;
+    width: 250px;
+    margin: 19px auto 0;
+    font-size: 22px;
+    line-height: 22px;
+    text-overflow: ellipsis;
+    white-space: nowrap
+}
+
+.recommend_area .item_list.type_thumb li .item_section .item_top .s_theme {
+    margin-top: 8px;
+    color: #8a8b8b
+}
+
+.recommend_area .item_list.type_thumb li .item_section .item_top .s_theme_tit {
+    display: none
+}
+
+.recommend_area .item_list.type_thumb li .item_section .item_top .item_tag {
+    margin-top: 14px;
+    font-size: 15px;
+    font-weight: 400;
+    color: #535353;
+    line-height: 15px;
+    height: 15px;
+    width: 90%
+}
+
+.recommend_area .item_list.type_list {
+    margin-top: 35px;
+    border-top: 1px solid #e5e5e5
+}
+
+.recommend_area .item_list.type_list li {
+    position: relative;
+    padding: 30px 0;
+    border-bottom: 1px solid #e5e5e5
+}
+
+.recommend_area .item_list.type_list li .item_section {
+    float: none;
+    width: 100%;
+    height: 220px;
+    margin: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none
+}
+
+.recommend_area .item_list.type_list li .item_section .item_top {
+    float: left;
+    width: 676px;
+    text-align: left
+}
+
+.recommend_area .item_list.type_list li .item_section .item_top a:after {
+    display: block;
+    content: "";
+    clear: both
+}
+
+.recommend_area .item_list.type_list li .item_section .item_top a img {
+    display: block;
+    float: left;
+    width: 270px;
+    height: 220px;
+    margin-right: 30px
+}
+
+.recommend_area .item_list.type_list li .item_section .item_top a .score_area {
+    position: absolute;
+    top: 190px;
+    left: 165px
+}
+
+.recommend_area .item_list.type_list li .item_section .item_top a .score_area img {
+    display: block;
+    float: left;
+    width: 14px;
+    height: 13px;
+    margin: 0 0 0 2px
+}
+
+.recommend_area .item_list.type_list li .item_section .item_top .s_tit {
+    float: left;
+    width: 356px;
+    margin-top: 15px;
+    font-size: 24px;
+    font-weight: 800;
+    line-height: 24px
+}
+
+.recommend_area .item_list.type_list li .item_section .item_top .s_theme {
+    float: left;
+    width: 356px;
+    margin-top: 15px;
+    font-size: 15px;
+    color: #535353;
+    line-height: 15px
+}
+
+.recommend_area .item_list.type_list li .item_section .item_top .s_theme_tit {
+    display: -webkit-box;
+    float: left;
+    overflow: hidden;
+    width: 356px;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #8a8b8b;
+    line-height: 22px;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3
+}
+
+.recommend_area .item_list.type_list li .item_section .item_top .item_tag {
+    float: left;
+    width: 356px;
+    margin-top: 15px;
+    font-size: 14px;
+    color: #ef6d00;
+    line-height: 14px
+}
+
+.recommend_area .item_list.type_list li .item_section .item_count_area {
+    float: right;
+    clear: none;
+    width: 180px;
+    margin-top: 0;
+    padding-top: 29px
+}
+
+.recommend_area .item_list.type_list li .item_section .item_count_area a {
+    display: block;
+    min-height: 45px;
+    overflow: hidden
+}
+
+.recommend_area .item_list.type_list li .item_section .item_count_area .ico_type {
+    padding-top: 0
+}
+
+.recommend_area .item_list.type_list li .item_section .item_count_area .item_count_h_area {
+    background: none
+}
+
+.recommend_area .item_list.type_list li .item_section .item_count_area p {
+    width: 128px;
+    height: 43px;
+    margin-top: 13px;
+    border: 1px solid #e5e5e5
+}
+
+.recommend_area .item_list.type_list li .item_section .item_count_area p:after {
+    display: block;
+    content: "";
+    clear: both
+}
+
+.recommend_area .item_list.type_list li .item_section .item_count_area p:first-child {
+    margin-top: 0
+}
+
+.recommend_area .item_list.type_list li .item_section .item_count_area p.ico_type {
+    padding-left: 50px
+}
+
+.recommend_area .item_list.type_list li .item_section .item_count_area p.ico_type.like {
+    background: url(https://www.visitjeju.net/image/common/ico_like.png) no-repeat 17px 50%
+}
+
+.recommend_area .item_list.type_list li .item_section .item_count_area p.ico_type.zzim {
+    margin-top: 13px;
+    background: url(https://www.visitjeju.net/image/common/ico_zzim_l.png) no-repeat 17px 50%
+}
+
+.recommend_area .item_list.type_list li .item_section .item_count_area p.ico_type.review {
+    background: url(https://www.visitjeju.net/image/common/ico_review.png) no-repeat 17px 50%
+}
+
+.recommend_area .item_list.type_list li .item_section .item_count_area p.ico_type span {
+    display: block;
+    float: left;
+    width: 52px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #535353;
+    line-height: 43px;
+    text-align: left
+}
+
+.recommend_area .item_list.type_list li .item_section .item_count_area p.ico_type span.count {
+    margin-top: 0;
+    width: 76px;
+    text-align: center
+}
+
+.recommend_area .item_list.type_list li .item_section .item_count_area .item_count_h_area {
+    position: absolute;
+    left: 299px;
+    bottom: 15px;
+    width: auto;
+    height: 13px;
+    border: 0;
+    font-size: 13px;
+    color: #8a8b8b;
+    line-height: 13px;
+    text-align: left
+}
+
+.recommend_area .item_list.type_thumb.type_1 li {
+    float: left;
+    margin: 30px 0 0 31px
+}
+
+.recommend_area .item_list.type_thumb.type_1 li:nth-child(3n+1) {
+    margin-left: 0
+}
+
+.recommend_area .item_list.type_thumb.type_1 li .item_section {
+    width: 366px;
+    height: 400px
+}
+
+.recommend_area .item_list.type_thumb.type_1 li .item_section .item_top a img {
+    width: 366px;
+    height: 217px
+}
+
+.recommend_area .item_list.type_thumb.type_1 li .item_section .item_top a .score_area {
+    top: 186px;
+    right: 13px
+}
+
+.recommend_area .item_list.type_thumb.type_1 li .item_section .item_top .s_tit {
+    width: 330px;
+    margin: 20px auto 0;
+    font-size: 20px;
+    color: #1b1b1b;
+    line-height: 20px
+}
+
+.recommend_area .item_list.type_thumb.type_1 li .item_section .item_top .s_theme {
+    margin-top: 9px
+}
+
+.recommend_area .item_list.type_thumb.type_1 li .item_section .item_top .item_tag {
+    margin-top: 17px;
+    font-size: 14px;
+    color: #535353;
+    line-height: 14px
+}
+
+.recommend_area .item_list.type_thumb.type_1 li .item_section .item_count_area {
+    margin-top: 20px;
+    font-size: 0;
+    text-align: center
+}
+
+.recommend_area .item_list.type_thumb.type_1 li .item_section .item_count_area .ico_type {
+    display: inline-block;
+    float: none
+}
+
+.recommend_area .item_list.type_thumb.type_1 li .item_section .item_count_area .item_count_h_area {
+    margin-top: 18px
+}
+
+.recommend_area .theme_tit_area {
+    height: auto;
+    padding-left: 40px;
+}
+
+.recommend_area .theme_tit_area .theme_tit {
+    float: left;
+    font-size: 24px;
+    font-weight: 800;
+    color: #000;
+    line-height: 30px
+}
+
+.recommend_area .theme_tit_area .theme_tit_sub {
+    float: left;
+    clear: both;
+    margin-top: 17px;
+    font-size: 18px;
+    color: #535353;
+    line-height: 30px
+}
+
+.recommend_area .theme_tit_area .util_area2 {
+    padding: 0
+}
+
+.recommend_area .theme_tit_area .util_area2 div p.type_tit {
+    margin-right: 15px;
+    font-size: 15px;
+    color: #1b1b1b;
+    line-height: 30px
+}
+
+.recommend_area .theme_tit_area .util_area2 div.page_size {
+    margin-left: 25px
+}
+
+.recommend_area .theme_tit_area .util_area2 div.page_size select {
+    width: 104px
+}
+
+.recommend_area .theme_tit_area .d01 #pageRows {
+	margin: 0;
+	padding: 0;
+	
+}
+
+.theme_tit_area .d01 #pageRows select {
+    width: 60px;
+    height: 30px;
+    border: 1px solid #ccc;
+    color: #8a8b8b;
+}
+
+.theme_tit_area .d01 #pageinfo {
+	font-size: 14px;
+} 
+
+
+
+
+/* view */
+
+div {
+    display: block;
+}
+.tourView {
+    overflow: hidden;
+}
+
+.tourView .mainImg {
+    width: 400px;
+    float: left;
+}
+
+.tourView .mainImg img {
+    width: 400px;
+    height: 247px;
+}
+
+.tourView .summary {
+    clear: both;
+    padding: 25px 10px 0 10px;
+    border-top: 1px solid #000;
+}
+
+.sumImg .bx-wrapper img {
+    max-width: 164px !important;
+    width: 164px;
+    height: 108px;
+}
+
+/* view04 */
+.imgGallery {position:relative;overflow:hidden;width:866px;margin:0 auto;background:#ececec url('https://api.visitkorea.or.kr/static/images/openAPI/bgGuide.gif') left bottom repeat-x;}
+.imgGallery > p { float:left; width:700px; height:467px; border:1px solid #c5c5c5; }
+.imgGallery > p > img { width:700px; height:467px; } 
+#content .imgGallery ul { margin-left:0px; }
+#content .imgGallery .sumImg { float:left; width:164px; }
+#content .imgGallery .sumImg .bx-wrapper img { max-width:164px !important; width:164px; height:108px; } 
+
+	/* jquery default css */
+	.imgGallery .bx-wrapper { margin:0px; }
+	.imgGallery .bx-wrapper .bx-viewport { left:0px; border:0px; }
+	.imgGallery .bx-wrapper .bx-pager { display:none; }
+	.imgGallery .bx-wrapper .bx-controls-direction a { position:absolute; top:432px; margin:0px; width:39px; height:39px; z-index:9999;	}
+	.imgGallery .bx-wrapper .bx-prev { left:86px; background:url('https://api.visitkorea.or.kr/static/images/openAPI/controlPrev.gif') no-repeat; }
+	.imgGallery .bx-wrapper .bx-next { right:0px; background:url('https://api.visitkorea.or.kr/static/images/openAPI/controlNext.gif') no-repeat; }
+.imgGallery .txtSum { position:absolute; bottom:10px; left:703px; display:inline-block; width:84px; padding:8px 0 0 0; text-align:center; color:#fff; }
+
+.imgGallery ul li a { display:block; cursor:pointer; }
+.imgGallery ul li a:hover,
+.imgGallery ul li a:active,
+.imgGallery ul li a:focus,
+.imgGallery ul li.on a span { display:block; overflow:hidden; width:160px; height:104px; border:2px solid #4a63ae; }
+.imgGallery ul li a:hover span img,
+.imgGallery ul li a:active span img,
+.imgGallery ul li a:focus span img,
+.imgGallery ul li.on a  span img { margin:-2px 0 0 -2px; }
+.imgGallery ul li a:hover span,
+.imgGallery ul li a:active span,
+.imgGallery ul li a:focus span { border:0px;  }
+
+
+.tourView {overflow:hidden;}
+#content .tourView > ul { margin-left:0px; }
+#content .tourView > ul > li:first-child { margin-top:0px; }
+#content .tourView > ul > li { overflow:hidden; margin-top:40px; }
+#content .tourView h4 { display:block; margin:0 0 30px 0; padding:10px 20px; font-size:16px; background-color:#f6f6f6; background-image:none; border-bottom:1px solid #000; }
+.tourView .mainImg { width:400px; float:left; }
+#content .tourView .mainImg p { margin:0px; }
+.tourView .mainImg img { width:400px; height:247px; }
+#content .tourView .mainImg .bxslider { margin:0px; }
+#content .tourView .mainImg .bxslider li a { position:relative; }
+#content .tourView .mainImg .bxslider li a:hover,
+#content .tourView .mainImg .bxslider li a:active,
+#content .tourView .mainImg .bxslider li a:focus,
+#content .tourView .mainImg .bxslider li.on a span { display:block; overflow:hidden; width:77px; height:54px; border:2px solid #4a63ae;}
+#content .tourView .mainImg .bxslider li a:hover span img,
+#content .tourView .mainImg .bxslider li a:active span img,
+#content .tourView .mainImg .bxslider li a:focus span img,
+#content .tourView .mainImg .bxslider li.on a span img { margin:-2px 0 0 -2px; }
+#content .tourView .mainImg .bxslider li a:hover span,
+#content .tourView .mainImg .bxslider li a:active span,
+#content .tourView .mainImg .bxslider li a:focus span { border:0px;}
+.tourView .mainImg .bxslider img { max-width:81px; width:81px; height:58px; }
+	/* jquery css default*/
+	.tourView .mainImg .bx-wrapper { width:400px !important; margin:20px 0 0 24px; z-index:0; }
+	.tourView .mainImg .bx-wrapper .bx-controls-direction a { position:absolute; top:50%; margin-top:-16px;  width:32px; height:32px; text-indent:-9999px; z-index:9999; }
+	.tourView .mainImg .bx-wrapper .bx-prev { left:-23px; background:url('/static/images/tourSearch/controlsPrev.gif') no-repeat; }
+	.tourView .mainImg .bx-wrapper .bx-next { right:-40px; background:url('/static/images/tourSearch/controlsNext.gif') no-repeat; }
+	
+.tourView .txtData { float:right; width:525px; font-size:12px; color:#666; }
+.tourView .txtData.none { width:100%; }
+
+.bx-wrapper {
+	position: relative;
+	margin: 0 auto 60px;
+	padding: 0;
+	/* *zoom: 1; */
+}
+
+.bx-wrapper img {
+	max-width: 100%;
+	display: block;
+}
