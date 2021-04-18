@@ -4,10 +4,6 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-<<<<<<< HEAD
-
-=======
->>>>>>> branch 'master' of https://github.com/hcjo1223/today_trip.git
 public class AjaxWriteList extends AjaxWriteResult {
 
 	@JsonProperty("data")
