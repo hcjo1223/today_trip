@@ -3,7 +3,7 @@
 <mapper namespace="com.spring.app.domain.AjaxDAO">
 
 
-	<!-- 글 목록 (페이징) : page, pageRows -->
+	<!-- 장소 글 목록 (페이징) : page, pageRows -->
 	<select id="selectPlaceRow" 
 		resultType="com.spring.app.domain.PlaceDTO">
 		<![CDATA[  
@@ -23,12 +23,37 @@
 			RNUM >= #{from} AND RNUM < (#{from} + #{pageRows})
 		]]>	
 	</select>
+	
+	<!-- 일정 게시판 글 목록 (페이징) : page, pageRows -->
+	<select id="selectCalenderRow" 
+		resultType="com.spring.app.domain.CalenderDTO">
+		<![CDATA[  
+		SELECT
+			tu_uid, 
+			us_uid, 
+			tu_title,
+			tu_hits, 
+			tu_period, 
+			tu_write_date,
+			tu_start_tour,
+			tu_del_ck
+		FROM 
+			(SELECT ROWNUM AS RNUM, T.* FROM 
+				(SELECT * FROM tour ORDER BY tu_uid) T) 
+		WHERE 
+			RNUM >= #{from} AND RNUM < (#{from} + #{pageRows})
+		]]>	
+	</select>
 
 	<!-- SELECT 쿼리문인데, 단일값 int 값 받고 싶으면 어쩌나?
  	resultType="java.lang.Integer" 혹은 resultType="int" 
 	-->
-	<select id="countAll" resultType="int">
+	<select id="placeCountAll" resultType="int">
 		SELECT count(*) FROM place WHERE contentTypeId = #{contentTypeId}
+	</select>	
+	
+	<select id="countAll" resultType="int">
+		SELECT count(*) FROM place
 	</select>	
 
 	<!-- /updateOk.ajax : 글 수정
@@ -49,5 +74,28 @@
 		close : 종료 문자열					
  	 -->
  	 
+	<update id="deleteByUid" flushCache="true"
+ 	  	parameterType="java.util.ArrayList">
+ 	  	
+	 	  	UPDATE tour
+	 	  	SET tu_del_ck = 0
+	 	  	WHERE tu_uid IN( 
+	 	  	<foreach collection="array" item="item" index="index" separator=",">
+	 	  	${item}
+ 	  		</foreach>
+ 	  		)
+ 	  </update>
 
+
+	<update id="restoreByUid" flushCache="true"
+ 	  	parameterType="java.util.ArrayList">
+ 	  	
+	 	  	UPDATE tour
+	 	  	SET tu_del_ck = 1
+	 	  	WHERE tu_uid IN( 
+	 	  	<foreach collection="array" item="item" index="index" separator=",">
+	 	  	${item}
+ 	  		</foreach>
+ 	  		)
+ 	  </update>
 </mapper>

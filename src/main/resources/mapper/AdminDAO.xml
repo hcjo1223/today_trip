@@ -89,5 +89,6 @@
 		WHERE ROWNUM <8
 		]]>	
 	</select>
+	
 
 </mapper>

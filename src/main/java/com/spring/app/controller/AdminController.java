@@ -42,10 +42,10 @@ public class AdminController {
 //		model.addAttribute("listAdminPlaceS", adminService.listAdminPlaceS());
 //		return "admin/place/sights";
 //	}
-	@RequestMapping("/board/calender")	
-	public String listCalender(Model model) {
-		return "admin/calender";
-	}
+//	@RequestMapping("/board/calender")	
+//	public String listCalender(Model model) {
+//		return "admin/calender";
+//	}
 	@RequestMapping("/board/cards")
 	public String listCards(Model model) {
 		return "admin/cards";
@@ -73,5 +73,10 @@ public class AdminController {
 	@RequestMapping("place/sights")
 	public String restSights() {
 		return "admin/place/restPlace";
+	}
+	
+	@RequestMapping("board/calender")
+	public String restCalender() {
+		return "admin/calender";
 	}
 }
