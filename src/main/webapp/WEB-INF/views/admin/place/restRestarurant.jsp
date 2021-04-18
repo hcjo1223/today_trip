@@ -119,7 +119,7 @@
 				<th>위도</th>
 				<th>주소</th>
 				<th>연락처</th>
-				<th>썸네일URL</th>
+				<th>썸네일</th>
 			</thead>
 			<tbody>
 			

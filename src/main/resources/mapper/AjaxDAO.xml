@@ -18,7 +18,7 @@
 			firstimage2
 		FROM 
 			(SELECT ROWNUM AS RNUM, T.* FROM 
-				(SELECT * FROM place WHERE contentTypeId = #{contentTypeId} ORDER BY place_uid DESC) T) 
+				(SELECT * FROM place WHERE contentTypeId = #{contentTypeId} ORDER BY place_uid) T) 
 		WHERE 
 			RNUM >= #{from} AND RNUM < (#{from} + #{pageRows})
 		]]>	
@@ -28,7 +28,7 @@
  	resultType="java.lang.Integer" 혹은 resultType="int" 
 	-->
 	<select id="countAll" resultType="int">
-		SELECT count(*) FROM place 
+		SELECT count(*) FROM place WHERE contentTypeId = #{contentTypeId}
 	</select>	
 
 	<!-- /updateOk.ajax : 글 수정

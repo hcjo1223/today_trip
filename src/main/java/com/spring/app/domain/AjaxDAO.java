@@ -22,6 +22,8 @@ public interface AjaxDAO {
 			@Param("endDate") String endDate
 			);
 	
-	public int countAll();
+	public int countAll(
+			@Param("contentTypeId") int contentTypeId
+			);
 	
 }

@@ -98,7 +98,7 @@ function buildPagination(writePages, totalPage, curPage, pageRows){
 	
   	//■  < 표시 여부
     if (start_page > 1) 
-    	str += "<li><a onclick='loadPage(" + (start_page - 1) + ")' class='tooltip-top' title='이전'><i class='fas fa-angle-left'></i></a></li>\n";
+    	str += "<li><a onclick='loadPage(" + (start_page - 1) + ")' class='tooltip-top' title='이전'><i class='fal fa-chevron-left'></i></a></li>\n";
     
     //■  페이징 안의 '숫자' 표시	
 	if (totalPage > 1) {

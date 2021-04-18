@@ -41,10 +41,10 @@ public class AjaxAdminController {
 		int writePages = 10;    // 한 [페이징] 에 몇개의 '페이지'를 표현할 것인가?
 		int totalPage = 0; // 총 몇 '페이지' 분량인가? 
 		int totalCnt = 0;  // 글은 총 몇개인가?
-		
+		int contentTypeId =32;
 		try {
 			// 글 전체 개수 구하기
-			totalCnt = ajaxAdminService.count();
+			totalCnt = ajaxAdminService.count(contentTypeId);
 			
 			// 총 몇 페이지 분량인가?
 			totalPage = (int)Math.ceil(totalCnt / (double)pageRows);
@@ -52,7 +52,7 @@ public class AjaxAdminController {
 			// from: 몇번째 row 부터?
 			int from = (page - 1) * pageRows + 1;  // ORACLE 은 1부터 시작
 			//int from = (page - 1) * pageRows;  // MySQL 은 0부터 시작
-			int contentTypeId =32;
+			
 			list = ajaxAdminService.listAccommodation(from, pageRows, contentTypeId);
 			if(list == null) {
 				message.append("[리스트할 데이터가 없습니다]");
@@ -69,7 +69,7 @@ public class AjaxAdminController {
 		
 		if(list != null) {
 			result.setCount(list.size());
-			result.setListPlace(list);
+			result.setList(list);
 		}
 		result.setPage(page);
 		result.setTotalPage(totalPage);
@@ -80,7 +80,7 @@ public class AjaxAdminController {
 		return result;
 	}
 	
-	//숙소 글 목록 (페이징)
+	// 글 목록 (페이징)
 		@GetMapping("/place/restarurant/{page}/{pageRows}")
 		public AjaxWriteList listRestarurant(
 			@PathVariable int page,
@@ -99,10 +99,10 @@ public class AjaxAdminController {
 			int writePages = 10;    // 한 [페이징] 에 몇개의 '페이지'를 표현할 것인가?
 			int totalPage = 0; // 총 몇 '페이지' 분량인가? 
 			int totalCnt = 0;  // 글은 총 몇개인가?
-			
+			int contentTypeId =39;
 			try {
 				// 글 전체 개수 구하기
-				totalCnt = ajaxAdminService.count();
+				totalCnt = ajaxAdminService.count(contentTypeId);
 				
 				// 총 몇 페이지 분량인가?
 				totalPage = (int)Math.ceil(totalCnt / (double)pageRows);
@@ -110,7 +110,7 @@ public class AjaxAdminController {
 				// from: 몇번째 row 부터?
 				int from = (page - 1) * pageRows + 1;  // ORACLE 은 1부터 시작
 				//int from = (page - 1) * pageRows;  // MySQL 은 0부터 시작
-				int contentTypeId =39;
+				
 				list = ajaxAdminService.listRestarurant(from, pageRows, contentTypeId);
 				if(list == null) {
 					message.append("[리스트할 데이터가 없습니다]");
@@ -127,7 +127,7 @@ public class AjaxAdminController {
 			
 			if(list != null) {
 				result.setCount(list.size());
-				result.setListPlace(list);
+				result.setList(list);
 			}
 			result.setPage(page);
 			result.setTotalPage(totalPage);
@@ -138,7 +138,7 @@ public class AjaxAdminController {
 			return result;
 		}
 		
-		//숙소 글 목록 (페이징)
+		// 글 목록 (페이징)
 		@GetMapping("/place/sights/{page}/{pageRows}")
 		public AjaxWriteList listSights(
 			@PathVariable int page,
@@ -157,10 +157,10 @@ public class AjaxAdminController {
 			int writePages = 10;    // 한 [페이징] 에 몇개의 '페이지'를 표현할 것인가?
 			int totalPage = 0; // 총 몇 '페이지' 분량인가? 
 			int totalCnt = 0;  // 글은 총 몇개인가?
-			
+			int contentTypeId =12;
 			try {
 				// 글 전체 개수 구하기
-				totalCnt = ajaxAdminService.count();
+				totalCnt = ajaxAdminService.count(contentTypeId);
 				
 				// 총 몇 페이지 분량인가?
 				totalPage = (int)Math.ceil(totalCnt / (double)pageRows);
@@ -168,7 +168,7 @@ public class AjaxAdminController {
 				// from: 몇번째 row 부터?
 				int from = (page - 1) * pageRows + 1;  // ORACLE 은 1부터 시작
 				//int from = (page - 1) * pageRows;  // MySQL 은 0부터 시작
-				int contentTypeId =12;
+				
 				list = ajaxAdminService.listSights(from, pageRows, contentTypeId);
 				if(list == null) {
 					message.append("[리스트할 데이터가 없습니다]");
@@ -185,7 +185,7 @@ public class AjaxAdminController {
 			
 			if(list != null) {
 				result.setCount(list.size());
-				result.setListPlace(list);
+				result.setList(list);
 			}
 			result.setPage(page);
 			result.setTotalPage(totalPage);

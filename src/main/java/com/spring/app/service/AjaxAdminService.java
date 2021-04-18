@@ -31,9 +31,9 @@ public class AjaxAdminService {
 		return dao.selectPlaceRow(from, pageRows, contentTypeId);
 	}
 	
-	public int count() {
+	public int count(int contentTypeId) {
 		dao = sqlSession.getMapper(AjaxDAO.class);
-		return dao.countAll();
+		return dao.countAll(contentTypeId);
 	}
 
 }
