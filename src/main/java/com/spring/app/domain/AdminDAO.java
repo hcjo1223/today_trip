@@ -20,4 +20,6 @@ public interface AdminDAO {
 	
 		
 		List<PlaceDTO> selectHomePlace();
+
+		List<PlaceDTO> selectHomeCalender();
 }

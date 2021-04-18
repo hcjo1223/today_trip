@@ -44,6 +44,11 @@ public class AjaxAdminService {
 		dao = sqlSession.getMapper(AjaxDAO.class);
 		return dao.selectCalenderRow(from, pageRows);
 	}
+
+	public List<PlaceDTO> listUsers(int from, int pageRows){
+		dao = sqlSession.getMapper(AjaxDAO.class);
+		return dao.selectUsersRow(from, pageRows);
+	}
 	
 	public int deleteByUid(int [] uids) {
 		dao = sqlSession.getMapper(AjaxDAO.class); // MyBatis 사용

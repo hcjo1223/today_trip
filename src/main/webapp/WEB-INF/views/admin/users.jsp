@@ -25,6 +25,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/JS/admin/easypiechart-data.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/JS/admin/bootstrap-datepicker.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/JS/admin/custom.js"></script>
+<script type="text/javascript" src="/today_trip/resources/JS/admin/users.js"></script>
 
 <title>관리자 페이지(회원)</title>
 </head>
@@ -89,5 +90,43 @@
 			<li><a href="../admin/stats"><img style="width: 20px" src="../resources/IMG/admin_chart.png"> 통계</a></li>
 		</ul>
 	</div><!--/.sidebar-->
+	
+<div id="list">
+	<%-- header --%>
+	<div class="d01">
+		<div class="left" id="pageinfo"></div>
+		<div class="right" id="pageRows"></div>
+	</div>
+	<div class="clear"></div>
+	
+	<%-- 목록 --%>
+	<form id="frmList" name="frmList">
+		<table class="tablePlace">
+			<thead>
+				<th>회원번호</th>
+				<th>아이디</th>
+				<th>이메일</th>
+				<th>별명</th>
+				<th>성별</th>
+				<th>생년월일</th>
+				<th>가입날짜</th>
+				<th>회원탈퇴여부</th>
+			</thead>
+			<tbody>
+			
+			</tbody>
+		</table>
+	</form>
+	
+</div>
+
+<div class="clear"></div>
+
+<%-- 페이징 --%>
+<div class="center">
+	<ul class="pagination" id="pagination"></ul>
+</div>	
+	
+	
 </body>
 </html>

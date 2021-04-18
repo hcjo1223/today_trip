@@ -19,6 +19,7 @@ public class AdminController {
 	public String listHome(Model model) {
 		model.addAttribute("listLogCount", adminService.listLogCount());
 		model.addAttribute("listHomePlace", adminService.listHomePlace());
+		model.addAttribute("listHomeCalender", adminService.listHomeCalender());
 		return "admin/home";
 	}
 	
@@ -55,8 +56,13 @@ public class AdminController {
 		model.addAttribute("listLogCount", adminService.listLogCount());
 		return "admin/stats";
 	}
+//	@RequestMapping("/users")
+//	public String listUsers(Model model) {
+//		return "admin/users";
+//	}
+
 	@RequestMapping("/users")
-	public String listUsers(Model model) {
+	public String restUsers() {
 		return "admin/users";
 	}
 	

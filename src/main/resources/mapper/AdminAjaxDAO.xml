@@ -45,6 +45,27 @@
 		]]>	
 	</select>
 
+	<!-- 유저 글 목록 (페이징) : page, pageRows -->
+	<select id="selectUsersRow" 
+		resultType="com.spring.app.domain.UsersDTO">
+		<![CDATA[  
+		SELECT
+			us_uid, 
+			us_id, 
+			us_email,
+			us_nickName, 
+			us_gender, 
+			us_birth,
+			us_join_date,
+			us_exit_date
+		FROM 
+			(SELECT ROWNUM AS RNUM, T.* FROM 
+				(SELECT * FROM users ORDER BY us_uid) T) 
+		WHERE 
+			RNUM >= #{from} AND RNUM < (#{from} + #{pageRows})
+		]]>	
+	</select>
+
 	<!-- SELECT 쿼리문인데, 단일값 int 값 받고 싶으면 어쩌나?
  	resultType="java.lang.Integer" 혹은 resultType="int" 
 	-->
@@ -85,8 +106,7 @@
  	  		</foreach>
  	  		)
  	  </update>
-
-
+	
 	<update id="restoreByUid" flushCache="true"
  	  	parameterType="java.util.ArrayList">
  	  	

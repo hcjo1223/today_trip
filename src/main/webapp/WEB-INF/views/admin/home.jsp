@@ -92,13 +92,39 @@
 	</div>
 	<div class="home_board">
 		<div class="element_title">
-			<span>게시판</span>
+			<span>게시판</span><span class="subSpan">일정</span>
 			<a href="./admin/board/calender" class="icon pull-right" style="padding-right: 80px"><em class="fa fa-plus"></em></a>
+			<div>
+			<table style="float: left; width: 80%" class="tablePlace">
+				<tr>
+					<th>번호</th>
+					<th>제목</th>
+					<th>조회수</th>
+					<th>작성날짜</th>
+				</tr>
+		
+				<c:choose>
+				<c:when test="${empty listHomeCalender || fn:length(listHomeCalender) == 0 }">
+				</c:when>
+				<c:otherwise>
+					<c:forEach var="dto" items="${listHomeCalender }">
+						<tr>
+						 	<td class="W30">${dto.tu_uid }</td>  <%-- dto.getUid() --%> 
+							<td>${dto.tu_title }</td>
+							<td>${dto.tu_hits }</td>  <%-- dto.getName() --%>
+							<td>${dto.tu_write_date }</td>
+						</tr>			
+					</c:forEach>
+				</c:otherwise>
+				</c:choose>
+		
+			</table>
+		</div>
 		</div>
 	</div>
 	<div class="home_place">
 		<div class="element_title">
-			<span>장소</span>
+			<span>장소</span><span class="subSpan">숙소</span>
 			<a href="./admin/place/accommodation" class="icon pull-right" style="padding-right: 80px"><em class="fa fa-plus"></em></a>
 		</div>
 		<div>
@@ -130,7 +156,7 @@
 	</div>
 	<div class="home_stats">
 		<div class="element_title">
-			<span>통계</span>
+			<span>통계</span><span class="subSpan">방문자 수</span>
 			<a href="./admin/stats" class="icon pull-right" style="padding-right: 80px"><em class="fa fa-plus"></em></a>
 		</div>
 		<div class="row" style="width: 100%; float: left;">

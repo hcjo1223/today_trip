@@ -26,6 +26,11 @@ public interface AjaxDAO {
 			@Param("from") int from,
 			@Param("pageRows") int pageRows
 			);
+
+	public List<PlaceDTO> selectUsersRow(
+			@Param("from") int from,
+			@Param("pageRows") int pageRows
+			);
 	
 	public int placeCountAll(
 			@Param("contentTypeId") int contentTypeId

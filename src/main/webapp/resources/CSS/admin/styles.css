@@ -1057,6 +1057,9 @@ table.tablePlace td {
 .tablePlace img {
 	width: 200px;
 }
+.tablePlace td, th {
+	font-size: 14px;
+}
 div.row {
 	float: right;
 	padding: 3px 30px 0 0;
@@ -1133,4 +1136,9 @@ td.W30 {
   float: right;
   margin: -10px 50px 0 0;
   
+}
+.subSpan{
+	font-size: 16px;
+	color: gray;
+	margin-left: 8px;
 }
