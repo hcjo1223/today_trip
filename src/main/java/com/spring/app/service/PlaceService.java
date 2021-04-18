@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.spring.app.domain.PlaceDAO;
 import com.spring.app.domain.PlaceDTO;
+import com.spring.app.domain.ReviewDAO;
+import com.spring.app.domain.ReviewDTO;
 
 @Service
 public class PlaceService {
@@ -43,6 +45,34 @@ public class PlaceService {
 		dao.incViewCnt(contentId);
 		
 		return dao.selectByUid(contentId);
+	}
+	
+	
+	ReviewDAO dao2;
+	
+	public int reviewCount(int pl_uid) throws Exception {
+		dao2 = sqlSession.getMapper(ReviewDAO.class);
+		return dao2.reviewCount(pl_uid);
+	}
+	
+	public List<ReviewDTO> reviewList(int pl_uid, int from, int pageRows) throws Exception {
+		dao2 = sqlSession.getMapper(ReviewDAO.class);
+		return dao2.reviewList(pl_uid, from, pageRows);
+	}
+	
+	public int reviewInsert(ReviewDTO dto) throws Exception{
+		dao2 = sqlSession.getMapper(ReviewDAO.class);
+		return dao2.reviewInsert(dto);
+	}
+	
+	public int reviewUpdate(ReviewDTO dto) throws Exception{
+		dao2 = sqlSession.getMapper(ReviewDAO.class);
+		return dao2.reviewUpdate(dto);
+	}
+	
+	public int reviewDelete(int re_uid) throws Exception{
+		dao2 = sqlSession.getMapper(ReviewDAO.class);
+		return dao2.reviewDelete(re_uid);
 	}
 	
 }
