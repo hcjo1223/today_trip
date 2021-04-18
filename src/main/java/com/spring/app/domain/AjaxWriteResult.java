@@ -1,6 +1,4 @@
 package com.spring.app.domain;
-
-
 /*
 {
 	"count" : 10,
@@ -33,4 +31,5 @@ public class AjaxWriteResult {
 		this.message = message;
 	}
 
+	
 }
