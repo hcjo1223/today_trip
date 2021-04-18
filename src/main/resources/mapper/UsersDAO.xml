@@ -1,3 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.spring.app.domain.UsersDAO"></mapper>
+<mapper namespace="com.spring.app.domain.UsersDAO">
+
+<!-- 회원가입 -->
+	<insert id="register">	
+	INSERT INTO users (
+			us_uid
+			, us_id
+			, us_pw
+			, us_nickName
+			, us_email
+			, us_memo
+			, us_gender
+		) VALUES (
+			us_uid_seq.nextval
+			, #{userId, jdbcType=VARCHAR}
+			, #{userPw, jdbcType=VARCHAR}
+			, #{userNickname, jdbcType=VARCHAR}
+			, #{userEmail, jdbcType=VARCHAR}
+			, #{userMemo, jdbcType=VARCHAR}
+			, #{gender, jdbcType=VARCHAR}	
+		)
+		</insert>
+<!-- 로그인-->		
+	<select id="login" resultType="com.spring.app.domain.UsersDTO">
+	SELECT us_id,us_pw,us_nickName
+	FROM users
+	WHERE us_id=#{userId}
+	AND us_pw=#{userPw}
+	</select>
+
+<!-- 회원정보 수정-->
+	<update id="update">
+		UPDATE users
+		SET us_pw=#{userPw}
+			,us_nickName=#{userNickname}
+			,us_email=#{userEmail}
+			,us_memo=#{userMemo}
+		WHERE us_id=#{userId}
+	</update>
+	
+	
+</mapper>
