@@ -1,5 +1,9 @@
 package com.spring.app.domain;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
@@ -25,7 +29,21 @@ public class UsersDAOImpl implements UsersDAO{
 		return session.selectOne(NAMESPACE + ".login", loginDTO);
 	}
 	
+	//로그인 유지기능 
+	@Override
+	public void keepLogin(String userId, String sessionId, Date sessionLimit) throws Exception{
+	Map<String, Object> paramMap = new HashMap<String, Object>();
+	paramMap.put("userId", userId);
+	paramMap.put("sessionId", sessionId);
+	paramMap.put("sessionLimit", sessionLimit);
 	
+	session.update(NAMESPACE + ".keepLogin", paramMap);
+	}
+	
+	@Override
+	public UsersDTO checkUserWithSessionKey(String value) throws Exception{
+		return session.selectOne(NAMESPACE + ".checkUserWithSessionKey" , value);
+	}
 	@Override
 	public void update(UsersDTO usersDTO) throws Exception{
 		session.update(NAMESPACE + ".update",usersDTO);

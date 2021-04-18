@@ -1,4 +1,6 @@
-package com.spring.app.service;import javax.servlet.http.HttpServletRequest;
+package com.spring.app.service;import java.util.Date;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.spring.app.domain.LoginDTO;
@@ -8,6 +10,10 @@ public interface UserService {
 	public void register(UsersDTO usersDTO) throws Exception;
 
 	public UsersDTO login(LoginDTO loginDTO) throws Exception;
+	
+	public void keepLogin(String userId, String sessionId, Date next) throws Exception;
+	
+	public UsersDTO checkLoginBefore(String value) throws Exception;
 	
 	public void update(UsersDTO usetsDTO) throws Exception;
 	

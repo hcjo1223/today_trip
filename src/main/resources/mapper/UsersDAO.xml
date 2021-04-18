@@ -39,7 +39,20 @@
 	<result property = "gender" column="us_gender"/>
 	</resultMap>
 	
+<!-- 로그인 유지 기능 -->
+<update id="keepLogin">
 
+	UPDATE users
+	SET session_key = #{sessionId}
+		,session_limit = #{sessionLimit}
+	WHERE us_id = #{userId}
+</update>	
+<!-- 세션키 검증 -->
+<select id="checkUserWithSessionKey" resultMap="usersResultMap">
+	SELECT *
+	FROM users
+	WHERE session_key = #{value}
+</select>
 
 <!-- 회원정보 수정  -->
 	<update id="update">

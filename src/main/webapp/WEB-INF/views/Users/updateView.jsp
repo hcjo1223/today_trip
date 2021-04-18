@@ -45,7 +45,7 @@
 			<form action="/Update" method="post">
 				<div class="form-group has-feedback">
 					<label class="control-label" for="userId">아이디</label>
-					<input class="form-control" type="text" id="userId" name="userId" value="${users.userId}" readonly="readonly"/>
+					<input class="form-control" type="text" id="userId" name="userId" value="${login.userId}" readonly="readonly"/>
 				</div>
 				<div class="form-group has-feedback">
 					<label class="control-label" for="userPw">패스워드</label>
@@ -53,7 +53,7 @@
 				</div>
 				<div class="form-group has-feedback">
 					<label class="control-label" for="userNickname">성명</label>
-					<input class="form-control" type="text" id="userNickname" name="userNickname" value="${users.userNickname}"/>
+					<input class="form-control" type="text" id="userNickname" name="userNickname" value="${login.userNickname}"/>
 				</div>
 				<div class="form-group has-feedback">
 					<button class="btn btn-success" type="submit" id="submit">회원정보수정</button>

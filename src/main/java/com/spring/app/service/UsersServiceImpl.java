@@ -2,6 +2,7 @@
 package com.spring.app.service;
 
 import java.io.PrintWriter;
+import java.util.Date;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
@@ -27,6 +28,16 @@ public class UsersServiceImpl implements UserService{
 	@Override
 	public UsersDTO login(LoginDTO loginDTO) throws Exception{
 		return dao.login(loginDTO);
+	}
+	
+	@Override
+	public void keepLogin(String userId, String sessionId, Date sessionLimit) throws Exception{
+		dao.keepLogin(userId, sessionId, sessionLimit);
+	}
+	
+	@Override
+	public UsersDTO checkLoginBefore(String value) throws Exception{
+		return dao.checkUserWithSessionKey(value);
 	}
 	
 	@Override

@@ -204,6 +204,8 @@ CREATE TABLE users
 	us_memo varchar2(100),
 	us_join_date date,
 	us_pic varchar2(20),
+	session_key VARCHAR(50) DEFAULT 'none',
+	session_limit DATE,
 	us_exit_ck number DEFAULT 0,
 	us_exit_date date,
 	PRIMARY KEY (us_uid)

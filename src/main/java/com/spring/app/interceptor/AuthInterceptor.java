@@ -37,7 +37,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter{
 		if(httpSession.getAttribute("login") == null) {
 			logger.info("current user is not logged");
 			saveDestination(request);
-			response.sendRedirect("/users/login");
+			response.sendRedirect("/Users/login");
 			return false;
 		}
 		return true;
