@@ -22,15 +22,26 @@
 			, #{gender, jdbcType=VARCHAR}	
 		)
 		</insert>
-<!-- 로그인-->		
-	<select id="login" resultType="com.spring.app.domain.UsersDTO">
-	SELECT us_id,us_pw,us_nickName
+		
+<!-- 로그인 -->		
+	<select id="login" resultMap= "usersResultMap">
+	SELECT *
 	FROM users
 	WHERE us_id=#{userId}
-	AND us_pw=#{userPw}
 	</select>
+	
+<!-- 로그인 정보 -->	
+	<resultMap id="usersResultMap" type = "com.spring.app.domain.UsersDTO">
+	<id property = "userId" column="us_id" />
+	<result property = "userPw" column="us_pw"/>
+	<result property = "userEmail" column="us_email"/>
+	<result property = "userNickname" column="us_nickName"/>
+	<result property = "gender" column="us_gender"/>
+	</resultMap>
+	
 
-<!-- 회원정보 수정-->
+
+<!-- 회원정보 수정  -->
 	<update id="update">
 		UPDATE users
 		SET us_pw=#{userPw}

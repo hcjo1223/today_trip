@@ -21,8 +21,8 @@ public class UsersDAOImpl implements UsersDAO{
 	
 	
 	@Override
-	public UsersDTO login(UsersDTO usersDTO) throws Exception {
-		return session.selectOne(NAMESPACE + ".login", usersDTO);
+	public UsersDTO login(LoginDTO loginDTO) throws Exception {
+		return session.selectOne(NAMESPACE + ".login", loginDTO);
 	}
 	
 	

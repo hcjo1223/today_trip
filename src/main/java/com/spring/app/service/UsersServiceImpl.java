@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Service;
 
+import com.spring.app.domain.LoginDTO;
 import com.spring.app.domain.UsersDAO;
 import com.spring.app.domain.UsersDAOImpl;
 import com.spring.app.domain.UsersDTO;
@@ -24,8 +25,8 @@ public class UsersServiceImpl implements UserService{
 	}
 	
 	@Override
-	public UsersDTO login(UsersDTO usersDTO) throws Exception{
-		return dao.login(usersDTO);
+	public UsersDTO login(LoginDTO loginDTO) throws Exception{
+		return dao.login(loginDTO);
 	}
 	
 	@Override
