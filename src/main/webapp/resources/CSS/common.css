@@ -106,7 +106,6 @@ ul.pagination a:hover:not(.active) {background-color: #ddd;}
 	z-index: 1;
 	padding-top: 40px;  /* 내부여백  */
 	overflow: auto;
-	
 	display : none;  /* 기본적으로 안보이기 */  
 }
 
