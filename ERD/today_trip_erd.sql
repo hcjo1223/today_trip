@@ -29,6 +29,8 @@ CREATE SEQUENCE pc_uid_seq;
 CREATE SEQUENCE cmt_uid_seq;
 CREATE SEQUENCE log_uid_seq;
 CREATE SEQUENCE place_uid_seq;
+CREATE SEQUENCE rv_uid_seq;
+
 
 /*-------------------------------------------------------------- Drop Sequence --------------------------------------------------------------*/
 DROP SEQUENCE us_uid_seq;
@@ -39,6 +41,7 @@ DROP SEQUENCE pc_uid_seq;
 DROP SEQUENCE cmt_uid_seq;
 DROP SEQUENCE log_uid_seq;
 DROP SEQUENCE place_uid_seq;
+DROP SEQUENCE rv_uid_seq;
 
 
 /*-------------------------------------------------------------- Create Tables --------------------------------------------------------------*/
@@ -127,9 +130,10 @@ CREATE TABLE review
 (
 	us_uid number NOT NULL,
 	place_uid number NOT NULL,
+	rv_uid NUMBER NOT NULL,
 	rv_content clob,
 	rv_rate number DEFAULT 0,
-	rv_write_date date
+	rv_write_date DATE DEFAULT SYSDATE
 );
 
 
