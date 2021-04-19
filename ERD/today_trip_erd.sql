@@ -120,7 +120,6 @@ CREATE TABLE place
 
 CREATE TABLE place_like
 (
-	lc_like_ck number,
 	place_uid number NOT NULL,
 	us_uid NUMBER DEFAULT 0 NOT NULL
 );
@@ -482,7 +481,29 @@ WHERE
 SELECT ROWNUM, RV_UID FROM REVIEW;
 ALTER SEQUENCE rv_uid_seq INCREMENT BY 1;
 
-SELECT p.PLACE_UID, count(*) AS r_count
-FROM REVIEW r, place p 
-WHERE r.PLACE_UID = p.PLACE_UID
-GROUP BY p.PLACE_UID ;
+SELECT PLACE_UID, count(*) AS r_count
+FROM REVIEW
+GROUP BY PLACE_UID ;
+
+SELECT A.*, H.rvcnt FROM 
+(SELECT
+         place_uid ,
+         contentid,
+         contenttypeid,
+         title,
+         mapx,
+         mapy,
+         areaCode,
+         sigunguCode,
+         addr1,
+         tel,
+         firstimage2,
+         pl_viewcnt viewcnt 
+      FROM 
+         (SELECT ROWNUM AS RNUM, T.* FROM 
+            (SELECT * FROM place ORDER BY place_uid DESC) T) 
+      WHERE 
+         RNUM >= 1 AND RNUM < (1 + 10)) A LEFT OUTER JOIN (SELECT PLACE_UID ,count(*) AS rvcnt FROM REVIEW  group BY PLACE_UID ) H
+      ON A.place_uid = H.place_uid;
+
+
