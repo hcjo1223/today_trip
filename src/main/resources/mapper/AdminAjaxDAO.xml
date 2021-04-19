@@ -8,7 +8,7 @@
 		resultType="com.spring.app.domain.PlaceDTO">
 		<![CDATA[  
 		SELECT
-			place_uid "uid", 
+			place_uid, 
 			title, 
 			contentId,
 			mapx, 
