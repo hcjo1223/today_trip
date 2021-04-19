@@ -27,7 +27,6 @@ public class CardsDTO extends picLibDTO{
 		return usuid;
 	}
 
-<<<<<<< HEAD
 	@JsonProperty("cards") // 제이슨 이름 변경
 	List<picLibDTO> list; // 데이터 목록
 	
@@ -41,13 +40,11 @@ public class CardsDTO extends picLibDTO{
 	}
 
 
-=======
 
 	public void setUsuid(int usuid) {
 		this.usuid = usuid;
 	}
 	
->>>>>>> branch 'master' of https://github.com/hcjo1223/today_trip.git
 	public static List<MultipartFile> getFiles() {
 		return files;
 	}
