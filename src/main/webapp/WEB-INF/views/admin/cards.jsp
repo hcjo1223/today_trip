@@ -25,7 +25,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/JS/admin/easypiechart-data.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/JS/admin/bootstrap-datepicker.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/JS/admin/custom.js"></script>
-
+<script type="text/javascript" src="/today_trip/resources/JS/admin/cards.js"></script>
 <title>관리자 페이지(사진)</title>
 </head>
 <body>
@@ -95,6 +95,48 @@
 			<button class="btn btn-lg btn-info" onclick="location.href='../board/calender'">일정</button>
 			<button class="btn btn-lg btn-info" onclick="location.href='../board/cards'">사진</button>
 	</div>
+</div>
+
+<div id="list">
+	<%-- header --%>
+	<div class="d01">
+		<div class="left" id="pageinfo"></div>
+		<div class="right" id="pageRows"></div>
+	</div>
+	<div class="clear"></div>
+	
+	<%-- 목록 --%>
+	<form id="frmList" name="frmList">
+		<table class="tablePlace">
+			<thead>
+				<th>사진게시판번호</th>
+				<th>회원번호</th>
+				<th>조회수</th>
+				<th>어디로</th>
+				<th>여행스타일</th>
+				<th>누구와</th>
+				<th>작성 날짜</th>
+				<th>게시물 삭제 여부</th>
+				<th>선택</th>
+			</thead>
+			<tbody>
+			
+			</tbody>
+		</table>
+	</form>
+	
+</div>
+
+<div class="delPlace">
+<button id="btnDel" class="btn btn-md btn-danger">삭제</button>
+<button id="btnRes" class="btn btn-md btn-info">복구</button>
+</div>
+
+<div class="clear"></div>
+
+<%-- 페이징 --%>
+<div class="center">
+	<ul class="pagination" id="pagination"></ul>
 </div>
 
 </body>

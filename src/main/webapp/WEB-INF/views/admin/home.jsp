@@ -88,8 +88,34 @@
 		<div class="element_title">
 			<span>회원</span>
 			<a href="./admin/users" class="icon pull-right" style="padding-right: 80px"><em class="fa fa-plus"></em></a>
+			<div>
+			<table style="float: left; width: 80%" class="tablePlace">
+				<tr>
+					<th>회원번호</th>
+					<th>ID</th>
+					<th>이메일</th>
+					<th>가입날짜</th>
+				</tr>
+		
+				<c:choose>
+				<c:when test="${empty listHomeUsers || fn:length(listHomeUsers) == 0 }">
+				</c:when>
+				<c:otherwise>
+					<c:forEach var="dto" items="${listHomeUsers }">
+						<tr>
+						 	<td class="W30">${dto.us_uid }</td>  <%-- dto.getUid() --%> 
+							<td>${dto.userId }</td>
+							<td>${dto.userEmail }</td>  <%-- dto.getName() --%>
+							<td>${dto.reg_date }</td>
+						</tr>			
+					</c:forEach>
+				</c:otherwise>
+				</c:choose>
+		
+			</table>
 		</div>
-	</div>
+		</div>
+		</div>
 	<div class="home_board">
 		<div class="element_title">
 			<span>게시판</span><span class="subSpan">일정</span>

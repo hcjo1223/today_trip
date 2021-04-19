@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class CardsDTO {
 	private int uid;
+	private int usuid;
 	private String contents;
 	private int hits;
 	private int location;
@@ -18,8 +19,14 @@ public class CardsDTO {
 	
 	static List<MultipartFile> files;
 	
+	public int getUsuid() {
+		return usuid;
+	}
 
-	
+
+	public void setUsuid(int usuid) {
+		this.usuid = usuid;
+	}
 	
 	public static List<MultipartFile> getFiles() {
 		return files;

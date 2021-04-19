@@ -120,7 +120,6 @@ CREATE TABLE place
 
 CREATE TABLE place_like
 (
-	lc_like_ck number,
 	place_uid number NOT NULL,
 	us_uid NUMBER DEFAULT 0 NOT NULL
 );
@@ -204,8 +203,6 @@ CREATE TABLE users
 	us_memo varchar2(100),
 	us_join_date date,
 	us_pic varchar2(20),
-	session_key VARCHAR(50) DEFAULT 'none',
-	session_limit DATE,
 	us_exit_ck number DEFAULT 0,
 	us_exit_date date,
 	PRIMARY KEY (us_uid)
@@ -449,56 +446,32 @@ insert into review(us_uid, place_uid, rv_uid, rv_content, rv_write_date)
 values(i, 2, rv_uid_seq.nextval , CONCAT(i,'번째 리뷰남깁니다'), SYSDATE);
 END LOOP;
 END;
-
+/* picture 더미데이터 */
+BEGIN
+FOR i IN 1..20 LOOP
+insert into picture(pc_uid , us_uid, pc_contents , pc_hits , pc_location, pc_focus,pc_with,pc_write_date ,pc_del_ck)
+values(pc_uid_seq.nextval, us_uid_seq.nextval, CONCAT(i,'번째 내용남깁니다'), 0, 3, 2, 1, SYSDATE, 0);
+END LOOP;
+END;
 
 /* test */
-SELECT * FROM tab;
-
-SELECT count(*) FROM REVIEW WHERE PLACE_UID = 3;
-<<<<<<< HEAD
-
-SELECT * FROM review;
-
-INSERT INTO
-review (us_uid, place_uid, rv_uid, rv_content, rv_write_date)
-VALUES(1, 3, rv_uid_seq.nextval, '리뷰내용입니다', SYSDATE);
- 
-UPDATE review SET rv_content = '리뷰수정입니다'
-WHERE rv_uid = 40;
-
-DELETE FROM review WHERE rv_uid = 41;
-=======
-SELECT count(*) FROM place; 
-
-SELECT * FROM review;
-SELECT * FROM place;
-
-INSERT INTO
-review (us_uid, place_uid, rv_uid, rv_content, rv_write_date)
-VALUES(1, 3, rv_uid_seq.nextval, '리뷰내용입니다', SYSDATE);
-
-INSERT INTO 
-review (us_uid, place_uid, rv_uid, rv_content "content", rv_write_date "write_date")
-VALUES(1, 3, rv_uid_seq.nextval, '리뷰내용입니다', SYSDATE);
- 
-UPDATE review SET rv_content = '리뷰수정입니다'
-WHERE rv_uid = 40;
-
-DELETE FROM review WHERE rv_uid = 41;
-
-SELECT  
-	us_uid, place_uid, rv_uid, rv_content, rv_rate, rv_write_date
-FROM 
-	(SELECT ROWNUM AS RNUM, T.* FROM 
-		(SELECT * FROM review WHERE place_uid = 195 ORDER BY rv_uid DESC) T) 
-WHERE 
-	RNUM >= 1 AND RNUM < 11;
-
-SELECT ROWNUM, RV_UID FROM REVIEW;
-ALTER SEQUENCE rv_uid_seq INCREMENT BY 1;
-
-SELECT p.PLACE_UID, count(*) AS r_count
-FROM REVIEW r, place p 
-WHERE r.PLACE_UID = p.PLACE_UID
-GROUP BY p.PLACE_UID ;
->>>>>>> branch 'master' of https://github.com/hcjo1223/today_trip.git
+SELECT
+			tu_uid "uid", 
+			us_uid, 
+			tu_title,
+			tu_hits, 
+			tu_period, 
+			tu_del_ck,
+			tu_write_date,
+			tu_start_tour
+		FROM 
+			(SELECT ROWNUM AS RNUM, T.* FROM 
+				(SELECT * FROM tour ORDER BY tu_uid) T) 
+		WHERE 
+			RNUM >= 1 AND RNUM < (1 + 10)
+			
+			
+			
+UPDATE tour
+	SET tu_del_ck = 0
+	WHERE tu_uid = 1;

@@ -1142,3 +1142,6 @@ td.W30 {
 	color: gray;
 	margin-left: 8px;
 }
+.pagination a:hover{
+	cursor:pointer;
+}

@@ -7,6 +7,7 @@ $(document).ready(function(){
 
 });
 
+
 //page번째 페이지 목록 읽어오기
 function loadPage(page){
     $.ajax({
@@ -19,9 +20,7 @@ function loadPage(page){
 
                 if(updateList(data)){   // application/json 이면 이미 parse 되어 있다.
 
-                    // 업데이트된 list 에 view 동작 이벤트 가동
-                    addViewEvent();
-                    // ★ 만약 위 코드를 $(document).ready() 에 두면 동작 안할것이다!
+
                 }
             }
         }
@@ -43,6 +42,8 @@ function updateList(jsonObj){
 		
 
 		for(var i = 0; i < count; i++){
+
+                        
 			var sigunguArr = items[i].addr1.split(" ")
 
 			result += "<li>\n"
@@ -56,10 +57,13 @@ function updateList(jsonObj){
                     + "<p class='s_theme'>" + chkareaCode[items[i].areacode] + "&gt;" + sigunguArr[1] + "</p>"
 					+ "</a></dt>\n"
 					+ "<dd class='item_count_area clear'><a href='javascript:void(0);'>\n"
-					+ "<p class='ico_type like'><span>좋아요</span><span class='count'>128</span></p></a>"
-					+ "<a href='javascript:void(0);'><p class='ico_type zzim '><span>찜하기</span><span class='count'>736</span></p></a>"
-					+ "<p class='ico_type review'><span>리뷰</span><span class='count'>591</span></p>"
+					+ "<p class='ico_type like'><span>좋아요</span><span class='likecount'>128</span></p></a>"
+					+ "<p class='ico_type zzim '><span>조회수</span><span class='viewcount'>" + items[i].viewcnt + "</span></p>"
+					+ "<p class='ico_type review'><span>리뷰</span><span class='reviewcount'>" + items[i].reviewcnt + "</span></p>"
 					+ "</p></dd></dl></li>"
+
+                    
+
 		}
 
 		"<a href='javascript:void(0);'><p class='ico_type zzim '><span>찜하기</span><span class='count'>736</span></p></a>"
@@ -146,32 +150,6 @@ function changePageRows(){
     loadPage(window.page);
 }
 
-function addViewEvent(){
-    $("#list .subject").click(function(){
-        // 읽어오기
-        $.ajax({
-            url : "./" + $(this).attr("data-uid"),      // url :  /board/{uid}
-            type : "GET",
-            cache : false,
-            success : function(data, status){
-                if(status == "success"){
-                    if(data.status == "OK"){
-                        // 글 읽어오기 성공하면, 내부 데이터 세팅하고 팝업 대화상자 보여주기
-                        window.viewItem = data.data[0];
-
-                        setPopup("view");  // 글읽기 팝업 띄우기
-                        $("#dlg_write").show();
-
-                        // 리스트상의 조회수도 증가시켜야 한다.
-                        $("#list [data-viewcnt='" + viewItem.uid + "']").text(viewItem.viewcnt);
-                    } else {
-                        alert("VIEW 실패 : " + data.message);
-                    }
-                }
-            }
-        });
-    });
-} // end addViewEvent()
 
 var chkContentType = {
 	12 : "관광지",
