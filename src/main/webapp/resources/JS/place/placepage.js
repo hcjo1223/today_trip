@@ -78,7 +78,7 @@ function updateList(jsonObj){
         var items = jsonObj.data; // 배열
 
 		
-		
+
 
 		for(var i = 0; i < count; i++){
 
