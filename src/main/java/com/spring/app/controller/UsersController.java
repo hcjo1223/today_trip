@@ -67,7 +67,7 @@ public class UsersController {
 		if(usersDTO == null) {
 			return;
 		}
-		model.addAttribute("Users", usersDTO);
+		model.addAttribute("users", usersDTO);
 		
 		if(loginDTO.isUseCookie()) {
 			int amount = 60*60*24*7;
@@ -114,14 +114,16 @@ public class UsersController {
 	//정보 수정
 	@RequestMapping(value="/updateView",method = RequestMethod.GET)
 	public String updateGET() throws Exception{
+		logger.info("get updateView");
 		return "Users/updateView";
 	}
 	
-	@RequestMapping(value="/update",method = RequestMethod.POST)
+	@RequestMapping(value="/updateView",method = RequestMethod.POST)
 	public String update(UsersDTO usersDTO, HttpSession session) throws Exception{
 		
+		
+		logger.info("post updateView");
 		userService.update(usersDTO);
-		session.invalidate();
 		
 		return "redirect:/";
 	}

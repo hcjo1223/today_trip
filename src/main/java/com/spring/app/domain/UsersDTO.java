@@ -8,6 +8,7 @@ public class UsersDTO {
 	private String userPw;
 	private String userNickname;
 	private String userEmail;
+	private String userBirthday;
 	private Date reg_date;
 	private Date log_date;
 	private String userMemo;
@@ -77,6 +78,12 @@ public class UsersDTO {
 	}
 	public void setGender(String gender) {
 		this.gender = gender;
+	}
+	public String getUserBirthday() {
+		return userBirthday;
+	}
+	public void setUserBirthday(String userBirthday) {
+		this.userBirthday = userBirthday;
 	}
 	
 	

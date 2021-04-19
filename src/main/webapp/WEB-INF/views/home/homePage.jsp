@@ -77,8 +77,8 @@
         <div class="sticky-child layout-navigation-secondary" style="position: relative;">
             <div class="layout-navigation-secondary__content">
                 <nav class="layout-navigation-secondary__menu">
-                <a class="layout-navigation-secondary__menu__item layout-navigation-secondary__menu__item--active" href="">홈</a>
-                <a class="layout-navigation-secondary__menu__item" href="./cards/list.do">사진</a>
+                <a class="layout-navigation-secondary__menu__item " href="">홈</a>
+                <a class="layout-navigation-secondary__menu__item layout-navigation-secondary__menu__item--active" href="./cards/list.do">사진</a>
                 <a class="layout-navigation-secondary__menu__item" href="./calender">일정</a>
                 <a class="layout-navigation-secondary__menu__item" href="./place/list">장소</a>
                 <a class="layout-navigation-secondary__menu__item" href="./advices">노하우</a>

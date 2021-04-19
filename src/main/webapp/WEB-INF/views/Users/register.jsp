@@ -18,7 +18,7 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		// 취소
-		$(".cencle").on("click", function() {
+		$(".cancle").on("click", function() {
 
 			location.href = "Users/login";
 
@@ -78,6 +78,11 @@
 				<input type="radio" name="gender" value=1>남자
 				<input type="radio" name="gender" value=1>여자
 			</div>
+				<div class="form-group has-feedback">
+				<label class="control-label" for="userBirthday">생일</label> 
+				<input class="form-control" type="date" id="userBirthday" name="userBirthday" />
+			</div>
+			
 			<div class="form-group has-feedback">
 				<button class="btn btn-success" type="submit" id="submit" submit = "${path}/Users/login">회원가입</button>
 				<button class="cencle btn btn-danger" type="button">취소</button>
