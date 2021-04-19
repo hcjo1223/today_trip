@@ -88,6 +88,8 @@
     </div>
 </header>
 
+
+<!-- center main -->
 <div class="home-page">
 	<div class="container home-header">
 		<div class="row">
@@ -95,9 +97,11 @@
 				<article class="story-entry home-header__story__image">
                     <a class="story-entry-link" href="">
 			        	<div class="story-entry__image-wrap">
-					        <img class="story-entry__image" src="https://image.ohou.se/i/bucketplace-v2-development/uploads/projects/cover_images/161733545321404451.jpg?gif=1&amp;w=640&amp;h=427&amp;c=c&amp;webp=1" srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/projects/cover_images/161733545321404451.jpg?gif=1&amp;w=960&amp;h=640&amp;c=c&amp;webp=1 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/projects/cover_images/161733545321404451.jpg?gif=1&amp;w=1280&amp;h=854&amp;c=c&amp;webp=1 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/projects/cover_images/161733545321404451.jpg?gif=1&amp;w=1920&amp;h=1280&amp;c=c&amp;webp=1 3x">
 			        	</div>
                     </a>
+                    <div style="width: 100%; margin-top: 20px">
+                    	<img class="story-entry__image" onclick="" src="${listPopularPic[0].path}" style="display: block; margin: 0 auto;">
+                    </div>
                 </article>
             </div>
         </div>

@@ -460,10 +460,18 @@ insert into pic_lib(pl_uid  , pc_uid , pl_name  , pl_type  , pl_size , pl_path)
 values(pl_uid_seq.nextval, pc_uid_seq.nextval, CONCAT(i,'번째 이름'), '.png', 1, CONCAT(i,'번째 경로'));
 END LOOP;
 END;
-
+ALTER TABLE PIC_LIB MODIFY pl_path varchar2(200);
 
 /* test */
+UPDATE PIC_LIB SET PL_PATH ='https://www.sisa-news.com/data/photos/20200936/art_159912317533_32480a.jpg' WHERE pc_uid = 20;
 
+SELECT * FROM PICTURE p ;
+
+SELECT p.PC_UID, pl.PL_PATH FROM 
+(SELECT * from
+(SELECT * FROM PICTURE WHERE PC_WRITE_DATE BETWEEN '2021-04-18' AND '2021-04-20' ORDER BY PC_HITS DESC)
+WHERE ROWNUM= 1) p JOIN PIC_LIB pl ON p.PC_UID = pl.PC_UID ;
+
+ ;
 
 SELECT * FROM PIC_LIB;
-SELECT * FROM PICTURE;

@@ -17,6 +17,7 @@ public class HomeController {
 	@RequestMapping("")
 	public String Home(Model model) {
 		homeService.saveLog();
+		model.addAttribute("listPopularPic", homeService.listPopularPic());
 		return "home/homePage";
 	}
 }

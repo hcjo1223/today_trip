@@ -11,6 +11,26 @@
 			(log_uid_seq.nextval, #{logContent}, #{nowDate})
 	</insert> 
 
-
+	<select id="selectPopularPic" resultType="com.spring.app.domain.picLibDTO">
+	<![CDATA[  	
+		SELECT 
+			pl.PC_UID "pcuid" ,pl.PL_PATH "path"
+		FROM 
+			(SELECT * 
+				FROM
+				(SELECT * 
+					FROM 
+						PICTURE 
+					WHERE 
+						PC_WRITE_DATE BETWEEN '${startDate}' AND '${endDate}'
+					ORDER BY 
+						PC_HITS DESC)
+				WHERE ROWNUM= 1) p 
+			JOIN 
+				PIC_LIB pl 
+			ON 
+				p.PC_UID = pl.PC_UID
+		]]>	
+	</select>
 
 </mapper>
