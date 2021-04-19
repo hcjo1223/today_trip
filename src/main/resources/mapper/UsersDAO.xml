@@ -34,7 +34,8 @@
 	
 <!-- 로그인 정보 -->	
 	<resultMap id="usersResultMap" type = "com.spring.app.domain.UsersDTO">
-	<id property = "userId" column="us_id" />
+	<id property = "us_uid" column = "us_uid" />
+	<result property = "userId" column="us_id" />
 	<result property = "userPw" column="us_pw"/>
 	<result property = "userEmail" column="us_email"/>
 	<result property = "userNickname" column="us_nickName"/>
