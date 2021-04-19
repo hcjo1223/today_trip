@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.app.domain.ReviewDAO">
+
+	<select id="reviewCount" resultType="int">
+        SELECT COUNT(*) FROM review WHERE place_uid = #{place_uid}
+    </select>
+    
+    <select id="reviewList" resultType="com.spring.app.domain.ReviewDTO">
+        <![CDATA[ 
+        SELECT  
+        	us_uid, place_uid, rv_uid "re_uid", rv_content "content", rv_rate "rate", rv_write_date "write_date"
+        FROM 
+        	(SELECT ROWNUM AS RNUM, T.* FROM 
+				(SELECT * FROM review WHERE place_uid = #{place_uid} ORDER BY rv_uid DESC) T) 
+		WHERE 
+			RNUM >= #{from} AND RNUM < (#{from} + #{pageRows})
+        ]]>	
+    </select>
+    
+    
+    <insert id="reviewInsert" flushCache="true">
+        INSERT INTO review
+			(us_uid, place_uid, rv_uid, rv_content, rv_write_date)
+        VALUES
+			(1, #{place_uid}, rv_uid_seq.nextval, #{content}, SYSDATE)
+    </insert>
+    
+    <update id="reviewUpdate" parameterType="com.spring.app.domain.ReviewDTO">
+        UPDATE review
+        SET rv_content = #{content}
+        WHERE rv_uid = #{re_uid}
+    </update>
+    
+    <delete id="reviewDelete" parameterType="com.spring.app.domain.ReviewDTO">
+        DELETE FROM review WHERE rv_uid = #{re_uid}
+    </delete>
+    
+</mapper>

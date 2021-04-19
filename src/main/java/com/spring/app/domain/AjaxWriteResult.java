@@ -1,4 +1,10 @@
 package com.spring.app.domain;
+<<<<<<< HEAD
+=======
+
+import lombok.Data;
+
+>>>>>>> branch 'master' of https://github.com/hcjo1223/today_trip.git
 /*
 {
 	"count" : 10,
@@ -6,10 +12,12 @@ package com.spring.app.domain;
 	"message" : ""
 }
  */
+@Data
 public class AjaxWriteResult {
 	int count;		// 데이터 개수
 	String status;	// 처리 결과
 	String message;	// 결과 메세지
+<<<<<<< HEAD
 	
 	
 	public int getCount() {
@@ -32,4 +40,7 @@ public class AjaxWriteResult {
 	}
 
 	
+=======
+		
+>>>>>>> branch 'master' of https://github.com/hcjo1223/today_trip.git
 }

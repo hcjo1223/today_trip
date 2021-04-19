@@ -4,10 +4,19 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+<<<<<<< HEAD
+=======
+import lombok.Data;
+
+@Data
+>>>>>>> branch 'master' of https://github.com/hcjo1223/today_trip.git
 public class AjaxWriteList extends AjaxWriteResult {
 
 	@JsonProperty("data")
 	List<PlaceDTO> list;	// 데이터 목록
+	
+	@JsonProperty("rdata")
+	List<ReviewDTO> reviewList;
 	
 	int page;	// 현재 페이지 #
 	
@@ -23,6 +32,7 @@ public class AjaxWriteList extends AjaxWriteResult {
 	@JsonProperty("pagerows")
 	int pageRows; 	// 한 '페이지' 에 몇개의 글을 리스트 할 것인가?
 
+<<<<<<< HEAD
 	public List<PlaceDTO> getList() {
 		return list;
 	}
@@ -72,4 +82,6 @@ public class AjaxWriteList extends AjaxWriteResult {
 	}
 	
 	
+=======
+>>>>>>> branch 'master' of https://github.com/hcjo1223/today_trip.git
 }

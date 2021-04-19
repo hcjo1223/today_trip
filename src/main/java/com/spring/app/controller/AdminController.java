@@ -58,4 +58,23 @@ public class AdminController {
 	public String listUsers(Model model) {
 		return "admin/users";
 	}
+<<<<<<< HEAD
 }
+=======
+	
+	@RequestMapping("place/accommodation")
+	public String restAccommodation() {
+		return "admin/place/restPlace";
+	}
+	
+	@RequestMapping("place/restarurant")
+	public String restRestarurant() {
+		return "admin/place/restPlace";
+	}
+	
+	@RequestMapping("place/sights")
+	public String restSights() {
+		return "admin/place/restPlace";
+	}
+}
+>>>>>>> branch 'master' of https://github.com/hcjo1223/today_trip.git
