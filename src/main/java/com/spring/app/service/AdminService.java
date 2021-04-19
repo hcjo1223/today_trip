@@ -10,8 +10,10 @@ import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
 import com.spring.app.domain.AdminDAO;
+import com.spring.app.domain.CalenderDTO;
 import com.spring.app.domain.LogDTO;
 import com.spring.app.domain.PlaceDTO;
+import com.spring.app.domain.UsersDTO;
 
 @Service
 public class AdminService {
@@ -43,6 +45,16 @@ public class AdminService {
 		public List<PlaceDTO> listHomePlace(){
 			dao = sqlSession.getMapper(AdminDAO.class);
 			return dao.selectHomePlace();
+		}
+
+		public List<CalenderDTO> listHomeCalender(){
+			dao = sqlSession.getMapper(AdminDAO.class);
+			return dao.selectHomeCalender();
+		}
+		
+		public List<UsersDTO> listHomeUsers(){
+			dao = sqlSession.getMapper(AdminDAO.class);
+			return dao.selectHomeUsers();
 		}
 		
 		public List<LogDTO> listLogCount() {

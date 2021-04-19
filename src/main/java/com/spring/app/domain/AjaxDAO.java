@@ -22,8 +22,28 @@ public interface AjaxDAO {
 			@Param("endDate") String endDate
 			);
 	
-	public int countAll(
+	public List<PlaceDTO> selectCalenderRow(
+			@Param("from") int from,
+			@Param("pageRows") int pageRows
+			);
+
+	public List<CardsDTO> selectCardsRow(
+			@Param("from") int from,
+			@Param("pageRows") int pageRows
+			);
+
+	public List<UsersDTO> selectUsersRow(
+			@Param("from") int from,
+			@Param("pageRows") int pageRows
+			);
+	
+	public int placeCountAll(
 			@Param("contentTypeId") int contentTypeId
 			);
+	public int countAll();
+	
+	public int deleteByUid(int [] uids);
+	
+	public int restoreByUid(int [] uids);
 	
 }

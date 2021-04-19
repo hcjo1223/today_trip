@@ -56,8 +56,8 @@
                     </div>
                 </div>
                 <div class="layout-navigation-bar-login">
-                    <a class="layout-navigation-bar-login__item" href="">로그인</a>
-                    <a class="layout-navigation-bar-login__item" href="">회원가입</a>
+                    <a class="layout-navigation-bar-login__item" href="Users/login">로그인</a>
+                    <a class="layout-navigation-bar-login__item" href="Users/register">회원가입</a>
                 </div>
                 <div class="drop-down layout-navigation-bar-upload-button">
                     <button class="layout-navigation-bar-upload-button__button" type="button">글쓰기

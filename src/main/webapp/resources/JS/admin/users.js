@@ -34,22 +34,36 @@ function updateList(jsonObj){
         window.page = jsonObj.page;
         window.pageRows = jsonObj.pagerows; 
 
-        var items = jsonObj.data; // 배열
+        var items = jsonObj.Usersdata; // 배열
 
         for(var i = 0; i < count; i++){
             result += "<tr>\n";
-            result += '<td class="W30">' + items[i].uid + "</td>\n";
-            result += "<td>" + items[i].title + "</td>\n"
-            result += '<td class="W30">' + items[i].contentid + "</td>\n"  
-            result += '<td class="W30">' + items[i].mapx + "</td>\n"
-            result += '<td class="W30">' + items[i].mapy + "</td>\n"
-            result += "<td>" + items[i].addr1 + "</td>\n"
-            if (items[i].tel == null) {
-                result += "<td> </td>\n"  
+            result += '<td class="W30">' + items[i].us_uid + "</td>\n";
+            result += "<td>" + items[i].us_id + "</td>\n"
+            result += '<td class="W30">' + items[i].us_email + "</td>\n"  
+            result += '<td class="W30">' + items[i].us_nickName + "</td>\n"
+            if(items[i].us_gender == 0){
+                result += '<td class="W30">비공개</td>\n'
+            } else if(items[i].us_gender == 1){
+                result += '<td class="W30">남자</td>\n'
             } else {
-                result += "<td>" + items[i].tel + "</td>\n" 
+                result += '<td class="W30">여자</td>\n'
             }
-            result += '<td><img src="' + items[i].firstimage2 + '"></td>\n'        
+            if(items[i].us_birth == 0 || items[i].us_birth == null){
+                result += "<td> </td>\n"
+            } else {
+                result += "<td>" + dateFo(items[i].us_birth) + "</td>\n"
+            }
+            if(items[i].us_join_date == 0 || items[i].us_join_date == null){
+                result += "<td> </td>\n"
+            } else {
+                result += "<td>" + dateFo(items[i].us_join_date) + "</td>\n"
+            }
+            if(items[i].us_exit_ck == 1){
+                result += '<td class="W30"> </td>\n'
+            } else {
+                result += '<td class="W30">O</td>\n'
+            }
             result += "</tr>\n";
         }
         $("#list tbody").html(result);  // 업데이트
@@ -97,12 +111,12 @@ function buildPagination(writePages, totalPage, curPage, pageRows){
     
   //■ << 표시 여부
 	if(curPage > 1){
-		str += "<li><a onclick='loadPage(" + 1 + ")' class='tooltip-top' title='처음'><img style='transform: rotate(180deg)' src='../../resources/IMG/admin_chevron_double.png'></a></li>\n";
+		str += "<li><a onclick='loadPage(" + 1 + ")' class='tooltip-top' title='처음'><img style='transform: rotate(180deg)' src='../resources/IMG/admin_chevron_double.png'></a></li>\n";
 	}
 	
   	//■  < 표시 여부
     if (start_page > 1) 
-    	str += "<li><a onclick='loadPage(" + (start_page - 1) + ")' class='tooltip-top' title='이전'><img src='../../resources/IMG/admin_chevron_left.png'></a></li>\n";
+    	str += "<li><a onclick='loadPage(" + (start_page - 1) + ")' class='tooltip-top' title='이전'><img src='../resources/IMG/admin_chevron_left.png'></a></li>\n";
     
     //■  페이징 안의 '숫자' 표시	
 	if (totalPage > 1) {
@@ -116,12 +130,12 @@ function buildPagination(writePages, totalPage, curPage, pageRows){
 	
 	//■ > 표시
     if (totalPage > end_page){
-    	str += "<li><a onclick='loadPage(" + (end_page + 1) + ")' class='tooltip-top' title='다음'><img src='../../resources/IMG/admin_chevron_right.png'></a></li>\n";
+    	str += "<li><a onclick='loadPage(" + (end_page + 1) + ")' class='tooltip-top' title='다음'><img src='../resources/IMG/admin_chevron_right.png'></a></li>\n";
     }
 
 	//■ >> 표시
     if (curPage < totalPage) {
-        str += "<li><a onclick='loadPage(" + totalPage + ")' class='tooltip-top' title='맨끝'><img src='../../resources/IMG/admin_chevron_double.png'></a></li>\n";
+        str += "<li><a onclick='loadPage(" + totalPage + ")' class='tooltip-top' title='맨끝'><img src='../resources/IMG/admin_chevron_double.png'></a></li>\n";
     }
 
     return str;
@@ -161,7 +175,10 @@ function chkUpdate(){
 
 } // end chkUpdate();
 
-
+function dateFo(date){
+    result = date[0] + "-" + date[1] + "-" +date[2] + " " + date[3] + ":" + date[4] + ":" + date[5];
+     return result;
+ }
 
 
 

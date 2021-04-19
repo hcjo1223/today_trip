@@ -5,6 +5,15 @@ console.log(pageName);
 // 페이지 최초 로딩되면 게시글 목록 첫페이지분 로딩
 $(document).ready(function(){
     loadPage(page);   // 페이지 최초 로딩
+
+    $("#btnDel").click(function(){
+        chkDelete();
+    });
+
+    $("#btnRes").click(function(){
+        chkrestore();
+    });
+    
 });
 
 //page번째 페이지 목록 읽어오기
@@ -38,19 +47,20 @@ function updateList(jsonObj){
 
         for(var i = 0; i < count; i++){
             result += "<tr>\n";
-            result += '<td class="W30">' + items[i].uid + "</td>\n";
-            result += "<td>" + items[i].title + "</td>\n"
-            result += '<td class="W30">' + items[i].contentid + "</td>\n"  
-            result += '<td class="W30">' + items[i].mapx + "</td>\n"
-            result += '<td class="W30">' + items[i].mapy + "</td>\n"
-            result += "<td>" + items[i].addr1 + "</td>\n"
-            if (items[i].tel == null) {
-                result += "<td> </td>\n"  
+            result += '<td class="W30">' + items[i].tu_uid + "</td>\n";
+            result += '<td class="W30">' + items[i].us_uid + "</td>\n";
+            result += "<td>" + items[i].tu_title + "</td>\n"
+            result += '<td class="W30">' + items[i].tu_hits + "</td>\n"  
+            result += '<td class="W30">' + items[i].tu_period + "일</td>\n"
+            result += '<td class="W30">' + dateFo(items[i].tu_write_date) + "</td>\n"
+            result += '<td class="W30">' + dateFo(items[i].tu_start_tour).slice(0,10) + "</td>\n"
+            if(items[i].tu_del_ck == 1){
+                result += '<td class="W30"> </td>\n'
             } else {
-                result += "<td>" + items[i].tel + "</td>\n" 
+                result += '<td class="W30">O</td>\n'
             }
-            result += '<td><img src="' + items[i].firstimage2 + '"></td>\n'        
-            result += "</tr>\n";
+            // result += '<td class="W30">' + items[i].tu_del_ck + "</td>\n"
+            result += "<td><input type='checkbox' name='uid' value='" + items[i].tu_uid + "'>" + "</td>\n";
         }
         $("#list tbody").html(result);  // 업데이트
 
@@ -161,10 +171,88 @@ function chkUpdate(){
 
 } // end chkUpdate();
 
+function chkDelete(){
+    var uids = [];  // check 된 uid  들을 담을 배열 준비
 
+    $("#list tbody input[name=uid]").each(function(){
+        if($(this).is(":checked")){   // jQuery에서 checked 여부 확인함수
+            uids.push(parseInt($(this).val()));   // 배열에 uid 값 추가
+        }
+    });
 
+    if(uids.length == 0){
+        alert("삭제할 글을 체크해주세요");
+    } else {
+        if(!confirm(uids.length + "개의 글을 삭제하시겠습니까?")) return false;
 
+        var data = $("#frmList").serialize();
+        // alert(data);    // uid=10&uid=20  
 
+        $.ajax({
+            url : "./delete",    // URL : /board
+            type : "PUT",
+            data : data,
+            cache : false,
+            success : function(data, status){
+                if(status == "success"){
+                    if(data.status == "OK"){
+                        alert("DELETE성공: " +   data.count + "개");
+                        loadPage(window.page);  // 현재 페이지 목록 다시 로딩
+                    } else {
+                        alert("DELETE실패: " +  data.message);
+                        return false;
+                    }
+                }
+            }
+        });
+    } // end if
+
+    return true;
+} // end chkDelete()
+
+function chkrestore(){
+    var uids = [];  // check 된 uid  들을 담을 배열 준비
+
+    $("#list tbody input[name=uid]").each(function(){
+        if($(this).is(":checked")){   // jQuery에서 checked 여부 확인함수
+            uids.push(parseInt($(this).val()));   // 배열에 uid 값 추가
+        }
+    });
+
+    if(uids.length == 0){
+        alert("복구할 글을 체크해주세요");
+    } else {
+        if(!confirm(uids.length + "개의 글을 복구하시겠습니까?")) return false;
+
+        var data = $("#frmList").serialize();
+        // alert(data);    // uid=10&uid=20  
+
+        $.ajax({
+            url : "./restore",    // URL : /board
+            type : "PUT",
+            data : data,
+            cache : false,
+            success : function(data, status){
+                if(status == "success"){
+                    if(data.status == "OK"){
+                        alert("RESTORE성공: " +   data.count + "개");
+                        loadPage(window.page);  // 현재 페이지 목록 다시 로딩
+                    } else {
+                        alert("RESTORE실패: " +  data.message);
+                        return false;
+                    }
+                }
+            }
+        });
+    } // end if
+
+    return true;
+} // end chkDelete()
+
+function dateFo(date){
+   result = date[0] + "-" + date[1] + "-" +date[2] + " " + date[3] + ":" + date[4] + ":" + date[5];
+    return result;
+}
 
 
 

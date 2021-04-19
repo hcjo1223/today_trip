@@ -19,6 +19,8 @@ public class AdminController {
 	public String listHome(Model model) {
 		model.addAttribute("listLogCount", adminService.listLogCount());
 		model.addAttribute("listHomePlace", adminService.listHomePlace());
+		model.addAttribute("listHomeCalender", adminService.listHomeCalender());
+		model.addAttribute("listHomeUsers", adminService.listHomeUsers());
 		return "admin/home";
 	}
 	
@@ -42,10 +44,10 @@ public class AdminController {
 //		model.addAttribute("listAdminPlaceS", adminService.listAdminPlaceS());
 //		return "admin/place/sights";
 //	}
-	@RequestMapping("/board/calender")	
-	public String listCalender(Model model) {
-		return "admin/calender";
-	}
+//	@RequestMapping("/board/calender")	
+//	public String listCalender(Model model) {
+//		return "admin/calender";
+//	}
 	@RequestMapping("/board/cards")
 	public String listCards(Model model) {
 		return "admin/cards";
@@ -55,8 +57,13 @@ public class AdminController {
 		model.addAttribute("listLogCount", adminService.listLogCount());
 		return "admin/stats";
 	}
+//	@RequestMapping("/users")
+//	public String listUsers(Model model) {
+//		return "admin/users";
+//	}
+
 	@RequestMapping("/users")
-	public String listUsers(Model model) {
+	public String restUsers() {
 		return "admin/users";
 	}
 	
@@ -73,5 +80,10 @@ public class AdminController {
 	@RequestMapping("place/sights")
 	public String restSights() {
 		return "admin/place/restPlace";
+	}
+	
+	@RequestMapping("board/calender")
+	public String restCalender() {
+		return "admin/calender";
 	}
 }
