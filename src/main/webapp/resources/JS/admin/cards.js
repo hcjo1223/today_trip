@@ -43,24 +43,70 @@ function updateList(jsonObj){
         window.page = jsonObj.page;
         window.pageRows = jsonObj.pagerows; 
 
-        var items = jsonObj.data; // 배열
+        var items = jsonObj.Cardsdata; // 배열
 
         for(var i = 0; i < count; i++){
             result += "<tr>\n";
-            result += '<td class="W30">' + items[i].tu_uid + "</td>\n";
-            result += '<td class="W30">' + items[i].us_uid + "</td>\n";
-            result += "<td>" + items[i].tu_title + "</td>\n"
-            result += '<td class="W30">' + items[i].tu_hits + "</td>\n"  
-            result += '<td class="W30">' + items[i].tu_period + "일</td>\n"
-            result += '<td class="W30">' + dateFo(items[i].tu_write_date) + "</td>\n"
-            result += '<td class="W30">' + dateFo(items[i].tu_start_tour).slice(0,10) + "</td>\n"
-            if(items[i].tu_del_ck == 1){
+            result += '<td class="W30">' + items[i].uid + "</td>\n";
+            result += '<td class="W30">' + items[i].usuid + "</td>\n";
+            result += "<td>" + items[i].hits + "</td>\n"
+            result += '<td class="W30">' + items[i].location + "</td>\n"
+
+            switch (items[i].focus){
+                case 0:
+                    result += '<td class="W30">유명 관광지</td>\n'
+                    break;
+                case 1:
+                    result += '<td class="W30">SNS 핫플레이스</td>\n'
+                    break;
+                case 2:
+                    result += '<td class="W30">여유롭게 힐링</td>\n'
+                    break;
+                case 3:
+                    result += '<td class="W30">체험·액티비티</td>\n'
+                    break;
+                case 4:
+                    result += '<td class="W30">문화·예술·역사</td>\n'
+                    break;
+                case 5:
+                    result += '<td class="W30">자연과 함께</td>\n'
+                    break;
+                case 6:
+                    result += '<td class="W30">관광보다 먹방</td>\n'
+                    break;
+            } 
+            
+            switch (items[i].withs){
+                case 0:
+                    result += '<td class="W30">혼자</td>\n'
+                    break;
+                case 1:
+                    result += '<td class="W30">친구</td>\n'
+                    break;
+                case 2:
+                    result += '<td class="W30">연인</td>\n'
+                    break;
+                case 3:
+                    result += '<td class="W30">배우자</td>\n'
+                    break;
+                case 4:
+                    result += '<td class="W30">아이</td>\n'
+                    break;
+                case 5:
+                    result += '<td class="W30">부모님</td>\n'
+                    break;
+                case 6:
+                    result += '<td class="W30">기타</td>\n'
+                    break;
+            } 
+            result += '<td class="W30">' + dateFo(items[i].regDate).slice(0,10) + "</td>\n"
+            if(items[i].delCheck == 1){
                 result += '<td class="W30"> </td>\n'
             } else {
                 result += '<td class="W30">O</td>\n'
             }
             // result += '<td class="W30">' + items[i].tu_del_ck + "</td>\n"
-            result += "<td><input type='checkbox' name='uid' value='" + items[i].tu_uid + "'>" + "</td>\n";
+            result += "<td><input type='checkbox' name='uid' value='" + items[i].uid + "'>" + "</td>\n";
         }
         $("#list tbody").html(result);  // 업데이트
 
@@ -186,9 +232,8 @@ function chkDelete(){
         if(!confirm(uids.length + "개의 글을 삭제하시겠습니까?")) return false;
 
         var data = $("#frmList").serialize();
-        data += "&type=1"//calender 확인
         // alert(data);    // uid=10&uid=20  
-
+        data += "&type=2"//cards 확인
         $.ajax({
             url : "./delete",    // URL : /board
             type : "PUT",
@@ -226,8 +271,8 @@ function chkrestore(){
         if(!confirm(uids.length + "개의 글을 복구하시겠습니까?")) return false;
 
         var data = $("#frmList").serialize();
-        data += "&type=1"//calender 확인
         // alert(data);    // uid=10&uid=20  
+        data += "&type=2"//cards 확인
 
         $.ajax({
             url : "./restore",    // URL : /board

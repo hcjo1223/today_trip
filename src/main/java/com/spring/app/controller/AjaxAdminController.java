@@ -10,13 +10,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.spring.app.domain.AdminDTO;
 import com.spring.app.domain.AjaxWriteList;
 import com.spring.app.domain.AjaxWriteResult;
-import com.spring.app.domain.CalenderDAO;
-import com.spring.app.domain.CalenderDTO;
 import com.spring.app.domain.CardsDTO;
 import com.spring.app.domain.PlaceDTO;
-import com.spring.app.domain.UsersDTO;
 import com.spring.app.service.AjaxAdminService;
 
 @RestController
@@ -223,7 +221,7 @@ public class AjaxAdminController {
 					int totalCnt = 0;  // 글은 총 몇개인가?
 					try {
 						// 글 전체 개수 구하기
-						totalCnt = ajaxAdminService.count();
+						totalCnt = ajaxAdminService.calenderCount();
 						
 						// 총 몇 페이지 분량인가?
 						totalPage = (int)Math.ceil(totalCnt / (double)pageRows);
@@ -259,7 +257,7 @@ public class AjaxAdminController {
 					return result;
 				}
 				
-				// 일정 글 목록 (페이징)
+				// 사진게시판 글 목록 (페이징)
 				@GetMapping("/board/cards/{page}/{pageRows}")
 				public AjaxWriteList listCards(
 					@PathVariable int page,
@@ -280,7 +278,7 @@ public class AjaxAdminController {
 					int totalCnt = 0;  // 글은 총 몇개인가?
 					try {
 						// 글 전체 개수 구하기
-						totalCnt = ajaxAdminService.count();
+						totalCnt = ajaxAdminService.CardsCount();
 						
 						// 총 몇 페이지 분량인가?
 						totalPage = (int)Math.ceil(totalCnt / (double)pageRows);
@@ -322,7 +320,7 @@ public class AjaxAdminController {
 					@PathVariable int page,
 					@PathVariable int pageRows){
 					
-					List<UsersDTO> list = null;
+					List<AdminDTO> list = null;
 					
 					// response 에 필요한 값들
 					StringBuffer message = new StringBuffer();
@@ -337,7 +335,7 @@ public class AjaxAdminController {
 					int totalCnt = 0;  // 글은 총 몇개인가?
 					try {
 						// 글 전체 개수 구하기
-						totalCnt = ajaxAdminService.count();
+						totalCnt = ajaxAdminService.UsersCount();
 						
 						// 총 몇 페이지 분량인가?
 						totalPage = (int)Math.ceil(totalCnt / (double)pageRows);
@@ -373,16 +371,15 @@ public class AjaxAdminController {
 					return result;
 				}
 				@PutMapping("/board/delete")
-				public AjaxWriteResult deleteOk(int [] uid) {
+				public AjaxWriteResult deleteOk(int [] uid ,int type) {
 					int count = 0;
-					
+					System.out.println(uid);
 					// response 에 필요한 값들
 					StringBuffer message = new StringBuffer();
 					String status = "FAIL";  // 기본 FAIL
-
 					try {	
 
-						count = ajaxAdminService.deleteByUid(uid);
+						count = ajaxAdminService.deleteByUid(uid, type);
 						status = "OK";
 						
 						if(count == 0) {
@@ -402,7 +399,7 @@ public class AjaxAdminController {
 				}
 				
 				@PutMapping("/board/restore")
-				public AjaxWriteResult restoreOk(int [] uid) {
+				public AjaxWriteResult restoreOk(int [] uid , int type) {
 					int count = 0;
 					
 					// response 에 필요한 값들
@@ -411,7 +408,7 @@ public class AjaxAdminController {
 
 					try {	
 
-						count = ajaxAdminService.restoreByUid(uid);
+						count = ajaxAdminService.restoreByUid(uid, type);
 						status = "OK";
 						
 						if(count == 0) {
