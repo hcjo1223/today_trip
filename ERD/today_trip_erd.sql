@@ -120,7 +120,6 @@ CREATE TABLE place
 
 CREATE TABLE place_like
 (
-	lc_like_ck number,
 	place_uid number NOT NULL,
 	us_uid NUMBER DEFAULT 0 NOT NULL
 );
@@ -204,8 +203,6 @@ CREATE TABLE users
 	us_memo varchar2(100),
 	us_join_date date,
 	us_pic varchar2(20),
-	session_key VARCHAR(50) DEFAULT 'none',
-	session_limit DATE,
 	us_exit_ck number DEFAULT 0,
 	us_exit_date date,
 	PRIMARY KEY (us_uid)
@@ -438,15 +435,15 @@ WHERE place_uid = 3413;
 /* users 더미데이터 */
 BEGIN
 FOR i IN 1..50 LOOP
-insert into users(us_uid, us_id, us_nickName, us_pw, us_email)
-values(us_uid_seq.nextval, CONCAT('ID',i), CONCAT('NickName',i), CONCAT('PW',i),CONCAT(i,'@google.com'));
+insert into users(us_uid, us_id, us_pw, us_email)
+values(us_uid_seq.nextval, CONCAT('ID',i), CONCAT('PW',i),CONCAT(i,'@google.com'));
 END LOOP;
 END;
 /* review 더미데이터 */
 BEGIN
 FOR i IN 1..20 LOOP
 insert into review(us_uid, place_uid, rv_uid, rv_content, rv_write_date)
-values(i, 190, rv_uid_seq.nextval , CONCAT(i,'번째 리뷰남깁니다'), SYSDATE);
+values(i, 2, rv_uid_seq.nextval , CONCAT(i,'번째 리뷰남깁니다'), SYSDATE);
 END LOOP;
 END;
 /* picture 더미데이터 */
