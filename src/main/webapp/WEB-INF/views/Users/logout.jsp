@@ -6,7 +6,7 @@
 <body>
    <script>
       alert("로그아웃되었습니다.");
-      self.location = "/home";
+      self.location = "today_trip/home";
    </script>
 </body>
 </html>
