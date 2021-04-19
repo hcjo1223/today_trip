@@ -5,7 +5,7 @@
 <mapper namespace="com.spring.app.domain.PlaceDAO">
 	
 	<!-- 글 목록 (페이징) : page, pageRows -->
-	<select id="selectFromRow" resultType="com.spring.app.domain.CardsDTO">
+	<select id="selectFromRow" resultType="com.spring.app.domain.PlaceDTO">
 		
 	<![CDATA[  	
 		SELECT A.*, H.reviewcnt FROM 
