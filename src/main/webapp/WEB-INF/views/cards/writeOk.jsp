@@ -13,7 +13,7 @@
 	<c:otherwise>
 		<script>
 			alert("등록 성공, 리스트 출력합니다.");
-			location.href = "list.do";
+			location.href = "rest";
 		</script>
 	</c:otherwise>
 </c:choose>
