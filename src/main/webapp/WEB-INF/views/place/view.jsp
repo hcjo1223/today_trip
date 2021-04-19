@@ -21,7 +21,7 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/resources/CSS/common.css"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://kit.fontawesome.com/bb29575d31.js"></script>
-<script src="${pageContext.request.contextPath }/resources/JS/place.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath }/resources/JS/place/place.js" type="text/javascript"></script>
 <style>
 img {
     vertical-align: middle;
@@ -79,6 +79,8 @@ body {
 			<script type="text/javascript">
 			var contentId = "${list[0].contentId }";
 			var contentTypeId = "${list[0].contentTypeId }";
+			var mapx = "${list[0].mapx }";
+			var mapy = "${list[0].mapy }";
 			</script> 
 </head>
 
@@ -92,12 +94,7 @@ body {
 			<h2 id="tltle"> ${list[0].title } </h2>
 			조회수 : ${list[0].viewCnt }
 			</div>
-			
-			<script type="text/javascript">
-			var contentId = "${list[0].contentId }";
-			var contentTypeId = "${list[0].contentTypeId }";
-			</script> 
-			
+		
 			<div id="commonData"></div><hr>
 			<div id="txtData"></div><hr>
 			<div id="imgGallery"></div><hr>
