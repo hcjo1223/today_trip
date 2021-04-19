@@ -86,8 +86,26 @@
 			ORDER BY 
 				place_uid
 				)
-		WHERE ROWNUM <8
+		WHERE ROWNUM <6
 		]]>	
 	</select>
+
+	<select id="selectHomeCalender" resultType="com.spring.app.domain.CalenderDTO">
+	<![CDATA[  
+		SELECT * FROM (
+			SELECT 
+				tu_uid, 
+				tu_title, 
+				tu_hits,
+				tu_write_date
+			FROM 
+				tour 
+			ORDER BY 
+				tu_uid
+				)
+		WHERE ROWNUM <7
+		]]>	
+	</select>
+	
 
 </mapper>

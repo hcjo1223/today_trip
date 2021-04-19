@@ -4,12 +4,9 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-<<<<<<< HEAD
-=======
 import lombok.Data;
 
 @Data
->>>>>>> branch 'master' of https://github.com/hcjo1223/today_trip.git
 public class AjaxWriteList extends AjaxWriteResult {
 
 	@JsonProperty("data")
@@ -32,56 +29,4 @@ public class AjaxWriteList extends AjaxWriteResult {
 	@JsonProperty("pagerows")
 	int pageRows; 	// 한 '페이지' 에 몇개의 글을 리스트 할 것인가?
 
-<<<<<<< HEAD
-	public List<PlaceDTO> getList() {
-		return list;
-	}
-
-	public void setList(List<PlaceDTO> list) {
-		this.list = list;
-	}
-
-	public int getPage() {
-		return page;
-	}
-
-	public void setPage(int page) {
-		this.page = page;
-	}
-
-	public int getTotalPage() {
-		return totalPage;
-	}
-
-	public void setTotalPage(int totalPage) {
-		this.totalPage = totalPage;
-	}
-
-	public int getTotalCnt() {
-		return totalCnt;
-	}
-
-	public void setTotalCnt(int totalCnt) {
-		this.totalCnt = totalCnt;
-	}
-
-	public int getWritePages() {
-		return writePages;
-	}
-
-	public void setWritePages(int writePages) {
-		this.writePages = writePages;
-	}
-
-	public int getPageRows() {
-		return pageRows;
-	}
-
-	public void setPageRows(int pageRows) {
-		this.pageRows = pageRows;
-	}
-	
-	
-=======
->>>>>>> branch 'master' of https://github.com/hcjo1223/today_trip.git
 }

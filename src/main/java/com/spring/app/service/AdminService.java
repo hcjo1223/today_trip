@@ -44,6 +44,11 @@ public class AdminService {
 			dao = sqlSession.getMapper(AdminDAO.class);
 			return dao.selectHomePlace();
 		}
+
+		public List<PlaceDTO> listHomeCalender(){
+			dao = sqlSession.getMapper(AdminDAO.class);
+			return dao.selectHomeCalender();
+		}
 		
 		public List<LogDTO> listLogCount() {
 			dao = sqlSession.getMapper(AdminDAO.class);

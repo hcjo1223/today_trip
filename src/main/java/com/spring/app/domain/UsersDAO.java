@@ -15,6 +15,7 @@ public interface UsersDAO {
 	
 	// 세션키 검증
 	public UsersDTO checkUserWithSessionKey(String value) throws Exception;
+
 	public void update(UsersDTO usersDTO) throws Exception;
 	
 }

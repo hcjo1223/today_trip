@@ -1057,6 +1057,9 @@ table.tablePlace td {
 .tablePlace img {
 	width: 200px;
 }
+.tablePlace td, th {
+	font-size: 14px;
+}
 div.row {
 	float: right;
 	padding: 3px 30px 0 0;
@@ -1106,4 +1109,36 @@ td.W30 {
 	float: left;
 	font-size: 1.8em;
 	
+}
+.center {
+	float: right;
+	margin-right: 100px;
+	margin-bottom: 30px;
+}
+.left{
+	float: right;
+	margin-right: 30px;
+}
+.right{
+	float: right;
+	margin-right: 20px;
+}
+#list{
+	float: right;
+	width: 100%;
+}
+.tooltip-top img{
+	width:16px;
+	height: 18px;
+	position: relative;
+}
+.delPlace{
+  float: right;
+  margin: -10px 50px 0 0;
+  
+}
+.subSpan{
+	font-size: 16px;
+	color: gray;
+	margin-left: 8px;
 }

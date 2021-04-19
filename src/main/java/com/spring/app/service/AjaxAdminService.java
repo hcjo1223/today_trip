@@ -33,7 +33,32 @@ public class AjaxAdminService {
 	
 	public int count(int contentTypeId) {
 		dao = sqlSession.getMapper(AjaxDAO.class);
-		return dao.countAll(contentTypeId);
+		return dao.placeCountAll(contentTypeId);
 	}
+	public int count() {
+		dao = sqlSession.getMapper(AjaxDAO.class);
+		return dao.countAll();
+	}
+	
+	public List<PlaceDTO> listCalender(int from, int pageRows){
+		dao = sqlSession.getMapper(AjaxDAO.class);
+		return dao.selectCalenderRow(from, pageRows);
+	}
+
+	public List<PlaceDTO> listUsers(int from, int pageRows){
+		dao = sqlSession.getMapper(AjaxDAO.class);
+		return dao.selectUsersRow(from, pageRows);
+	}
+	
+	public int deleteByUid(int [] uids) {
+		dao = sqlSession.getMapper(AjaxDAO.class); // MyBatis 사용
+		return dao.deleteByUid(uids);
+	}
+	
+	public int restoreByUid(int [] uids) {
+		dao = sqlSession.getMapper(AjaxDAO.class); // MyBatis 사용
+		return dao.restoreByUid(uids);
+	}
+
 
 }
