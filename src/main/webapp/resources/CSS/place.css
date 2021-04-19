@@ -190,7 +190,7 @@ img {
 
 .item_section .item_count_area .ico_type.like {
     display: block;
-    background: url(https://www.visitjeju.net/image/common/ico_like.png) no-repeat 50% 2px
+    background: url(../IMG/ico_like.png) no-repeat 50% 2px
 }
 
 .item_section .item_count_area .ico_type.zzim {
@@ -797,4 +797,45 @@ div {
 .bx-wrapper img {
 	max-width: 100%;
 	display: block;
+}
+
+.review {
+	margin: 0 auto;
+    padding: 0 20px;
+    width: 1200px;
+}    
+
+.review .container{
+	padding-bottom: 20px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.review .container label{
+    font-size: 24px;
+    font-weight: 800;
+    color: #1b1b1b;
+    line-height: 24px;
+}
+
+.review .container #count{
+	font-size: 24px;
+    font-weight: 800;
+    color: #f38f1e;
+    line-height: 24px;
+    margin-left: 0;
+}
+
+
+.review .container .commentArea{
+    position: relative;
+    padding: 20px 0;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.review .container .form-control{
+	height: 43px;
+}
+
+.commentList .commentArea .commentInfo a{
+	color: blue;
 }

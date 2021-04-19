@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.spring.app.domain.PlaceDAO;
 import com.spring.app.domain.PlaceDTO;
+import com.spring.app.domain.PlaceLikeDAO;
 import com.spring.app.domain.ReviewDAO;
 import com.spring.app.domain.ReviewDTO;
 
@@ -73,6 +74,28 @@ public class PlaceService {
 	public int reviewDelete(int re_uid) throws Exception{
 		dao2 = sqlSession.getMapper(ReviewDAO.class);
 		return dao2.reviewDelete(re_uid);
+	}
+	
+PlaceLikeDAO dao3;
+	
+	public int createPlaceLike(int place_uid, int us_uid) throws Exception{
+		dao3 = sqlSession.getMapper(PlaceLikeDAO.class);
+		return dao3.createPlaceLike(place_uid, us_uid);
+	}
+	
+	public int deletePlaceLike(int place_uid, int us_uid) throws Exception{
+		dao3 = sqlSession.getMapper(PlaceLikeDAO.class);
+		return dao3.deletePlaceLike(place_uid, us_uid);
+	}
+
+	public int countPlaceLike(int place_uid) throws Exception{
+		dao3 = sqlSession.getMapper(PlaceLikeDAO.class);
+		return dao3.countPlaceLike(place_uid);
+	}
+	
+	public int chkPlaceLike(int place_uid, int us_uid) throws Exception{
+		dao3 = sqlSession.getMapper(PlaceLikeDAO.class);
+		return dao3.chkPlaceLike(place_uid, us_uid);
 	}
 	
 }

@@ -38,7 +38,7 @@
 	
 	<select id="selectByUid" resultType="com.spring.app.domain.PlaceDTO">
 		SELECT
-			place_uid "uid", title, contentid, contenttypeid, mapx, mapy, pl_viewcnt viewcnt
+			place_uid , title, contentid, contenttypeid, mapx, mapy, pl_viewcnt viewcnt
 		FROM place
 		WHERE contentid = #{contentid}	
 	</select>

@@ -5,10 +5,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.app.domain.AjaxWriteList;
+import com.spring.app.domain.AjaxWriteResult;
 import com.spring.app.domain.PlaceDTO;
 import com.spring.app.service.PlaceService;
 
@@ -78,5 +81,118 @@ public class PlaceRestController {
 		result.setTotalCnt(totalCnt);
 		
 		return result;
+	}
+	
+	// 좋아요 생성
+	@PostMapping("/like")
+	public AjaxWriteResult wirteOk(
+			@RequestParam int place_uid,
+			@RequestParam int us_uid) {
+		int count = 0;
+		
+		// response 에 필요한 값들
+		StringBuffer message = new StringBuffer();
+		String status = "FAIL";  // 기본 FAIL
+		
+		System.out.println(place_uid + " - " + us_uid);
+		try {	
+
+			count = placeService.createPlaceLike(place_uid, us_uid);
+			
+			if(count == 0) {
+				message.append("[트랜잭션 실패 : 0 insert]");
+			} else {
+				status = "OK";
+			}
+
+		} catch (Exception e) {
+			//e.printStackTrace();				
+			message.append("[트랜잭션 에러:" + e.getMessage() + "]");
+		}
+
+		AjaxWriteResult result = new AjaxWriteResult();
+		result.setStatus(status);
+		result.setMessage(message.toString());
+		result.setCount(count);
+		return result;	
+	}
+		
+	// 좋아요 삭제
+	@PostMapping("/like/delete")
+	public AjaxWriteResult deleteOk(
+			@RequestParam int place_uid,
+			@RequestParam int us_uid) {
+		int count = 0;
+		
+		// response 에 필요한 값들
+		StringBuffer message = new StringBuffer();
+		String status = "FAIL";  // 기본 FAIL
+
+		System.out.println(place_uid + " - " + us_uid);
+		try {	
+
+			count = placeService.deletePlaceLike(place_uid, us_uid);
+			
+			if(count == 0) {
+				message.append("[트랜잭션 실패 : 0 delete]");
+			} else {
+				status = "OK";
+			}
+
+		} catch (Exception e) {
+			message.append("[트랜잭션 에러:" + e.getMessage() + "]");
+		}
+
+		AjaxWriteResult result = new AjaxWriteResult();
+		result.setStatus(status);
+		result.setMessage(message.toString());
+		result.setCount(count);
+		return result;	
+	}
+	
+	// 좋아요 카운트
+	@GetMapping("/like/count")
+	public AjaxWriteResult likeCount(@RequestParam int place_uid) {
+int count = 0;
+		
+		// response 에 필요한 값들
+		StringBuffer message = new StringBuffer();
+		String status = "FAIL";  // 기본 FAIL
+
+		try {	
+
+			count = placeService.countPlaceLike(place_uid);
+			
+			if(count == 0) {
+				message.append("[트랜잭션 실패 : 0 delete]");
+			} else {
+				status = "OK";
+			}
+
+		} catch (Exception e) {
+			message.append("[트랜잭션 에러:" + e.getMessage() + "]");
+		}
+
+		AjaxWriteResult result = new AjaxWriteResult();
+		result.setStatus(status);
+		result.setMessage(message.toString());
+		result.setCount(count);
+		return result;	
+	}
+	
+	// 좋아요 여부 체크
+	@GetMapping("/like/check")
+	public int likeCheck(
+			@RequestParam int place_uid,
+			@RequestParam int us_uid) {
+		int check = 0;
+		
+		try {
+			check = placeService.chkPlaceLike(place_uid, us_uid);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return check;
 	}
 }

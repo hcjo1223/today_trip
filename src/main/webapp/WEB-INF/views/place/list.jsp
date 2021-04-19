@@ -101,26 +101,28 @@ a { text-decoration-line: none; }
     </div>
 </header>
 
+<script>
+	var us_uid = 1; 
+</script>
+
 <%-- 글 목록 --%>
 <div class="recommend_area">
 
 	<div id="list">
 		
-		
 		<%-- header --%>
 		<div class="theme_tit_area clear">
-		<h1>장소 게시판</h1>
-		<div class="d01">
-			<div class="left" id="pageinfo"></div>
-			<div class="right" id="pageRows"></div>
-		</div>
+			<h1>장소 게시판</h1>
+			<div class="d01">
+				<div class="left" id="pageinfo"></div>
+				<div class="right" id="pageRows"></div>
+			</div>
 		</div>
 		
 		<%-- 목록 --%>
 		<ul class="item_list type_thumb type_1 clear">
 		</ul>
 	</div>
-
 
 	<div class="clear"></div>
 

@@ -5,8 +5,8 @@
 <script>
 var page = 1;   //  현재 페이지
 var pageRows = 6;  // 페이지당 글의 개수
-var pl_uid = '${list[0].uid}'; //게시글 번호
-
+var pl_uid = '${list[0].place_uid}'; //게시글 번호
+console.log(pl_uid);
 $('[name=commentInsertBtn]').click(function(){ //댓글 등록 버튼 클릭시 
     var insertData = $('[name=commentInsertForm]').serialize(); //commentInsertForm의 내용을 가져옴
     commentInsert(insertData); //Insert 함수호출(아래)
@@ -74,7 +74,6 @@ function updateList(jsonObj){
 function commentInsert(insertData){
     $.ajax({
         url : './comment',
-        
         type : 'post',
         data : insertData,
         success : function(data, status){
