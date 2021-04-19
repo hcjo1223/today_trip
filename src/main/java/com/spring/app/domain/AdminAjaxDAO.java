@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import org.mybatis.spring.annotation.MapperScan;
 
 @MapperScan
-public interface AjaxDAO {
+public interface AdminAjaxDAO {
 
 	
 	public List<PlaceDTO> selectPlaceRow(
@@ -32,7 +32,7 @@ public interface AjaxDAO {
 			@Param("pageRows") int pageRows
 			);
 
-	public List<UsersDTO> selectUsersRow(
+	public List<AdminDTO> selectUsersRow(
 			@Param("from") int from,
 			@Param("pageRows") int pageRows
 			);
@@ -40,10 +40,18 @@ public interface AjaxDAO {
 	public int placeCountAll(
 			@Param("contentTypeId") int contentTypeId
 			);
-	public int countAll();
+	public int calenderCountAll();
 	
-	public int deleteByUid(int [] uids);
+	public int CardsCountAll();
 	
-	public int restoreByUid(int [] uids);
+	public int UsersCountAll();
+	
+	public int deleteCalenderByUid(int [] uids);
+	
+	public int restoreCalenderByUid(int [] uids);
+
+	public int deleteCardsByUid(int [] uids);
+	
+	public int restoreCardsByUid(int [] uids);
 	
 }

@@ -12,6 +12,7 @@
 			, us_email
 			, us_memo
 			, us_gender
+			, us_birth
 		) VALUES (
 			us_uid_seq.nextval
 			, #{userId, jdbcType=VARCHAR}
@@ -20,6 +21,7 @@
 			, #{userEmail, jdbcType=VARCHAR}
 			, #{userMemo, jdbcType=VARCHAR}
 			, #{gender, jdbcType=VARCHAR}	
+			, #{userBirthday, jdbcType=VARCHAR}
 		)
 		</insert>
 		
@@ -32,11 +34,13 @@
 	
 <!-- 로그인 정보 -->	
 	<resultMap id="usersResultMap" type = "com.spring.app.domain.UsersDTO">
-	<id property = "userId" column="us_id" />
+	<id property = "us_uid" column = "us_uid" />
+	<result property = "userId" column="us_id" />
 	<result property = "userPw" column="us_pw"/>
 	<result property = "userEmail" column="us_email"/>
 	<result property = "userNickname" column="us_nickName"/>
 	<result property = "gender" column="us_gender"/>
+	<result property = "userBirthday" column="us_birth"/>
 	</resultMap>
 	
 <!-- 로그인 유지 기능 -->
@@ -57,10 +61,10 @@
 <!-- 회원정보 수정  -->
 	<update id="update">
 		UPDATE users
-		SET us_pw=#{userPw}
-			,us_nickName=#{userNickname}
-			,us_email=#{userEmail}
-			,us_memo=#{userMemo}
+		SET us_pw=#{userPw, jdbcType=VARCHAR}
+			,us_nickName=#{userNickname, jdbcType=VARCHAR}
+			,us_email=#{userEmail, jdbcType=VARCHAR}
+			,us_memo=#{userMemo, jdbcType=VARCHAR}
 		WHERE us_id=#{userId}
 	</update>
 	

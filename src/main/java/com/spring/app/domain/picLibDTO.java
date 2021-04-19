@@ -1,6 +1,6 @@
 package com.spring.app.domain;
 
-public class picLibDTO extends CardsDTO {
+public class picLibDTO {
 	private int plUid;
 	private String name;
 	private String type;
@@ -17,15 +17,6 @@ public class picLibDTO extends CardsDTO {
 		this.pcuid = pcuid;
 	}
 
-	@Override
-	public int getUid() {
-		return super.getUid();
-	}
-	
-	@Override
-	public void setUid(int uid) {
-		super.setUid(uid);
-	}
 	
 	public int getPlUid() {
 		return plUid;

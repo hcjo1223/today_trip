@@ -3,7 +3,8 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.spring.app.domain.AdminDAO">
-
+	
+	
 	<select id="selectAdminPlaceA" resultType="com.spring.app.domain.PlaceDTO">
 		SELECT 
 			place_uid "uid", 
@@ -107,7 +108,15 @@
 		]]>	
 	</select>
 
-	<select id="selectHomeUsers" resultType="com.spring.app.domain.UsersDTO">
+	<resultMap id="usersResultMap" type = "com.spring.app.domain.UsersDTO">
+		<id property = "userId" column="us_id" />
+		<result property = "userPw" column="us_pw"/>
+		<result property = "userEmail" column="us_email"/>
+		<result property = "userNickname" column="us_nickName"/>
+		<result property = "gender" column="us_gender"/>
+	</resultMap>
+	
+	<select id="selectHomeUsers" resultMap="usersResultMap">
 	<![CDATA[  
 		SELECT * FROM (
 			SELECT 

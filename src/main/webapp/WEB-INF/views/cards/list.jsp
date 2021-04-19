@@ -55,7 +55,7 @@ table, th, td {
 
 </table>
 <br>
-<button onclick="location.href = 'write.do'">신규등록</button>
+<button onclick="location.href = 'new'">신규등록</button>
 
 </body>
 </html>

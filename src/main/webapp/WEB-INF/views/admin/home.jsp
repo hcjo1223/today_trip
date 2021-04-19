@@ -104,9 +104,9 @@
 					<c:forEach var="dto" items="${listHomeUsers }">
 						<tr>
 						 	<td class="W30">${dto.us_uid }</td>  <%-- dto.getUid() --%> 
-							<td>${dto.us_id }</td>
-							<td>${dto.us_email }</td>  <%-- dto.getName() --%>
-							<td>${dto.us_join_date }</td>
+							<td>${dto.userId }</td>
+							<td>${dto.userEmail }</td>  <%-- dto.getName() --%>
+							<td>${dto.reg_date }</td>
 						</tr>			
 					</c:forEach>
 				</c:otherwise>

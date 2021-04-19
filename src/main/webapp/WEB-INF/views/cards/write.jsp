@@ -43,7 +43,7 @@
 	<option value="3">관광</option>
 	<option value="4">핫플레이스</option>
 	<option value="5">액티비티</option>
-	<option value="6">문화예슬</option>
+	<option value="6">문화예술</option>
 	<option value="7">자연</option>
 </select>
 
@@ -76,12 +76,28 @@
 </div>
 -->
 
+<div id="image_container"></div> 
+<script> 
+function setThumbnail(event) { 
+	for (var image of event.target.files) { 
+		var reader = new FileReader(); 
+		reader.onload = function(event) { 
+			var img = document.createElement("img"); 
+			img.setAttribute("src", event.target.result); 
+			document.querySelector("div#image_container").appendChild(img); 
+			}; 
+			console.log(image);
+			reader.readAsDataURL(image); 
+			} 
+	}
 
+
+</script>
 
 <hr>
 <input type="submit" value="등록">
 </form>
 <br>
-<button type="button" onclick="location.href = 'list.do'">목록으로</button>
+<button type="button" onclick="location.href = 'rest'">목록으로</button>
 </body>
 </html>

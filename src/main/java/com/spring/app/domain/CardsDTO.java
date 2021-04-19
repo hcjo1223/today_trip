@@ -6,21 +6,45 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
-public class CardsDTO {
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+public class CardsDTO extends picLibDTO{
 	private int uid;
+	private int usuid;
 	private String contents;
 	private int hits;
 	private int location;
 	private int focus;
 	private int withs;
+	
+	@JsonProperty("regdate")
 	private LocalDateTime regDate;
 	private int delCheck;
 	
 	static List<MultipartFile> files;
 	
+	public int getUsuid() {
+		return usuid;
+	}
 
+	@JsonProperty("cards") // 제이슨 이름 변경
+	List<picLibDTO> list; // 데이터 목록
 	
-	
+	public List<picLibDTO> getList() {
+		return list;
+	}
+
+
+	public void setList(List<picLibDTO> list) {
+		this.list = list;
+	}
+
+
+
+	public void setUsuid(int usuid) {
+		this.usuid = usuid;
+	}
+
 	public static List<MultipartFile> getFiles() {
 		return files;
 	}

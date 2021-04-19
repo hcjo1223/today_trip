@@ -36,7 +36,7 @@ public class CardsController {
 		return "cards/list";
 	}
 	
-	@RequestMapping("/write.do")
+	@RequestMapping("/new")
 	public String write(Model model) {
 		return "cards/write";
 	}
@@ -89,7 +89,11 @@ public class CardsController {
 	}
 	
 	
-	
+	// REST 게시판 작성
+		@RequestMapping(value = "/rest")
+		public String rest() {
+			return "cards/rest";
+		}
 	
 	
 	

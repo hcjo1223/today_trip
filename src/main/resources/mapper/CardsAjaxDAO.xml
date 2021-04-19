@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.app.domain.CardsAjaxDAO">
+	
+	
+	
+	<select id="selectFromRow" 
+		resultType="com.spring.app.domain.CardsDTO">
+		<![CDATA[  
+		SELECT
+			pc_uid "uid"
+			, us_uid usuid 
+			, pc_contents contents 
+			, pc_hits hits 
+			, pc_location location 
+			, pc_focus focus 
+			, pc_with withs 
+			, pc_write_date regDate 
+			, pc_del_ck delCheck
+		FROM 
+			(SELECT ROWNUM AS RNUM, T.* FROM 
+				(SELECT * FROM picture WHERE pc_del_ck = 1 ORDER BY pc_uid DESC) T) 
+		WHERE 
+			RNUM >= #{from} AND RNUM < (#{from} + #{pageRows})
+		]]>	
+	</select>
+	
+	<insert id="insertLib" flushCache="true" parameterType="com.spring.app.domain.picLibDTO"
+		keyProperty="uid" useGeneratedKeys="true" keyColumn="pc_uid">
+		INSERT INTO pic_lib
+			(pl_uid, pc_uid, pl_name, pl_type, pl_size, pl_path )
+		VALUES
+			(pl_uid_seq.nextval, #{pcuid}, #{name}, #{type}, #{size}, #{path} )
+	</insert>
+	
+	<select id="countAll" resultType="int">
+		SELECT count(*) FROM picture 
+	</select>
+	
+	<select id="selectByUid" 
+		resultType="com.spring.app.domain.CardsDTO">
+		SELECT 
+			pc_uid "uid"
+			, pc_contents contents 
+			, pc_hits hits 
+			, pc_location location 
+			, pc_focus focus 
+			, pc_with withs 
+			, pc_write_date regDate 
+		FROM picture 
+		WHERE pc_uid=#{uid}
+	</select>
+	
+	<update id="incHits" flushCache="true">
+		UPDATE picture SET pc_hits = pc_hits + 1 WHERE pc_uid = #{param1}
+	</update>
+	
+	<update id="update" flushCache="true">
+		UPDATE picture 
+		SET pc_contents = #{contents}, pc_location = #{location}, pc_with = #{withs}, pc_focus = #{focus}
+		WHERE pc_uid = #{uid}
+	</update>
+	
+	<update id="deleteByUid" flushCache="true">
+		UPDATE picture SET pc_del_ck = 0 WHERE pc_uid = #{uid}
+	</update>
+	
+	<!-- 파일 리스트 -->
+	<select id="selectFileByUid" flushCache="true"
+	resultType="com.spring.app.domain.picLibDTO">
+		SELECT 
+		pl_uid "plUid"
+		, pl_path path
+		, pl_name name 
+		FROM pic_lib
+			WHERE pc_uid = #{uid} 
+	</select>
+	
+	<select id="selectFile1ByUid" flushCache="true"
+	resultType="com.spring.app.domain.picLibDTO">
+		<![CDATA[ SELECT 
+		, pl_path path
+		, pl_name name 
+		FROM pic_lib
+			WHERE rownum <= 1 AND pc_uid = #{uid} ]]>
+	</select>
+	
+	<delete id="deleteFileByUid" flushCache="true">
+		DELETE FROM pic_lib WHERE pl_uid = #{uid}
+	</delete>
+</mapper>
