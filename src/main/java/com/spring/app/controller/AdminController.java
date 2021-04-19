@@ -20,6 +20,7 @@ public class AdminController {
 		model.addAttribute("listLogCount", adminService.listLogCount());
 		model.addAttribute("listHomePlace", adminService.listHomePlace());
 		model.addAttribute("listHomeCalender", adminService.listHomeCalender());
+		model.addAttribute("listHomeUsers", adminService.listHomeUsers());
 		return "admin/home";
 	}
 	

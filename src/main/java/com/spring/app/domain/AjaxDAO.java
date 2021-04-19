@@ -27,7 +27,12 @@ public interface AjaxDAO {
 			@Param("pageRows") int pageRows
 			);
 
-	public List<PlaceDTO> selectUsersRow(
+	public List<CardsDTO> selectCardsRow(
+			@Param("from") int from,
+			@Param("pageRows") int pageRows
+			);
+
+	public List<UsersDTO> selectUsersRow(
 			@Param("from") int from,
 			@Param("pageRows") int pageRows
 			);
