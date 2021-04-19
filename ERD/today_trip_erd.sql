@@ -453,25 +453,17 @@ insert into picture(pc_uid , us_uid, pc_contents , pc_hits , pc_location, pc_foc
 values(pc_uid_seq.nextval, us_uid_seq.nextval, CONCAT(i,'번째 내용남깁니다'), 0, 3, 2, 1, SYSDATE, 0);
 END LOOP;
 END;
+/* pic_lib 더미데이터 */
+BEGIN
+FOR i IN 1..20 LOOP
+insert into pic_lib(pl_uid  , pc_uid , pl_name  , pl_type  , pl_size , pl_path)
+values(pl_uid_seq.nextval, pc_uid_seq.nextval, CONCAT(i,'번째 이름'), '.png', 1, CONCAT(i,'번째 경로'));
+END LOOP;
+END;
+
 
 /* test */
-SELECT
-			tu_uid "uid", 
-			us_uid, 
-			tu_title,
-			tu_hits, 
-			tu_period, 
-			tu_del_ck,
-			tu_write_date,
-			tu_start_tour
-		FROM 
-			(SELECT ROWNUM AS RNUM, T.* FROM 
-				(SELECT * FROM tour ORDER BY tu_uid) T) 
-		WHERE 
-			RNUM >= 1 AND RNUM < (1 + 10)
-			
-			
-			
-UPDATE tour
-	SET tu_del_ck = 0
-	WHERE tu_uid = 1;
+
+
+SELECT * FROM PIC_LIB;
+SELECT * FROM PICTURE;
