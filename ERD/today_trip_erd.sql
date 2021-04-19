@@ -120,7 +120,6 @@ CREATE TABLE place
 
 CREATE TABLE place_like
 (
-	lc_like_ck number,
 	place_uid number NOT NULL,
 	us_uid NUMBER DEFAULT 0 NOT NULL
 );
@@ -450,39 +449,23 @@ END;
 
 
 /* test */
-SELECT * FROM tab;
-
-SELECT count(*) FROM REVIEW WHERE PLACE_UID = 3;
-SELECT count(*) FROM place; 
-
-SELECT * FROM review;
-SELECT * FROM place;
-
-INSERT INTO
-review (us_uid, place_uid, rv_uid, rv_content, rv_write_date)
-VALUES(1, 3, rv_uid_seq.nextval, '리뷰내용입니다', SYSDATE);
-
-INSERT INTO 
-review (us_uid, place_uid, rv_uid, rv_content "content", rv_write_date "write_date")
-VALUES(1, 3, rv_uid_seq.nextval, '리뷰내용입니다', SYSDATE);
- 
-UPDATE review SET rv_content = '리뷰수정입니다'
-WHERE rv_uid = 40;
-
-DELETE FROM review WHERE rv_uid = 41;
-
-SELECT  
-	us_uid, place_uid, rv_uid, rv_content, rv_rate, rv_write_date
-FROM 
-	(SELECT ROWNUM AS RNUM, T.* FROM 
-		(SELECT * FROM review WHERE place_uid = 195 ORDER BY rv_uid DESC) T) 
-WHERE 
-	RNUM >= 1 AND RNUM < 11;
-
-SELECT ROWNUM, RV_UID FROM REVIEW;
-ALTER SEQUENCE rv_uid_seq INCREMENT BY 1;
-
-SELECT p.PLACE_UID, count(*) AS r_count
-FROM REVIEW r, place p 
-WHERE r.PLACE_UID = p.PLACE_UID
-GROUP BY p.PLACE_UID ;
+SELECT
+			tu_uid "uid", 
+			us_uid, 
+			tu_title,
+			tu_hits, 
+			tu_period, 
+			tu_del_ck,
+			tu_write_date,
+			tu_start_tour
+		FROM 
+			(SELECT ROWNUM AS RNUM, T.* FROM 
+				(SELECT * FROM tour ORDER BY tu_uid) T) 
+		WHERE 
+			RNUM >= 1 AND RNUM < (1 + 10)
+			
+			
+			
+UPDATE tour
+	SET tu_del_ck = 0
+	WHERE tu_uid = 1;

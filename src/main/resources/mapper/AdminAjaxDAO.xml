@@ -45,6 +45,27 @@
 		]]>	
 	</select>
 
+	<!-- 일정 게시판 글 목록 (페이징) : page, pageRows -->
+	<select id="selectCardsRow" 
+		resultType="com.spring.app.domain.CardsDTO">
+		<![CDATA[  
+		SELECT
+			pc_uid, 
+			us_uid, 
+			pc_hits,
+			pc_location, 
+			pc_focus, 
+			pc_with,
+			pc_write_date,
+			pc_del_ck
+		FROM 
+			(SELECT ROWNUM AS RNUM, T.* FROM 
+				(SELECT * FROM picture ORDER BY pc_uid) T) 
+		WHERE 
+			RNUM >= #{from} AND RNUM < (#{from} + #{pageRows})
+		]]>	
+	</select>
+
 	<!-- 유저 글 목록 (페이징) : page, pageRows -->
 	<select id="selectUsersRow" 
 		resultType="com.spring.app.domain.UsersDTO">

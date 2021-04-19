@@ -31,6 +31,6 @@ public class PlaceDTO {
 	String firstimage2;
 	@JsonProperty("viewcnt")
 	int viewCnt;
-	
+	int reviewcnt;
 	
 }

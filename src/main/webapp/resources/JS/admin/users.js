@@ -34,7 +34,7 @@ function updateList(jsonObj){
         window.page = jsonObj.page;
         window.pageRows = jsonObj.pagerows; 
 
-        var items = jsonObj.data; // 배열
+        var items = jsonObj.Usersdata; // 배열
 
         for(var i = 0; i < count; i++){
             result += "<tr>\n";
@@ -60,7 +60,7 @@ function updateList(jsonObj){
                 result += "<td>" + dateFo(items[i].us_join_date) + "</td>\n"
             }
             if(items[i].us_exit_ck == 1){
-                result += '<td class="W30">X</td>\n'
+                result += '<td class="W30"> </td>\n'
             } else {
                 result += '<td class="W30">O</td>\n'
             }

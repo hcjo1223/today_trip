@@ -55,7 +55,7 @@ function updateList(jsonObj){
             result += '<td class="W30">' + dateFo(items[i].tu_write_date) + "</td>\n"
             result += '<td class="W30">' + dateFo(items[i].tu_start_tour).slice(0,10) + "</td>\n"
             if(items[i].tu_del_ck == 1){
-                result += '<td class="W30">X</td>\n'
+                result += '<td class="W30"> </td>\n'
             } else {
                 result += '<td class="W30">O</td>\n'
             }

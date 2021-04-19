@@ -3,47 +3,28 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.spring.app.domain.PlaceDAO">
-
-	<select id="select" resultType="com.spring.app.domain.PlaceDTO">
-		SELECT
-			place_uid "uid",
-			contentid,
-			contenttypeid,
-			title,
-			mapx,
-			mapy,
-			areaCode,
-			sigunguCode,
-			addr1,
-			tel,
-			firstimage2,
-			pl_viewcnt viewcnt
-		FROM
-			place
-	</select>
 	
 	<!-- 글 목록 (페이징) : page, pageRows -->
 	<select id="selectFromRow" resultType="com.spring.app.domain.PlaceDTO">
 		
-	<![CDATA[  
-		SELECT
-			place_uid "uid",
-			contentid,
-			contenttypeid,
-			title,
-			mapx,
-			mapy,
-			areaCode,
-			sigunguCode,
-			addr1,
-			tel,
-			firstimage2,
-			pl_viewcnt viewcnt 
-		FROM 
-			(SELECT ROWNUM AS RNUM, T.* FROM 
-				(SELECT * FROM place ORDER BY place_uid DESC) T) 
-		WHERE 
-			RNUM >= #{from} AND RNUM < (#{from} + #{pageRows})
+	<![CDATA[  	
+		SELECT A.*, H.reviewcnt FROM 
+			(SELECT place_uid,
+					contentid,
+					contenttypeid,
+					title,
+					mapx,
+					mapy,
+					areaCode,
+					sigunguCode,
+					addr1,
+					tel,
+					firstimage2,
+					pl_viewcnt AS viewcnt 
+	    	 FROM (SELECT ROWNUM AS RNUM, T.* FROM (SELECT * FROM place ORDER BY place_uid DESC) T) 
+	     	 WHERE RNUM >= #{from} AND RNUM < (#{from} + #{pageRows})) A 
+        LEFT OUTER JOIN (SELECT PLACE_UID ,count(*) AS reviewcnt FROM REVIEW group BY PLACE_UID ) H
+	    ON A.place_uid = H.place_uid
 		]]>	
 	</select>
 	
@@ -57,7 +38,7 @@
 	
 	<select id="selectByUid" resultType="com.spring.app.domain.PlaceDTO">
 		SELECT
-			place_uid "uid", title, contentid, contenttypeid, pl_viewcnt viewcnt
+			place_uid "uid", title, contentid, contenttypeid, mapx, mapy, pl_viewcnt viewcnt
 		FROM place
 		WHERE contentid = #{contentid}	
 	</select>
