@@ -446,7 +446,13 @@ insert into review(us_uid, place_uid, rv_uid, rv_content, rv_write_date)
 values(i, 2, rv_uid_seq.nextval , CONCAT(i,'번째 리뷰남깁니다'), SYSDATE);
 END LOOP;
 END;
-
+/* picture 더미데이터 */
+BEGIN
+FOR i IN 1..20 LOOP
+insert into picture(pc_uid , us_uid, pc_contents , pc_hits , pc_location, pc_focus,pc_with,pc_write_date ,pc_del_ck)
+values(pc_uid_seq.nextval, us_uid_seq.nextval, CONCAT(i,'번째 내용남깁니다'), 0, 3, 2, 1, SYSDATE, 0);
+END LOOP;
+END;
 
 /* test */
 SELECT

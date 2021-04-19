@@ -69,6 +69,24 @@
             </div>
         </div>
     </div>
+<<<<<<< HEAD
+</div>
+<div data-sticky-enabled="false" data-sticky-disabled="false" data-sticky-always="true" data-sticky-ignore="false" data-direction="top" data-offset="31" class="sticky-container layout-navigation-secondary-wrap">
+    <div class="sticky-child layout-navigation-secondary" style="position:relative">
+    </div>
+    <div data-sticky-enabled="false" data-sticky-disabled="false" data-sticky-always="true" data-sticky-ignore="false" data-direction="top" data-offset="31" class="sticky-container layout-navigation-secondary-wrap">
+        <div class="sticky-child layout-navigation-secondary" style="position: relative;">
+            <div class="layout-navigation-secondary__content">
+                <nav class="layout-navigation-secondary__menu">
+                <a class="layout-navigation-secondary__menu__item " href="">홈</a>
+                <a class="layout-navigation-secondary__menu__item layout-navigation-secondary__menu__item--active" href="./cards/list.do">사진</a>
+                <a class="layout-navigation-secondary__menu__item" href="./calender">일정</a>
+                <a class="layout-navigation-secondary__menu__item" href="./place/list">장소</a>
+                <a class="layout-navigation-secondary__menu__item" href="./advices">노하우</a>
+                <a class="layout-navigation-secondary__menu__item" href="./questions">질문과답변</a></nav>
+            </div>
+        </div>
+=======
 	<div data-sticky-enabled="false" data-sticky-disabled="false" data-sticky-always="true" data-sticky-ignore="false" data-direction="top" data-offset="31" class="sticky-container layout-navigation-secondary-wrap">
 	    <div class="sticky-child layout-navigation-secondary" style="position:relative"></div>
 	    <div data-sticky-enabled="false" data-sticky-disabled="false" data-sticky-always="true" data-sticky-ignore="false" data-direction="top" data-offset="31" class="sticky-container layout-navigation-secondary-wrap">
@@ -84,6 +102,7 @@
 	            </div>
 	        </div>
 	    </div>
+>>>>>>> branch 'master' of https://github.com/hcjo1223/today_trip.git
     </div>
 </header>
 

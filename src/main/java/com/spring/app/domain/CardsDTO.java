@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CardsDTO extends picLibDTO{
 	private int uid;
+	private int usuid;
 	private String contents;
 	private int hits;
 	private int location;
@@ -22,7 +23,11 @@ public class CardsDTO extends picLibDTO{
 	
 	static List<MultipartFile> files;
 	
+	public int getUsuid() {
+		return usuid;
+	}
 
+<<<<<<< HEAD
 	@JsonProperty("cards") // 제이슨 이름 변경
 	List<picLibDTO> list; // 데이터 목록
 	
@@ -36,6 +41,13 @@ public class CardsDTO extends picLibDTO{
 	}
 
 
+=======
+
+	public void setUsuid(int usuid) {
+		this.usuid = usuid;
+	}
+	
+>>>>>>> branch 'master' of https://github.com/hcjo1223/today_trip.git
 	public static List<MultipartFile> getFiles() {
 		return files;
 	}

@@ -40,10 +40,13 @@ public class UsersDAOImpl implements UsersDAO{
 	session.update(NAMESPACE + ".keepLogin", paramMap);
 	}
 	
+	//세션키 확인 
 	@Override
 	public UsersDTO checkUserWithSessionKey(String value) throws Exception{
 		return session.selectOne(NAMESPACE + ".checkUserWithSessionKey" , value);
 	}
+	
+	
 	@Override
 	public void update(UsersDTO usersDTO) throws Exception{
 		session.update(NAMESPACE + ".update",usersDTO);
