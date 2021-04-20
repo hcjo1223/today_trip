@@ -49,4 +49,7 @@ public class UsersServiceImpl implements UserService{
 	public void updateImage(String userId, String userPic) throws Exception{
 		dao.updateImage(userId, userPic);
 	}
+	
+	//사진 게시판의 사진 가져오기
+
 }

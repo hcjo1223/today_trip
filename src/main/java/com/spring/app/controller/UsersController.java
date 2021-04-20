@@ -1,6 +1,7 @@
 package com.spring.app.controller;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
@@ -24,8 +25,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.WebUtils;
 
+import com.spring.app.domain.CardsDTO;
 import com.spring.app.domain.LoginDTO;
 import com.spring.app.domain.UsersDTO;
+import com.spring.app.service.CardsService;
 import com.spring.app.service.UserService;
 import com.spring.app.service.UsersServiceImpl;
 import com.spring.app.util.UploadFileUtils;
@@ -159,5 +162,9 @@ public class UsersController {
 		redirectAttributes.addFlashAttribute("msg","SUCCESS");
 		return "redirect:/today_trip/home";
 	}
+	
+	@Inject CardsService cardsService;
+	
+	
 	
 }

@@ -29,7 +29,7 @@
 	<select id="login" resultMap= "usersResultMap">
 	SELECT *
 	FROM users
-	WHERE us_id=#{userId}
+	WHERE us_id=#{userId}, us_pw=#{userPw}
 	</select>
 	
 <!-- 로그인 정보 -->	

@@ -60,4 +60,6 @@ public class UsersDAOImpl implements UsersDAO{
 		session.update(NAMESPACE + ".updatePicture",paramMap);
 	}
 	
+	//사진 게시판의 사진 가져오기
+	
 }

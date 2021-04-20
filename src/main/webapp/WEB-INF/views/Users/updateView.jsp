@@ -55,7 +55,7 @@
 			</div>
 		</form>
 		-->
-		<form action="updateView" method="post">
+		<form action="/updateView" method="post">
 			<div class="form-group has-feedback">
 				<label class="control-label" for="userId">아이디</label> <input
 					class="form-control" type="text" id="userId" name="userId"
@@ -81,6 +81,7 @@
 				<button class="cencle btn btn-danger" type="button">취소</button>
 			</div>
 		</form>
+		
 		
 	</section>
 

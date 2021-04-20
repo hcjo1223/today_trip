@@ -22,4 +22,6 @@ public interface UsersDAO {
 	// 회원 프로필 사진 수정
 	public void updateImage(String userId, String userPic) throws Exception;
 	
+	//사진 게시판의 사진 가져오기
+
 }

@@ -18,4 +18,7 @@ public interface UserService {
 	public void update(UsersDTO usetsDTO) throws Exception;
 	
 	public void updateImage(String userId, String userPic) throws Exception;
+	
+	//사진 게시판의 사진 가져오기
+
 }
