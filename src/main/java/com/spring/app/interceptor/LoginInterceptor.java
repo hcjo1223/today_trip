@@ -36,7 +36,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 			}
 			// 로그인 후 경로 지정
 			Object destination = httpSession.getAttribute("destination");
-			response.sendRedirect(destination !=null ? (String) destination : "today_trip/home");
+			response.sendRedirect(destination !=null ? (String) destination : "/today_trip/home");
 			
 		
 		}

@@ -67,6 +67,7 @@
 		</beans:bean>
 	<!-- 로그인 인터셉터 bean -->
 	<beans:bean id="loginInterceptor" class = "com.spring.app.interceptor.LoginInterceptor"/>
+	<beans:bean id="authInterceptor" class="com.spring.app.interceptor.AuthInterceptor"/>
 	<beans:bean id="loginAfterInterceptor" class="com.spring.app.interceptor.LoginAfterInterceptor"/>
 	<beans:bean id="rememberMeInterceptor" class="com.spring.app.interceptor.RememberMeInterceptor"/>
 	
@@ -80,6 +81,13 @@
 		<mapping path = "/Users/login"/>
 		<mapping path = "/Users/register"/>
 		<beans:ref bean="loginAfterInterceptor"/>
+		</interceptor>
+		
+		<interceptor>
+		<mapping path = "/cards/new"/>
+		<mapping path = "/cards/write.do"/>
+		<mapping path = "/place/view.do"/>
+		<beans:ref bean="authInterceptor"/>
 		</interceptor>
 		
 		<interceptor>

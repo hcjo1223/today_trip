@@ -16,7 +16,10 @@ public interface UsersDAO {
 	// 세션키 검증
 	public UsersDTO checkUserWithSessionKey(String value) throws Exception;
 
+	// 회원 정보 수정
 	public void update(UsersDTO usersDTO) throws Exception;
 	
+	// 회원 프로필 사진 수정
+	public void updateImage(String userId, String userPic) throws Exception;
 	
 }
