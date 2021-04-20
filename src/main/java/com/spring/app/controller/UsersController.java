@@ -2,6 +2,7 @@ package com.spring.app.controller;
 
 import java.util.Date;
 
+import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -26,6 +28,7 @@ import com.spring.app.domain.LoginDTO;
 import com.spring.app.domain.UsersDTO;
 import com.spring.app.service.UserService;
 import com.spring.app.service.UsersServiceImpl;
+import com.spring.app.util.UploadFileUtils;
 
 @Controller
 @RequestMapping("/Users/*")
@@ -127,18 +130,34 @@ public class UsersController {
 		logger.info("post updateView");
 		userService.update(usersDTO);
 		
-		return "redirect:/";
+		return "redirect:today_trip/home";
 	}
 	
-/*	@RequestMapping(value = "/updateImage", method = RequestMethod.POST)
+	//회훤 프로필 수정(일단 작동 안됨)
+	@Resource(name = "uimagePath")
+	private String uimagePath;
+	@RequestMapping(value = "updateView/updateImage", method = RequestMethod.POST)
 	public String updatePicture(String userId, MultipartFile file, HttpSession session, RedirectAttributes redirectAttributes) throws Exception
 	{
 	
 		if(file == null) {
+			logger.info("FAILED");
 			redirectAttributes.addFlashAttribute("msg","FAIL");
-			return "redirect:/updateView";
+			return "redirect:/Users/updateView";
 		}
 		
-	}*/
+		String uploadFile = UploadFileUtils.uploadFile(uimagePath, file.getOriginalFilename(), file.getBytes());
+		String front = uploadFile.substring(0,12);
+		String end = uploadFile.substring(14);
+		String userPic = front + end;
+		
+		userService.updateImage(userId, userPic);
+		Object usersObj = session.getAttribute("login");
+		UsersDTO usersDTO = (UsersDTO) usersObj;
+		usersDTO.setUserPic(userPic);
+		session.setAttribute("login", usersDTO);
+		redirectAttributes.addFlashAttribute("msg","SUCCESS");
+		return "redirect:/today_trip/home";
+	}
 	
 }

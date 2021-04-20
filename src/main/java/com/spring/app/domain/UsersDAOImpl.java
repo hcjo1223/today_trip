@@ -46,12 +46,12 @@ public class UsersDAOImpl implements UsersDAO{
 		return session.selectOne(NAMESPACE + ".checkUserWithSessionKey" , value);
 	}
 	
-	// 회원 프로필 사진 수정
 	@Override
 	public void update(UsersDTO usersDTO) throws Exception{
 		session.update(NAMESPACE + ".update",usersDTO);
 	}
-	
+
+	// 회원 프로필 사진 수정
 	@Override
 	public void updateImage(String userId, String userPic) throws Exception{
 		Map<String, Object> paramMap = new HashMap<String, Object>();

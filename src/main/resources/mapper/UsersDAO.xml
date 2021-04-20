@@ -41,6 +41,7 @@
 	<result property = "userNickname" column="us_nickName"/>
 	<result property = "gender" column="us_gender"/>
 	<result property = "userBirthday" column="us_birth"/>
+	<result property = "userPic" column="us_pic"/>
 	</resultMap>
 	
 <!-- 로그인 유지 기능 -->
