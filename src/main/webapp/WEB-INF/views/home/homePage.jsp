@@ -137,7 +137,7 @@
 			        	</div>
                     </a>
                     <div style="width: 100%; margin-top: 20px">
-                    	<img class="story-entry__image" onclick="" src="${listPopularPic[0].path}" style="display: block; margin: 0 auto;">
+                    	<img class="story-entry__image" onclick="location.href='./cards/view.do?uid=${listPopularPic[0].pcUid}'" src="${listPopularPic[0].path}" style="display: block; margin: 0 auto;">
                     </div>
                 </article>
             </div>

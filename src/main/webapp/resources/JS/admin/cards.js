@@ -99,7 +99,7 @@ function updateList(jsonObj){
                     result += '<td class="W30">기타</td>\n'
                     break;
             } 
-            result += '<td class="W30">' + dateFo(items[i].regDate).slice(0,10) + "</td>\n"
+            result += '<td class="W30">' + items[i].regDateTime.slice(0,10)+ "</td>\n"
             if(items[i].delCheck == 1){
                 result += '<td class="W30"> </td>\n'
             } else {

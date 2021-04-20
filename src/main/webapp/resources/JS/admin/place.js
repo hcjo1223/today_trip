@@ -38,7 +38,7 @@ function updateList(jsonObj){
 
         for(var i = 0; i < count; i++){
             result += "<tr>\n";
-            result += '<td class="W30">' + items[i].uid + "</td>\n";
+            result += '<td class="W30">' + items[i].place_uid + "</td>\n";
             result += "<td>" + items[i].title + "</td>\n"
             result += '<td class="W30">' + items[i].contentid + "</td>\n"  
             result += '<td class="W30">' + items[i].mapx + "</td>\n"
