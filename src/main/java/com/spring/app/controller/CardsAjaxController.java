@@ -197,6 +197,7 @@ public class CardsAjaxController {
 				
 				return result;
 	}
+	// 게시글 uid 한개의 파일 리스트 '들' 여러 파일이면 여러개 가 나옴
 	@GetMapping("/pics/{uid}")
 	public List<picLibDTO> viewFile2(@PathVariable int uid){
 		List<picLibDTO> list = null;

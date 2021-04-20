@@ -82,7 +82,7 @@
 						</div>
 					</div>
 					<div class="layout-navigation-bar-login">
-						<c:if test="${empty login }">
+						<c:if test="${empty login}">
 							<a class="layout-navigation-bar-login__item" href="Users/login">로그인</a>
 							<a class="layout-navigation-bar-login__item"
 								href="Users/register">회원가입</a>

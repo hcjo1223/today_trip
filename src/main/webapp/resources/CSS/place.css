@@ -696,11 +696,15 @@ img {
 
 /* view */
 
-div {
-    display: block;
+.recommend_view {
+	width: 800px;
+	margin: 0 auto;
+	padding: 0 20px;
 }
+
 .tourView {
     overflow: hidden;
+    
 }
 
 .tourView .mainImg {
@@ -719,85 +723,70 @@ div {
     border-top: 1px solid #000;
 }
 
-.sumImg .bx-wrapper img {
-    max-width: 164px !important;
-    width: 164px;
-    height: 108px;
+/* view - img */
+
+.column {
+  padding: 10px;
 }
 
-/* view04 */
-.imgGallery {position:relative;overflow:hidden;width:866px;margin:0 auto;background:#ececec url('https://api.visitkorea.or.kr/static/images/openAPI/bgGuide.gif') left bottom repeat-x;}
-.imgGallery > p { float:left; width:700px; height:467px; border:1px solid #c5c5c5; }
-.imgGallery > p > img { width:700px; height:467px; } 
-#content .imgGallery ul { margin-left:0px; }
-#content .imgGallery .sumImg { float:left; width:164px; }
-#content .imgGallery .sumImg .bx-wrapper img { max-width:164px !important; width:164px; height:108px; } 
-
-	/* jquery default css */
-	.imgGallery .bx-wrapper { margin:0px; }
-	.imgGallery .bx-wrapper .bx-viewport { left:0px; border:0px; }
-	.imgGallery .bx-wrapper .bx-pager { display:none; }
-	.imgGallery .bx-wrapper .bx-controls-direction a { position:absolute; top:432px; margin:0px; width:39px; height:39px; z-index:9999;	}
-	.imgGallery .bx-wrapper .bx-prev { left:86px; background:url('https://api.visitkorea.or.kr/static/images/openAPI/controlPrev.gif') no-repeat; }
-	.imgGallery .bx-wrapper .bx-next { right:0px; background:url('https://api.visitkorea.or.kr/static/images/openAPI/controlNext.gif') no-repeat; }
-.imgGallery .txtSum { position:absolute; bottom:10px; left:703px; display:inline-block; width:84px; padding:8px 0 0 0; text-align:center; color:#fff; }
-
-.imgGallery ul li a { display:block; cursor:pointer; }
-.imgGallery ul li a:hover,
-.imgGallery ul li a:active,
-.imgGallery ul li a:focus,
-.imgGallery ul li.on a span { display:block; overflow:hidden; width:160px; height:104px; border:2px solid #4a63ae; }
-.imgGallery ul li a:hover span img,
-.imgGallery ul li a:active span img,
-.imgGallery ul li a:focus span img,
-.imgGallery ul li.on a  span img { margin:-2px 0 0 -2px; }
-.imgGallery ul li a:hover span,
-.imgGallery ul li a:active span,
-.imgGallery ul li a:focus span { border:0px;  }
-
-
-.tourView {overflow:hidden;}
-#content .tourView > ul { margin-left:0px; }
-#content .tourView > ul > li:first-child { margin-top:0px; }
-#content .tourView > ul > li { overflow:hidden; margin-top:40px; }
-#content .tourView h4 { display:block; margin:0 0 30px 0; padding:10px 20px; font-size:16px; background-color:#f6f6f6; background-image:none; border-bottom:1px solid #000; }
-.tourView .mainImg { width:400px; float:left; }
-#content .tourView .mainImg p { margin:0px; }
-.tourView .mainImg img { width:400px; height:247px; }
-#content .tourView .mainImg .bxslider { margin:0px; }
-#content .tourView .mainImg .bxslider li a { position:relative; }
-#content .tourView .mainImg .bxslider li a:hover,
-#content .tourView .mainImg .bxslider li a:active,
-#content .tourView .mainImg .bxslider li a:focus,
-#content .tourView .mainImg .bxslider li.on a span { display:block; overflow:hidden; width:77px; height:54px; border:2px solid #4a63ae;}
-#content .tourView .mainImg .bxslider li a:hover span img,
-#content .tourView .mainImg .bxslider li a:active span img,
-#content .tourView .mainImg .bxslider li a:focus span img,
-#content .tourView .mainImg .bxslider li.on a span img { margin:-2px 0 0 -2px; }
-#content .tourView .mainImg .bxslider li a:hover span,
-#content .tourView .mainImg .bxslider li a:active span,
-#content .tourView .mainImg .bxslider li a:focus span { border:0px;}
-.tourView .mainImg .bxslider img { max-width:81px; width:81px; height:58px; }
-	/* jquery css default*/
-	.tourView .mainImg .bx-wrapper { width:400px !important; margin:20px 0 0 24px; z-index:0; }
-	.tourView .mainImg .bx-wrapper .bx-controls-direction a { position:absolute; top:50%; margin-top:-16px;  width:32px; height:32px; text-indent:-9999px; z-index:9999; }
-	.tourView .mainImg .bx-wrapper .bx-prev { left:-23px; background:url('/static/images/tourSearch/controlsPrev.gif') no-repeat; }
-	.tourView .mainImg .bx-wrapper .bx-next { right:-40px; background:url('/static/images/tourSearch/controlsNext.gif') no-repeat; }
-	
-.tourView .txtData { float:right; width:525px; font-size:12px; color:#666; }
-.tourView .txtData.none { width:100%; }
-
-.bx-wrapper {
-	position: relative;
-	margin: 0 auto 60px;
-	padding: 0;
-	/* *zoom: 1; */
+.column img {
+  opacity: 0.8; 
+  cursor: pointer; 
+  width: 200px;
+  height: 150px;
 }
 
-.bx-wrapper img {
-	max-width: 100%;
-	display: block;
+.column img:hover {
+  opacity: 1;
 }
+
+.box:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+
+
+.containerA {
+  position: relative;
+  border: 1px solid #ccc;
+  width: 796px;
+  height: 496px;
+  margin: 0 auto;
+  
+}
+
+.containerA img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+#containerImg{
+  width:800px;
+  height: 500px;
+  margin: 0 auto;
+}
+
+#imgtext {
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+  color: white;
+  font-size: 20px;
+}
+
+.closebtn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  color: white;
+  font-size: 35px;
+  cursor: pointer;
+}
+
+/* view - review */
 
 .review {
 	margin: 0 auto;
@@ -824,7 +813,6 @@ div {
     line-height: 24px;
     margin-left: 0;
 }
-
 
 .review .container .commentArea{
     position: relative;

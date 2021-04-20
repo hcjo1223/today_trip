@@ -31,7 +31,7 @@ public class RememberMeInterceptor extends HandlerInterceptorAdapter{
 			if(usersDTO !=null)
 				httpSession.setAttribute("login", usersDTO);
 		}
-
+		
 		return true;
 	}
 	

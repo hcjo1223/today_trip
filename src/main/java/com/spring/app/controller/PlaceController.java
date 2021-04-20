@@ -22,6 +22,11 @@ public class PlaceController {
 		return "place/list";
 	}
 	
+	@RequestMapping("/imgS")
+	public String img() {
+		return "place/imgS";
+	}
+	
 	
 	@GetMapping("/view")
 	public String view(int contentid, Model model) {

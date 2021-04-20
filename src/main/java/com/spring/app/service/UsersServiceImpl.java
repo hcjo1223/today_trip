@@ -44,4 +44,9 @@ public class UsersServiceImpl implements UserService{
 	public void update(UsersDTO usersDTO) throws Exception{
 		dao.update(usersDTO);
 	}
+	
+	@Override
+	public void updateImage(String userId, String userPic) throws Exception{
+		dao.updateImage(userId, userPic);
+	}
 }

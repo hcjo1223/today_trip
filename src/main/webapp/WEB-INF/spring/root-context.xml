@@ -10,4 +10,9 @@
 		<property name="maxInMemorySize" value="100000000" /> 
 		<property name="defaultEncoding" value="utf-8" />
 	</bean> 	
+	
+	<bean id="uimagePath" class = "java.lang.String">
+	<constructor-arg value = "C:\DevRoot\Dropbox\SpringProject\today_trip\src\main\webapp\resources\IMG\Profile">
+	</constructor-arg>
+	</bean>
 </beans>
