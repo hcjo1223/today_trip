@@ -27,6 +27,7 @@ public class CardsDTO extends picLibDTO{
 		return usuid;
 	}
 
+
 	@JsonProperty("cards") // 제이슨 이름 변경
 	List<picLibDTO> list; // 데이터 목록
 	
@@ -38,6 +39,7 @@ public class CardsDTO extends picLibDTO{
 	public void setList(List<picLibDTO> list) {
 		this.list = list;
 	}
+
 
 
 

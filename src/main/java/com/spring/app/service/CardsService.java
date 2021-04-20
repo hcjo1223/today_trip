@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.spring.app.domain.CardsDAO;
 import com.spring.app.domain.CardsDTO;
+import com.spring.app.domain.UsersDTO;
 import com.spring.app.domain.picLibDTO;
 
 @Service
@@ -47,10 +48,10 @@ public class CardsService {
 		return dao.select();
 	}
 	
-	public int write(CardsDTO dto) throws IllegalStateException, IOException {
+	public int write(UsersDTO udto, CardsDTO dto) throws IllegalStateException, IOException {
 		dao = sqlSession.getMapper(CardsDAO.class);
-		
-		int result = dao.insert(dto);
+		int usuid = udto.getUs_uid();
+		int result = dao.insert(usuid, dto);
         List<picLibDTO> picFileList = setFileInfo(dto);
         for (picLibDTO LibDTO : picFileList) {
         	dao.insertLib(LibDTO);

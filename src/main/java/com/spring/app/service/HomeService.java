@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spring.app.domain.HomeDAO;
+import com.spring.app.domain.HomeDTO;
 import com.spring.app.domain.picLibDTO;
 
 @Service
@@ -46,6 +47,12 @@ public class HomeService {
 		return dao.selectPopularPic(startDate, endDate);
 		
 		
+	}
+	public List<HomeDTO> listHomeCalender() {
+		return dao.selectHomeCalender();
+	}
+	public List<HomeDTO> listHomePic() {
+		return dao.selectHomePic();
 	}
 	
 }

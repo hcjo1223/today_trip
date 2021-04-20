@@ -29,6 +29,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter{
 			request.getSession().setAttribute("destination", uri + query);
 		}
 	}
+	
 	//로그인 권한 없을 경우 로그인 화면으로 이동
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception{
@@ -37,7 +38,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter{
 		if(httpSession.getAttribute("login") == null) {
 			logger.info("current user is not logged");
 			saveDestination(request);
-			response.sendRedirect("/Users/login");
+			response.sendRedirect("/today_trip/Users/login");
 			return false;
 		}
 		return true;

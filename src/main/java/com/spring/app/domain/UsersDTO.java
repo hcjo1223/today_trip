@@ -13,7 +13,9 @@ public class UsersDTO {
 	private Date log_date;
 	private String userMemo;
 	private String gender;
+	private String userPic;
 	
+
 	private boolean useCookie;
 
 	public boolean isUseCookie() {
@@ -85,7 +87,12 @@ public class UsersDTO {
 	public void setUserBirthday(String userBirthday) {
 		this.userBirthday = userBirthday;
 	}
-	
+	public String getUserPic() {
+		return userPic;
+	}
+	public void setUserPic(String userPic) {
+		this.userPic = userPic;
+	}	
 	
 	
 }

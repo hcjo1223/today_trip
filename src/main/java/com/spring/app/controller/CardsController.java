@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.spring.app.domain.CardsDTO;
+import com.spring.app.domain.UsersDTO;
 import com.spring.app.service.CardsService;
 
 @Controller
@@ -51,11 +52,11 @@ public class CardsController {
 //	}
 	
 	@RequestMapping("/writeOk.do")
-	public String writeOk( CardsDTO dto, Model model) throws IllegalStateException, IOException {
+	public String writeOk(UsersDTO udto, CardsDTO dto, Model model) throws IllegalStateException, IOException {
 		
 		
 		
-		model.addAttribute("result", cardsService.write(dto));
+		model.addAttribute("result", cardsService.write(udto, dto));
 		return "cards/writeOk";
 	}
 	

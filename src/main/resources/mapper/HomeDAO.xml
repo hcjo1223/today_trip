@@ -33,4 +33,47 @@
 		]]>	
 	</select>
 
+	<select id="selectHomePic" resultType="com.spring.app.domain.HomeDTO">
+	<![CDATA[  	
+		SELECT 
+			pl.PC_UID ,pl.PL_PATH, pc_focus
+		FROM 
+			(SELECT * 
+				FROM
+					(SELECT * 
+						FROM 
+							PICTURE 
+						ORDER BY 
+							PC_HITS DESC)
+				WHERE ROWNUM< 4) p 
+			JOIN 
+				PIC_LIB pl 
+			ON 
+				p.PC_UID = pl.PC_UID
+		]]>	
+	</select>
+
+	<select id="selectHomeCalender" resultType="com.spring.app.domain.HomeDTO">
+	<![CDATA[  	
+		SELECT 
+			J.*, P.FIRSTIMAGE2 
+		FROM
+			(SELECT 
+				H.tu_uid, H.tu_title, H.TU_HITS, D.place_uid 
+			FROM 
+				(SELECT * 
+					FROM 
+						(SELECT * FROM tour ORDER BY tu_hits DESC) 
+			WHERE ROWNUM < 4) H 
+			JOIN 
+				tour_location D 
+			ON 
+				H.tu_uid = D.tu_uid) J 
+		JOIN 
+			place P 
+		ON 
+			J.place_uid = P.place_uid
+		]]>	
+	</select>
+
 </mapper>

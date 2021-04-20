@@ -18,6 +18,8 @@ public class HomeController {
 	public String Home(Model model) {
 		homeService.saveLog();
 		model.addAttribute("listPopularPic", homeService.listPopularPic());
+		model.addAttribute("listHomeCalender", homeService.listHomeCalender());
+		model.addAttribute("listHomePic", homeService.listHomePic());
 		return "home/homePage";
 	}
 }

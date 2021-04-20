@@ -11,7 +11,7 @@ public interface CardsDAO {
 	public abstract List<CardsDTO> select();
 	
 	// 새글작성
-	public abstract int insert(CardsDTO dto);
+	public abstract int insert(int usuid, CardsDTO dto);
 	public abstract int insertLib(picLibDTO dto);
 	
 	// 특정 uid 글 내용 읽기 조회수 증가

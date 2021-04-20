@@ -41,6 +41,7 @@
 	<result property = "userNickname" column="us_nickName"/>
 	<result property = "gender" column="us_gender"/>
 	<result property = "userBirthday" column="us_birth"/>
+	<result property = "userPic" column="us_pic"/>
 	</resultMap>
 	
 <!-- 로그인 유지 기능 -->
@@ -67,6 +68,11 @@
 			,us_memo=#{userMemo, jdbcType=VARCHAR}
 		WHERE us_id=#{userId}
 	</update>
-	
-	
+
+<!-- 회원 프로필 이미지 변경 -->
+	<update id = "updatePicture">
+		UPDATE users
+		SET us_pic = #{userPic}
+		WHERE us_id=#{userId}	
+	</update>
 </mapper>

@@ -12,4 +12,6 @@ public interface HomeDAO {
 	// 로그 데이터 db에 저장
 	void insertLog(@Param("logContent") String logContent,@Param("nowDate") String nowDate);
 	List<picLibDTO> selectPopularPic(@Param("startDate") String startDate, @Param("endDate")String endDate);
+	List<HomeDTO> selectHomeCalender();
+	List<HomeDTO> selectHomePic();
 }

@@ -17,4 +17,5 @@ public interface UserService {
 	
 	public void update(UsersDTO usetsDTO) throws Exception;
 	
+	public void updateImage(String userId, String userPic) throws Exception;
 }
