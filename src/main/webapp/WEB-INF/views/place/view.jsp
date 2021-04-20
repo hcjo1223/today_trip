@@ -33,55 +33,7 @@ body {
     font: normal 13px/1.5 "나눔고딕", NanumGothic, NGNormal, "돋움", Dotum, Arial, Tahoma , Geneva, Verdana;
     color: #666;
 }
-/* The grid: Four equal columns that floats next to each other */
-.column {
-  padding: 10px;
-}
 
-/* Style the images inside the grid */
-.column img {
-  opacity: 0.8; 
-  cursor: pointer; 
-  width: 200px;
-  height: 150px;
-}
-
-.column img:hover {
-  opacity: 1;
-}
-
-/* Clear floats after the columns */
-.box:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-/* The expanding image container */
-.container {
-  position: relative;
-  display: none;
-
-}
-
-/* Expanding image text */
-#imgtext {
-  position: absolute;
-  bottom: 15px;
-  left: 15px;
-  color: white;
-  font-size: 20px;
-}
-
-/* Closable button inside the expanded image */
-.closebtn {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  color: white;
-  font-size: 35px;
-  cursor: pointer;
-}
 
 *{margin:0; padding:0;}
 ul{list-style:none;}
@@ -95,16 +47,7 @@ a{text-decoration:none; color:inherit;}
 }
 
 #tab ul li{display:inline-block;}
-#containerImg{
-  width:800px;
-  height: 500px;
-  margin: 0 auto;
-}
-.container img {
-  object-fit: cover;
-  width:800px;
-  height: 500px;
-}
+
 
 ::-webkit-scrollbar {
 /* 스크롤바 전체 영역 */
@@ -130,13 +73,7 @@ a{text-decoration:none; color:inherit;}
       background-color: red;
 } 
 
-.container {
-  border: 1px solid #ccc;
-  width: 800px;
-  height: 500px;
-  margin: 0 auto;
-  
-}
+
 
 </style>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/resources/CSS/place.css"/>
@@ -152,7 +89,7 @@ a{text-decoration:none; color:inherit;}
 
 <body>	
 	
-<div class="recommend_area" id="content">
+<div class="recommend_view" id="content">
 	<div class="tourView">
 		<div class="title">
 		<h2 id="tltle"> ${list[0].title } </h2>
@@ -160,49 +97,47 @@ a{text-decoration:none; color:inherit;}
 		</div>
 	
 		<div id="commonData"></div><hr>
-		<div id="txtData"></div><hr>
+		<div id="txtData"></div>
 		<div id="imgGallery">
 			<div id="containerImg">
 				<div class="container">
-  				<span onclick="this.parentElement.style.display='none'" class="closebtn">&times;</span>
-  				<di id="insertImg"></di>
 				</div>
 			</div>
 			<div id="containerGallery">
 			</div>
-		<hr>
-	</div>
-</div>	
-
+		</div>
+	</div>	
 
 	
-<!--  댓글  -->
-<div class="review">	
-    <div class="container">
-        <label for="content">장소 리뷰</label><span id="count"></span>
-        <form name="commentInsertForm">
-            <div class="input-group">
-               <input type="hidden" name="place_uid" value="${list[0].place_uid}"/>
-               <input type="hidden" name="us_uid" value="${list[0].place_uid}"/>
-               <input type="text" class="form-control" id="content" name="content" placeholder="내용을 입력하세요.">
-               <span class="input-group-btn">
-                    <button class="btn default" type="button" name="commentInsertBtn">등록</button>
-               </span>
-              </div>
-        </form>
-    </div>
-    
-    <div class="container">
-        <div id="commentList"></div>
-    <%-- 페이징 --%>
-	<div class="center">
-		<ul class="pagination" id="pagination"></ul>
-	</div>
-    </div>
-</div>
- 
+	<!--  댓글  -->
+	<div class="review">	
+	    <div class="container">
+	        <label for="content">장소 리뷰</label><span id="count"></span>
+	        <form name="commentInsertForm">
+	            <div class="input-group">
+	               <input type="hidden" name="place_uid" value="${list[0].place_uid}"/>
+	               <input type="hidden" name="us_uid" value="${list[0].place_uid}"/>
+	               <input type="text" class="form-control" id="content" name="content" placeholder="내용을 입력하세요.">
+	               <span class="input-group-btn">
+	                    <button class="btn default" type="button" name="commentInsertBtn">등록</button>
+	               </span>
+	              </div>
+	        </form>
+	    </div>
+	    
+	    <div class="container">
+	        <div id="commentList"></div>
+	    <%-- 페이징 --%>
+		<div class="center">
+			<ul class="pagination" id="pagination"></ul>
+		</div>
+	    </div>
+	
 <!--                     추가                         -->
 <%@ include file="commentS.jsp" %>
+	
+	</div>
+</div> 
 		
 	
 </body>

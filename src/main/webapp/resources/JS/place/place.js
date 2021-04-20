@@ -109,29 +109,39 @@ function parseJSON3(jsonObj){
 
 
 
-    table += "<div class='container'>";
-	if(jsonObj.response.body.items == "" || jsonObj.response.body.items.length == 0){
+    table += "<div class='containerA'>"; 	
+	if(jsonObj.response.body.items == "" || jsonObj.response.body.totalCount == 0){
 		table += "<div class='noImg' style='height: 200px'><div>";
 	} else if (Object.prototype.toString.call(row) == "[object Object]"){
-		table += "<img id='expandedImg' src='" + row.originimgurl+ "'><div id ='imgtext'></div>"
-	} else {
-		table += "<img id='expandedImg' src='" + row[0].originimgurl+ "'><div id ='imgtext'></div>"
-	}
-	table += "</div>";
+		table += "<img id='expandedImg' src='" + row.originimgurl+ "'>"
+		table += "</div>";
+		result += "<div class='box' id='tab'><ul>";
+		result += "<li class='column'><img src='" + row.originimgurl + "' onclick='myFunction(this);' alt=''></li>";		
+		result += "</ul></div>";
 
-	result += "<div class='box' id='tab'><ul>";
-	for (i = 0; i < row.length; i++){
-		result += "<li class='column'><img src='" + row[i].originimgurl + "' alt=''></li>";
-				
+	} else {
+		
+		table += "<img id='expandedImg' src='" + row[0].originimgurl+ "'>"
+		table += "</div>";
+		result += "<div class='box' id='tab'><ul>";
+		for (i = 0; i < row.length; i++){
+			result += "<li class='column'><img src='" + row[i].originimgurl + "' onclick='myFunction(this);' alt=''></li>";		
+		}
+		result += "</ul></div>";
+
 	}
-	result += "</ul></div>";
+	
 
 
 	$("#containerImg").html(table)
 	$("#containerGallery").html(result);
 }
 
-
+function myFunction(imgs) {
+	var expandImg = document.getElementById("expandedImg");
+	expandImg.src = imgs.src;
+	expandImg.parentElement.style.display = "block";
+  }
 
 
 var chkContentType = {
