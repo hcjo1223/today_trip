@@ -168,7 +168,7 @@
 				<c:otherwise>
 					<c:forEach var="dto" items="${listHomePlace }">
 						<tr>
-						 	<td class="W30">${dto.uid }</td>  <%-- dto.getUid() --%> 
+						 	<td class="W30">${dto.place_uid }</td>  <%-- dto.getUid() --%> 
 							<td>${dto.title }</td>
 							<td>${dto.addr1 }</td>  <%-- dto.getName() --%>
 							<td>${dto.tel }</td>

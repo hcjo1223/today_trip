@@ -5,6 +5,8 @@ var viewItem = undefined;   // 가장 최근에 view 한 글의 데이터
 $(document).ready(function(){
     loadPage(page);   // 페이지 최초 로딩
 
+
+
 });
 
 
@@ -18,14 +20,50 @@ function loadPage(page){
             if(status == "success"){
                 //alert("성공했쮸?");
 
-                if(updateList(data)){   // application/json 이면 이미 parse 되어 있다.
+                updateList(data)   // application/json 이면 이미 parse 되어 있다.
 
-
-                }
             }
         }
     });  // end $.ajax()
 } // end loadPage()
+
+
+function likeCount(place_uid){
+	$.ajax({
+		url : "./like/count",
+        type : "get",
+		data : {'place_uid' : place_uid},
+        cache : false,
+        success : function(data, status){
+            if(status == "success"){
+				if(data.status == "OK"){
+					
+				
+				}
+			}
+		}
+	});
+}
+
+function likeCount(place_uid){
+	var count = 0;
+	$.ajax({
+		url : "./like/count",
+		type : "get",
+		data : {'place_uid' : place_uid},
+		cache : false,
+		async : false,
+		success : function(data, status){
+			if(status == "success"){
+				if(data.status == "OK"){
+					count = data.count;		
+				}
+			}
+		}
+	});
+
+	return count;
+}
 
 function updateList(jsonObj){
 
@@ -41,10 +79,15 @@ function updateList(jsonObj){
 
 		
 
+
 		for(var i = 0; i < count; i++){
 
-                        
+			
+
+
+			
 			var sigunguArr = items[i].addr1.split(" ")
+			
 
 			result += "<li>\n"
 					+ "<dl class='item_section'>\n"
@@ -56,13 +99,15 @@ function updateList(jsonObj){
 					+ "<p class='s_tit'>" + items[i].title + "</p>"
                     + "<p class='s_theme'>" + chkareaCode[items[i].areacode] + "&gt;" + sigunguArr[1] + "</p>"
 					+ "</a></dt>\n"
-					+ "<dd class='item_count_area clear'><a href='javascript:void(0);'>\n"
-					+ "<p class='ico_type like'><span>좋아요</span><span class='likecount'>128</span></p></a>"
+					+ "<dd class='item_count_area clear'>\n"
+					+ "<a href='javascript:void(0);'>"
+					// + likeCount(items[i].place_uid)
+					+ "<p class='ico_type like'><span>좋아요</span><span class='likecount'>" + likeCount(items[i].place_uid) + "</span></p></a>"
 					+ "<p class='ico_type zzim '><span>조회수</span><span class='viewcount'>" + items[i].viewcnt + "</span></p>"
 					+ "<p class='ico_type review'><span>리뷰</span><span class='reviewcount'>" + items[i].reviewcnt + "</span></p>"
 					+ "</p></dd></dl></li>"
 
-                    
+			
 
 		}
 

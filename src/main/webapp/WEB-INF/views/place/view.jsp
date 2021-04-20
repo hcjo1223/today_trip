@@ -33,103 +33,116 @@ body {
     font: normal 13px/1.5 "나눔고딕", NanumGothic, NGNormal, "돋움", Dotum, Arial, Tahoma , Geneva, Verdana;
     color: #666;
 }
-.review {
-	margin: 0 auto;
-    padding: 0 20px;
-    width: 1200px;
-}    
 
-.review .container{
-	padding-bottom: 20px;
-    border-bottom: 1px solid #e5e5e5;
+
+*{margin:0; padding:0;}
+ul{list-style:none;}
+a{text-decoration:none; color:inherit;}
+.box{max-width:800px; width:100%; border:1px solid #ccc; margin:0 auto;}
+
+.box ul{
+  white-space:nowrap; 
+  overflow-x: auto; 
+  text-align:center;
 }
 
-.review .container label{
-    font-size: 24px;
-    font-weight: 800;
-    color: #1b1b1b;
-    line-height: 24px;
-}
-
-.review .container #count{
-	font-size: 24px;
-    font-weight: 800;
-    color: #f38f1e;
-    line-height: 24px;
-    margin-left: 0;
-}
+#tab ul li{display:inline-block;}
 
 
-.review .container .commentArea{
-    position: relative;
-    padding: 20px 0;
-    border-bottom: 1px solid #e5e5e5;
-}
+::-webkit-scrollbar {
+/* 스크롤바 전체 영역 */
+  width: 10px;
+} 
+::-webkit-scrollbar-track {
+      background-color: #f9f9f9;
+/* 스크롤이 움직이는 영역  */
+} 
+::-webkit-scrollbar-thumb {
+/*  스크롤  */
+      background-color: gold; 
+  border-radius:30px;
+} 
+::-webkit-scrollbar-button:start:decrement, ::-webkit-scrollbar-button:end:increment {
+/*  스크롤의 화살표가 포함된 영역   */
+  display:block;
+  height:8px;
+  background-color: #000;
+} 
+::-webkit-scrollbar-corner {
+/*  상하+좌우 스크롤이 만나는 공간   */
+      background-color: red;
+} 
 
-.review .container .form-control{
-	height: 43px;
-}
 
-.commentList .commentArea .commentInfo a{
-	color: blue;
-}
 
 </style>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/resources/CSS/place.css"/>
-			<script type="text/javascript">
-			var contentId = "${list[0].contentId }";
-			var contentTypeId = "${list[0].contentTypeId }";
-			var mapx = "${list[0].mapx }";
-			var mapy = "${list[0].mapy }";
-			</script> 
+<script type="text/javascript">
+	var contentId = "${list[0].contentId }";
+	var contentTypeId = "${list[0].contentTypeId }";
+	var mapx = "${list[0].mapx }";
+	var mapy = "${list[0].mapy }";
+</script> 
 </head>
 
 
 
 <body>	
 	
-	<div class="recommend_area" id="content">
-		<div class="tourView">
-			<div class="title">
-			<h2 id="tltle"> ${list[0].title } </h2>
-			조회수 : ${list[0].viewCnt }
+<div class="recommend_view" id="content">
+	<div class="tourView">
+		<div class="title">
+		<h2 id="tltle"> ${list[0].title } </h2>
+		조회수 : ${list[0].viewCnt }
+		</div>
+	
+		<div id="commonData"></div><hr>
+		<div id="txtData"></div>
+		<div id="imgGallery">
+			<div id="containerImg">
+				<div class="container">
+				</div>
 			</div>
-		
-			<div id="commonData"></div><hr>
-			<div id="txtData"></div><hr>
-			<div id="imgGallery"></div><hr>
+			<div id="containerGallery">
+			</div>
 		</div>
 	</div>	
-<!--  댓글  -->
-<div class="review">	
-    <div class="container">
-        <label for="content">장소 리뷰</label><span id="count"></span>
-        <form name="commentInsertForm">
-            <div class="input-group">
-               <input type="hidden" name="place_uid" value="${list[0].uid}"/>
-               <input type="hidden" name="us_uid" value="${list[0].uid}"/>
-               <input type="text" class="form-control" id="content" name="content" placeholder="내용을 입력하세요.">
-               <span class="input-group-btn">
-                    <button class="btn default" type="button" name="commentInsertBtn">등록</button>
-               </span>
-              </div>
-        </form>
-    </div>
-    
-    <div class="container">
-        <div id="commentList"></div>
-    <%-- 페이징 --%>
-	<div class="center">
-		<ul class="pagination" id="pagination"></ul>
-	</div>
-    </div>
-</div>
- 
+
+	
+	<!--  댓글  -->
+	<div class="review">	
+	    <div class="container">
+	        <label for="content">장소 리뷰</label><span id="count"></span>
+	        <form name="commentInsertForm">
+	            <div class="input-group">
+	               <input type="hidden" name="place_uid" value="${list[0].place_uid}"/>
+	               <input type="hidden" name="us_uid" value="${list[0].place_uid}"/>
+	               <input type="text" class="form-control" id="content" name="content" placeholder="내용을 입력하세요.">
+	               <span class="input-group-btn">
+	                    <button class="btn default" type="button" name="commentInsertBtn">등록</button>
+	               </span>
+	              </div>
+	        </form>
+	    </div>
+	    
+	    <div class="container">
+	        <div id="commentList"></div>
+	    <%-- 페이징 --%>
+		<div class="center">
+			<ul class="pagination" id="pagination"></ul>
+		</div>
+	    </div>
+	
 <!--                     추가                         -->
 <%@ include file="commentS.jsp" %>
+	
+	</div>
+</div> 
 		
+	
 </body>
 </html>
+
 	
 		
 </c:otherwise>

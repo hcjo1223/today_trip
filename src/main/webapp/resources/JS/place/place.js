@@ -63,6 +63,7 @@ $(document).ready(function () {
 
 });
 
+
 function parseJSON1(jsonObj){
 	 
 	var table= "";
@@ -106,35 +107,42 @@ function parseJSON3(jsonObj){
 	var result = "";
 	var row = jsonObj.response.body.items.item;
 
-	console.log(Object.keys(row).length);
-	console.log(Object.prototype.toString.call(row));
-	table += "<div class='tourView'>";
-    table += "<div class='imgGallery'>";
-	if(Object.prototype.toString.call(row) == "[object Object]"){
-		table += "<p><img src='" + row.originimgurl+ "'></p>"
+
+
+    table += "<div class='containerA'>"; 	
+	if(jsonObj.response.body.items == "" || jsonObj.response.body.totalCount == 0){
+		table += "<div class='noImg' style='height: 200px'><div>";
+	} else if (Object.prototype.toString.call(row) == "[object Object]"){
+		table += "<img id='expandedImg' src='" + row.originimgurl+ "'>"
+		table += "</div>";
+		result += "<div class='box' id='tab'><ul>";
+		result += "<li class='column'><img src='" + row.originimgurl + "' onclick='myFunction(this);' alt=''></li>";		
+		result += "</ul></div>";
+
 	} else {
-	table += "<p><img src='" + row[0].originimgurl + "' alt='큰이미지'></p>"
+		
+		table += "<img id='expandedImg' src='" + row[0].originimgurl+ "'>"
+		table += "</div>";
+		result += "<div class='box' id='tab'><ul>";
+		for (i = 0; i < row.length; i++){
+			result += "<li class='column'><img src='" + row[i].originimgurl + "' onclick='myFunction(this);' alt=''></li>";		
+		}
+		result += "</ul></div>";
+
 	}
-	table += "<div class='sumImg'>"
-	table += "<div class='bx-wrapper' style='max-width: 164px;'>"
-			+ "<div class='bx-viewport' style='width: 100%; overflow: hidden; position: relative; height: 432px;'>"
-			+ "<ul style='width: auto; position: relative; transition-duration: 1s; transform: translate3d(0px, 0px, 0px);'>" 
-	for (i = 0; i < row.length; i++){
-		result += "<li class='on' style='float: none; list-style: none; position: relative; width: 164px;'>"
-				+ "<a href='#' onclick='javascript:imgClick(this, '" + row[i].originimgurl + "');return false;>"
-				+ "<span><img src=" + row[i].originimgurl + " alt='" + i + "' ></span></a></li>";
-	}
+	
 
 
-	table += result + "</ul></div>";
-	table += "<div class='bx-controls bx-has-controls-direction'>"
-			+ "<div class='bx-controls-direction'>"
-			+ "<a class='bx-prev' href=''>Prev</a>"
-			+ "<a class='bx-next' href=''>Next</a></div></div></div></div>"
-			+ "<span class='txtSum' id='textSum'>1 / 2</span></div></div>";
-
-	$("#imgGallery").html(table);
+	$("#containerImg").html(table)
+	$("#containerGallery").html(result);
 }
+
+function myFunction(imgs) {
+	var expandImg = document.getElementById("expandedImg");
+	expandImg.src = imgs.src;
+	expandImg.parentElement.style.display = "block";
+  }
+
 
 var chkContentType = {
 	12 : "관광지",

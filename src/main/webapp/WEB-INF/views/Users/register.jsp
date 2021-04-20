@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<!DOCTYPE html>
 <html>
 <head>
 <!-- 합쳐지고 최소화된 최신 CSS -->
@@ -18,7 +19,7 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		// 취소
-		$(".cancle").on("click", function() {
+		$(".cencle").on("click", function() {
 
 			location.href = "Users/login";
 
@@ -78,14 +79,12 @@
 				<input type="radio" name="gender" value=1>남자
 				<input type="radio" name="gender" value=1>여자
 			</div>
-				<div class="form-group has-feedback">
-				<label class="control-label" for="userBirthday">생일</label> 
-				<input class="form-control" type="date" id="userBirthday" name="userBirthday" />
-			</div>
-			
 			<div class="form-group has-feedback">
 				<button class="btn btn-success" type="submit" id="submit" submit = "${path}/Users/login">회원가입</button>
 				<button class="cencle btn btn-danger" type="button">취소</button>
 			</div>
 			
 		</form>
+	</section>
+	</body>
+	</html>

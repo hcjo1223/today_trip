@@ -14,7 +14,7 @@ public class PlaceDTO {
 
 	int numOfRows;
 	int pageNo;
-	int uid;
+	int place_uid;
 	@JsonProperty("contentid")
 	int contentId;
 	@JsonProperty("contenttypeid")

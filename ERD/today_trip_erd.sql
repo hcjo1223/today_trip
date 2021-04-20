@@ -453,25 +453,25 @@ insert into picture(pc_uid , us_uid, pc_contents , pc_hits , pc_location, pc_foc
 values(pc_uid_seq.nextval, us_uid_seq.nextval, CONCAT(i,'번째 내용남깁니다'), 0, 3, 2, 1, SYSDATE, 0);
 END LOOP;
 END;
+/* pic_lib 더미데이터 */
+BEGIN
+FOR i IN 1..20 LOOP
+insert into pic_lib(pl_uid  , pc_uid , pl_name  , pl_type  , pl_size , pl_path)
+values(pl_uid_seq.nextval, pc_uid_seq.nextval, CONCAT(i,'번째 이름'), '.png', 1, CONCAT(i,'번째 경로'));
+END LOOP;
+END;
+ALTER TABLE PIC_LIB MODIFY pl_path varchar2(200);
 
 /* test */
-SELECT
-			tu_uid "uid", 
-			us_uid, 
-			tu_title,
-			tu_hits, 
-			tu_period, 
-			tu_del_ck,
-			tu_write_date,
-			tu_start_tour
-		FROM 
-			(SELECT ROWNUM AS RNUM, T.* FROM 
-				(SELECT * FROM tour ORDER BY tu_uid) T) 
-		WHERE 
-			RNUM >= 1 AND RNUM < (1 + 10)
-			
-			
-			
-UPDATE tour
-	SET tu_del_ck = 0
-	WHERE tu_uid = 1;
+UPDATE PIC_LIB SET PL_PATH ='https://www.sisa-news.com/data/photos/20200936/art_159912317533_32480a.jpg' WHERE pc_uid = 20;
+
+SELECT * FROM PICTURE p ;
+
+SELECT p.PC_UID, pl.PL_PATH FROM 
+(SELECT * from
+(SELECT * FROM PICTURE WHERE PC_WRITE_DATE BETWEEN '2021-04-18' AND '2021-04-20' ORDER BY PC_HITS DESC)
+WHERE ROWNUM= 1) p JOIN PIC_LIB pl ON p.PC_UID = pl.PC_UID ;
+
+ ;
+
+SELECT * FROM PIC_LIB;

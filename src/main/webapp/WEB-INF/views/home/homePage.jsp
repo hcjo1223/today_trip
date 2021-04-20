@@ -102,62 +102,49 @@
 									fill-rule="evenodd"
 									d="M2.87 4L1.33 5.5 8 12l6.67-6.5L13.13 4 8 9z"></path>
                         </svg>
-						</button>
-					</div>
-				</div>
-			</div>
-		</div>
-		</div>
-		<div data-sticky-enabled="false" data-sticky-disabled="false"
-			data-sticky-always="true" data-sticky-ignore="false"
-			data-direction="top" data-offset="31"
-			class="sticky-container layout-navigation-secondary-wrap">
-			<div class="sticky-child layout-navigation-secondary"
-				style="position: relative"></div>
-			<div data-sticky-enabled="false" data-sticky-disabled="false"
-				data-sticky-always="true" data-sticky-ignore="false"
-				data-direction="top" data-offset="31"
-				class="sticky-container layout-navigation-secondary-wrap">
-				<div class="sticky-child layout-navigation-secondary"
-					style="position: relative;">
-					<div class="layout-navigation-secondary__content">
-						<nav class="layout-navigation-secondary__menu">
-							<a
-								class="layout-navigation-secondary__menu__item layout-navigation-secondary__menu__item--active"
-								href="">홈</a> <a class="layout-navigation-secondary__menu__item"
-								href="./cards/list.do">사진</a> <a
-								class="layout-navigation-secondary__menu__item"
-								href="./calender">일정</a> <a
-								class="layout-navigation-secondary__menu__item"
-								href="./place/list">장소</a> <a
-								class="layout-navigation-secondary__menu__item" href="./advices">노하우</a>
-							<a class="layout-navigation-secondary__menu__item"
-								href="./questions">질문과답변</a>
-						</nav>
-					</div>
-				</div>
-			</div>
-	</header>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div data-sticky-enabled="false" data-sticky-disabled="false" data-sticky-always="true" data-sticky-ignore="false" data-direction="top" data-offset="31" class="sticky-container layout-navigation-secondary-wrap">
+    <div class="sticky-child layout-navigation-secondary" style="position:relative">
+    </div>
+    <div data-sticky-enabled="false" data-sticky-disabled="false" data-sticky-always="true" data-sticky-ignore="false" data-direction="top" data-offset="31" class="sticky-container layout-navigation-secondary-wrap">
+        <div class="sticky-child layout-navigation-secondary" style="position: relative;">
+            <div class="layout-navigation-secondary__content">
+                <nav class="layout-navigation-secondary__menu">
+                <a class="layout-navigation-secondary__menu__item layout-navigation-secondary__menu__item--active" href="">홈</a>
+                <a class="layout-navigation-secondary__menu__item" href="./cards/list.do">사진</a>
+                <a class="layout-navigation-secondary__menu__item" href="./calender">일정</a>
+                <a class="layout-navigation-secondary__menu__item" href="./place/list">장소</a>
+                <a class="layout-navigation-secondary__menu__item" href="./advices">노하우</a>
+                <a class="layout-navigation-secondary__menu__item" href="./questions">질문과답변</a></nav>
+            </div>
+        </div>
+    </div>
+</header>
 
-	<div class="home-page">
-		<div class="container home-header">
-			<div class="row">
-				<div class="col-12 col-md-9 home-header__story">
-					<article class="story-entry home-header__story__image">
-						<a class="story-entry-link" href="">
-							<div class="story-entry__image-wrap">
-								<img class="story-entry__image"
-									src="https://image.ohou.se/i/bucketplace-v2-development/uploads/projects/cover_images/161733545321404451.jpg?gif=1&amp;w=640&amp;h=427&amp;c=c&amp;webp=1"
-									srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/projects/cover_images/161733545321404451.jpg?gif=1&amp;w=960&amp;h=640&amp;c=c&amp;webp=1 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/projects/cover_images/161733545321404451.jpg?gif=1&amp;w=1280&amp;h=854&amp;c=c&amp;webp=1 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/projects/cover_images/161733545321404451.jpg?gif=1&amp;w=1920&amp;h=1280&amp;c=c&amp;webp=1 3x">
-							</div>
-						</a>
-					</article>
-				</div>
-			</div>
-		</div>
-
-	</div>
-
+<!-- center main -->
+<div class="home-page">
+	<div class="container home-header">
+		<div class="row">
+			<div class="col-12 col-md-9 home-header__story">
+				<article class="story-entry home-header__story__image">
+                    <a class="story-entry-link" href="">
+			        	<div class="story-entry__image-wrap">
+			        	</div>
+                    </a>
+                    <div style="width: 100%; margin-top: 20px">
+                    	<img class="story-entry__image" onclick="location.href='./cards/view.do?uid=${listPopularPic[0].pcUid}'" src="${listPopularPic[0].path}" style="display: block; margin: 0 auto;">
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+    
+</div>
 
 	<footer class="layout-footer">
 		<div class="layout-footer__content">
