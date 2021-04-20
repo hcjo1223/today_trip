@@ -39,7 +39,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span></button>
-				<a class="navbar-brand" href="#"><span>TodayTrip</span>Admin</a>
+				<a class="navbar-brand" href="../../admin"><span>TodayTrip</span>Admin</a>
 				<ul class="nav navbar-top-links navbar-right">
 					<a href="../../home" class="pull-right" style="padding: 20px 20px 0 0"><em class="fa fa-lg fa-close"></em></a>
 				</ul>

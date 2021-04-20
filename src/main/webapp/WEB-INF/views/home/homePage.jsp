@@ -162,8 +162,9 @@
 										 	<span>${ dto.tu_hits}</span>
 										 	<span>${ dto.place_uid}</span>
 										 -->
-										 
+										 	<div class="imgDivOverflow">
 											 <img src="${ dto.firstimage2}">
+											 </div>
 											 <div class="HomeConSpace"><span>${ dto.tu_title}</span></div>
 											 	 	
 										
@@ -195,8 +196,9 @@
 										 	<span>${ dto.tu_hits}</span>
 										 	<span>${ dto.place_uid}</span>
 										 -->
-										 
-											 <img src="${ dto.pl_path}">
+										 	 <div class="imgDivOverflow">
+												 <img src="${ dto.pl_path}">
+											 </div>
 											 <c:choose>
 												 <c:when test="${dto.pc_focus == 0}">
 												  <div class="HomeConSpace"><span>유명 관광지는 필수</span></div>

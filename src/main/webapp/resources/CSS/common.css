@@ -1580,6 +1580,9 @@ ul.pagination a:hover:not(.active) {background-color: #ddd;}
 	height: 250px;
 	position: absolute;
 	border-radius: 4px;
+	transform:scale(1.0);        
+    transition: transform .5s; 
+
 }
 article{
 margin: 0 auto;
@@ -1625,3 +1628,16 @@ width: 0 auto;
     margin: 0 auto;
     padding: 20px 0;
 }
+.imgcon img:hover{            /* 마우스 호버시 */
+   transform:scale(1.5);            /* 이미지 확대 */
+   transition: transform .5s; 	/*  시간 설정  */
+
+}
+.imgDivOverflow {
+	width: 330px;
+	height: 250px;
+	border-radius: 4px;
+	overflow: hidden;
+	position: absolute;
+}
+

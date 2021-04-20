@@ -390,7 +390,7 @@ SELECT * FROM users;
 SELECT * FROM user_log;
 
 /* test */
-
+DELETE users WHERE us_uid = 1041;
 
 SELECT 
 			place_uid, 
