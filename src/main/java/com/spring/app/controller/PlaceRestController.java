@@ -162,12 +162,7 @@ public class PlaceRestController {
 		try {	
 
 			count = placeService.countPlaceLike(place_uid);
-			
-			if(count == 0) {
-				message.append("[트랜잭션 실패 : NO COUNT]");
-			} else {
-				status = "OK";
-			}
+			status = "OK";
 
 		} catch (Exception e) {
 			message.append("[트랜잭션 에러:" + e.getMessage() + "]");

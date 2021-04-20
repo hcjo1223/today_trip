@@ -20,7 +20,7 @@
 <title> ${list[0].title } </title>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/resources/CSS/common.css"/>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/resources/CSS/place/view.css"/>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://kit.fontawesome.com/bb29575d31.js"></script>
 <script src="${pageContext.request.contextPath }/resources/JS/place/place.js" type="text/javascript"></script>
 <style>
@@ -48,7 +48,7 @@ a{text-decoration:none; color:inherit;}
 	var place_uid = "${list[0].place_uid }";
 	var contentId = "${list[0].contentId }";
 	var contentTypeId = "${list[0].contentTypeId }";
-	
+
 
 </script> 
 </head>
@@ -137,8 +137,11 @@ a{text-decoration:none; color:inherit;}
 		<span class="likecount"></span>
 		</div>
 	
-		<div id="commonData"></div><hr>
+		<div id="commonData"></div>
+		
 		<div id="txtData"></div>
+		
+		<button id='tit5' onclick='toggle3();'>이미지 정보</button>
 		<div id="imgGallery">
 			<div id="containerImg">
 				<div class="container">

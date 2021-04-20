@@ -59,15 +59,27 @@ $(document).ready(function () {
 
 	})();
 
+	
+	
 	var count = "<di>좋아요 : " + likeCount(place_uid) + "</di>"
 	$(".likecount").html(count)
 
-	
+    
 
 
 });
 
+function toggle1(){
+	$("#tit2").slideToggle("slow");
+}
 
+function toggle2(){
+	$("#tit4").slideToggle("slow");
+}
+
+function toggle3(){
+	$("#imgGallery").slideToggle("slow");
+}
 
 function parseJSON1(jsonObj){
 	 
@@ -77,10 +89,10 @@ function parseJSON1(jsonObj){
 
 	table += "<p class='mainImg'><img src='" + row.firstimage + "' alt='대표이미지'></p>";
 	table += "<div class='summary'>";
-	table += "<div class='tit1' type='button'>개요";
+	table += "<button id='tit1' type='button' onclick='toggle1();'>개요 ";
 	table += '<svg class="icon" width="1em" height="1em" viewBox="0 0 16 16" preserveAspectRatio="xMidYMid meet">';
-	table += '<path fill="currentColor" fill-rule="evenodd" d="M2.87 4L1.33 5.5 8 12l6.67-6.5L13.13 4 8 9z"></path></svg></div>';
-	table += "<div class='tit2'>" + row.overview + "</div></div>";
+	table += '<path fill="currentColor" fill-rule="evenodd" d="M2.87 4L1.33 5.5 8 12l6.67-6.5L13.13 4 8 9z"></path></svg></button>';
+	table += "<div id='tit2'>" + row.overview + "</div></div>";
 
 
 		
@@ -96,8 +108,8 @@ function parseJSON2(contentTypeId, jsonObj){
 
 	var result = "";
 	
-	result += "<strong>" + chkContentType[row.contenttypeid] + "</strong>";
-
+	result += "<button id='tit3' onclick='toggle2();'>" + chkContentType[row.contenttypeid] + " 상세정보</button>";
+	result += "<div id='tit4'>"
 	for(key in row) {
 		if(row[key] == 0 || row[key] == null ){}
 		else if(key == "contenttypeid" || key == "contentid"){} 
@@ -105,7 +117,7 @@ function parseJSON2(contentTypeId, jsonObj){
 		result += "<li>" + chkContent[contentTypeId][key] + " : " + row[key] + "</li>";
 		}
 	}
-	table += result;
+	table += result + "</div>";
 	
 
 

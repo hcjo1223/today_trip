@@ -11,14 +11,13 @@
 }
 
 .tourView .mainImg img {
-    width: 400px;
-    height: 247px;
+    width: 800px;
+    height: 400px;
+    object-fit: cover;
 }
 
 .tourView .summary {
     clear: both;
-    padding: 25px 10px 0 10px;
-    border-top: 1px solid #000;
 }
 
 /* view - img */
@@ -186,15 +185,35 @@
 }
 
 
-.tit1, .tit2 {
-  padding: 5px;
+#tit1, #tit3, #tit5{
   text-align: center;
-  background-color: #e5eecc;
+  background-color: #c3c3c3;
   border: solid 1px #c3c3c3;
+  margin: 10px auto 0 auto;
+  color: black;
+  
   width: 100%;
+  padding: 8px 0;
+  font-size: 16px;
 }
 
-.tit2 {
-  padding: 50px;
+#tit2, #tit4{
+  padding: 40px;
   display: none;
+  border: solid 1px #c3c3c3;
+  margin: 0px auto 20px auto;
+}
+
+#imgGallery{
+	display: none;
+}
+
+#tit1::hover , #tit3::hover, #tit5::hover{
+	background-color: blue;
+	color: white;	
+}	
+
+.rating {
+	margin: 10px;
+	
 }
