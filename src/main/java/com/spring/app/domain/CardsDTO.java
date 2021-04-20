@@ -46,7 +46,7 @@ public class CardsDTO extends picLibDTO{
 	public void setUsuid(int usuid) {
 		this.usuid = usuid;
 	}
-	
+
 	public static List<MultipartFile> getFiles() {
 		return files;
 	}
