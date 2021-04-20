@@ -461,17 +461,62 @@ values(pl_uid_seq.nextval, pc_uid_seq.nextval, CONCAT(i,'번째 이름'), '.png'
 END LOOP;
 END;
 ALTER TABLE PIC_LIB MODIFY pl_path varchar2(200);
+/* tour_location 더미데이터 */
+BEGIN
+FOR i IN 1..20 LOOP
+insert into tour_location(tu_uid  , place_uid)
+values(i, i);
+END LOOP;
+END;
+ALTER TABLE PIC_LIB MODIFY pl_path varchar2(200);
 
 /* test */
 UPDATE PIC_LIB SET PL_PATH ='https://www.sisa-news.com/data/photos/20200936/art_159912317533_32480a.jpg' WHERE pc_uid = 20;
 
-SELECT * FROM PICTURE p ;
+SELECT * FROM PIC_LIB pl  ;
 
 SELECT p.PC_UID, pl.PL_PATH FROM 
 (SELECT * from
 (SELECT * FROM PICTURE WHERE PC_WRITE_DATE BETWEEN '2021-04-18' AND '2021-04-20' ORDER BY PC_HITS DESC)
 WHERE ROWNUM= 1) p JOIN PIC_LIB pl ON p.PC_UID = pl.PC_UID ;
-
+DELETE PICTURE WHERE us_uid=1;
  ;
+SELECT * from
+(SELECT * FROM PICTURE WHERE PC_WRITE_DATE BETWEEN '2021-04-18' AND '2021-04-20' ORDER BY PC_HITS DESC)
+WHERE ROWNUM= 1;
+SELECT * FROM PICTURE WHERE PC_WRITE_DATE BETWEEN '2021-04-18' AND '2021-04-20' ORDER BY PC_HITS DESC;
 
-SELECT * FROM PIC_LIB;
+
+
+SELECT pl.PC_UID "pcuid" ,pl.PL_PATH "path"
+FROM 
+	(SELECT * FROM
+				(SELECT * FROM PICTURE WHERE PC_WRITE_DATE BETWEEN '${startDate}' AND '${endDate}'ORDER BY PC_HITS DESC)
+	WHERE ROWNUM= 1) p 
+			JOIN 
+				PIC_LIB pl 
+			ON 
+				p.PC_UID = pl.PC_UID;
+			
+SELECT J.*, P.FIRSTIMAGE2 FROM
+(SELECT H.tu_uid, H.tu_title, H.TU_HITS, D.place_uid FROM 
+(SELECT * FROM 
+(SELECT * FROM tour ORDER BY tu_hits DESC) 
+WHERE ROWNUM < 4) H JOIN tour_location D ON H.tu_uid = D.tu_uid) J JOIN place P ON J.place_uid = P.place_uid;
+
+SELECT * FROM tour_location;
+
+		SELECT pl.PC_UID "pcuid" ,pl.PL_PATH "path", pc_focus
+		FROM 
+			(SELECT * 
+				FROM(SELECT * FROM PICTURE ORDER BY PC_HITS DESC)
+				WHERE ROWNUM< 4) p 
+			JOIN 
+				PIC_LIB pl 
+			ON 
+				p.PC_UID = pl.PC_UID;
+
+				
+				SELECT * 
+				FROM(SELECT * FROM PICTURE ORDER BY PC_HITS DESC)
+				WHERE ROWNUM< 4;

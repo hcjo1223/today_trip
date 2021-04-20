@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -132,13 +133,107 @@
 		<div class="row">
 			<div class="col-12 col-md-9 home-header__story">
 				<article class="story-entry home-header__story__image">
-                    <a class="story-entry-link" href="">
-			        	<div class="story-entry__image-wrap">
-			        	</div>
-                    </a>
-                    <div style="width: 100%; margin-top: 20px">
-                    	<img class="story-entry__image" onclick="location.href='./cards/view.do?uid=${listPopularPic[0].pcUid}'" src="${listPopularPic[0].path}" style="display: block; margin: 0 auto;">
+					<!-- 1 -->
+                    <div style="width: 100%; border-bottom: 1px solid #ededed;">
+                    	<div class="HomePopImgSpace">
+                    		<div class="HomePopHSpace"><span>월간 인기 사진</span></div>
+                    		<img class="story-entry__image" src="${listPopularPic[0].path}" style="border-radius: 4px; display: block; margin: 0 auto; margin-bottom: 20px">
+                    		<div class="goToImgDiv">
+                    			<button class="goToImg" onclick="location.href='./cards/view.do?uid=${listPopularPic[0].pcUid}'">보러가기</button>
+                    		</div>
+                    	</div>
+                    	
                     </div>
+                    <!-- 2 -->
+                    <div class="HomeDiv2" style="border-bottom: 1px solid #ededed;">
+                    	<div style="display: block; margin: 0 auto; width: 550px; padding-right: 470px; color: rgb(130, 130, 130);">
+                    			<h1 style="margin-left: 0">오늘의 여행 일정</h1>
+                    	</div>
+                    	<div class = "imgcon">
+		                    	<ul>
+		                    	<c:choose>
+								<c:when test="${empty listHomeCalender || fn:length(listHomeCalender) == 0 }"></c:when>
+								<c:otherwise>
+									<c:forEach var="dto" items="${listHomeCalender }">
+										<li>
+										<!--  
+										 	<span>${ dto.tu_uid}</span>
+										 	<span>${ dto.tu_title}</span>
+										 	<span>${ dto.tu_hits}</span>
+										 	<span>${ dto.place_uid}</span>
+										 -->
+										 
+											 <img src="${ dto.firstimage2}">
+											 <div class="HomeConSpace"><span>${ dto.tu_title}</span></div>
+											 	 	
+										
+										 </li>
+									</c:forEach>
+								</c:otherwise>
+								</c:choose>
+								</ul>
+                    	</div>
+                    
+                    
+                    
+                    </div>
+                    <!-- 3 -->
+                    <div style="border-bottom: 1px solid #ededed; height: 350px;">
+                    	<div style="display: block; margin: 0 auto; width: 550px; padding-right: 470px; color: rgb(130, 130, 130);">
+                    			<h1 style="margin-left: 0">오늘의 인기 사진</h1>
+                    	</div>
+                    	<div class = "imgcon">
+		                    	<ul>
+		                    	<c:choose>
+								<c:when test="${empty listHomePic || fn:length(listHomePic) == 0 }"></c:when>
+								<c:otherwise>
+									<c:forEach var="dto" items="${listHomePic }">
+										<li>
+										<!--  
+										 	<span>${ dto.tu_uid}</span>
+										 	<span>${ dto.tu_title}</span>
+										 	<span>${ dto.tu_hits}</span>
+										 	<span>${ dto.place_uid}</span>
+										 -->
+										 
+											 <img src="${ dto.pl_path}">
+											 <c:choose>
+												 <c:when test="${dto.pc_focus == 0}">
+												  <div class="HomeConSpace"><span>유명 관광지는 필수</span></div>
+												 </c:when>
+												 <c:when test="${dto.pc_focus == 1}">
+												  <div class="HomeConSpace"><span>SNS 핫플레이스</span></div>
+												 </c:when>
+												 <c:when test="${dto.pc_focus == 2}">
+												  <div class="HomeConSpace"><span>여유롭게 힐링</span></div>
+												 </c:when>
+												 <c:when test="${dto.pc_focus == 3}">
+												  <div class="HomeConSpace"><span>체험·액티비티</span></div>
+												 </c:when>
+												 <c:when test="${dto.pc_focus == 4}">
+												  <div class="HomeConSpace"><span>문화·예술·역사</span></div>
+												 </c:when>
+												 <c:when test="${dto.pc_focus == 5}">
+												  <div class="HomeConSpace"><span>자연과 함께</span></div>
+												 </c:when>
+												 <c:when test="${dto.pc_focus == 6}">
+												  <div class="HomeConSpace"><span>관광보다 먹방</span></div>
+												 </c:when>
+											 </c:choose>
+											
+											 	 	
+										
+										 </li>
+									</c:forEach>
+								</c:otherwise>
+								</c:choose>
+								</ul>
+                    	</div>
+                    
+                    
+                    
+                    </div>
+                    
                 </article>
             </div>
         </div>
