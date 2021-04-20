@@ -59,9 +59,14 @@ $(document).ready(function () {
 
 	})();
 
+	var count = "<di>좋아요 : " + likeCount(place_uid) + "</di>"
+	$(".likecount").html(count)
+
 	
 
+
 });
+
 
 
 function parseJSON1(jsonObj){
@@ -71,9 +76,15 @@ function parseJSON1(jsonObj){
 	var row = jsonObj.response.body.items.item;
 
 	table += "<p class='mainImg'><img src='" + row.firstimage + "' alt='대표이미지'></p>";
-	table += "<div class='summary'><strong calss='tit'>개요</strong>";
-	table += "<p>" + row.overview + "</p></div>";
-	
+	table += "<div class='summary'>";
+	table += "<div class='tit1' type='button'>개요";
+	table += '<svg class="icon" width="1em" height="1em" viewBox="0 0 16 16" preserveAspectRatio="xMidYMid meet">';
+	table += '<path fill="currentColor" fill-rule="evenodd" d="M2.87 4L1.33 5.5 8 12l6.67-6.5L13.13 4 8 9z"></path></svg></div>';
+	table += "<div class='tit2'>" + row.overview + "</div></div>";
+
+
+		
+
 	$("#commonData").html(table);
 }
 
@@ -120,7 +131,7 @@ function parseJSON3(jsonObj){
 		result += "</ul></div>";
 
 	} else {
-		
+
 		table += "<img id='expandedImg' src='" + row[0].originimgurl+ "'>"
 		table += "</div>";
 		result += "<div class='box' id='tab'><ul>";
@@ -141,7 +152,46 @@ function myFunction(imgs) {
 	var expandImg = document.getElementById("expandedImg");
 	expandImg.src = imgs.src;
 	expandImg.parentElement.style.display = "block";
-  }
+}
+
+function likeCount(place_uid){
+	var count = 0;
+	$.ajax({
+		url : "./like/count",
+		type : "get",
+		data : {'place_uid' : place_uid},
+		cache : false,
+		async : false,
+		success : function(data, status){
+			if(status == "success"){
+				if(data.status == "OK"){
+					count = data.count;		
+				}
+			}
+		}
+	});
+
+	return count;
+}
+
+function likeup(place_uid){
+	$.ajax({
+		url : "./place/like",
+		type : "post",
+		data : {"place_uid" : place_uid},
+		success : function(data, status){
+			if(status == "success"){
+	            if(data.status == "OK") {
+					
+					
+				}
+			}
+
+		}
+	});
+}
+
+
 
 
 var chkContentType = {

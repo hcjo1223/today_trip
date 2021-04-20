@@ -29,4 +29,7 @@ public interface ReviewDAO {
     public int reviewDelete(
     		@Param("re_uid") int re_uid) throws Exception;
 
+    // 댓글 평점 평균
+	public float rateAVG(@Param("place_uid") int place_uid) throws Exception;
+
 }

@@ -15,6 +15,9 @@ $('[name=commentInsertBtn]').click(function(){ //댓글 등록 버튼 클릭시
 $(document).ready(function(){
     loadPage(page); //페이지 로딩시 댓글 목록 출력 
     
+    $(".tit1").click(function(){
+		$(".tit2").slideToggle("slow");
+	});
 });
 
 
@@ -49,6 +52,17 @@ function updateList(jsonObj){
         	
         	result += '<div class="commentArea">';
         	result += '<div class="commentInfo">'+'댓글번호 : '+items[i].re_uid+' / 작성자 : '+items[i].us_uid;
+        	if(items[i].rate > 4.1){
+        		result += '<img src ="../resources/IMG/star5.png">';
+        	} else if (items[i].rate > 3.1){
+        		result += '<img src ="../resources/IMG/star4.png">';
+        	} else if (items[i].rate > 2.1) {
+        		result += '<img src ="../resources/IMG/star3.png">';
+        	} else if (items[i].rate > 1.1) {
+        		result += '<img src ="../resources/IMG/star2.png">';
+        	} else {
+        		result += '<img src ="../resources/IMG/star1-1.png">';
+        	}
         	result += '<a onclick="commentUpdate('+items[i].re_uid+',\''+items[i].content+'\');"> 수정 </a>';
         	result += '<a onclick="commentDelete('+items[i].re_uid+');"> 삭제 </a> </div>';
         	result += '<div class="commentContent'+items[i].re_uid+'"> <p> 내용 : '+items[i].content +'</p>';
@@ -183,5 +197,49 @@ function buildPagination(writePages, totalPage, curPage, pageRows){
 
     return str;
 } // end buildPagination();
+
+var locked = 0;
+function show(star) {
+	if(locked)
+		return;
+	var i;
+	var image;
+	var el;
+		
+	for (i = 1; i <= star; i++){
+		image = 'image' + i;
+		el = document.getElementById(image);
+		el.src = "../resources/IMG/star1.png"
+	}
+}
+
+function noshow(star) {
+	if(locked)
+		return;
+	var i;
+	var image;
+	var el;
+	
+	for (i = 1; i <= star; i++){
+		image = 'image' + i;
+		el = document.getElementById(image);
+		el.src = "../resources/IMG/star0.png"
+	}
+}
+
+function lock(star) {
+	show(star);
+	locked = 1;
+}
+
+function mark(star) {
+	lock(star);
+	alert("별점" + star + "점");
+	document.commentInsertForm.rate.value=star;
+}
  
+
+
+
+
 </script>

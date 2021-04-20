@@ -32,5 +32,6 @@ public class PlaceDTO {
 	@JsonProperty("viewcnt")
 	int viewCnt;
 	int reviewcnt;
+	int reviewavg;
 	
 }

@@ -12,6 +12,7 @@ public class ReviewDTO {
 	int place_uid;
 	int re_uid;
 	String content;
-	float rate;
+	int rate;
 	Date write_date;
+	float rateAVG;
 }

@@ -35,7 +35,7 @@ WHERE PLACE_UID = 194;
 SELECT count(*) AS likeChk FROM PLACE_LIKE  
 WHERE PLACE_UID = 195 AND US_UID = 1;
 
-SELECT A.*, B.reviewcnt, C.likecnt FROM 
+SELECT A.*, B.reviewcnt FROM 
 	(SELECT place_uid,
 			contentid,
 			contenttypeid,
@@ -49,6 +49,19 @@ SELECT A.*, B.reviewcnt, C.likecnt FROM
 			firstimage2,
 			pl_viewcnt AS viewcnt 
 	 FROM (SELECT ROWNUM AS RNUM, T.* FROM (SELECT * FROM place ORDER BY place_uid DESC) T) 
- 	 WHERE RNUM >= #{from} AND RNUM < (#{from} + #{pageRows})) A 
+ 	 WHERE RNUM >= 1 AND RNUM < 11) A 
 LEFT OUTER JOIN (SELECT PLACE_UID ,count(*) AS reviewcnt FROM REVIEW group BY PLACE_UID ) B
-ON A.place_uid = B.place_uid
+ON A.place_uid = B.place_uid;
+
+SELECT  
+	us_uid, place_uid, rv_uid "re_uid", rv_content "content", rv_rate "rate", rv_write_date "write_date",
+	(SELECT AVG(RV_RATE) FROM review WHERE place_uid = 195)
+FROM 
+	(SELECT ROWNUM AS RNUM, T.* FROM 
+		(SELECT * FROM review WHERE place_uid = 195 ORDER BY rv_uid DESC) T) 
+WHERE 
+	RNUM >= 1 AND RNUM < 11;
+
+
+SELECT AVG(RV_RATE) AS rateAVG FROM review WHERE place_uid = 195;
+

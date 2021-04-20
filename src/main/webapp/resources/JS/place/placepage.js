@@ -10,6 +10,8 @@ $(document).ready(function(){
 });
 
 
+
+
 //page번째 페이지 목록 읽어오기
 function loadPage(page){
     $.ajax({
@@ -27,23 +29,6 @@ function loadPage(page){
     });  // end $.ajax()
 } // end loadPage()
 
-
-function likeCount(place_uid){
-	$.ajax({
-		url : "./like/count",
-        type : "get",
-		data : {'place_uid' : place_uid},
-        cache : false,
-        success : function(data, status){
-            if(status == "success"){
-				if(data.status == "OK"){
-					
-				
-				}
-			}
-		}
-	});
-}
 
 function likeCount(place_uid){
 	var count = 0;
@@ -65,6 +50,27 @@ function likeCount(place_uid){
 	return count;
 }
 
+function rateAVG(place_uid){
+	var avg = 0;
+	$.ajax({
+		url : "./review",
+		type : "get",
+		data : {'place_uid' : place_uid},
+		cache : false,
+		async : false,
+		success : function(data, status){
+			if(status == "success"){
+				if(data.status == "OK"){
+					
+					avg = data.count;		
+				}
+			}
+		}
+	});
+
+	return avg;
+}
+
 function updateList(jsonObj){
 
     var result = "";  // 최종 결과
@@ -77,12 +83,24 @@ function updateList(jsonObj){
 		
         var items = jsonObj.data; // 배열
 
-		
+		var avg = 0;
 
 
 		for(var i = 0; i < count; i++){
 
-			
+			var abcde = rateAVG(items[i].place_uid);
+
+			if(abcde > 4.1){
+				avg = '<img src ="../resources/IMG/star4.png">';
+			} else if (abcde > 3.1){
+				avg = '<img src ="../resources/IMG/star4.png">';
+			} else if (abcde > 2.1) {
+				avg = '<img src ="../resources/IMG/star3.png">';
+			} else if (abcde > 1.1) {
+				avg = '<img src ="../resources/IMG/star2.png">';
+			} else {
+				avg = '<img src ="../resources/IMG/star1-1.png">';
+			}
 
 
 			
@@ -92,22 +110,24 @@ function updateList(jsonObj){
 			result += "<li>\n"
 					+ "<dl class='item_section'>\n"
 					+ "<dt class='item_top'>\n"
+					+ '<form name="uidval"><input type="hidden" name="place_uid" value="' + items[i].place_uid + '"/>'
+					+ '<input type="hidden" name="us_uid" value="' + items[i].place_uid + '"/></form>'
 					+ "<a href='./view?contentid=" + items[i].contentid + "'>\n"
 					+ "<span class='s_day'>" + chkContentType[items[i].contenttypeid] + "</span>\n"
 					+ "<img src='" + items[i].firstimage2 + "' alt='" + items[i].title + "'>\n"
-					+ "<div class='score_area'><p class='score_count' style='width: 100%;'>별점(5점만점에 5점)</p></div>\n"
+					+ "<div class='score_area'>" + avg + "</div>\n"
 					+ "<p class='s_tit'>" + items[i].title + "</p>"
                     + "<p class='s_theme'>" + chkareaCode[items[i].areacode] + "&gt;" + sigunguArr[1] + "</p>"
 					+ "</a></dt>\n"
 					+ "<dd class='item_count_area clear'>\n"
 					+ "<a href='javascript:void(0);'>"
-					// + likeCount(items[i].place_uid)
-					+ "<p class='ico_type like'><span>좋아요</span><span class='likecount'>" + likeCount(items[i].place_uid) + "</span></p></a>"
-					+ "<p class='ico_type zzim '><span>조회수</span><span class='viewcount'>" + items[i].viewcnt + "</span></p>"
+					
+					+ "<p class='ico_type like' ><span>좋아요</span><span class='likecount' name='likecount" + items[i].place_uid + "'>" + likeCount(items[i].place_uid) + "</span></p></a>"
+					+ "<p class='ico_type zzim'><span>조회수</span><span class='viewcount'>" + items[i].viewcnt + "</span></p>"
 					+ "<p class='ico_type review'><span>리뷰</span><span class='reviewcount'>" + items[i].reviewcnt + "</span></p>"
 					+ "</p></dd></dl></li>"
-
-			
+					
+					
 
 		}
 

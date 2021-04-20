@@ -76,6 +76,11 @@ public class PlaceService {
 		return dao2.reviewDelete(re_uid);
 	}
 	
+	public float rateAVG(int place_uid) throws Exception {
+		dao2 = sqlSession.getMapper(ReviewDAO.class);
+		return dao2.rateAVG(place_uid);
+	}
+	
 PlaceLikeDAO dao3;
 	
 	public int createPlaceLike(int place_uid, int us_uid) throws Exception{

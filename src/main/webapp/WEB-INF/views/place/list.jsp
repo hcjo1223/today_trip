@@ -8,7 +8,7 @@
 <title>장소 리스트</title>
 <!-- 스타일, js 라이브러리 -->
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/resources/CSS/common.css"/>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/resources/CSS/place.css"/>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/resources/CSS/place/place.css"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://kit.fontawesome.com/bb29575d31.js"></script>
 <script src="${pageContext.request.contextPath }/resources/JS/place/placepage.js"></script>
@@ -89,12 +89,12 @@ a { text-decoration-line: none; }
 	        <div class="sticky-child layout-navigation-secondary" style="position: relative;">
 	            <div class="layout-navigation-secondary__content">
 	                <nav class="layout-navigation-secondary__menu">
-	                <a class="layout-navigation-secondary__menu__item" href="">홈</a>
-	                <a class="layout-navigation-secondary__menu__item" href="./cards/list.do">사진</a>
-	                <a class="layout-navigation-secondary__menu__item" href="./calender">일정</a>
-	                <a class="layout-navigation-secondary__menu__item layout-navigation-secondary__menu__item--active" href="./place/list">장소</a>
-	                <a class="layout-navigation-secondary__menu__item" href="./advices">노하우</a>
-	                <a class="layout-navigation-secondary__menu__item" href="./questions">질문과답변</a></nav>
+	                <a class="layout-navigation-secondary__menu__item" href="../home">홈</a>
+	                <a class="layout-navigation-secondary__menu__item" href="../cards/list.do">사진</a>
+	                <a class="layout-navigation-secondary__menu__item" href="../calender">일정</a>
+	                <a class="layout-navigation-secondary__menu__item layout-navigation-secondary__menu__item--active" href="">장소</a>
+	                <a class="layout-navigation-secondary__menu__item" href="../advices">노하우</a>
+	                <a class="layout-navigation-secondary__menu__item" href="../questions">질문과답변</a></nav>
 	            </div>
 	        </div>
 	    </div>
@@ -103,6 +103,8 @@ a { text-decoration-line: none; }
 
 <script>
 	var us_uid = 1; 
+	
+	
 </script>
 
 <%-- 글 목록 --%>
@@ -204,6 +206,7 @@ a { text-decoration-line: none; }
         </p>
     </div>
 </footer>
+
 </body>
 </html>
 

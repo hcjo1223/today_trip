@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.spring.app.domain.AjaxWriteList;
 import com.spring.app.domain.AjaxWriteResult;
 import com.spring.app.domain.PlaceDTO;
+import com.spring.app.domain.ReviewDTO;
 import com.spring.app.service.PlaceService;
 
 
@@ -55,7 +56,6 @@ public class PlaceRestController {
 			//int from = (page - 1) * pageRows;  // MySQL 은 0부터 시작
 			
 			list = placeService.list(from, pageRows);
-			
 			if(list == null) {
 				message.append("[리스트할 데이터가 없습니다]");
 			} else {
@@ -153,7 +153,7 @@ public class PlaceRestController {
 	// 좋아요 카운트
 	@GetMapping("/like/count")
 	public AjaxWriteResult likeCount(@RequestParam int place_uid) {
-int count = 0;
+		int count = 0;
 		
 		// response 에 필요한 값들
 		StringBuffer message = new StringBuffer();
@@ -164,7 +164,7 @@ int count = 0;
 			count = placeService.countPlaceLike(place_uid);
 			
 			if(count == 0) {
-				message.append("[트랜잭션 실패 : 0 delete]");
+				message.append("[트랜잭션 실패 : NO COUNT]");
 			} else {
 				status = "OK";
 			}
@@ -182,17 +182,65 @@ int count = 0;
 	
 	// 좋아요 여부 체크
 	@GetMapping("/like/check")
-	public int likeCheck(
+	public AjaxWriteResult likeCheck(
 			@RequestParam int place_uid,
 			@RequestParam int us_uid) {
-		int check = 0;
 		
-		try {
-			check = placeService.chkPlaceLike(place_uid, us_uid);
+		int count = 0;
+		
+		// response 에 필요한 값들
+		StringBuffer message = new StringBuffer();
+		String status = "FAIL";  // 기본 FAIL
+
+		try {	
+
+			count = placeService.chkPlaceLike(place_uid, us_uid);
+			
+			if(count == 0) {
+				message.append("[트랜잭션 실패 : NO CHECK]");
+			} else {
+				status = "OK";
+			}
+
 		} catch (Exception e) {
-			e.printStackTrace();
+			message.append("[트랜잭션 에러:" + e.getMessage() + "]");
 		}
+
+		AjaxWriteResult result = new AjaxWriteResult();
+		result.setStatus(status);
+		result.setMessage(message.toString());
+		result.setCount(count);
+		return result;	
+	}
+	
+	// 댓글 평점 평균
+	@GetMapping("/review")
+	public AjaxWriteResult rateAVG(
+			@RequestParam int place_uid) {
+		float rateAVG = 0;
 		
-		return check;
+		// response 에 필요한 값들
+				StringBuffer message = new StringBuffer();
+				String status = "FAIL";  // 기본 FAIL
+
+				try {	
+
+					rateAVG = placeService.rateAVG(place_uid);
+					
+					if(rateAVG < 0) {
+						message.append("[트랜잭션 실패 : NO RATE]");
+					} else {
+						status = "OK";
+					}
+
+				} catch (Exception e) {
+					message.append("[트랜잭션 에러:" + e.getMessage() + "]");
+				}
+				
+				AjaxWriteResult result = new AjaxWriteResult();
+				result.setStatus(status);
+				result.setMessage(message.toString());
+				result.setCount((int) Math.ceil(rateAVG));
+				return result;		
 	}
 }

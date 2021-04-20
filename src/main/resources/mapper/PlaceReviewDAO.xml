@@ -18,12 +18,18 @@
         ]]>	
     </select>
     
+    <select id="rateAVG" resultType="float">
+    	SELECT AVG(rv_rate) AS rateAVG 
+    	FROM review 
+    	WHERE place_uid = #{place_uid}
+    </select>
+    
     
     <insert id="reviewInsert" flushCache="true">
         INSERT INTO review
-			(us_uid, place_uid, rv_uid, rv_content, rv_write_date)
+			(us_uid, place_uid, rv_uid, rv_content, rv_rate , rv_write_date)
         VALUES
-			(1, #{place_uid}, rv_uid_seq.nextval, #{content}, SYSDATE)
+			(1, #{place_uid}, rv_uid_seq.nextval, #{content}, #{rate}, SYSDATE)
     </insert>
     
     <update id="reviewUpdate" parameterType="com.spring.app.domain.ReviewDTO">

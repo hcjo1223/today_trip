@@ -21,6 +21,9 @@ public class AjaxWriteList extends AjaxWriteResult {
 	@JsonProperty("Cardsdata")
 	List<CardsDTO> CardsList;
 	
+	int reviewcnt;
+	int reviewavg;
+	
 	int page;	// 현재 페이지 #
 	
 	@JsonProperty("totalpage")

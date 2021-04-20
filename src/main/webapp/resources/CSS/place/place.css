@@ -1,4 +1,3 @@
-
 img {
 	 object-fit: cover
 }
@@ -190,7 +189,7 @@ img {
 
 .item_section .item_count_area .ico_type.like {
     display: block;
-    background: url(../IMG/ico_like.png) no-repeat 50% 2px
+    background: url(../../IMG/ico_like.png) no-repeat 50% 2px
 }
 
 .item_section .item_count_area .ico_type.zzim {
@@ -201,9 +200,6 @@ img {
     background: url(https://www.visitjeju.net/image/common/ico_review.png) no-repeat 50% 0
 }
 
-.item_section .item_count_area .ico_type.cart {
-    background: url(/image/common/ico_cart_l.jpg) no-repeat 50% 0
-}
 
 .item_section .item_count_area .ico_type span {
     display: block;
@@ -238,7 +234,18 @@ img {
     right: 11px;
     width: 88px;
     height: 15px;
-    background: url(https://www.visitjeju.net/image/common/bg_star_off.png) no-repeat 0 0
+}
+
+.item_section .item_top a .score_area #rate1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    font-size: 6px;
+    color: transparent;
+    line-height: 10px;
+    background: url(../../../resources/IMG/star1-1.png) no-repeat 0 0;
 }
 
 .item_section .item_top a .score_area .score_count {
@@ -250,7 +257,6 @@ img {
     font-size: 6px;
     color: transparent;
     line-height: 10px;
-    background: url(https://www.visitjeju.net/image/common/bg_star_on.png) no-repeat 0 0
 }
 
 .item_section .item_review {
@@ -594,8 +600,14 @@ img {
     height: 217px
 }
 
+.recommend_area .item_list.type_thumb.type_1 li .item_section .item_top .score_area img {
+    width: 88px;
+    height: 15px
+}
+
+
 .recommend_area .item_list.type_thumb.type_1 li .item_section .item_top a .score_area {
-    top: 186px;
+    top: 265px;
     right: 13px
 }
 
@@ -694,136 +706,4 @@ img {
 
 
 
-/* view */
 
-.recommend_view {
-	width: 800px;
-	margin: 0 auto;
-	padding: 0 20px;
-}
-
-.tourView {
-    overflow: hidden;
-    
-}
-
-.tourView .mainImg {
-    width: 400px;
-    float: left;
-}
-
-.tourView .mainImg img {
-    width: 400px;
-    height: 247px;
-}
-
-.tourView .summary {
-    clear: both;
-    padding: 25px 10px 0 10px;
-    border-top: 1px solid #000;
-}
-
-/* view - img */
-
-.column {
-  padding: 10px;
-}
-
-.column img {
-  opacity: 0.8; 
-  cursor: pointer; 
-  width: 200px;
-  height: 150px;
-}
-
-.column img:hover {
-  opacity: 1;
-}
-
-.box:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-
-
-.containerA {
-  position: relative;
-  border: 1px solid #ccc;
-  width: 796px;
-  height: 496px;
-  margin: 0 auto;
-  
-}
-
-.containerA img {
-  object-fit: cover;
-  width: 100%;
-  height: 100%;
-}
-
-#containerImg{
-  width:800px;
-  height: 500px;
-  margin: 0 auto;
-}
-
-#imgtext {
-  position: absolute;
-  bottom: 15px;
-  left: 15px;
-  color: white;
-  font-size: 20px;
-}
-
-.closebtn {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  color: white;
-  font-size: 35px;
-  cursor: pointer;
-}
-
-/* view - review */
-
-.review {
-	margin: 0 auto;
-    padding: 0 20px;
-    width: 1200px;
-}    
-
-.review .container{
-	padding-bottom: 20px;
-    border-bottom: 1px solid #e5e5e5;
-}
-
-.review .container label{
-    font-size: 24px;
-    font-weight: 800;
-    color: #1b1b1b;
-    line-height: 24px;
-}
-
-.review .container #count{
-	font-size: 24px;
-    font-weight: 800;
-    color: #f38f1e;
-    line-height: 24px;
-    margin-left: 0;
-}
-
-.review .container .commentArea{
-    position: relative;
-    padding: 20px 0;
-    border-bottom: 1px solid #e5e5e5;
-}
-
-.review .container .form-control{
-	height: 43px;
-}
-
-.commentList .commentArea .commentInfo a{
-	color: blue;
-}

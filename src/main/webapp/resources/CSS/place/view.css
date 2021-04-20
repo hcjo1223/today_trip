@@ -1,0 +1,200 @@
+.recommend_view {
+	width: 800px;
+	margin: 0 auto;
+	padding: 0 20px;
+}
+
+
+.tourView .mainImg {
+    width: 400px;
+    float: left;
+}
+
+.tourView .mainImg img {
+    width: 400px;
+    height: 247px;
+}
+
+.tourView .summary {
+    clear: both;
+    padding: 25px 10px 0 10px;
+    border-top: 1px solid #000;
+}
+
+/* view - img */
+
+.column {
+  padding: 10px;
+}
+
+.column img {
+  opacity: 0.8; 
+  cursor: pointer; 
+  width: 200px;
+  height: 150px;
+}
+
+.column img:hover {
+  opacity: 1;
+}
+
+.box:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+
+
+.containerA {
+  position: relative;
+  border: 1px solid #ccc;
+  width: 796px;
+  height: 496px;
+  margin: 0 auto;
+  
+}
+
+.containerA img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+#containerImg{
+  width:800px;
+  height: 500px;
+  margin: 0 auto;
+}
+
+#imgtext {
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+  color: white;
+  font-size: 20px;
+}
+
+.closebtn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  color: white;
+  font-size: 35px;
+  cursor: pointer;
+}
+
+/* view - review */
+
+.review {
+	margin: 30px auto;
+    padding: 0 20px;
+    width: 100%;
+}    
+
+.review .container{
+	padding-bottom: 20px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.review .container label{
+    font-size: 24px;
+    font-weight: 800;
+    color: #1b1b1b;
+    line-height: 24px;
+}
+
+.review .container #count{
+	font-size: 24px;
+    font-weight: 800;
+    color: #f38f1e;
+    line-height: 24px;
+    margin-left: 0;
+}
+
+.review .container .commentArea{
+    position: relative;
+    padding: 20px 0;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.review .container .form-control{
+	height: 53px;
+	width: 70%;
+	padding-inline: 10px;
+	
+}
+
+#commentList .commentArea .commentInfo a::hover{
+	color: blue;
+}
+
+#commentList .commentArea .commentInfo img{
+	width: 118px;
+	height: 24px;
+}
+
+.box{max-width:800px; width:100%; border:1px solid #ccc; margin:0 auto;}
+
+.box ul{
+  white-space:nowrap; 
+  overflow-x: auto; 
+  text-align:center;
+}
+
+#tab ul li{display:inline-block;}
+
+
+::-webkit-scrollbar {
+/* 스크롤바 전체 영역 */
+  width: 10px;
+} 
+::-webkit-scrollbar-track {
+      background-color: #f9f9f9;
+/* 스크롤이 움직이는 영역  */
+} 
+::-webkit-scrollbar-thumb {
+/*  스크롤  */
+      background-color: gold; 
+  border-radius:30px;
+} 
+::-webkit-scrollbar-button:start:decrement, ::-webkit-scrollbar-button:end:increment {
+/*  스크롤의 화살표가 포함된 영역   */
+  display:block;
+  height:8px;
+  background-color: #000;
+} 
+::-webkit-scrollbar-corner {
+/*  상하+좌우 스크롤이 만나는 공간   */
+      background-color: red;
+} 
+
+#rating img{
+	width: 24px;
+	height: 24px;
+}
+.usImg{
+	widows: 40px;
+	height: 40px;
+	border-radius: 70%;
+	overflow: hidden;
+}
+#usImg{
+	width: 60px;
+	height: 60px;
+	object-fit: cover;
+}
+
+
+.tit1, .tit2 {
+  padding: 5px;
+  text-align: center;
+  background-color: #e5eecc;
+  border: solid 1px #c3c3c3;
+  width: 100%;
+}
+
+.tit2 {
+  padding: 50px;
+  display: none;
+}
