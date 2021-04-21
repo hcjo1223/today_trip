@@ -34,6 +34,7 @@ public class CalendarController {
 		
 		System.out.println(dto.toString()); // 확인용
 
+		
 		// 일정 추가 요청하기
 		calendarService.insert(dto);
 		
