@@ -85,7 +85,15 @@
 		<div class="tour-write_head row mt-5 mb-5 p-3 border-bottom">
 			<!-- 로고 및 홈페이지로 가는 링크 -->
 			<div class="col-md-10">
-				<a href="#"><img src="" alt="logo" /></a>
+				<div class="layout-navigation-primary__left">
+					<a class="layout-navigation-logo layout-navigation__bar__logo" aria-label="오늘의여행" href="">
+						<svg class="icon" width="135" height="38" viewBox="0 0 135 38" preserveAspectRatio="xMidYMid meet">
+							<g>
+								<text style="height: 40px;" xml:space="preserve" text-anchor="start" font-family="'Jal_Onuel'" font-size="30" id="svg_23" y="30" x="0" opacity="undefined" fill-opacity="null" stroke-opacity="null" stroke-dasharray="null" stroke-width="0" stroke="#000" fill="#000" >오늘의여행</text>
+							</g>
+						</svg>
+					</a>
+				</div>
 			</div>
 			<!-- 글 올리기 버튼 -->
 			<div class="col-md-2">
