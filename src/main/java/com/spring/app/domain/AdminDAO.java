@@ -23,7 +23,7 @@ public interface AdminDAO {
 		
 		List<PlaceDTO> selectHomePlace();
 
-		List<CalenderDTO> selectHomeCalender();
+		List<CalendarDTO> selectHomeCalender();
 
 		List<UsersDTO> selectHomeUsers();
 		
