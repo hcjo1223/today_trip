@@ -214,7 +214,7 @@ INSERT INTO tour_location
 SELECT lc_uid_seq.nextval, place_uid, tu_uid, tu_day
 FROM tour_location;
 
-SELECT * FROM TOUR_LOCATION;
+SELECT * FROM TOUR;
 
 	
 SELECT * FROM place;
@@ -227,3 +227,16 @@ SELECT *
 		WHERE NUM BETWEEN 1 AND 10
 		ORDER BY tu_write_date DESC ;
 	UPDATE tour SET tu_write_date = sysdate WHERE tu_uid = 3;
+
+
+SELECT * FROM USER_AUTHORITY;
+
+SELECT *FROM place WHERE title LIKE '%' || '해변' || '%' 	AND contenttypeid = 12 ORDER BY title ASC;
+		
+		SELECT * FROM 
+			(SELECT ROWNUM AS RNUM, T.* 
+			FROM (
+			SELECT *FROM place WHERE title LIKE '%' || '해변' || '%' 	AND contenttypeid = 12 ORDER BY title ASC
+			) T) 
+		WHERE 
+			RNUM >= 1 AND RNUM < 11;

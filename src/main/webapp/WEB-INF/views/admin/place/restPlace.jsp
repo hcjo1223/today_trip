@@ -26,7 +26,23 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/JS/admin/bootstrap-datepicker.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/JS/admin/custom.js"></script>
 <script type="text/javascript" src="/today_trip/resources/JS/admin/place.js"></script>
+<style type="text/css">
+.adminSearchPlace1{
+	width: 100%
+}
+.adminSearchPlace2{
+	width: 400px;
+	float: right;
+	margin-right: 100px;
+	margin: 30px;
+}
+#adminPlaceKeyword{
+	width: 400px;
+	height: 50px;
+}
 
+
+</style>
 <title>REST PLACE</title>
 <!-- 스타일, js 라이브러리 -->
 </head>
@@ -53,7 +69,7 @@
 				<img src="http://placehold.it/50/30a5ff/fff" class="img-responsive" alt="">
 			</div>
 			<div class="profile-usertitle">
-				<div class="profile-usertitle-name">Username</div>
+				<div class="profile-usertitle-name">${login.userId }</div>
 				<div class="profile-usertitle-status"><span class="indicator label-success"></span>Online</div>
 			</div>
 			<div class="clear"></div>
@@ -92,6 +108,15 @@
 			<li><a href="../stats"><img style="width: 20px" src="../../resources/IMG/admin_chart.png"> 통계</a></li>
 		</ul>
 	</div><!--/.sidebar-->
+<div class="adminPlceH">
+	<span>장소</span>
+</div>
+<div class="adminSearchPlace1">
+	<div class="adminSearchPlace2">
+		<input type="search" onKeypress="javascript:if(event.keyCode==13) {SearchAdminPlace()}" id="adminPlaceKeyword" placeholder="제목 검색" aria-label="Search" aria-describedby="search-addon" />
+	</div>
+</div>
+	
 <div class="topPlace">
 	<div class="buttonPlace">
 		<button class="btn btn-lg btn-info" onclick="location.href='../place/accommodation'">숙소</button>

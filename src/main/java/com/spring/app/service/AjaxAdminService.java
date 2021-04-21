@@ -23,6 +23,11 @@ public class AjaxAdminService {
 		dao = sqlSession.getMapper(AdminAjaxDAO.class);
 		return dao.selectPlaceRow(from, pageRows, contentTypeId);
 	}
+
+	public List<PlaceDTO> listSearchAccommodation(int from, int pageRows, int contentTypeId,String keyword){
+		dao = sqlSession.getMapper(AdminAjaxDAO.class);
+		return dao.selectSearchPlaceRow(from, pageRows, contentTypeId, keyword);
+	}
 	
 	public List<PlaceDTO> listRestarurant(int from, int pageRows, int contentTypeId){
 		dao = sqlSession.getMapper(AdminAjaxDAO.class);
@@ -37,6 +42,11 @@ public class AjaxAdminService {
 	public int count(int contentTypeId) {
 		dao = sqlSession.getMapper(AdminAjaxDAO.class);
 		return dao.placeCountAll(contentTypeId);
+	}
+	//placeSearch service
+	public int count(int contentTypeId, String keyword) {
+		dao = sqlSession.getMapper(AdminAjaxDAO.class);
+		return dao.placeSearchCountAll(contentTypeId, keyword);
 	}
 	public int calenderCount() {
 		dao = sqlSession.getMapper(AdminAjaxDAO.class);

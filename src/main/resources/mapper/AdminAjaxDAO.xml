@@ -23,6 +23,24 @@
 			RNUM >= #{from} AND RNUM < (#{from} + #{pageRows})
 		]]>	
 	</select>
+
+	<!-- 장소 글 목록 (페이징) 검색 : page, pageRows -->
+	<select id="selectSearchPlaceRow" 
+		resultType="com.spring.app.domain.PlaceDTO">
+		<![CDATA[  
+		SELECT * 
+		FROM 
+			(SELECT ROWNUM AS RNUM, T.* 
+			FROM 
+			(SELECT *
+				FROM place 
+				WHERE title LIKE '%' || #{keyword} || '%' AND contenttypeid = #{contentTypeId} 
+				ORDER BY title ASC
+			) T) 
+		WHERE 
+			RNUM >= #{from} AND RNUM < (#{from} + #{pageRows})
+		]]>	
+	</select>
 	
 	<!-- 일정 게시판 글 목록 (페이징) : page, pageRows -->
 	<select id="selectCalenderRow" 
@@ -104,6 +122,11 @@
 
 	<select id="UsersCountAll" resultType="int">
 		SELECT count(*) FROM users
+	</select>	
+
+	<select id="placeSearchCountAll" resultType="int">
+		SELECT count(*) FROM place
+		WHERE title LIKE '%' || #{keyword} || '%' AND contentTypeId = #{contentTypeId}
 	</select>	
 
 	<!-- /updateOk.ajax : 글 수정

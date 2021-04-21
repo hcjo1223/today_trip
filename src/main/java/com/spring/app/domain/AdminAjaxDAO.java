@@ -14,6 +14,13 @@ public interface AdminAjaxDAO {
 			@Param("pageRows") int pageRows,
 			@Param("contentTypeId") int contentTypeId
 			);
+
+	public List<PlaceDTO> selectSearchPlaceRow(
+			@Param("from") int from,
+			@Param("pageRows") int pageRows,
+			@Param("contentTypeId") int contentTypeId,
+			@Param("keyword") String keyword
+			);
 	
 	public List<LogDTO> selectLogCount(
 			@Param("from") int from,
@@ -39,6 +46,10 @@ public interface AdminAjaxDAO {
 	
 	public int placeCountAll(
 			@Param("contentTypeId") int contentTypeId
+			);
+	public int placeSearchCountAll(
+			@Param("contentTypeId") int contentTypeId,
+			@Param("keyword") String keyword
 			);
 	public int calenderCountAll();
 	
