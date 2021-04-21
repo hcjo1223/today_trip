@@ -4,11 +4,13 @@ import java.util.List;
 
 public interface UsersProfileDAO {
 
-	List<CalenderDTO> selectUserCalender();
+	List<CalendarDTO> selectUserCalender();
 	
 	List<CardsDTO> selectUserCards();
 	
 	List<UsersDTO> selectUsersInfo();
+	
+	
 	
 	
 	
