@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface UsersProfileDAO {
 
-	List<CalendarDTO> selectUserCalender();
+	List<CalenderDTO> selectUserCalender();
 	
 	List<CardsDTO> selectUserCards();
 	
