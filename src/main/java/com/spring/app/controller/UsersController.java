@@ -50,7 +50,7 @@ public class UsersController {
 		logger.info("post register");
 		
 		userService.register(usersDTO);
-		
+		userService.registerAuth(usersDTO);
 		return "redirect:/Users/login";
 	}
 	

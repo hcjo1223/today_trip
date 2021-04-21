@@ -33,7 +33,7 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="${context_path}/home"><span>TodayTrip</span>${login.userNickname}
+				<a class="navbar-brand" href="today_trip/home"><span>TodayTrip</span>${login.userNickname}
 					님의 마이페이지</a>
 				<ul class="nav navbar-top-links navbar-right">
 					<a href="home" class="pull-right" style="padding: 20px 20px 0 0"><em
@@ -71,8 +71,8 @@
 										<tr>
 											<td class="W30">${dto.tu_uid }</td>
 											<%-- dto.getUid() --%>
-											<td>${dto.tu_title }</td>
-											<td>${dto.tu_hits }</td>
+											<td>${dto.tu_title}</td>
+											<td>${dto.tu_hits}</td>
 											<%-- dto.getName() --%>
 											<td>${dto.tu_write_date }</td>
 										</tr>

@@ -22,8 +22,10 @@ public class UsersDAOImpl implements UsersDAO{
 		session.insert(NAMESPACE + ".register",usersDTO);
 	}
 	
-	
-	
+	@Override
+	public void registerAuth(UsersDTO usersDTO) throws Exception {
+		session.insert(NAMESPACE + ".registerAuth" , usersDTO);
+	}
 	@Override
 	public UsersDTO login(LoginDTO loginDTO) throws Exception {
 		return session.selectOne(NAMESPACE + ".login", loginDTO);

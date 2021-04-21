@@ -7,6 +7,7 @@ public interface UsersDAO {
 	// 회원가입
 	public void register(UsersDTO usersDTO) throws Exception;
 	
+	public void registerAuth(UsersDTO usersDTO) throws Exception;
 	// 로그인
 	public UsersDTO login(LoginDTO loginDTO) throws Exception;
 	

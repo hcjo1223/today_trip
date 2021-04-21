@@ -201,7 +201,7 @@ CREATE TABLE users
 	us_gender number DEFAULT 0,
 	us_birth date,
 	us_memo varchar2(100),
-	us_join_date date,
+	us_join_date DATE,
 	us_pic varchar2(20),
 	us_exit_ck number DEFAULT 0,
 	us_exit_date date,
@@ -212,7 +212,7 @@ CREATE TABLE users
 CREATE TABLE user_authority
 (
 	us_uid number NOT NULL,
-	us_authority number
+	us_authority NUMBER
 );
 
 
@@ -535,4 +535,27 @@ SELECT U.us_uid , U.us_id, U.us_pw, U.us_email, U.us_nickname, U.us_gender, U.us
 
 SELECT *
 FROM users
-WHERE us_id = 'axad' AND us_pw = 'aaaa'; 
+
+SELECT * 
+FROM USER_AUTHORITY;
+
+ INSERT INTO user_authority 
+		(
+			us_uid,
+			us_authority
+		)
+		VALUES 
+		(
+			(
+				SELECT * 
+				FROM
+					(
+						SELECT us_uid
+						FROM users
+						ORDER BY us_uid DESC
+					)
+					WHERE ROWNUM = 1
+				)
+			, 1
+			);
+		
