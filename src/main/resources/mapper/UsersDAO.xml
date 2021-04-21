@@ -29,7 +29,7 @@
 	<select id="login" resultMap= "usersResultMap">
 	SELECT *
 	FROM users
-	WHERE us_id=#{userId}, us_pw=#{userPw}
+	WHERE us_id=#{userId} AND us_pw = #{userPw}
 	</select>
 	
 <!-- 로그인 정보 -->	
@@ -46,7 +46,6 @@
 	
 <!-- 로그인 유지 기능 -->
 <update id="keepLogin">
-
 	UPDATE users
 	SET session_key = #{sessionId}
 		,session_limit = #{sessionLimit}

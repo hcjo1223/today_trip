@@ -78,7 +78,6 @@ public class UsersController {
 		
 		if(loginDTO.isUseCookie()) {
 			int amount = 60*60*24*7;
-			
 			Date sessionLimit = new Date(System.currentTimeMillis() + (1000 * amount));
 			userService.keepLogin(usersDTO.getUserId(), httpSession.getId(), sessionLimit);
 		}
