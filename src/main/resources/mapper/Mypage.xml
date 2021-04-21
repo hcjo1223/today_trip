@@ -1,1 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.app.domain.UsersProfileDAO">
+
+	<select id= "selectUserCalender"
+	 resultType = "com.spring.app.domain.CalenderDTO">
+		
+		SELECT
+			us_uid,
+			tu_uid "uid",
+			tu_title,
+			tu_hits
+		FROM TOUR
+		WHERE
+		us_uid = #{us_uid}
+		
+	</select>
+
+	<select id= "selectuserCards"
+	 resultType = "com.spring.app.domain.CardsDTO">
+		
+		SELECT
+			us_uid,
+			pc_uid,
+			pc_contents,
+		FROM PICTURE
+		WHERE
+		us_uid = #{us_uid}	
+	</select>
+	
+	<select id= "selectUsersInfo"
+	 resultMap = "usersResultMap">
+		
+		SELECT
+			us_uid,
+			us_id,
+			us_email,
+			us_nickName,
+			us_birth
+		FROM USERS
+		WHERE
+		us_uid = #{us_uid}		
+	</select>
+	
+<!-- 로그인 회원 정보 -->
+	<resultMap id="usersResultMap" type = "com.spring.app.domain.UsersDTO">
+	<id property = "us_uid" column = "us_uid" />
+	<result property = "userId" column="us_id" />
+	<result property = "userPw" column="us_pw"/>
+	<result property = "userEmail" column="us_email"/>
+	<result property = "userNickname" column="us_nickName"/>
+	<result property = "gender" column="us_gender"/>
+	<result property = "userBirthday" column="us_birth"/>
+	<result property = "userPic" column="us_pic"/>
+	<result property = "userAuthority" column="us_authority"/>
+	</resultMap>
+	
+
+</mapper>
+	
