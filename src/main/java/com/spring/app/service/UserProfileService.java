@@ -23,19 +23,21 @@ public class UserProfileService {
 		this.session = sqlsession;
 	}
 	
-	public List<CalenderDTO> selectUserCalender() {
+	public List<CalenderDTO> selectUserCalender(int userUid) {
 		dao = session.getMapper(UsersProfileDAO.class);
-		return dao.selectUserCalender();
+		return dao.selectUserCalender(userUid);
 	}
 	
-	public List<CardsDTO> selectUserCards(){
+	public List<CardsDTO> selectUserCards(int userUid){
 		dao = session.getMapper(UsersProfileDAO.class);
-		return dao.selectUserCards();
+		return dao.selectUserCards(userUid);
 	}
 	
-	public List<UsersDTO> selectUserInfo(){
+	public List<UsersDTO> selectUserInfo(int userUid){
 		dao = session.getMapper(UsersProfileDAO.class);
-		return dao.selectUsersInfo();
+		return dao.selectUsersInfo(userUid);
 	}
+
+
 	
 }
