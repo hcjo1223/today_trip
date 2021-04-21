@@ -37,11 +37,11 @@
 	 -->
 	<insert id="insert" flushCache="true"
 		parameterType="com.spring.app.domain.CardsDTO"
-		keyProperty="usuid" useGeneratedKeys="true" keyColumn="us_uid">
+		keyProperty="uid" useGeneratedKeys="true" keyColumn="pc_uid">
 		INSERT INTO picture
-			(pc_uid, us_uid usuid, pc_contents, pc_location, pc_focus, pc_with, pc_write_date, pc_del_ck  )
+			(pc_uid, us_uid, pc_contents, pc_location, pc_focus, pc_with, pc_write_date, pc_del_ck  )
 		VALUES
-			(pc_uid_seq.nextval,#{usuid} #{contents}, #{location}, #{focus}, #{withs}, SYSDATE, 1)
+			(pc_uid_seq.nextval,#{usuid}, #{contents}, #{location}, #{focus}, #{withs}, SYSDATE, 1)
 		
 	</insert>
 	

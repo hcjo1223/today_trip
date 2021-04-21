@@ -9,6 +9,7 @@ import java.util.UUID;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,10 +49,11 @@ public class CardsService {
 		return dao.select();
 	}
 	
-	public int write(UsersDTO udto, CardsDTO dto) throws IllegalStateException, IOException {
+	public int write(@Param("b")int usuid, CardsDTO dto) throws IllegalStateException, IOException {
 		dao = sqlSession.getMapper(CardsDAO.class);
-		int usuid = udto.getUs_uid();
-		int result = dao.insert(usuid, dto);
+		dto.setUsuid(usuid);
+		System.out.println("usuid = " + usuid);
+		int result = dao.insert(dto);
         List<picLibDTO> picFileList = setFileInfo(dto);
         for (picLibDTO LibDTO : picFileList) {
         	dao.insertLib(LibDTO);

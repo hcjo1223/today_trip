@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -52,11 +53,11 @@ public class CardsController {
 //	}
 	
 	@RequestMapping("/writeOk.do")
-	public String writeOk(UsersDTO udto, CardsDTO dto, Model model) throws IllegalStateException, IOException {
+	public String writeOk(@Param("b")int usuid, CardsDTO dto, Model model) throws IllegalStateException, IOException {
 		
 		
 		
-		model.addAttribute("result", cardsService.write(udto, dto));
+		model.addAttribute("result", cardsService.write(usuid, dto));
 		return "cards/writeOk";
 	}
 	
@@ -91,7 +92,7 @@ public class CardsController {
 	
 	
 	// REST 게시판 작성
-		@RequestMapping(value = "/rest")
+		@RequestMapping(value = "/list")
 		public String rest() {
 			return "cards/rest";
 		}

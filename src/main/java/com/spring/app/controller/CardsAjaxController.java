@@ -26,6 +26,7 @@ import com.spring.app.domain.CardsAjaxResult;
 import com.spring.app.domain.CardsDTO;
 import com.spring.app.domain.PicAjaxList;
 import com.spring.app.domain.PicAjaxResult;
+import com.spring.app.domain.UsersDTO;
 import com.spring.app.domain.picLibDTO;
 import com.spring.app.service.CardsAjaxService;
 
@@ -147,6 +148,8 @@ public class CardsAjaxController {
 		CardsAjaxList result = new CardsAjaxList();
 		pdto = ajaxService.selectFileByUid(uid);
 		
+		List<UsersDTO> user = new ArrayList<UsersDTO>();
+		user = ajaxService.selectUserName(uid);
 		result.setStatus(status);
 		result.setMessage(message.toString());
 		
@@ -154,6 +157,7 @@ public class CardsAjaxController {
 			result.setCount(list.size());
 			result.setList(list);
 			result.setArr(pdto);
+			result.setUser(user);
 		}
 		
 		return result;
@@ -197,7 +201,6 @@ public class CardsAjaxController {
 				
 				return result;
 	}
-	// 게시글 uid 한개의 파일 리스트 '들' 여러 파일이면 여러개 가 나옴
 	@GetMapping("/pics/{uid}")
 	public List<picLibDTO> viewFile2(@PathVariable int uid){
 		List<picLibDTO> list = null;
@@ -433,5 +436,246 @@ public class CardsAjaxController {
 		
 	    return UUID.randomUUID().toString().replaceAll("-", "");
 	}
+	
+	@GetMapping("/location/{page}/{pageRows}/{search}")
+	public CardsAjaxList Locationlist(
+			@PathVariable int page,
+			@PathVariable int pageRows,
+			@PathVariable int search
+			) {
+		List<CardsDTO> lists = null;
+		
+		// response 에 필요한 값들
+		StringBuffer message = new StringBuffer();
+		
+		String status = "FAIL"; // 기본 FAIL
+		
+		
+		// 페이징 관련 세팅 값들
+		//page : 현재 페이지
+		//pageRows : 한 '페이지'에 몇개의 글을 리스트 할것인가?
+		int writePages = 8;    // 한 [페이징] 에 몇개의 '페이지'를 표현할 것인가?
+		int totalPage = 0; // 총 몇 '페이지' 분량인가? 
+		int totalCnt = 0;  // 글은 총 몇개인가?
+		int uid = 0;
+		try {
+			// 글 전체 개수 구하기
+			totalCnt = ajaxService.countLocation(search);
+			
+			// 총 몇페이지 분량인가?
+			totalPage = (int)Math.ceil(totalCnt / (double)pageRows);
+			
+			// from: 몇번째 row 부터?
+			int from = (page - 1) * pageRows + 1;  // ORACLE 은 1부터 시작
+			//int from = (page - 1) * pageRows;  // MySQL 은 0부터 시작
+			
+			
+			// 내용은 리스트에
+			lists = ajaxService.locationList(from, pageRows,search);
+			
+			if(lists == null) {
+				message.append("[리스트할 데이터가 없습니다]");
+			}else {
+				status = "OK";
+			}
 
+		} catch(Exception e) {
+			message.append("[트랜잭션 에러: " + e.getMessage() + "]");
+		}
+		
+		
+		List<picLibDTO> pdto = new ArrayList<picLibDTO>();
+		CardsAjaxList result = new CardsAjaxList();
+		result.setStatus(status);
+		result.setMessage(message.toString());
+		
+		for (CardsDTO a : lists) {
+			uid = a.getUid(); // lists CardsDTO 에서 uid 뽑음
+			System.out.println("uid = " + uid);
+			pdto = ajaxService.selectFileByUid(uid); // uid 값으로 picDto 배열을 만듬
+			System.out.println("pdto = " + pdto);
+			a.setList(pdto);
+//			result.setArr(pdto); // 배열을 입력시키는데 마지막 배열값이들어감 내가 원하는건 배열의 배열들이 들어가야됨
+			
+			System.out.println("result pic= " + result);
+			
+		}
+		if(lists != null) {
+			result.setCount(lists.size());
+			result.setList(lists);
+		}
+		System.out.println("result list= " + result);
+		
+		result.setPage(page);
+		result.setTotalPage(totalPage);
+		result.setWritePages(writePages);
+		result.setPageRows(pageRows);
+		result.setTotalCnt(totalCnt);
+
+
+
+		return result;
+	}
+	
+	@GetMapping("/withs/{page}/{pageRows}/{search}")
+	public CardsAjaxList Withslist(
+			@PathVariable int page,
+			@PathVariable int pageRows,
+			@PathVariable int search
+			) {
+		List<CardsDTO> lists = null;
+		
+		// response 에 필요한 값들
+		StringBuffer message = new StringBuffer();
+		
+		String status = "FAIL"; // 기본 FAIL
+		
+		
+		// 페이징 관련 세팅 값들
+		//page : 현재 페이지
+		//pageRows : 한 '페이지'에 몇개의 글을 리스트 할것인가?
+		int writePages = 8;    // 한 [페이징] 에 몇개의 '페이지'를 표현할 것인가?
+		int totalPage = 0; // 총 몇 '페이지' 분량인가? 
+		int totalCnt = 0;  // 글은 총 몇개인가?
+		int uid = 0;
+		try {
+			// 글 전체 개수 구하기
+			totalCnt = ajaxService.countWiths(search);
+			
+			// 총 몇페이지 분량인가?
+			totalPage = (int)Math.ceil(totalCnt / (double)pageRows);
+			
+			// from: 몇번째 row 부터?
+			int from = (page - 1) * pageRows + 1;  // ORACLE 은 1부터 시작
+			//int from = (page - 1) * pageRows;  // MySQL 은 0부터 시작
+			
+			
+			// 내용은 리스트에
+			lists = ajaxService.WithsList(from, pageRows,search);
+			
+			if(lists == null) {
+				message.append("[리스트할 데이터가 없습니다]");
+			}else {
+				status = "OK";
+			}
+
+		} catch(Exception e) {
+			message.append("[트랜잭션 에러: " + e.getMessage() + "]");
+		}
+		
+		
+		List<picLibDTO> pdto = new ArrayList<picLibDTO>();
+		CardsAjaxList result = new CardsAjaxList();
+		result.setStatus(status);
+		result.setMessage(message.toString());
+		
+		for (CardsDTO a : lists) {
+			uid = a.getUid(); // lists CardsDTO 에서 uid 뽑음
+			System.out.println("uid = " + uid);
+			pdto = ajaxService.selectFileByUid(uid); // uid 값으로 picDto 배열을 만듬
+			System.out.println("pdto = " + pdto);
+			a.setList(pdto);
+//			result.setArr(pdto); // 배열을 입력시키는데 마지막 배열값이들어감 내가 원하는건 배열의 배열들이 들어가야됨
+			
+			System.out.println("result pic= " + result);
+			
+		}
+		if(lists != null) {
+			result.setCount(lists.size());
+			result.setList(lists);
+		}
+		System.out.println("result list= " + result);
+		
+		result.setPage(page);
+		result.setTotalPage(totalPage);
+		result.setWritePages(writePages);
+		result.setPageRows(pageRows);
+		result.setTotalCnt(totalCnt);
+
+
+
+		return result;
+	}
+	
+	@GetMapping("/focus/{page}/{pageRows}/{search}")
+	public CardsAjaxList Focuslist(
+			@PathVariable int page,
+			@PathVariable int pageRows,
+			@PathVariable int search
+			) {
+		List<CardsDTO> lists = null;
+		
+		// response 에 필요한 값들
+		StringBuffer message = new StringBuffer();
+		
+		String status = "FAIL"; // 기본 FAIL
+		
+		
+		// 페이징 관련 세팅 값들
+		//page : 현재 페이지
+		//pageRows : 한 '페이지'에 몇개의 글을 리스트 할것인가?
+		int writePages = 8;    // 한 [페이징] 에 몇개의 '페이지'를 표현할 것인가?
+		int totalPage = 0; // 총 몇 '페이지' 분량인가? 
+		int totalCnt = 0;  // 글은 총 몇개인가?
+		int uid = 0;
+		try {
+			// 글 전체 개수 구하기
+			totalCnt = ajaxService.countFocus(search);
+			
+			// 총 몇페이지 분량인가?
+			totalPage = (int)Math.ceil(totalCnt / (double)pageRows);
+			
+			// from: 몇번째 row 부터?
+			int from = (page - 1) * pageRows + 1;  // ORACLE 은 1부터 시작
+			//int from = (page - 1) * pageRows;  // MySQL 은 0부터 시작
+			
+			
+			// 내용은 리스트에
+			lists = ajaxService.FocusList(from, pageRows,search);
+			
+			if(lists == null) {
+				message.append("[리스트할 데이터가 없습니다]");
+			}else {
+				status = "OK";
+			}
+
+		} catch(Exception e) {
+			message.append("[트랜잭션 에러: " + e.getMessage() + "]");
+		}
+		
+		
+		List<picLibDTO> pdto = new ArrayList<picLibDTO>();
+		CardsAjaxList result = new CardsAjaxList();
+		result.setStatus(status);
+		result.setMessage(message.toString());
+		
+		for (CardsDTO a : lists) {
+			uid = a.getUid(); // lists CardsDTO 에서 uid 뽑음
+			System.out.println("uid = " + uid);
+			pdto = ajaxService.selectFileByUid(uid); // uid 값으로 picDto 배열을 만듬
+			System.out.println("pdto = " + pdto);
+			a.setList(pdto);
+//			result.setArr(pdto); // 배열을 입력시키는데 마지막 배열값이들어감 내가 원하는건 배열의 배열들이 들어가야됨
+			
+			System.out.println("result pic= " + result);
+			
+		}
+		if(lists != null) {
+			result.setCount(lists.size());
+			result.setList(lists);
+		}
+		System.out.println("result list= " + result);
+		
+		result.setPage(page);
+		result.setTotalPage(totalPage);
+		result.setWritePages(writePages);
+		result.setPageRows(pageRows);
+		result.setTotalCnt(totalCnt);
+
+
+
+		return result;
+	}
+	
 }
+

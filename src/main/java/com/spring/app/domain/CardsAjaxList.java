@@ -13,7 +13,26 @@ public class CardsAjaxList extends CardsAjaxResult {
 	@JsonProperty("cards") // 제이슨 이름 변경
 	List<picLibDTO> arr; // 데이터 목록
 	
+	int search;
+	@JsonProperty("user")
+	List<UsersDTO> user;
 	
+	public List<UsersDTO> getUser() {
+		return user;
+	}
+
+	public void setUser(List<UsersDTO> user) {
+		this.user = user;
+	}
+
+	public int getSearch() {
+		return search;
+	}
+
+	public void setSearch(int search) {
+		this.search = search;
+	}
+
 
 	public List<picLibDTO> getArr() {
 		return arr;

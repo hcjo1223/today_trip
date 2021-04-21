@@ -5,6 +5,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.mybatis.spring.annotation.MapperScan;
 
+import com.spring.app.domain.CardsDTO;
+
 @MapperScan
 public interface CardsAjaxDAO {
 
@@ -15,14 +17,34 @@ public interface CardsAjaxDAO {
 		 * @return
 		 */
 		
-		public List<CardsDTO> selectFromRow(
-				@Param("from") int from,
-				@Param("pageRows") int pageRows
-				);
-		
-		
-		// 전체 글의 개수
-		public int countAll();
+	public List<CardsDTO> selectFromRow(
+			@Param("from") int from,
+			@Param("pageRows") int pageRows
+			);
+	
+	
+	public List<CardsDTO> selectLocationFromRow(
+			@Param("from") int from,
+			@Param("pageRows") int pageRows,
+			@Param("search") int search
+			);
+	
+	public List<CardsDTO> selectWithsFromRow(
+			@Param("from") int from,
+			@Param("pageRows") int pageRows,
+			@Param("search") int search
+			);
+	
+	public List<CardsDTO> selectFocusFromRow(
+			@Param("from") int from,
+			@Param("pageRows") int pageRows,
+			@Param("search") int search
+			);
+	// 전체 글의 개수
+	public int countAll();
+	public int countLocation(@Param("search") int search);
+	public int countWiths(@Param("search") int search);
+	public int countFocus(@Param("search") int search);
 		
 		// 글 읽기
 		public List<CardsDTO> selectByUid(int uid);
@@ -50,6 +72,9 @@ public interface CardsAjaxDAO {
 		 * WHERE uid in (11)
 		 * 
 		 */
+
+
+		public List<UsersDTO> selectUserName(int uid);
 
 
 

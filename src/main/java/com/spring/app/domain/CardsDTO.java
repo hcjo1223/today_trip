@@ -62,10 +62,11 @@ public class CardsDTO extends picLibDTO{
 	}
 
 
-	public CardsDTO(int uid, String contents, int hits, int location, int focus, int withs, LocalDateTime regDate,
+	public CardsDTO(int uid, int usuid,String contents, int hits, int location, int focus, int withs, LocalDateTime regDate,
 			int delCheck) {
 		super();
 		this.uid = uid;
+		this.usuid = usuid;
 		this.contents = contents;
 		this.hits = hits;
 		this.location = location;

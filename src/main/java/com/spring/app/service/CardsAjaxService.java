@@ -5,17 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.multipart.MultipartRequest;
 
 import com.spring.app.domain.CardsAjaxDAO;
 import com.spring.app.domain.CardsDTO;
+import com.spring.app.domain.UsersDTO;
 import com.spring.app.domain.picLibDTO;
 
 @Service
@@ -30,9 +27,41 @@ public class CardsAjaxService {
 		return  dao.selectFromRow(from, pageRows);
 		
 	}
+	public List<CardsDTO> locationList(int from, int pageRows, int search){
+		dao = sqlSession.getMapper(CardsAjaxDAO.class);
+		return  dao.selectLocationFromRow(from, pageRows,search);
+		
+	}
+	
+	public List<CardsDTO> WithsList(int from, int pageRows, int search){
+		dao = sqlSession.getMapper(CardsAjaxDAO.class);
+		return  dao.selectWithsFromRow(from, pageRows,search);
+		
+	}
+	
+	public List<CardsDTO> FocusList(int from, int pageRows, int search){
+		dao = sqlSession.getMapper(CardsAjaxDAO.class);
+		return  dao.selectFocusFromRow(from, pageRows,search);
+		
+	}
 	public int count() {
 		dao = sqlSession.getMapper(CardsAjaxDAO.class); // MyBatis 사용
 		return dao.countAll();
+	}
+	
+	public int countLocation(int search) {
+		dao = sqlSession.getMapper(CardsAjaxDAO.class); // MyBatis 사용
+		return dao.countLocation(search);
+	}
+	
+	public int countWiths(int search) {
+		dao = sqlSession.getMapper(CardsAjaxDAO.class); // MyBatis 사용
+		return dao.countWiths(search);
+	}
+	
+	public int countFocus(int search) {
+		dao = sqlSession.getMapper(CardsAjaxDAO.class); // MyBatis 사용
+		return dao.countFocus(search);
 	}
 	
 	public List<CardsDTO> viewByUid(int uid) {
@@ -81,6 +110,11 @@ public class CardsAjaxService {
 	public picLibDTO selectFile1ByUid(int uid){
 		dao = sqlSession.getMapper(CardsAjaxDAO.class);
 		return dao.selectFile1ByUid(uid);
+	}
+	
+	public List<UsersDTO> selectUserName(int uid){
+		dao = sqlSession.getMapper(CardsAjaxDAO.class);
+		return dao.selectUserName(uid);
 	}
 	
 	public List<picLibDTO> setFileInfo(CardsDTO dto) throws Exception{

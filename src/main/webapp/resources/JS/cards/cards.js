@@ -3,12 +3,35 @@ var page = 1; // 현재 페이지
 var pageRows = 6; // 페이지당 글의 개수
 var viewItem = undefined; // 가장 최근에 view 한 글의 데이터
 var uid = 0;
+var search = 1;
 // 페이지 최초 로딩되면 게시글 목록 첫페이지분 로딩
 
 $(document).ready(function(){
     loadPage(page); // 페이지 최초 로딩
 
+    $("#location").on('change',function(){
+        $("#delete").remove();
+        console.log($("#location").val())
+        search = $("#location").val();
+        loadLocationPage(page,search);
+        $(".selected").append("<button id='delete' type='button' onclick='location.reload()'>초기화</button>");
+    });
 
+    $("#withs").on('change',function(){
+        $("#delete").remove();
+        console.log($("#withs").val())
+        search = $("#withs").val();
+        loadWithsPage(page,search);
+        $(".selected").append("<button id='delete' type='button' onclick='location.reload()'>초기화</button>");
+    });
+
+    $("#focus").on('change',function(){
+        $("#delete").remove();
+        console.log($("#focus").val())
+        search = $("#focus").val();
+        loadFocusPage(page,search);
+        $(".selected").append("<button id='delete' type='button' onclick='location.reload()'>초기화</button>");
+    });
     // '글 작성' 버튼 누르면 팝업
     // $("#btnWrite").click(function(){
     //      // 글 작성 용으로 모달팝업 셋업
@@ -19,6 +42,7 @@ $(document).ready(function(){
     // 모달 대화상자 close 버튼 누르면
     $(".modal .close").click(function(){
         $(this).parents(".modal").hide();
+        $(".layout-navigation-bar").show();
     });
 
     // //'글작성' 폼 submit 되면
@@ -58,8 +82,32 @@ $(document).ready(function(){
 // page 번째 페이지 목록 읽어오기
 
 function loadPage(page){
+    
+   
+        $.ajax({
+            url : "./" + page + "/" + pageRows,
+            type : "GET",
+            cache : false,
+            success : function(data, status){
+                if(status == "success"){
+                    // alert("성공했쮸?")
+    
+                    if(updateList(data)){ // application/json 이면 이미 parse 되어 있따.
+                        // 업데이트 된 list 에 view  동작 이벤트 가동
+                        addViewEvent();
+                        // ***** 만약 위 코드를 $(document).ready() 에 두면 동작 안할것이다!!
+    
+                    }
+                }
+            }
+        }); // end $.ajax()   
+} // end loadpage()
+
+function loadLocationPage(page,search){
+    
+   
     $.ajax({
-        url : "./" + page + "/" + pageRows,
+        url : "./location/" + page + "/" + pageRows + "/" + search,
         type : "GET",
         cache : false,
         success : function(data, status){
@@ -76,6 +124,51 @@ function loadPage(page){
         }
     }); // end $.ajax()   
 } // end loadpage()
+
+function loadWithsPage(page,search){
+    
+   
+    $.ajax({
+        url : "./withs/" + page + "/" + pageRows + "/" + search,
+        type : "GET",
+        cache : false,
+        success : function(data, status){
+            if(status == "success"){
+                // alert("성공했쮸?")
+
+                if(updateList(data)){ // application/json 이면 이미 parse 되어 있따.
+                    // 업데이트 된 list 에 view  동작 이벤트 가동
+                    addViewEvent();
+                    // ***** 만약 위 코드를 $(document).ready() 에 두면 동작 안할것이다!!
+
+                }
+            }
+        }
+    }); // end $.ajax()   
+} // end loadpage()
+
+function loadFocusPage(page,search){
+    
+   
+    $.ajax({
+        url : "./focus/" + page + "/" + pageRows + "/" + search,
+        type : "GET",
+        cache : false,
+        success : function(data, status){
+            if(status == "success"){
+                // alert("성공했쮸?")
+
+                if(updateList(data)){ // application/json 이면 이미 parse 되어 있따.
+                    // 업데이트 된 list 에 view  동작 이벤트 가동
+                    addViewEvent();
+                    // ***** 만약 위 코드를 $(document).ready() 에 두면 동작 안할것이다!!
+
+                }
+            }
+        }
+    }); // end $.ajax()   
+} // end loadpage()
+
 
 
 
@@ -201,7 +294,6 @@ function changePageRows(){
 
 // // 글 쓰기/읽기/수정 대화상자 세팅
 function setPopup(mode){
-
 	// 글 작성
 	if(mode == "write"){	
 		$('#frmWrite')[0].reset();  // form 내의 기존 내용 reset	
@@ -221,17 +313,25 @@ function setPopup(mode){
 
     	// 글 읽기
 	if(mode == "view"){
+        $(".layout-navigation-bar").hide();
         $('#frmWrite')[0].reset();
 		$("#dlg_write .title").text("사진 읽기");
 		$("#dlg_write .btn_group_header").show();
 		$("#dlg_write .btn_group_write").hide();
-		$("#dlg_write .btn_group_view").show();
-		$("#dlg_write .btn_group_update").hide();	
+        if($("#usuid").val() == viewItem.usuid){
+            $("#dlg_write .btn_group_view").show();
+        }else{
+            $("#dlg_write .btn_group_view").hide();
+        }
+	    
 		
-		$("#dlg_write #viewcnt").text("#" + viewItem.uid + " - 조회수: " + viewItem.hits);
+        $("#dlg_write .btn_group_update").hide();	
+		
+		$("#dlg_write #viewcnt").text("작성자: " + viewUser.userNickname + " - 조회수: " + viewItem.hits);
 		$("#dlg_write #regdate").text(viewItem.regDateTime);  // DTO 의 getRegDate() 
 		
-		$("#dlg_write input[name='uid']").val(viewItem.uid);  
+		
+        
 
 		
 		$("#dlg_write select[name='location']").val(viewItem.location);
@@ -247,19 +347,41 @@ function setPopup(mode){
         $("#dlg_write select[name='focus']").val(viewItem.focus);
 		$("#dlg_write select[name='focus']").attr("readonly", true);
 		$("#dlg_write select[name='focus']").css("border", "none");
-		
-        $("#dlg_write .piclist *").remove();
-        for(i = 0; i < viewCards.length; i++){
-            // alert(viewCards[i].plUid);
-            $("#dlg_write .piclist").append("<img class ='pic' src=/pic/" + viewCards[i].name + "><br>");
-            $("#dlg_write .piclist").append("<input type='hidden' name='pluid' value='"+ viewCards[i].plUid +"'><br>");
-            
-        }
 
+		$("#dlg_write .slide-count *").remove();
+        $("#dlg_write .slideshow-container *").remove();
+        $("#dlg_write .slideshow-container").off();
+        var cards = "";
+        var slideIndex = 1;
+        for(i = 0; i < viewCards.length ; i++){
+            // alert(viewCards[i].plUid);
+            cards += '<div class="mySlides fade">';
+            cards += '<div class="numbertext">'+ eval(i+1)  + ' / '+ viewCards.length  +'</div>';
+            cards += "<img class ='pic' src=/pic/" + viewCards[i].name + " ><br>";
+            cards += "<input type='hidden' name='pluid' value='"+ viewCards[i].plUid +"'><br>";
+            cards += '</div>';
+            // $("#dlg_write .slideshow-container").append("<img class ='pic' src=/pic/" + viewCards[i].name + "><br>");
+            // $("#dlg_write .slideshow-container").append("<input type='hidden' name='pluid' value='"+ viewCards[i].plUid +"'><br>");
+           
+        }
+        $("#dlg_write .slideshow-container").html(cards);
+        // $("#dlg_write .slideshow-container").after('<a class="prev" onclick="plusSlides(-1)">&#10094;</a>');
+        // $("#dlg_write .slideshow-container").after('<a class="next" onclick="plusSlides(1)">&#10095;</a>');
+        
+        
+            for(j= 0; j < viewCards.length ; j++){
+                $("#dlg_write .slide-count").append('<span class="dot" onclick="currentSlide('+eval(j+1)+')"></span> '); 
+            }
+       
+        showSlides(slideIndex);
 		$("#dlg_write textarea[name='contents']").val(viewItem.contents);
 		$("#dlg_write textarea[name='contents']").attr("readonly", true);
 		$("#dlg_write textarea[name='contents']").css("border", "none");
-		
+        $("#dlg_write .slideshow-container").on('click',function(){
+           
+            ClickSlides(1);
+        });
+        
 	}
 
     	// 글 수정
@@ -269,7 +391,9 @@ function setPopup(mode){
 		$("#dlg_write .btn_group_header").show();
 		$("#dlg_write .btn_group_write").hide();
 		$("#dlg_write .btn_group_view").hide();
-		$("#dlg_write .btn_group_update").show();
+        $("#dlg_write .btn_group_update").show();
+        
+		
 		
         $("#dlg_write select[name='location']").attr("readonly", false);
         $("#dlg_write select[name='withs']").attr("readonly", false);
@@ -346,6 +470,7 @@ function addViewEvent(){
                         // 글 읽어오기 성공하면, 내부 데이터 세팅하고 팝업 대화상자 보여주기
                         window.viewItem = data.data[0];
                         window.viewCards = data.cards;
+                        window.viewUser = data.user[0];
                         
 
                         setPopup("view"); // 글 읽기 팝업 띄우기
@@ -493,3 +618,32 @@ function chkUpdate(){
 // 			reader.readAsDataURL(image); 
 // 			} 
 // 	}
+
+// 사진 슬라이드
+    var slideIndex = 1;
+	showSlides(slideIndex);
+	
+	function ClickSlides(n) {
+	  showSlides(slideIndex += n);
+	}
+	
+	function currentSlide(n) {
+	  showSlides(slideIndex = n);
+	}
+	
+	function showSlides(n) {
+	  var i;
+	  var slides = document.getElementsByClassName("mySlides");
+	  var dots = document.getElementsByClassName("dot");
+	  if (n > slides.length) {slideIndex = 1}    
+	  if (n < 1) {slideIndex = slides.length}
+	  for (i = 0; i < slides.length; i++) {
+		  slides[i].style.display = "none";  
+	  }
+	  for (i = 0; i < dots.length; i++) {
+		  dots[i].className = dots[i].className.replace(" active", "");
+	  }
+	  slides[slideIndex-1].style.display = "contents";  
+	  dots[slideIndex-1].className += " active";
+      
+	}
