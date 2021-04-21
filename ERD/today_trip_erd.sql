@@ -525,14 +525,55 @@ INSERT  INTO user_authority
 VALUES (1021,1);
 
 
-
 SELECT *FROM users;
 SELECT U.us_uid , U.us_id, U.us_pw, U.us_email, U.us_nickname, U.us_gender, U.us_birth,  U.us_memo, U.us_pic, U.session_key, UA.us_authority FROM 
 (SELECT *
 	FROM users
 	WHERE session_key = 'none') U JOIN USER_AUTHORITY UA ON U.us_uid = UA.us_uid;
-	
+SELECT * FROM PLACE ;
 
 SELECT *
-FROM users
-WHERE us_id = 'axad' AND us_pw = 'aaaa'; 
+FROM users;
+INSERT INTO USER_AUTHORITY VALUES (1,0);
+SELECT *
+FROM USER_AUTHORITY ;
+
+SELECT 
+			J.*, P.FIRSTIMAGE2 
+		FROM
+			(SELECT 
+				H.tu_uid, H.tu_title, H.TU_HITS, D.place_uid 
+			FROM 
+				(SELECT * 
+					FROM 
+						(SELECT * FROM tour ORDER BY tu_hits DESC) 
+			WHERE ROWNUM < 4) H 
+			JOIN 
+				tour_location D 
+			ON 
+				H.tu_uid = D.tu_uid) J 
+		JOIN 
+			place P 
+		ON 
+			J.place_uid = P.place_uid;
+			
+	SELECT * 
+					FROM 
+						(SELECT * FROM tour ORDER BY tu_hits DESC) 
+			WHERE ROWNUM < 4;
+SELECT * FROM TOUR_LOCATION;79 21 32
+INSERT INTO TOUR_LOCATION values(1,1,79,3);
+INSERT INTO TOUR_LOCATION values(2,2,21,3);
+INSERT INTO TOUR_LOCATION values(9,3,23,3);
+
+
+
+
+
+
+
+
+
+
+
+
