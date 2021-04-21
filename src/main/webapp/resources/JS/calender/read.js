@@ -9,7 +9,7 @@ $(document).ready(function () {
 
 		//[step 1] 장소 가지고 오기
 		$.ajax({
-			url: '/today_trip/calendar/listTL',
+			url: '/today_trip/calender/listTL',
 			type: 'get',
 			data: { tu_uid : global_tu_uid },
 			success: function(list) {
@@ -76,7 +76,7 @@ $(document).ready(function () {
 		// '수정하기' 버튼 클릭 이벤트
 		$('#edit-btn').on('click',function() {
 			var tu_uid = $(this).data('tu-uid');
-			location.href = '/today_trip/calendar/register/edit?tu_uid=' + tu_uid;
+			location.href = '/today_trip/calender/register/edit?tu_uid=' + tu_uid;
 		});
 
 		// '삭제하기' 버튼 클릭 이벤트
@@ -85,7 +85,7 @@ $(document).ready(function () {
 
 			if (confirm("정말로 글올리기를 진행하시겠습니까?")) {
 				$.ajax({
-					url : '/today_trip/calendar/register/delete',
+					url : '/today_trip/calender/register/delete',
 					type: 'post',
 					data: { 
 						tu_uid: global_tu_uid
@@ -93,7 +93,7 @@ $(document).ready(function () {
 					success: function(res) {
 						if (res == 'OK') {
 							alert('해당 글이 삭제되었습니다.');
-							location.href = '/today_trip/calendar/list';
+							location.href = '/today_trip/calender/list';
 						}
 					},
 					error: function(res) {
@@ -122,7 +122,7 @@ $(document).ready(function () {
 // [step2] 메모 가지고 오기
 function insertmemo(global_tu_uid){
 	$.ajax({
-		url: '/today_trip/calendar/listMemo',
+		url: '/today_trip/calender/listMemo',
 		type: 'get',
 		data: { tu_uid : global_tu_uid },
 		success: function(list) {
