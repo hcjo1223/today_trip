@@ -7,11 +7,14 @@
                                     // 0 ==> 변경안됨
                                     // 1 ==> 변경됨
         var clickedDay = 0; // 장소/메모 추가 시 현재 클릭한 날짜
+
+        var tuTitle = $("#tuTitle").val();
     
         // '글 올리기' 버튼 클릭 이벤트
         $(".btnRegister").on("click", function() {
     
             if( confirm("정말로 글올리기를 진행하시겠습니까?") ){
+
                 // form.submit();
                 console.log($("#tour-form").serialize());
     

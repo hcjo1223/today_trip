@@ -47,7 +47,7 @@
 					<td>
 						<div>
 							<button type="button" class="btn btn-primary btnSelect btn-sm px-3 <c:out value='${contentType}' />" 
-									uid="<c:out value='${place.place_uid}' />"  title="<c:out value='${place.title}' />" data-dismiss="modal">
+									uid="<c:out value='${place.place_uid}' />"  title="<c:out value='${place.title}' />" mapx="<c:out value='${place.mapx}' />" mapy="<c:out value='${place.mapy}' />"  data-dismiss="modal">
 							선택
 							</button>
 						</div>
@@ -70,6 +70,10 @@
 		// '장소 추가' 버튼 클릭 후 
 		// 장소 검색을 해서 장소를 선택했을때
 		// 선택한 장소가 추가되어야 한다.
+		var mapx = '';
+		var mapy = '';
+		
+		
 		$(function() {
 		        
 		   var contentType = '<c:out value="${contentType}" />';
@@ -83,18 +87,19 @@
 		      var uid = $(this).attr("uid");
 		      var img_url = $(this).closest('tr').find('th > a').attr('href');
 		      
+		      mapx = $(this).attr("mapx");
+		      mapy = $(this).attr("mapy");
+		      
 		      console.log("title : " + title);
 		      console.log("uid : " + uid);
 		      console.log("img_url : " + img_url);
 		      
+		      console.log(mapx);
+		      console.log(mapy);
+		      
 		      var day = $(".modal-body").attr("day");
 		      var no = $("#day-head-"+day).attr("no");
 		      $("#day-head-"+day).attr("no", ++no);
-		      
-		      var mapx = $("input[name='p-mapx']").val();
-		      var mapy = $("input[name='p-mapy']").val();
-		      console.log(mapx);
-		      console.log(mapy);
 		      
 		      // var placeMaxX = $("<input>", {type: "hidden", name: "placeMaxX-"+day, value: mapx});
 		      // var placeMaxY = $("<input>", {type: "hidden", name: "placeMaxY-"+day, value: mapy});
@@ -112,10 +117,11 @@
 		      var htmlPlace = '<div class="one-place" data-no="'+no+'" data-place-uid="'+uid+'" data-img-url="'+img_url+'">'+
 								'<input type="hidden" name="placeUid" value="0">'+
 		                        '<span class="mr-5">'+no+'</span>'+
-		                        '<span>'+title+'</span>'+
+		                        '<span>' + title +'</span>'+
 		                        '<i class="fas fa-times-circle" style="color:#999;margin-left:6px;cursor:pointer;"></i>'+
 		                        '<input type="hidden" name="placeMapX-'+day+'" value="'+mapx+'">'+
 		                        '<input type="hidden" name="placeMapY-'+day+'" value="'+mapy+'">'+
+		                        
 		                        '<div class="mb-4"></div>'+
 							'</div>'
 		

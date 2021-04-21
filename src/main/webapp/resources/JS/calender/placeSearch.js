@@ -1,6 +1,7 @@
 // '장소 추가' 버튼 클릭 후 
 // 장소 검색을 해서 장소를 선택했을때
 // 선택한 장소가 추가되어야 한다.
+// XX jsp에서 구현
 $(function() {
 
    var contentType = '<c:out value="${contentType}" />';

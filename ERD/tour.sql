@@ -219,11 +219,13 @@ SELECT * FROM TOUR_LOCATION;
 	
 SELECT * FROM place;
 
-SELECT *
-		FROM (
-				SELECT ROWNUM NUM, A.*
-				FROM tour A
-			) 
-		WHERE NUM BETWEEN 1 AND 10
-		ORDER BY tu_write_date DESC ;
-	UPDATE tour SET tu_write_date = sysdate WHERE tu_uid = 3;
+SELECT * 
+FROM(
+      SELECT ROWNUM NUM, F.*
+      FROM (
+            SELECT  *
+            FROM tour 
+            ORDER BY tu_write_date DESC
+         ) F
+   )
+WHERE NUM BETWEEN 1 AND 35;

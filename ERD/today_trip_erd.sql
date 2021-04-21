@@ -201,7 +201,7 @@ CREATE TABLE users
 	us_gender number DEFAULT 0,
 	us_birth date,
 	us_memo varchar2(100),
-	us_join_date DATE,
+	us_join_date date,
 	us_pic varchar2(20),
 	us_exit_ck number DEFAULT 0,
 	us_exit_date date,
@@ -212,8 +212,10 @@ CREATE TABLE users
 CREATE TABLE user_authority
 (
 	us_uid number NOT NULL,
-	us_authority NUMBER
+	us_authority number
 );
+
+SELECT * FROM USER_AUTHORITY;
 
 
 CREATE TABLE user_log
@@ -533,33 +535,6 @@ SELECT U.us_uid , U.us_id, U.us_pw, U.us_email, U.us_nickname, U.us_gender, U.us
 SELECT * FROM PLACE ;
 
 SELECT *
-<<<<<<< HEAD
-FROM users
-
-SELECT * 
-FROM USER_AUTHORITY;
-
- INSERT INTO user_authority 
-		(
-			us_uid,
-			us_authority
-		)
-		VALUES 
-		(
-			(
-				SELECT * 
-				FROM
-					(
-						SELECT us_uid
-						FROM users
-						ORDER BY us_uid DESC
-					)
-					WHERE ROWNUM = 1
-				)
-			, 1
-			);
-		
-=======
 FROM users;
 INSERT INTO USER_AUTHORITY VALUES (1,0);
 SELECT *
@@ -604,4 +579,3 @@ INSERT INTO TOUR_LOCATION values(9,3,23,3);
 
 
 
->>>>>>> branch 'master' of https://github.com/hcjo1223/today_trip.git
