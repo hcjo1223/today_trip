@@ -4,27 +4,32 @@
 <html>
 <head>
 <meta charset="UTF-8">
-
 <style type="text/css">
+
+@font-face {
+    font-family: 'Jal_Onuel';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.0/Jal_Onuel.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 .erroArticle {
 	width: 1200px;
 	margin: 0 auto;
-	border: solid 1px black;
 }
 .errorCon1 {
 	width: 320px;
  	margin: 0 auto;
-	border: solid 1px black;
 	font-size: 100px;
 	color: rgb(53, 197, 240);
 }
 .errorCon2 {
+	
 	width: 500px;
-    margin: 0 auto;
+    margin: 20px auto;
     font-size: 30px;
     color: rgb(130, 130, 130);
 
-	border: solid 1px black;
 }
 .errorCon3 {
 	width: 700px;
@@ -32,17 +37,54 @@
     margin-right: auto;
     color: rgb(130, 130, 130);
 	text-align: center;
-	border: solid 1px black;
 }
-#errorButton {
-	width: 80px;
+#errorButton ,#errorButton button{
+	width: 150px;
 	margin: 0 auto;
+	padding: 10px 16px;
+    font-size: 18px;
+    line-height: 1.3333333;
+    border-radius: 6px;
+    color: #fff;
+    border-color: #30a5ff;
+}
+#errorButton button{
+    background-color: #30a5ff;
+    
+}
+.Icon {
+ 	width: 135px;
+ 	margin: 20px auto;
+ 	
+}
+.Icon span{
+	white-space: pre;
+    text-anchor: start;
+    font-family: Jal_Onuel;
+    stroke-width: 0;
+    stroke: rgb(0, 0, 0);
+    fill: rgb(0, 0, 0);
+    font-size: 30px;
+}
+.headLine{
+		margin-bottom: 150px;
 }
 </style>
 <title>오류 페이지</title>
 </head>
 <body>
 	<div class="erroArticle">
+		<header>
+			<div class="Icon">
+				<span>오늘의여행</span>
+			</div>
+		</header>
+	</div>
+	<div class="headLine">
+				<hr>
+	</div>
+	<div class="erroArticle">
+		
 		<div>
 			<div class="errorCon1">
 				<span>ERROR</span>
@@ -55,7 +97,7 @@
 				<span>입력하신 주소가 정확한지 다시 한번 확인해 주세요.</span>
 			</div>
 			<div id="errorButton">
-				<button class="errorButton">이전 페이지로</button>
+				<button onclick="history.back()" class="errorButton">이전 페이지로</button>
 			</div>
 		</div>
 	
