@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
-<mapper namespace="com.spring.app.domain.CalendarDAO">
+<mapper namespace="com.spring.app.domain.CalenderDAO">
 	
 	<!-- 여행게시판 글 쓰기 -->
 	<insert id="insert">
@@ -79,7 +79,7 @@
 	</insert>	
 	
 	<!-- 여행게시판 글 하나 읽기 -->
-	<select id="selectOne" resultType="com.spring.app.domain.CalendarDTO">
+	<select id="selectOne" resultType="com.spring.app.domain.CalenderDTO">
 		SELECT *
 		FROM tour
 		WHERE tu_uid = #{tu_uid}
@@ -101,7 +101,7 @@
 	</select>
 	
 	<!-- 여행게시판 글 전체 읽기 -->
-	<select id="selectList" parameterType="com.spring.app.domain.CalendarDTO" resultType="com.spring.app.domain.CalendarDTO">
+	<select id="selectList" parameterType="com.spring.app.domain.CalenderDTO" resultType="com.spring.app.domain.CalenderDTO">
 		SELECT *
 		FROM (
 				SELECT ROWNUM NUM, A.*
@@ -161,14 +161,14 @@
 	</update>
 	
 	<!-- 좋아요 -->
-	<select id="TourLikeCount" parameterType="com.spring.app.domain.CalendarDTO" resultType="int">
+	<select id="TourLikeCount" parameterType="com.spring.app.domain.CalenderDTO" resultType="int">
 		SELECT COUNT(*)
 		FROM tour_like
 		WHERE tu_uid = #{tu_uid} AND tu_like_ck = 1
 	</select>
 	
 	<!-- 조회수 -->
-	<update id="TourHits" parameterType="com.spring.app.domain.CalendarDTO">
+	<update id="TourHits" parameterType="com.spring.app.domain.CalenderDTO">
 		UPDATE tour
 		SET tu_hits = tu_hits + 1
 		WHERE tu_uid = #{tu_uid}

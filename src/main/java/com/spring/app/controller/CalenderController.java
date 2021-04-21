@@ -9,34 +9,34 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.spring.app.domain.CalendarDTO;
+import com.spring.app.domain.CalenderDTO;
 import com.spring.app.domain.MemoDTO;
 import com.spring.app.domain.PlaceDTO;
 import com.spring.app.domain.TourLocationDTO;
-import com.spring.app.service.CalendarService;
+import com.spring.app.service.CalenderService;
 
 @Controller
-@RequestMapping("/calendar")
-public class CalendarController {
+@RequestMapping("/calender")
+public class CalenderController {
 	
 	@Autowired
-	private CalendarService calendarService;
+	private CalenderService calenderService;
 	
 	// 여행게시판 글 쓰기
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
-	public String registerForm(Model model, CalendarDTO dto) throws Exception {
-		return "calendar/register";
+	public String registerForm(Model model, CalenderDTO dto) throws Exception {
+		return "calender/register";
 	}
 	
 	// 여행게시판 글 쓰기 OK
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public @ResponseBody String register(Model model, CalendarDTO dto) throws Exception {
+	public @ResponseBody String register(Model model, CalenderDTO dto) throws Exception {
 		
 		System.out.println(dto.toString()); // 확인용
 
 		
 		// 일정 추가 요청하기
-		calendarService.insert(dto);
+		calenderService.insert(dto);
 		
 //		System.out.println(result + "");
 		
@@ -49,7 +49,7 @@ public class CalendarController {
 //		 logger.info("keyword : " + keyword);
 //		 logger.info("contenttype : " + contentType);
 		
-		List<PlaceDTO> placeList = calendarService.placeSearch(keyword, contentType);
+		List<PlaceDTO> placeList = calenderService.placeSearch(keyword, contentType);
 		
 		for (PlaceDTO place: placeList) {
 //			System.out.println(place);
@@ -63,7 +63,7 @@ public class CalendarController {
 		
 		model.addAttribute("list", placeList);
 		
-		return "calendar/placeSearch";
+		return "calender/placeSearch";
 	}
 	
 	// 여행게시판 메모 추가하기
@@ -73,7 +73,7 @@ public class CalendarController {
 		System.out.println(dto.toString()); // 확인용
 		
 		// 메모 추가 요청
-		calendarService.insertMemo(dto);
+		calenderService.insertMemo(dto);
 		
 //		System.out.println(result);
 		
@@ -87,7 +87,7 @@ public class CalendarController {
 		System.out.println(dto.toString()); // 확인용
 		
 		// 메모 추가 요청
-		calendarService.insertTL(dto);
+		calenderService.insertTL(dto);
 		
 //		System.out.println(result);
 		
@@ -96,97 +96,97 @@ public class CalendarController {
 	
 	// 여행게시판 글 하나 읽기
 	@RequestMapping(value = "/read", method = RequestMethod.GET)
-	public String read(Model model, CalendarDTO dto) throws Exception {
+	public String read(Model model, CalenderDTO dto) throws Exception {
 		
 		// 조회수 업데이트
-		calendarService.TourHits(dto);
-		int likeCount = calendarService.TourLikeCount(dto);
+		calenderService.TourHits(dto);
+		int likeCount = calenderService.TourLikeCount(dto);
 		model.addAttribute("likeCount", likeCount);
 		
 		// 일정 조회 요청
-		CalendarDTO res = calendarService.selectOne(dto);
+		CalenderDTO res = calenderService.selectOne(dto);
 		model.addAttribute("tour", res);
 		
-		return "calendar/read";
+		return "calender/read";
 	}
 	
 	// 여행게시판 글 하나의 메모 읽기
 	@RequestMapping(value = "/listMemo", method = RequestMethod.GET)
-	public @ResponseBody List<MemoDTO> listMemo(Model model, CalendarDTO dto) throws Exception {
+	public @ResponseBody List<MemoDTO> listMemo(Model model, CalenderDTO dto) throws Exception {
 
 		System.out.println(dto.toString());
 		
-		List<MemoDTO> list = calendarService.listMemo(dto);
+		List<MemoDTO> list = calenderService.listMemo(dto);
 		
 		return list;
 	}
 	
 	// 여행게시판 글 하나의 장소 읽기
 	@RequestMapping(value = "/listTL", method = RequestMethod.GET)
-	public @ResponseBody List<TourLocationDTO> listTL(Model model, CalendarDTO dto) throws Exception {
+	public @ResponseBody List<TourLocationDTO> listTL(Model model, CalenderDTO dto) throws Exception {
 
-		List<TourLocationDTO> list = calendarService.listTL(dto);
+		List<TourLocationDTO> list = calenderService.listTL(dto);
 		
 		return list;
 	}
 	
 	// 여행게시판 글 전체 읽기
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String list(Model model, CalendarDTO dto) throws Exception {
+	public String list(Model model, CalenderDTO dto) throws Exception {
 		
 		// 페이징
 		int start = dto.getStart();
 		dto.setEnd(start + 29);
 		
 		// 목록 조회 요청
-		List<CalendarDTO> list = calendarService.selectList(dto);
+		List<CalenderDTO> list = calenderService.selectList(dto);
 		
-//		for (CalendarDTO place : list) {
+//		for (CalenderDTO place : list) {
 //			System.out.println(place.getTu_title());
 //		}
 		
 		// 전체 리스트 갯수 가지고 오기
-		int count = calendarService.CountOfTour();
+		int count = calenderService.CountOfTour();
 		int startPage = (start / 30 + 1);
 		
 		model.addAttribute("list", list);
 		model.addAttribute("count", count);
 		model.addAttribute("startPage", startPage);
 		
-		return "calendar/list";
+		return "calender/list";
 	}
 	
 	// 여행게시판 글 하나의 메모 및 장소 모두 삭제하기
 	@RequestMapping(value = "/deleteAllMemoAndTL", method = RequestMethod.POST)
-	public @ResponseBody String deleteAllMemoAndTL(Model model, CalendarDTO dto) throws Exception {
+	public @ResponseBody String deleteAllMemoAndTL(Model model, CalenderDTO dto) throws Exception {
 		
 		// 정보 삭제 요청
-		calendarService.deleteMemo(dto);
-		calendarService.deleteTL(dto);
+		calenderService.deleteMemo(dto);
+		calenderService.deleteTL(dto);
 		
 		return "OK";
 	}
 
 	// 여행게시판 글 수정하기
 	@RequestMapping(value = "/register/edit", method = RequestMethod.GET)
-	public String updateForm(Model model, CalendarDTO dto) throws Exception {
+	public String updateForm(Model model, CalenderDTO dto) throws Exception {
 		
 		// 일정 조회 요청
-		CalendarDTO c = calendarService.selectOne(dto);
+		CalenderDTO c = calenderService.selectOne(dto);
 		
 		model.addAttribute("tour", c);
 		
-		return "calendar/update";
+		return "calender/update";
 	}
 	
 	// 여행게시판 글 수정하기 OK
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public @ResponseBody String update(Model model, CalendarDTO dto) throws Exception {
+	public @ResponseBody String update(Model model, CalenderDTO dto) throws Exception {
 		
 		System.out.println(dto.toString()); // 확인용
 		
 		// 일정 수정 요청
-		calendarService.update(dto);
+		calenderService.update(dto);
 		
 		return "OK";
 	}
@@ -197,13 +197,13 @@ public class CalendarController {
 	
 	// 여행게시판 글 삭제하기
 	@RequestMapping(value = "/register/delete", method = RequestMethod.POST)
-	public @ResponseBody String delete(Model model, CalendarDTO dto) throws Exception {
+	public @ResponseBody String delete(Model model, CalenderDTO dto) throws Exception {
 		
 		
 		
 		System.out.println(dto.getTu_uid());
 		// 일정 삭제 요청
-		calendarService.delete(dto);
+		calenderService.delete(dto);
 		
 		return "OK";
 	}

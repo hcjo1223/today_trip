@@ -10,7 +10,7 @@ import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
 import com.spring.app.domain.AdminDAO;
-import com.spring.app.domain.CalendarDTO;
+import com.spring.app.domain.CalenderDTO;
 import com.spring.app.domain.LogDTO;
 import com.spring.app.domain.PlaceDTO;
 import com.spring.app.domain.UsersDTO;
@@ -47,7 +47,7 @@ public class AdminService {
 			return dao.selectHomePlace();
 		}
 
-		public List<CalendarDTO> listHomeCalender(){
+		public List<CalenderDTO> listHomeCalender(){
 			dao = sqlSession.getMapper(AdminDAO.class);
 			return dao.selectHomeCalender();
 		}

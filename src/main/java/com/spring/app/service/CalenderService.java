@@ -10,16 +10,16 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.spring.app.domain.CalendarDAO;
-import com.spring.app.domain.CalendarDTO;
+import com.spring.app.domain.CalenderDAO;
+import com.spring.app.domain.CalenderDTO;
 import com.spring.app.domain.MemoDTO;
 import com.spring.app.domain.PlaceDTO;
 import com.spring.app.domain.TourLocationDTO;
 
 @Service
-public class CalendarService {
+public class CalenderService {
 	
-	CalendarDAO dao;
+	CalenderDAO dao;
 	
 	private SqlSession sqlSession;
 	
@@ -33,15 +33,15 @@ public class CalendarService {
 	}
 	
 	// 디폴트 생성자
-	public CalendarService() {
+	public CalenderService() {
 		super();
-		System.out.println("CalendarService() 생성");
+		System.out.println("CalenderService() 생성");
 	}
 	
 	// 여행게시판 글 쓰기
-	public int insert(CalendarDTO dto) throws IllegalStateException, IOException {
+	public int insert(CalenderDTO dto) throws IllegalStateException, IOException {
 		
-		dao = sqlSession.getMapper(CalendarDAO.class);
+		dao = sqlSession.getMapper(CalenderDAO.class);
 		
 		// String으로 입력받은 여행시작날짜, 여행종료날짜를
 		// Date로 형변환하기
@@ -67,97 +67,97 @@ public class CalendarService {
 	
 	// 여행게시판 장소 검색하기
 	public List<PlaceDTO> placeSearch(String keyword, String contentType) throws Exception {
-		dao = sqlSession.getMapper(CalendarDAO.class);
+		dao = sqlSession.getMapper(CalenderDAO.class);
 		
 		return dao.placeSearch(keyword, contentType);
 	}
 	
 	// 여행게시판 메모 추가하기
 	public int insertMemo(MemoDTO dto) throws IllegalStateException, IOException {
-		dao = sqlSession.getMapper(CalendarDAO.class);
+		dao = sqlSession.getMapper(CalenderDAO.class);
 		
 		return dao.insertMemo(dto);
 	}
 	
 	// 여행게시판 장소 추가하기
 	public int insertTL(TourLocationDTO dto) throws IllegalStateException, IOException {
-		dao = sqlSession.getMapper(CalendarDAO.class);
+		dao = sqlSession.getMapper(CalenderDAO.class);
 		
 		return dao.insertTL(dto);
 	}
 	
 	// 여행게시판 글 하나 읽기
-	public CalendarDTO selectOne(CalendarDTO dto) throws IllegalStateException, IOException {
-		dao = sqlSession.getMapper(CalendarDAO.class);
+	public CalenderDTO selectOne(CalenderDTO dto) throws IllegalStateException, IOException {
+		dao = sqlSession.getMapper(CalenderDAO.class);
 		
 		return dao.selectOne(dto);
 	}
 	
 	// 여행게시판 글 1개의 메모 읽어 오기
-	public List<MemoDTO> listMemo(CalendarDTO dto) throws IllegalStateException, IOException {
-		dao = sqlSession.getMapper(CalendarDAO.class);
+	public List<MemoDTO> listMemo(CalenderDTO dto) throws IllegalStateException, IOException {
+		dao = sqlSession.getMapper(CalenderDAO.class);
 		
 		return dao.listMemo(dto);
 	}
 	
 	// 여행게시판 글 1개의 장소 읽어 오기
-	public List<TourLocationDTO> listTL(CalendarDTO dto) throws IllegalStateException, IOException {
-		dao = sqlSession.getMapper(CalendarDAO.class);
+	public List<TourLocationDTO> listTL(CalenderDTO dto) throws IllegalStateException, IOException {
+		dao = sqlSession.getMapper(CalenderDAO.class);
 		
 		return dao.listTL(dto);
 	}
 	
 	// 여행게시판 글 전체 읽기
-	public List<CalendarDTO> selectList(CalendarDTO dto) throws IllegalStateException, IOException {
-		dao = sqlSession.getMapper(CalendarDAO.class);
+	public List<CalenderDTO> selectList(CalenderDTO dto) throws IllegalStateException, IOException {
+		dao = sqlSession.getMapper(CalenderDAO.class);
 		
 		return dao.selectList(dto);
 	}
 	
 	// 여행게시판 페이징
 	public int CountOfTour() throws IllegalStateException, IOException {
-		dao = sqlSession.getMapper(CalendarDAO.class);
+		dao = sqlSession.getMapper(CalenderDAO.class);
 		
 		return dao.CountOfTour();
 	}
 	
 	// 여행게시판 글 하나의 메모 삭제하기
-	public int deleteMemo(CalendarDTO dto) throws IllegalStateException, IOException {
-		dao = sqlSession.getMapper(CalendarDAO.class);
+	public int deleteMemo(CalenderDTO dto) throws IllegalStateException, IOException {
+		dao = sqlSession.getMapper(CalenderDAO.class);
 		
 		return dao.deleteMemo(dto);
 	}
 	// 여행게시판 글 하나의 장소 삭제하기	
-	public int deleteTL(CalendarDTO dto) throws IllegalStateException, IOException {
-		dao = sqlSession.getMapper(CalendarDAO.class);
+	public int deleteTL(CalenderDTO dto) throws IllegalStateException, IOException {
+		dao = sqlSession.getMapper(CalenderDAO.class);
 	
 		return dao.deleteTL(dto);
 	}
 	
 	// 여행게시판 글 수정하기
-	public int update(CalendarDTO dto) throws IllegalStateException, IOException {
-		dao = sqlSession.getMapper(CalendarDAO.class);
+	public int update(CalenderDTO dto) throws IllegalStateException, IOException {
+		dao = sqlSession.getMapper(CalenderDAO.class);
 		
 		return dao.update(dto);
 	}
 	
 	// 여행게시판 글 삭제하기
-	public int delete(CalendarDTO dto) throws IllegalStateException, IOException {
-		dao = sqlSession.getMapper(CalendarDAO.class);
+	public int delete(CalenderDTO dto) throws IllegalStateException, IOException {
+		dao = sqlSession.getMapper(CalenderDAO.class);
 		
 		return dao.delete(dto);
 	}
 	
 	// 좋아요
-	public int TourLikeCount(CalendarDTO dto) throws IllegalStateException, IOException {
-		dao = sqlSession.getMapper(CalendarDAO.class);
+	public int TourLikeCount(CalenderDTO dto) throws IllegalStateException, IOException {
+		dao = sqlSession.getMapper(CalenderDAO.class);
 	
 		return dao.TourLikeCount(dto);
 	}
 	
 	// 조회수
-	public int TourHits(CalendarDTO dto) throws IllegalStateException, IOException{
-		dao = sqlSession.getMapper(CalendarDAO.class);
+	public int TourHits(CalenderDTO dto) throws IllegalStateException, IOException{
+		dao = sqlSession.getMapper(CalenderDAO.class);
 	
 		return dao.TourHits(dto);
 	}

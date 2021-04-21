@@ -3,7 +3,7 @@ package com.spring.app.domain;
 import lombok.Data;
 
 @Data
-public class CalendarDTO {
+public class CalenderDTO {
 	
 	private int tu_uid; // 여행 게시글 UID
 	private int us_uid; // 회원 UID
