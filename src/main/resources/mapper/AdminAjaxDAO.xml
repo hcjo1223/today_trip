@@ -64,6 +64,27 @@
 	</select>
 
 	<!-- 일정 게시판 글 목록 (페이징) : page, pageRows -->
+	<select id="selectSearchCalenderRow" 
+		resultType="com.spring.app.domain.CalenderDTO">
+		<![CDATA[  
+		SELECT
+			tu_uid, 
+			us_uid, 
+			tu_title,
+			tu_hits, 
+			tu_period, 
+			tu_write_date,
+			tu_start_tour,
+			tu_del_ck
+		FROM 
+			(SELECT ROWNUM AS RNUM, T.* FROM 
+				(SELECT * FROM tour  WHERE tu_title LIKE '%' || #{keyword} || '%' ORDER BY tu_uid) T) 
+		WHERE 
+			RNUM >= #{from} AND RNUM < (#{from} + #{pageRows})
+		]]>	
+	</select>
+
+	<!-- 일정 게시판 글 목록 (페이징) : page, pageRows -->
 	<select id="selectCardsRow" 
 		resultType="com.spring.app.domain.CardsDTO">
 		<![CDATA[  
@@ -79,6 +100,27 @@
 		FROM 
 			(SELECT ROWNUM AS RNUM, T.* FROM 
 				(SELECT * FROM picture ORDER BY pc_uid) T) 
+		WHERE 
+			RNUM >= #{from} AND RNUM < (#{from} + #{pageRows})
+		]]>	
+	</select>
+
+	<!-- 일정 게시판 글 목록 (페이징) : page, pageRows -->
+	<select id="selectSearchCardsRow" 
+		resultType="com.spring.app.domain.CardsDTO">
+		<![CDATA[  
+		SELECT
+			pc_uid "uid", 
+			us_uid usuid, 
+			pc_hits hits,
+			pc_location location, 
+			pc_focus focus, 
+			pc_with withs,
+			pc_write_date regDate,
+			pc_del_ck delCheck
+		FROM 
+			(SELECT ROWNUM AS RNUM, T.* FROM 
+				(SELECT * FROM picture  WHERE pc_uid LIKE '%' || #{keyword} || '%' ORDER BY pc_uid) T) 
 		WHERE 
 			RNUM >= #{from} AND RNUM < (#{from} + #{pageRows})
 		]]>	
@@ -105,6 +147,27 @@
 		]]>	
 	</select>
 
+	<!-- 유저 글 목록 (페이징) : page, pageRows -->
+	<select id="selectSearchUsersRow" 
+		resultType="com.spring.app.domain.AdminDTO">
+		<![CDATA[  
+		SELECT
+			us_uid, 
+			us_id, 
+			us_email,
+			us_nickName, 
+			us_gender, 
+			us_birth,
+			us_join_date,
+			us_exit_date
+		FROM 
+			(SELECT ROWNUM AS RNUM, T.* FROM 
+				(SELECT * FROM users WHERE us_id LIKE '%' || #{keyword} || '%' ORDER BY us_uid) T) 
+		WHERE 
+			RNUM >= #{from} AND RNUM < (#{from} + #{pageRows})
+		]]>	
+	</select>
+
 	<!-- SELECT 쿼리문인데, 단일값 int 값 받고 싶으면 어쩌나?
  	resultType="java.lang.Integer" 혹은 resultType="int" 
 	-->
@@ -116,12 +179,22 @@
 		SELECT count(*) FROM tour
 	</select>	
 
+	<select id="calenderSearchCountAll" resultType="int">
+		SELECT count(*) FROM tour
+		WHERE tu_title LIKE '%' || #{keyword} || '%'
+	</select>	
+
 	<select id="CardsCountAll" resultType="int">
 		SELECT count(*) FROM picture
 	</select>	
 
 	<select id="UsersCountAll" resultType="int">
 		SELECT count(*) FROM users
+	</select>	
+
+	<select id="UsersSearchCountAll" resultType="int">
+		SELECT count(*) FROM users
+		WHERE us_id LIKE '%' || #{keyword} || '%'
 	</select>	
 
 	<select id="placeSearchCountAll" resultType="int">

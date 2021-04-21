@@ -34,14 +34,32 @@ public interface AdminAjaxDAO {
 			@Param("pageRows") int pageRows
 			);
 
+	public List<PlaceDTO> selectSearchCalenderRow(
+			@Param("from") int from,
+			@Param("pageRows") int pageRows,
+			@Param("keyword") String keyword
+			);
+
 	public List<CardsDTO> selectCardsRow(
 			@Param("from") int from,
 			@Param("pageRows") int pageRows
 			);
 
+	public List<CardsDTO> selectSearchCardsRow(
+			@Param("from") int from,
+			@Param("pageRows") int pageRows,
+			@Param("keyword") int keyword
+			);
+
 	public List<AdminDTO> selectUsersRow(
 			@Param("from") int from,
 			@Param("pageRows") int pageRows
+			);
+
+	public List<AdminDTO> selectSearchUsersRow(
+			@Param("from") int from,
+			@Param("pageRows") int pageRows,
+			@Param("keyword") String keyword
 			);
 	
 	public int placeCountAll(
@@ -52,10 +70,18 @@ public interface AdminAjaxDAO {
 			@Param("keyword") String keyword
 			);
 	public int calenderCountAll();
+
+	public int calenderSearchCountAll(
+			@Param("keyword") String keyword
+			);
 	
 	public int CardsCountAll();
 	
 	public int UsersCountAll();
+
+	public int UsersSearchCountAll(
+			@Param("keyword") String keyword
+			);
 	
 	public int deleteCalenderByUid(int [] uids);
 	

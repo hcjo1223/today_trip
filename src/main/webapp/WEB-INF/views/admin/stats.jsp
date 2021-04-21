@@ -18,7 +18,12 @@
 		href="${pageContext.request.contextPath }/resources/CSS/admin/styles.css">
 		<!--Custom Font-->
 <link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-		
+<script type="text/javascript">
+var userAuthority = "${login.userAuthority}";
+if (userAuthority != "0") {
+	location.href="./error";
+}
+</script>		
 
 <title>관리자 페이지(통계)</title>
 </head>
@@ -85,7 +90,11 @@
 			<li><a href="../admin/stats"><img style="width: 20px" src="../resources/IMG/admin_chart.png"> 통계</a></li>
 		</ul>
 	</div><!--/.sidebar-->
-	
+<div class="adminWMI1">
+	<div class="adminWMI2">
+		<span>통계</span>
+	</div>
+</div>
 	
 	<div class="row" style="width: 82%">
 			<div class="col-lg-12">

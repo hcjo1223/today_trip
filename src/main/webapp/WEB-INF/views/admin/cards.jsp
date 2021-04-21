@@ -18,7 +18,12 @@
 		href="${pageContext.request.contextPath }/resources/CSS/admin/styles.css">
 		<!--Custom Font-->
 <link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-		
+<script type="text/javascript">
+var userAuthority = "${login.userAuthority}";
+if (userAuthority != "0") {
+	location.href="./error";
+}
+</script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/JS/admin/bootstrap.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/JS/admin/easypiechart.js"></script>
@@ -89,13 +94,21 @@
 			<li><a href="../stats"><img style="width: 20px" src="../../resources/IMG/admin_chart.png"> 통계</a></li>
 		</ul>
 	</div><!--/.sidebar-->
-	
-<div class="topPlace">
+<div class="adminWMI1">
+	<div class="adminWMI2">
+		<span>게시판</span>
+	</div>
+</div>
+<div class="adminSearchPlace1">
+	<div class="adminSearchPlace2">
+		<input type="number" onKeypress="javascript:if(event.keyCode==13) {SearchAdminCards()}" class="form-control" id="adminCardsKeyword" placeholder="번호 검색" aria-label="Search" aria-describedby="search-addon" />
+	</div>
 	<div class="buttonPlace">
 			<button class="btn btn-lg btn-info" onclick="location.href='../board/calender'">일정</button>
 			<button class="btn btn-lg btn-info" onclick="location.href='../board/cards'">사진</button>
 	</div>
 </div>
+
 
 <div id="list">
 	<%-- header --%>
