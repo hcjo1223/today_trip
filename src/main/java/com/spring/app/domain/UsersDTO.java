@@ -14,8 +14,16 @@ public class UsersDTO {
 	private String userMemo;
 	private String gender;
 	private String userPic;
+	private int userAuthority; // 회원 권한
+	
 	
 
+	public int getUserAuthority() {
+		return userAuthority;
+	}
+	public void setUserAuthority(int userAuthority) {
+		this.userAuthority = userAuthority;
+	}
 	private boolean useCookie;
 
 	public boolean isUseCookie() {

@@ -520,3 +520,17 @@ SELECT * FROM tour_location;
 				SELECT * 
 				FROM(SELECT * FROM PICTURE ORDER BY PC_HITS DESC)
 				WHERE ROWNUM< 4;
+				
+INSERT  INTO user_authority
+VALUES (25,1);
+			
+SELECT  FROM users;
+SELECT U.us_uid , U.us_id, U.us_pw, U.us_email, U.us_nickname, U.us_gender, U.us_birth,  U.us_memo, U.us_pic, U.session_key, UA.us_authority FROM 
+(SELECT *
+	FROM users
+	WHERE session_key = 'none') U JOIN USER_AUTHORITY UA ON U.us_uid = UA.us_uid;
+	
+
+SELECT *
+FROM users
+WHERE us_id = 'axad' AND us_pw = 'aaaa'; 
