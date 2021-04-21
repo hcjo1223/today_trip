@@ -1,0 +1,16 @@
+@charset "UTF-8";
+
+/* .tour-wrap {
+	width: 1000px;
+	margin: 0 auto;
+} */
+
+@font-face{
+	font-family:"ng";
+	font-style:normal;
+	src:url(../fonts/NanumBarunGothic.ttf) format('truetype');
+}
+
+html,body{
+	font-family:ng;
+}

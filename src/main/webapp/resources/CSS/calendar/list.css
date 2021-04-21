@@ -1,0 +1,40 @@
+@charset "UTF-8";
+
+/* ul {
+	display: block;
+	margin-block-start: 1em;
+	margin-block-end: 1em;
+	margin-inline-start: 0px;
+	margin-inline-end: 0px;
+	padding-inline-start: 40px;
+}
+ul, ol {list-style: none;} */
+	
+/* .tour-wrap .tour-list-wrap li {
+	float: left;
+	margin: 25px 0 0 25px;
+} */
+
+.clear {clear: both;}
+	
+/* .tour-wrap .tour-list-wrap li:nth-child(3n+1) {
+	 margin-left: 0;
+} */
+
+.tour-wrap .tour-list-wrap .tour-info{
+	text-align: center;
+}
+
+a {
+	text-decoration-line: none;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+	
+.tour-info a {
+	position: relative;
+	display: block;
+}
