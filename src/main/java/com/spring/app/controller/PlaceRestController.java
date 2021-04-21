@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.spring.app.domain.AjaxWriteList;
 import com.spring.app.domain.AjaxWriteResult;
 import com.spring.app.domain.PlaceDTO;
-import com.spring.app.domain.ReviewDTO;
+import com.spring.app.domain.PlaceCountDTO;
 import com.spring.app.service.PlaceService;
 
 
@@ -150,30 +150,7 @@ public class PlaceRestController {
 		return result;	
 	}
 	
-	// 좋아요 카운트
-	@GetMapping("/like/count")
-	public AjaxWriteResult likeCount(@RequestParam int place_uid) {
-		int count = 0;
-		
-		// response 에 필요한 값들
-		StringBuffer message = new StringBuffer();
-		String status = "FAIL";  // 기본 FAIL
-
-		try {	
-
-			count = placeService.countPlaceLike(place_uid);
-			status = "OK";
-
-		} catch (Exception e) {
-			message.append("[트랜잭션 에러:" + e.getMessage() + "]");
-		}
-
-		AjaxWriteResult result = new AjaxWriteResult();
-		result.setStatus(status);
-		result.setMessage(message.toString());
-		result.setCount(count);
-		return result;	
-	}
+	
 	
 	// 좋아요 여부 체크
 	@GetMapping("/like/check")
@@ -196,6 +173,54 @@ public class PlaceRestController {
 			} else {
 				status = "OK";
 			}
+
+		} catch (Exception e) {
+			message.append("[트랜잭션 에러:" + e.getMessage() + "]");
+		}
+
+		AjaxWriteResult result = new AjaxWriteResult();
+		result.setStatus(status);
+		result.setMessage(message.toString());
+		result.setCount(count);
+		return result;	
+	}
+	
+	// 좋아요 수 and 별점 평균
+	@GetMapping("/rateCount")
+	public PlaceCountDTO rateCount(@RequestParam int place_uid) {
+		
+		
+		int likeCnt = 0;
+		float rateAVG = 0;
+		
+		try {
+			likeCnt = placeService.countPlaceLike(place_uid);
+			rateAVG = placeService.rateAVG(place_uid);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		PlaceCountDTO result = new PlaceCountDTO();
+		result.setRateAVG(rateAVG);
+		result.setLikeCnt(likeCnt);
+		return result;
+	}
+	
+	
+	// 좋아요 카운트
+	@GetMapping("/like/count")
+	public AjaxWriteResult likeCount(@RequestParam int place_uid) {
+		int count = 0;
+		
+		// response 에 필요한 값들
+		StringBuffer message = new StringBuffer();
+		String status = "FAIL";  // 기본 FAIL
+
+		try {	
+
+			count = placeService.countPlaceLike(place_uid);
+			status = "OK";
 
 		} catch (Exception e) {
 			message.append("[트랜잭션 에러:" + e.getMessage() + "]");

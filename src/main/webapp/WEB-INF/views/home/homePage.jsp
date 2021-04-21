@@ -186,7 +186,7 @@
                     	<div class = "imgcon">
 		                    	<ul>
 		                    	<c:choose>
-								<c:when test="${empty listHomePic || fn:length(listHomePic) == 0 }"></c:when>
+								<c:when test="${empty listHomePic || fn:length(listHomePic) == 0 }"> </c:when>
 								<c:otherwise>
 									<c:forEach var="dto" items="${listHomePic }">
 										<li>

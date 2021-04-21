@@ -1,6 +1,7 @@
 var page = 1;   //  현재 페이지
 var pageRows = 9;  // 페이지당 글의 개수
 var viewItem = undefined;   // 가장 최근에 view 한 글의 데이터
+var us_uid = "${login.us_uid}";
 
 $(document).ready(function(){
     loadPage(page);   // 페이지 최초 로딩
@@ -9,7 +10,30 @@ $(document).ready(function(){
 
 });
 
+function likeUp(place_uid){ //댓글 등록 버튼 클릭시 
+	if(us_uid != null){
+    insertLike(place_uid); //Insert 함수호출(아래)
+	} else {
+		alert("로그인 하세요");
+	}
+};
 
+// 좋아요 등록
+function insertLike(place_uid){
+	$.ajax({
+        url : "./like",
+        type : "post",
+		data : {'place_uid' : place_uid, 'us_uid' : us_uid},
+        cache : false,
+        success : function(data, status){
+            if(status == "success"){
+				if(data.status == "OK"){
+					loadPage(page);   // application/json 이면 이미 parse 되어 있다.
+				}
+            }
+        }
+    });  // end $.ajax()
+}
 
 
 //page번째 페이지 목록 읽어오기
@@ -30,46 +54,26 @@ function loadPage(page){
 } // end loadPage()
 
 
-function likeCount(place_uid){
-	var count = 0;
+function rateCount(place_uid){
+	var item = new Object;
 	$.ajax({
-		url : "./like/count",
+		url : "./rateCount",
 		type : "get",
 		data : {'place_uid' : place_uid},
 		cache : false,
 		async : false,
 		success : function(data, status){
 			if(status == "success"){
-				if(data.status == "OK"){
-					count = data.count;		
-				}
+				
+				item = data;
+				
 			}
 		}
 	});
 
-	return count;
+	return item;
 }
 
-function rateAVG(place_uid){
-	var avg = 0;
-	$.ajax({
-		url : "./review",
-		type : "get",
-		data : {'place_uid' : place_uid},
-		cache : false,
-		async : false,
-		success : function(data, status){
-			if(status == "success"){
-				if(data.status == "OK"){
-					
-					avg = data.count;		
-				}
-			}
-		}
-	});
-
-	return avg;
-}
 
 function updateList(jsonObj){
 
@@ -87,16 +91,17 @@ function updateList(jsonObj){
 
 
 		for(var i = 0; i < count; i++){
-
-			var abcde = rateAVG(items[i].place_uid);
-
-			if(abcde > 4.1){
+			var data = rateCount(items[i].place_uid) 
+			var likeCnt = data['likeCnt'];
+			var rateAVG = data['rateAVG'];
+			
+			if(rateAVG > 4.1){
 				avg = '<img src ="../resources/IMG/star4.png">';
-			} else if (abcde > 3.1){
+			} else if (rateAVG > 3.1){
 				avg = '<img src ="../resources/IMG/star4.png">';
-			} else if (abcde > 2.1) {
+			} else if (rateAVG > 2.1) {
 				avg = '<img src ="../resources/IMG/star3.png">';
-			} else if (abcde > 1.1) {
+			} else if (rateAVG > 1.1) {
 				avg = '<img src ="../resources/IMG/star2.png">';
 			} else {
 				avg = '<img src ="../resources/IMG/star1-1.png">';
@@ -120,9 +125,8 @@ function updateList(jsonObj){
                     + "<p class='s_theme'>" + chkareaCode[items[i].areacode] + "&gt;" + sigunguArr[1] + "</p>"
 					+ "</a></dt>\n"
 					+ "<dd class='item_count_area clear'>\n"
-					+ "<a href='javascript:void(0);'>"
-					
-					+ "<p class='ico_type like' ><span>좋아요</span><span class='likecount' name='likecount" + items[i].place_uid + "'>" + likeCount(items[i].place_uid) + "</span></p></a>"
+					+ "<a href='javascript:likeUp(" + items[i].place_uid + ");'>"
+					+ "<p class='ico_type like' ><span>좋아요</span><span class='likecount' name='likecount" + items[i].place_uid + "'>" + likeCnt + "</span></p></a>"
 					+ "<p class='ico_type zzim'><span>조회수</span><span class='viewcount'>" + items[i].viewcnt + "</span></p>"
 					+ "<p class='ico_type review'><span>리뷰</span><span class='reviewcount'>" + items[i].reviewcnt + "</span></p>"
 					+ "</p></dd></dl></li>"
@@ -131,7 +135,7 @@ function updateList(jsonObj){
 
 		}
 
-		"<a href='javascript:void(0);'><p class='ico_type zzim '><span>찜하기</span><span class='count'>736</span></p></a>"
+
         
         $(".item_list").html(result);  // 업데이트
 
