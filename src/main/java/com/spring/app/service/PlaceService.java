@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.spring.app.domain.AdminDTO;
 import com.spring.app.domain.PlaceDAO;
 import com.spring.app.domain.PlaceDTO;
 import com.spring.app.domain.PlaceLikeDAO;
@@ -81,7 +82,12 @@ public class PlaceService {
 		return dao2.rateAVG(place_uid);
 	}
 	
-PlaceLikeDAO dao3;
+	public List<AdminDTO> userList(int us_uid) throws Exception{
+		dao2 = sqlSession.getMapper(ReviewDAO.class);
+		return dao2.userList(us_uid);
+	}
+	
+	PlaceLikeDAO dao3;
 	
 	public int createPlaceLike(int place_uid, int us_uid) throws Exception{
 		dao3 = sqlSession.getMapper(PlaceLikeDAO.class);
@@ -102,5 +108,7 @@ PlaceLikeDAO dao3;
 		dao3 = sqlSession.getMapper(PlaceLikeDAO.class);
 		return dao3.chkPlaceLike(place_uid, us_uid);
 	}
+	
+	
 	
 }

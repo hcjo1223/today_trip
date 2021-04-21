@@ -12,20 +12,20 @@
 			tu_hits
 		FROM TOUR
 		WHERE
-		us_uid = #{us_uid}
+		us_uid = #{userUid}
 		
 	</select>
 
-	<select id= "selectuserCards"
+	<select id= "selectUserCards"
 	 resultType = "com.spring.app.domain.CardsDTO">
 		
 		SELECT
 			us_uid,
 			pc_uid,
-			pc_contents,
+			pc_contents
 		FROM PICTURE
 		WHERE
-		us_uid = #{us_uid}	
+		us_uid = #{userUid}
 	</select>
 	
 	<select id= "selectUsersInfo"
@@ -39,7 +39,7 @@
 			us_birth
 		FROM USERS
 		WHERE
-		us_uid = #{us_uid}		
+		us_uid = #{userUid}		
 	</select>
 	
 <!-- 로그인 회원 정보 -->

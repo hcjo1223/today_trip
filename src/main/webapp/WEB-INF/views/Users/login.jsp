@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java"%>
 <!DOCTYPE html> 
 <html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- todo -->
 <!-- header file include -->
 <body class="hold-transition login-page">
@@ -53,6 +54,19 @@
 	</div>
 	<!-- /.login-box  -->
 
-	<script> var msg = "${msg}"; if (msg == "REGISTERED") { alert("회원가입이 완료되었습니다. 로그인해주세요!"); } else if (msg == "FAILURE") { alert("아이디와 비밀번호를 확인해주세요."); } $(function () { $('input').iCheck({ checkboxClass: 'icheckbox_square-blue', radioClass: 'iradio_square-blue', increaseArea: '20%' // optional }); }); </script>
+	<script> 
+	var msg = "${msg}"; 
+	if (msg == "REGISTERED") { 
+		alert("회원가입이 완료되었습니다. 로그인해주세요!"); 
+	} else if (msg == "FAILURE") { 
+		alert("아이디와 비밀번호를 확인해주세요.");
+	} 
+	$(document).ready(function () { 
+		if($('#remember').is(":checked") == true) ({ 
+			checkboxClass: 'icheckbox_square-blue', 
+			radioClass: 'iradio_square-blue', 
+			increaseArea: '20%' // optional 
+			}); 
+	}); </script>
 </body>
 </html>

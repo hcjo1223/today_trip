@@ -1,7 +1,6 @@
 package com.spring.app.controller;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
@@ -12,25 +11,19 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.WebUtils;
 
-import com.spring.app.domain.CardsDTO;
 import com.spring.app.domain.LoginDTO;
 import com.spring.app.domain.UsersDTO;
 import com.spring.app.service.CardsService;
 import com.spring.app.service.UserService;
-import com.spring.app.service.UsersServiceImpl;
 import com.spring.app.util.UploadFileUtils;
 
 @Controller
@@ -74,6 +67,7 @@ public class UsersController {
 		if(usersDTO == null) {
 			return;
 		}
+		
    		model.addAttribute("users", usersDTO);
 		
 		if(loginDTO.isUseCookie()) {

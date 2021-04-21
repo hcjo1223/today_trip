@@ -15,7 +15,7 @@ public interface UserService {
 	
 	public UsersDTO checkLoginBefore(String value) throws Exception;
 	
-	public void update(UsersDTO usetsDTO) throws Exception;
+	public void update(UsersDTO usersDTO) throws Exception;
 	
 	public void updateImage(String userId, String userPic) throws Exception;
 	

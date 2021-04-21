@@ -1,9 +1,14 @@
 .recommend_view {
 	width: 800px;
-	margin: 0 auto;
+	margin: 30px auto 0;
 	padding: 0 20px;
 }
-
+.tourView .title{
+    position: absolute;
+    background: rgba(0, 0, 0, 0.5);
+    width: 800px;
+    color: #f1f1f1;
+}
 
 .tourView .mainImg {
     width: 400px;
@@ -19,6 +24,7 @@
 .tourView .summary {
     clear: both;
 }
+
 
 /* view - img */
 
@@ -93,7 +99,7 @@
 
 .review .container{
 	padding-bottom: 20px;
-    border-bottom: 1px solid #e5e5e5;
+	border-bottom: 1px solid #e5e5e5;
 }
 
 .review .container label{
@@ -124,11 +130,20 @@
 	
 }
 
+.review .container .input-group #rating{
+	margin: 10px;
+}
+
+#commentList .commentArea .commentInfo span{
+	margin-right: 10px;
+}
+
 #commentList .commentArea .commentInfo a::hover{
 	color: blue;
 }
 
 #commentList .commentArea .commentInfo img{
+	margin-left : 10px;
 	width: 118px;
 	height: 24px;
 }
@@ -154,18 +169,15 @@
 } 
 ::-webkit-scrollbar-thumb {
 /*  스크롤  */
-      background-color: gold; 
   border-radius:30px;
 } 
 ::-webkit-scrollbar-button:start:decrement, ::-webkit-scrollbar-button:end:increment {
 /*  스크롤의 화살표가 포함된 영역   */
   display:block;
   height:8px;
-  background-color: #000;
 } 
 ::-webkit-scrollbar-corner {
 /*  상하+좌우 스크롤이 만나는 공간   */
-      background-color: red;
 } 
 
 #rating img{
@@ -213,7 +225,12 @@
 	color: white;	
 }	
 
-.rating {
-	margin: 10px;
-	
+
+
+.button:hover {background-color: #3e8e41}
+
+.button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
 }

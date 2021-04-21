@@ -9,6 +9,7 @@ import lombok.Setter;
 
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
 public class ReviewDTO {
+	int us_uid;
 	int place_uid;
 	int re_uid;
 	String content;

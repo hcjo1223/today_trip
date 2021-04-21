@@ -607,8 +607,8 @@ img {
 
 
 .recommend_area .item_list.type_thumb.type_1 li .item_section .item_top a .score_area {
-    top: 265px;
-    right: 13px
+    top: 290px;
+    right: 140px
 }
 
 .recommend_area .item_list.type_thumb.type_1 li .item_section .item_top .s_tit {
@@ -631,7 +631,7 @@ img {
 }
 
 .recommend_area .item_list.type_thumb.type_1 li .item_section .item_count_area {
-    margin-top: 20px;
+    margin-top: 40px;
     font-size: 0;
     text-align: center
 }
