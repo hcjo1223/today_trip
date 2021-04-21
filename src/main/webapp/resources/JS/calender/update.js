@@ -8,7 +8,7 @@ $(function(){
     
 	//[step 1] 장소 가지고 오기
 	$.ajax({
-		url: '/today_trip/calendar/listTL',
+		url: '/today_trip/calender/listTL',
 		type: 'get',
 		data: { tu_uid : global_tu_uid },
 		success: function(list) {
@@ -73,7 +73,7 @@ $(function(){
 	
 	// [step2] 메모 가지고 오기
 	$.ajax({
-		url: '/today_trip/calendar/listMemo',
+		url: '/today_trip/calender/listMemo',
 		type: 'get',
 		data: { tu_uid : global_tu_uid },
 		success: function(list) {
@@ -97,7 +97,7 @@ $(function(){
 	// '수정하기' 버튼 클릭 이벤트
 	$('#edit-btn').on('click',function() {
 		var tu_uid = $(this).data('tu-uid');
-		location.href = '/today_trip/calendar/register/edit?tu_uid=' + tu_uid;
+		location.href = '/today_trip/calender/register/edit?tu_uid=' + tu_uid;
 	});
 
     // 장소 삭제 버튼 클릭 이벤트
@@ -125,7 +125,7 @@ $(function(){
 
             // 우선 저장된 메모와 장소를 모두 지우기
             $.ajax({
-                   url: '/today_trip/calendar/deleteAllMemoAndTL',
+                   url: '/today_trip/calender/deleteAllMemoAndTL',
                 type: 'post',
                 data: { tu_uid : global_tu_uid },
                 success: function(res) {
@@ -138,7 +138,7 @@ $(function(){
             
             // 그리고 update 하기
             $.ajax({
-                   url: '/today_trip/calendar/update',
+                   url: '/today_trip/calender/update',
                    type: 'post',
                    data: $("#tour-form").serialize(),
                    success: function($tu_uid){
@@ -153,7 +153,7 @@ $(function(){
                         var pro1 = new Promise(function(resolve, reject) {
 
                             $.ajax({
-                                    url: '/today_trip/calendar/insertMemo',
+                                    url: '/today_trip/calender/insertMemo',
                                     type: 'post',
                                     data: {
                                         tu_uid : global_tu_uid,
@@ -191,7 +191,7 @@ $(function(){
 
                                         // 장소 추가하기
                                         $.ajax({
-                                            url: '/today_trip/calendar/insertTL',
+                                            url: '/today_trip/calender/insertTL',
                                             type: 'post',
                                             data: postData,
                                             success: function(res) {
@@ -214,7 +214,7 @@ $(function(){
                         // Promise.all(promiseArr).then(values => { .catch(err=>{
                         Promise.all(promiseArr).then(function(values) {
                             console.log('100% 완료!');
-                            location.href='/today_trip/calendar/list'
+                            location.href='/today_trip/calender/list'
                         }).catch(function(err) {
                             console.log(err);
                         });
@@ -363,7 +363,7 @@ $(function(){
             
         // contenttypeid : 12 (관광지)
         $.ajax({
-            url:  '/today_trip/calendar/place/list',               // request 보낼 서버의 경로
+            url:  '/today_trip/calender/place/list',               // request 보낼 서버의 경로
             type: 'get',                        // 메소드(get, post, put 등)
             data:{ 'keyword'		:  keyword  //보낼 데이터
                     ,'contentType'	:  "12"
@@ -380,7 +380,7 @@ $(function(){
         
         // contenttypeid : 32,39 (맛집, 숙박)
         $.ajax({
-            url:  '/today_trip/calendar/place/list',               // request 보낼 서버의 경로
+            url:  '/today_trip/calender/place/list',               // request 보낼 서버의 경로
             type: 'get',                        // 메소드(get, post, put 등)
             data:{ 'keyword'		:  keyword  //보낼 데이터 
                     ,'contentType'	:  "32, 39"

@@ -11,7 +11,7 @@ $(document).ready(function(){
         onPageClick: function (event, page) {
 		 
 			var start = ((page-1)*cnt)+1;
-		   	location.href="/today_trip/calendar/list?start=" + startPage; 	  
+		   	location.href="/today_trip/calender/list?start=" + start; 	  
            
         }
     });

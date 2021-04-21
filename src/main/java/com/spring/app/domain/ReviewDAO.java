@@ -32,4 +32,7 @@ public interface ReviewDAO {
     // 댓글 평점 평균
 	public float rateAVG(@Param("place_uid") int place_uid) throws Exception;
 
+	// 유저 목록
+	public List<AdminDTO> userList(@Param("us_uid") int us_uid) throws Exception;
+	
 }

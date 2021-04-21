@@ -65,3 +65,5 @@ WHERE
 
 SELECT AVG(RV_RATE) AS rateAVG FROM review WHERE place_uid = 195;
 
+SELECT count(*) AS likeCnt FROM PLACE_LIKE WHERE place_uid = 195;
+

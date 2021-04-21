@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.spring.app.domain.AdminDTO;
 import com.spring.app.domain.AjaxWriteList;
 import com.spring.app.domain.AjaxWriteResult;
 import com.spring.app.domain.ReviewDTO;
@@ -21,7 +22,7 @@ public class ReviewController {
 	@Autowired
 	PlaceService placeService;
 	
-	// A. 글 목록(페이징)
+	// 댓글 목록(페이징)
 	@GetMapping("/{place_uid}/{page}/{pageRows}")
 	public AjaxWriteList list(
 			@PathVariable int place_uid,
@@ -89,7 +90,7 @@ public class ReviewController {
 		
 	// ------------- ↓ DML -------------
 	
-	// C. 글 작성
+	// 댓글 작성
 	@PostMapping("")
 	public AjaxWriteResult wirteOk(ReviewDTO dto) {
 		int count = 0;
@@ -121,7 +122,7 @@ public class ReviewController {
 	
 	
 	
-	// D. 글 수정
+	// 댓글 수정
 	@PostMapping("/update")
 	public AjaxWriteResult updateOk(ReviewDTO dto) {
 		int count = 0;
@@ -152,8 +153,8 @@ public class ReviewController {
 	
 	
 	
-	// F. 글 삭제
-	@PostMapping("delete/{re_uid}")
+	// 댓글 삭제
+	@PostMapping("/delete/{re_uid}")
 	public AjaxWriteResult deleteOk(@PathVariable int re_uid) {
 		int count = 0;
 		
@@ -182,6 +183,35 @@ public class ReviewController {
 	}
 	
 	
-	
+	// 유저 정보 가져오기
+	@PostMapping("/users")
+	public AjaxWriteList user(int us_uid) {
+		
+		List<AdminDTO> userList = null;
+		
+		// response 에 필요한 값들
+		StringBuffer message = new StringBuffer();
+		String status = "FAIL";		// 기본 FAIL
+		
+		
+		try {
+			userList = placeService.userList(us_uid);
+			status = "OK";
+		} catch (Exception e) {
+			message.append("[트랜잭션 에러:" + e.getMessage() + "]");
+		}
+			
+		
+		AjaxWriteList result = new AjaxWriteList();
+		result.setStatus(status);
+		result.setMessage(message.toString());
+		
+		if(userList != null) {
+			result.setCount(userList.size());
+			result.setUsersList(userList);
+		}
+		
+		return result;
+	}
 	
 }

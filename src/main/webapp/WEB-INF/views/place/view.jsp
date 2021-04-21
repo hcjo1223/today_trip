@@ -4,7 +4,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <c:choose>
-<c:when test="${empty list || fn:length(list) == 0 }">
+<c:when test="${empty list || fn:length(list) == 0 }"> 
 	<script>
 		alert("해당 정보가 삭제되거나 없습니다");
 		history.back();
@@ -22,7 +22,7 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/resources/CSS/place/view.css"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://kit.fontawesome.com/bb29575d31.js"></script>
-<script src="${pageContext.request.contextPath }/resources/JS/place/place.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath }/resources/JS/place/view.js" type="text/javascript"></script>
 <style>
 img {
     vertical-align: middle;
@@ -43,12 +43,11 @@ a{text-decoration:none; color:inherit;}
 
 
 </style>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/resources/CSS/place/view.css"/>
 <script type="text/javascript">
 	var place_uid = "${list[0].place_uid }";
 	var contentId = "${list[0].contentId }";
 	var contentTypeId = "${list[0].contentTypeId }";
-
+    var us_uid = "${login.us_uid}";
 
 </script> 
 </head>
@@ -68,7 +67,7 @@ a{text-decoration:none; color:inherit;}
                     </button>
                 </div>
                 <div class="layout-navigation-primary__left">
-                    <a class="layout-navigation-logo layout-navigation__bar__logo" aria-label="오늘의여행" href="">
+                    <a class="layout-navigation-logo layout-navigation__bar__logo" aria-label="오늘의여행" href="${pageContext.request.contextPath }/home">
                         <svg class="icon" width="135" height="38" viewBox="0 0 135 38" preserveAspectRatio="xMidYMid meet">
                             <g>
                                 <text style="height: 40px;" xml:space="preserve" text-anchor="start" font-family="'Jal_Onuel'" font-size="30" id="svg_23" y="30" x="0" opacity="undefined" fill-opacity="null" stroke-opacity="null" stroke-dasharray="null" stroke-width="0" stroke="#000" fill="#000" >오늘의여행</text>
@@ -95,9 +94,17 @@ a{text-decoration:none; color:inherit;}
                     </div>
                 </div>
                 <div class="layout-navigation-bar-login">
-                    <a class="layout-navigation-bar-login__item" href="">로그인</a>
-                    <a class="layout-navigation-bar-login__item" href="">회원가입</a>
-                </div>
+						<c:if test="${empty login}">
+							<a class="layout-navigation-bar-login__item" href="${pageContext.request.contextPath }/Users/login">로그인</a>
+							<a class="layout-navigation-bar-login__item"
+								href="${pageContext.request.contextPath }/Users/register">회원가입</a>
+						</c:if>
+						<c:if test="${not empty login}">
+							<a class="layout-navigation-bar-login__item" href="${pageContext.request.contextPath }/Users/logout">로그아웃</a>
+							<a class="layout-navigation-bar-login__item"
+								href="${pageContext.request.contextPath }/Users/profile">마이 페이지</a>
+						</c:if>
+					</div>
                 <div class="drop-down layout-navigation-bar-upload-button">
                     <button class="layout-navigation-bar-upload-button__button" type="button">글쓰기
                         <svg class="icon" width="1em" height="1em" viewBox="0 0 16 16" preserveAspectRatio="xMidYMid meet">
@@ -160,7 +167,7 @@ a{text-decoration:none; color:inherit;}
 	        <form name="commentInsertForm">
 	            <div class="input-group">
 	               <input type="hidden" name="place_uid" value="${list[0].place_uid}"/>
-	               <input type="hidden" name="us_uid" value="${list[0].place_uid}"/>
+	               <input type="hidden" name="us_uid" value="${login.us_uid}"/>
 	               <div id="rating" align="left">
 	               	<span>
 		               <img id=image1 onmouseover=show(1) onclick=mark(1) onmouseout=noshow(1) src="../resources/IMG/star0.png">
@@ -170,7 +177,7 @@ a{text-decoration:none; color:inherit;}
 	        		   <img id=image5 onmouseover=show(5) onclick=mark(5) onmouseout=noshow(5) src="../resources/IMG/star0.png">
 	                </span><span id=startext>평가하기</span>
 	               </div>
-	               <input type="hidden" name="rate"/>
+	               <input type="hidden" name="rate" value="1"/>
 	               <span class="usImg"><img id="usImg" src="../resources/IMG/man.png"></span>
 	               <input type="text" class="form-control" id="content" name="content" placeholder="내용을 입력하세요.">
 	               <span class="input-group-btn">

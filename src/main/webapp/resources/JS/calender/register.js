@@ -19,7 +19,7 @@ $(function() {
             $('input#tu-img-url').val(firstClass.data('img-url'));
 
             $.ajax({
-                url: '/today_trip/calendar/register',
+                url: '/today_trip/calender/register',
                 type: 'post',
                 data: $("#tour-form").serialize(),
                 success: function($tu_uid) {
@@ -34,7 +34,7 @@ $(function() {
                         var pro1 = new Promise(function(resolve, reject) {
                             // 메모 추가하기
                             $.ajax({
-                                    url: '/today_trip/calendar/insertMemo',
+                                    url: '/today_trip/calender/insertMemo',
                                     type: 'post',
                                     data: {
                                         tu_uid : $tu_uid,
@@ -64,7 +64,7 @@ $(function() {
                                 var pro2 = new Promise(function(resolve, reject) {
                                     // 장소 추가하기
                                     $.ajax({
-                                        url: '/today_trip/calendar/insertTL',
+                                        url: '/today_trip/calender/insertTL',
                                         type: 'post',
                                         data: {
                                             place_uid : el.data('place-uid'),
@@ -91,7 +91,7 @@ $(function() {
                     // Promise.all(promiseArr).then(values => { .catch(err=>{
                     Promise.all(promiseArr).then(function(values) {
                         console.log('100% 완료!');
-                        location.href='/today_trip/calendar/list'
+                        location.href='/today_trip/calender/list'
                     }).catch(function(err) {
                         console.log(err);
                     });
@@ -247,7 +247,7 @@ $(function() {
             
         // contenttypeid : 12 (관광지)
         $.ajax({
-            url:  '/today_trip/calendar/place/list',               // request 보낼 서버의 경로
+            url:  '/today_trip/calender/place/list',               // request 보낼 서버의 경로
             type: 'get',                        // 메소드(get, post, put 등)
             data:{ 'keyword'		:  keyword  //보낼 데이터
                     ,'contentType'	:  "12"
@@ -264,7 +264,7 @@ $(function() {
         
         // contenttypeid : 32,39 (맛집, 숙박)
         $.ajax({
-            url:  '/today_trip/calendar/place/list',               // request 보낼 서버의 경로
+            url:  '/today_trip/calender/place/list',               // request 보낼 서버의 경로
             type: 'get',                        // 메소드(get, post, put 등)
             data:{ 'keyword'		:  keyword  //보낼 데이터 
                     ,'contentType'	:  "32, 39"
