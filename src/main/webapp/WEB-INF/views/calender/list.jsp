@@ -1,36 +1,33 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
-<%@ page session="false" %>
 
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
 	<meta charset="UTF-8">
-	<title>여행일정 읽기</title>
+	<title>오늘의 여행</title>
 	
 	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,viewport-fit=cover"/>
 	
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
-			integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+			integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+			
+	<link rel="stylesheet" href="<c:url value="/resources/CSS/calender/calender.css" />" >
+	<link rel="stylesheet" href="<c:url value="/resources/CSS/calender/list.css" />" >
 
-	<link rel="stylesheet" href="<c:url value="/resources/css/calendar.css" />" >
-	<link rel="stylesheet" href="<c:url value="/resources/css/read.css" />" >
-
-	<!-- Font Awesome -->			
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" />
-	<script src="https://kit.fontawesome.com/7047342423.js" crossorigin="anonymous"></script>
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
 	<link rel="preconnect" href="https://fonts.gstatic.com">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
-
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/common.css"/>
-	<link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/img/icon.ico" >
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jua&display=swap" >
+	
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/CSS/calender/common.css"/>
+	<link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/IMG/icon.ico" >
+	
 </head>
 <body>
-	<!-- header -->
+	<!-- header & nav -->
 	<header class="layout-navigation-bar">
 	<div data-sticky-enabled="false" data-sticky-disabled="false" data-sticky-always="true" data-sticky-ignore="false" data-direction="top" data-offset="0" class="sticky-container layout-navigation-primary-wrap">
 		<div class="sticky-child layout-navigation-primary" style="position:relative">
@@ -112,115 +109,59 @@
 	</header>
 
 	<div class="clear"></div>
-
-	<!-- contents -->
-	<div class="tour-edit mt-50">
 	
-		<form id="tour-form" style="width:700px;padding-bottom:40px;">
-			<input id="tu-img-url" type="hidden" name="tu_img_url"/>
-				<img src="${tour.tu_img_url}" style="width:100%; height:350px; object-fit:cover;"/>
-				<!-- 제목 & 날짜 * 카테고리 입력 박스 -->
-				<div class="input-box" style="padding: 60px 0;">
-				
-					<!-- 여행 제목 입력하기 -->
-					<!-- <label for="input-t" class="form-label"><mark>여행 제목</mark></label> -->
-					<div class="input-title row mb-3">
-						<h1>${tour.tu_title }</h1>
-						<%-- <input type="text" name="tu_title" value="${tour.tu_title}" class="form-control" readonly /> --%>
-					</div>
-					
-					<!-- 작성자 -->
-					<div class="tour-user-profile">
-						<i class="fas fa-smile fa-4x" style="float: left; padding-right: 10px;"></i>
-						<span style="font-weight: 700; font-size: 16px; float: left; margin-bottom: 5px">오늘의 여행 에디터</span>
-						<div style="font-size: 16px;">${tour.tu_write_date}</div>
-						
-					</div>
-					
-					<!-- 여행 시작날짜 및 종료날짜 입력하기 -->
-					<label for="input-d" class="form-label"><mark>여행 기간</mark></label>
-					<div class="input-date row mb-3">
-						<div class="col-md-8 row">
-							<input type="text" name="tu_start_tour" id="startDate" value="${fn:split(tour.tu_start_tour,' ')[0]}" class="form-control col-md-4 mr-3" readonly/>
-							<input type="text" name="tu_end_tour" id="endDate" value="${fn:split(tour.tu_end_tour,' ')[0]}" class="form-control col-md-4 mr-3" readonly/>
+	<!-- content -->
+	<div class="tour-wrap">
+		<!-- 검색/필터 area -->
+		<div class="tour-search">
+		
+		</div>
+		
+		<!-- 조회건수 area -->
+		<div class="tour-count">
+		
+		</div>
+		
+		<!-- 리스트 area -->
+		<div class="tour-list-wrap" style="width: 1255px; margin: 0 auto; padding-top: 50px;">
+			<!-- 전체 리스트 갯수 -->
+			<div class="total-count-list" style="padding-bottom: 10px;">전체 ${count}</div>
+			<div class="tour-card row">
+				<c:forEach var="tour" items="${list}" varStatus="status">
+					<div class="col-md-4" style="padding-bottom: 30px;">
+						<div class="tour-info">
+							<a href="/today_trip/calender/read?tu_uid=${tour.tu_uid}">
+								<img src="${tour.tu_img_url}" style="width:100%; height:252px; object-fit:cover; border-radius: 5%;"/>
+								<!-- 여행제목 -->
+								<!-- 번호 : ${status.count} : -->
+								<p id="p_title" style="color: #222; font-size: 20px; font-weight: 700; margin-top: 12px; margin-bottom: 5px;">${tour.tu_title}</p>
+							</a>
+							<div class="tour-user">
+								<img src="" alt="" class="tour-user-profile" style="color: #585858"/><span>오늘의 여행 에디터</span><br>
+								<div style="display: flex; justify-content: center; color: #8E8E8E; font-size: 0.8rem; font-weight: 700;">
+									<span>좋아요</span>
+									<span class="tour-likes">300</span>
+									<span>·조회</span>
+									<span class="tour-hits">${tour.tu_hits}</span>
+								</div>
+							</div>
 						</div>
-						<div class="col-md-4">
-						
-						</div>
 					</div>
-					
-					<!-- 여행 카테고리 입력하기-->
-					<label for="input-c" class="form-label"><mark>여행 카테고리</mark></label>
-					<div class="input-category row mb-3">
-						<select name="tu_location" class="form-control col-md-2 mr-4">
-							<option disabled="disabled" <c:if test="${tour.tu_location eq 1}">selected</c:if>>서울</option>
-							<option disabled="disabled" <c:if test="${tour.tu_location eq 2}">selected</c:if>>인천</option>
-							<option disabled="disabled" <c:if test="${tour.tu_location eq 3}">selected</c:if>>대전</option>
-							<option disabled="disabled" <c:if test="${tour.tu_location eq 4}">selected</c:if>>대구</option>
-							<option disabled="disabled" <c:if test="${tour.tu_location eq 5}">selected</c:if>>광주</option>
-							<option disabled="disabled" <c:if test="${tour.tu_location eq 6}">selected</c:if>>부산</option>
-							<option disabled="disabled" <c:if test="${tour.tu_location eq 7}">selected</c:if>>울산</option>
-							<option disabled="disabled" <c:if test="${tour.tu_location eq 8}">selected</c:if>>세종</option>
-							<option disabled="disabled" <c:if test="${tour.tu_location eq 9}">selected</c:if>>경기도</option>
-							<option disabled="disabled" <c:if test="${tour.tu_location eq 10}">selected</c:if>>강원도</option>
-							<option disabled="disabled" <c:if test="${tour.tu_location eq 11}">selected</c:if>>충청북도</option>
-							<option disabled="disabled" <c:if test="${tour.tu_location eq 12}">selected</c:if>>충청남도</option>
-							<option disabled="disabled" <c:if test="${tour.tu_location eq 13}">selected</c:if>>경상북도</option>
-							<option disabled="disabled" <c:if test="${tour.tu_location eq 14}">selected</c:if>>경상남도</option>
-							<option disabled="disabled" <c:if test="${tour.tu_location eq 15}">selected</c:if>>전라북도</option>
-							<option disabled="disabled" <c:if test="${tour.tu_location eq 16}">selected</c:if>>전라남도</option>
-							<option disabled="disabled" <c:if test="${tour.tu_location eq 17}">selected</c:if>>제주도</option>
-						</select>
-						<select name="tu_with" class="form-control col-md-2 mr-4">
-							<option disabled="disabled" <c:if test="${tour.tu_with eq 1}">selected</c:if>>혼자</option>
-							<option disabled="disabled" <c:if test="${tour.tu_with eq 2}">selected</c:if>>친구</option>
-							<option disabled="disabled" <c:if test="${tour.tu_with eq 3}">selected</c:if>>연인</option>
-							<option disabled="disabled" <c:if test="${tour.tu_with eq 4}">selected</c:if>>배우자</option>
-							<option disabled="disabled" <c:if test="${tour.tu_with eq 5}">selected</c:if>>아이</option>
-							<option disabled="disabled" <c:if test="${tour.tu_with eq 6}">selected</c:if>>기타</option>
-	               	  	</select>
-						<select name="tu_focus" class="form-control col-md-3 mr-4">
-							<option disabled="disabled" <c:if test="${tour.tu_focus eq 1}">selected</c:if>>유명관광지는 필수</option>
-							<option disabled="disabled" <c:if test="${tour.tu_focus eq 2}">selected</c:if>>SNS 핫플레이스</option>
-							<option disabled="disabled" <c:if test="${tour.tu_focus eq 3}">selected</c:if>>여유롭게 힐링</option>
-							<option disabled="disabled" <c:if test="${tour.tu_focus eq 4}">selected</c:if>>체험/액티비티</option>
-							<option disabled="disabled" <c:if test="${tour.tu_focus eq 5}">selected</c:if>>문화/예술/역사 탐방</option>
-							<option disabled="disabled" <c:if test="${tour.tu_focus eq 6}">selected</c:if>>자연과 함께</option>
-							<option disabled="disabled" <c:if test="${tour.tu_focus eq 7}">selected</c:if>>관광보다 먹방</option>
-	               	  	</select>
-					</div>
-					
-	            </div>
-		         
-				<!-- 여행 계획 -->
-				<!-- 일정을 script로 '시작일자 ~ 종료일자'를 계산해서 동적추가 -->
-				<div class="tour-day-box mt-5 mb-5">
-					<div id="place-memo-list" style="margin-top:60px;">
-					</div>
-					<div id="tag-list" style="margin-top:10px;">
-					</div>
-				</div>
-	
-				<!-- 여행 태그 입력하기 -->
-				<div class="tour-tag row mt-5 mb-5">
-					<input type="text" name="tu_tag" placeholder=" ','를 구분으로 입력해주세요." class="form-control" />
-				</div>
-				
-				<!-- 수정하기 & 삭제하기 버튼 -->
-				<div class="tour-btn-box row">
-					<div class="col-md-2">
-						<button id="edit-btn" type="button" class="btn btn-secondary" data-tu-uid="${tour.tu_uid}">수정하기</button>
-					</div>
-					<div class="col-md-8" align="center">
-						<span id="like-count-text123">조회수 ${tour.tu_hits}</span>
-						<span id="like-count-text">${likeCount}</span>
-						<i id="like-btn" style="font-size: 25px; cursor: pointer;" class="fas fa-heart active"></i>
-					</div>
-					<div class="col-md-2">
-						<button id="delete-btn" type="button" class="btn btn-primary" data-tu-uid="${tour.tu_uid}">삭제하기</button>
-					</div>
-				</div>
-		</form>
+				</c:forEach>
+			</div>
+		</div>
+		
+		<div class="clear"></div>
+		
+		<!-- 페이징 area -->
+		<div class="tour-page" style="width: 1255px; margin: 0 auto; padding-top: 50px;">
+			<div align="center">
+				<ul id="pagination-demo" class="sync-pagination pagination-sm" style="display:flex; justify-content:center; height:50px;"></ul>
+			</div>
+		</div>
+		
+		<div class="clear"></div>
+		
 	</div>
 	
 	<!-- footer -->
@@ -301,9 +242,20 @@
 		</div>
 	</footer>
 
-	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-	<script src="<c:url value="/resources/js/config.js" />"></script>
-	<script src="<c:url value="/resources/js/read.js" />"></script>
 </body>
+<script>
+	var totalCount = '<c:out value="${count}"/>';
+	var startPage = '<c:out value="${startPage}"/>';
+</script>
 
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<!-- jQuery Pagination -->
+<script src="<c:url value="/resources/JS/calender/jquery.twbsPagination.min.js" />"> </script>
+
+<script src="<c:url value="/resources/JS/calender/list.js" />"> </script>
 </html>

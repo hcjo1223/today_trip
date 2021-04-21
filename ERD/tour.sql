@@ -177,27 +177,6 @@ FROM tour;
 SELECT * FROM tour;
         
 -- memo
-INSERT INTO tour_memo
-		(memo_uid, tu_uid, tu_day, memo_contents)
-	VALUES 
-		(memo_uid_seq.nextval, 1, 1, 'ABSVKJBWGUIBAWIUGGVBSUIBUWIGBG');
-INSERT INTO tour_memo
-		(memo_uid, tu_uid, tu_day, memo_contents)
-	VALUES 
-		(memo_uid_seq.nextval, 2, 1, 'ABSVKJBWGUIBAWIUGGVBSUIBUWIGBG');
-INSERT INTO tour_memo
-		(memo_uid, tu_uid, tu_day, memo_contents)
-	VALUES 
-		(memo_uid_seq.nextval, 3, 1, 'ABSVKJBWGUIBAWIUGGVBSUIBUWIGBG');
-INSERT INTO tour_memo
-		(memo_uid, tu_uid, tu_day, memo_contents)
-	VALUES 
-		(memo_uid_seq.nextval, 4, 1, 'ABSVKJBWGUIBAWIUGGVBSUIBUWIGBG');
-INSERT INTO tour_memo
-		(memo_uid, tu_uid, tu_day, memo_contents)
-	VALUES 
-		(memo_uid_seq.nextval, 5, 1, 'ABSVKJBWGUIBAWIUGGVBSUIBUWIGBG');	
-	
 BEGIN
 FOR i IN 1..640 LOOP
 insert into tour_memo(memo_uid, tu_uid, tu_day, memo_contents)

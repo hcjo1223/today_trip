@@ -15,7 +15,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
 			integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 			
-	<link rel="stylesheet" href="<c:url value="/resources/css/calendar.css" /> ">
+	<link rel="stylesheet" href="<c:url value="/resources/CSS/calender/calender.css" /> ">
 
 	<!-- Font Awesome -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
@@ -206,7 +206,8 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 	
-	<script src="<c:url value="/resources/js/config.js" />"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/update.js"></script> <!-- update.js -->
+	<script src="<c:url value="/resources/JS/calender/config.js" />"></script>
+	<script src="<c:url value="/resources/JS/calender/update.js" />"></script>
+	<%-- <script src="${pageContext.request.contextPath}/resources/JS/calender/update.js"></script> <!-- update.js --> --%>
 </body>
 </html>
