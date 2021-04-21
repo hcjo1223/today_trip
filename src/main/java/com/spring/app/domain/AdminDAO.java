@@ -15,6 +15,8 @@ public interface AdminDAO {
 		// 관리자 페이지 장소 select (관광지)
 		List<PlaceDTO> selectAdminPlaceS();
 		
+		
+		
 		// 관리자 페이지 log select (통계)
 		List<LogDTO> selectLogCount(@Param("startDate") String startDate,@Param("endDate") String endDate);
 	
@@ -24,4 +26,6 @@ public interface AdminDAO {
 		List<CalenderDTO> selectHomeCalender();
 
 		List<UsersDTO> selectHomeUsers();
+		
+		
 }

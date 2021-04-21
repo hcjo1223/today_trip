@@ -67,7 +67,7 @@ public class UsersController {
 		if(usersDTO == null) {
 			return;
 		}
-		model.addAttribute("users", usersDTO);
+   		model.addAttribute("users", usersDTO);
 		
 		if(loginDTO.isUseCookie()) {
 			int amount = 60*60*24*7;
