@@ -522,9 +522,11 @@ SELECT * FROM tour_location;
 				WHERE ROWNUM< 4;
 				
 INSERT  INTO user_authority
-VALUES (25,1);
-			
-SELECT  FROM users;
+VALUES (1021,1);
+
+
+
+SELECT *FROM users;
 SELECT U.us_uid , U.us_id, U.us_pw, U.us_email, U.us_nickname, U.us_gender, U.us_birth,  U.us_memo, U.us_pic, U.session_key, UA.us_authority FROM 
 (SELECT *
 	FROM users
