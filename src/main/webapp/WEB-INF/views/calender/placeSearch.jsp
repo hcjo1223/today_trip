@@ -47,7 +47,7 @@
 					<td>
 						<div>
 							<button type="button" class="btn btn-primary btnSelect btn-sm px-3 <c:out value='${contentType}' />" 
-									uid="<c:out value='${place.place_uid}'/>" mapx="<c:out value='${place.mapx}'/>" mapy="<c:out value='${place.mapy}'/>"  title="<c:out value='${place.title}' />" data-dismiss="modal">
+									uid="<c:out value='${place.place_uid}' />"  title="<c:out value='${place.title}' />" data-dismiss="modal">
 							선택
 							</button>
 						</div>
@@ -114,8 +114,8 @@
 		                        '<span class="mr-5">'+no+'</span>'+
 		                        '<span>'+title+'</span>'+
 		                        '<i class="fas fa-times-circle" style="color:#999;margin-left:6px;cursor:pointer;"></i>'+
-		                        '<input type="hidden" name="placeMapX-'+no+'" value="'+mapx+'">'+
-		                        '<input type="hidden" name="placeMapY-'+no+'" value="'+mapy+'">'+
+		                        '<input type="hidden" name="placeMapX-'+day+'" value="'+mapx+'">'+
+		                        '<input type="hidden" name="placeMapY-'+day+'" value="'+mapy+'">'+
 		                        '<div class="mb-4"></div>'+
 							'</div>'
 		

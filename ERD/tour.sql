@@ -22,7 +22,7 @@ CREATE SEQUENCE place_uid_seq;
 /*-------------------------------------------------------------- Select All From Table --------------------------------------------------------------*/
 SELECT * FROM tab;
 SELECT * FROM users;
-SELECT * FROM tour;
+SELECT * FROM tour ORDER BY tu_write_date DESC;
 SELECT * FROM tour_memo;
 SELECT * FROM tour_location;
 SELECT * FROM tour_like;
