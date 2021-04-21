@@ -102,13 +102,16 @@
 	
 	<!-- 여행게시판 글 전체 읽기 -->
 	<select id="selectList" parameterType="com.spring.app.domain.CalenderDTO" resultType="com.spring.app.domain.CalenderDTO">
-		SELECT *
-		FROM (
-				SELECT ROWNUM NUM, A.*
-				FROM tour A
-			) 
+		SELECT * 
+		FROM(
+				SELECT ROWNUM NUM, F.*
+				FROM (	
+						SELECT  *
+						FROM tour 
+						ORDER BY tu_write_date DESC
+				) F
+		)
 		WHERE NUM BETWEEN #{start} AND #{end}
-		ORDER BY tu_write_date DESC
 <!-- 		SELECT *
 		FROM (
 		        SELECT ROWNUM NUM, A.*

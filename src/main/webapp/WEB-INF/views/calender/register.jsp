@@ -110,7 +110,7 @@
 					
 					<!-- 여행 제목 입력하기 -->
 					<div class="input-title row mb-3">
-						<input type="text" name="tu_title" placeholder="제목을 입력하세요" class="form-control"/>
+						<input type="text" name="tu_title" id="tuTitle" placeholder="제목을 입력하세요" class="form-control"/>
 					</div>
 					
 					<!-- 여행 시작날짜 및 종료날짜 입력하기 -->
