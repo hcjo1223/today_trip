@@ -108,6 +108,7 @@
 				FROM tour A
 			) 
 		WHERE NUM BETWEEN #{start} AND #{end}
+		ORDER BY tu_write_date DESC
 <!-- 		SELECT *
 		FROM (
 		        SELECT ROWNUM NUM, A.*

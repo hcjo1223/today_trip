@@ -22,7 +22,7 @@ CREATE SEQUENCE place_uid_seq;
 /*-------------------------------------------------------------- Select All From Table --------------------------------------------------------------*/
 SELECT * FROM tab;
 SELECT * FROM users;
-SELECT * FROM tour;
+SELECT * FROM tour ORDER BY tu_write_date DESC;
 SELECT * FROM tour_memo;
 SELECT * FROM tour_location;
 SELECT * FROM tour_like;
@@ -219,3 +219,11 @@ SELECT * FROM TOUR_LOCATION;
 	
 SELECT * FROM place;
 
+SELECT *
+		FROM (
+				SELECT ROWNUM NUM, A.*
+				FROM tour A
+			) 
+		WHERE NUM BETWEEN 1 AND 10
+		ORDER BY tu_write_date DESC ;
+	UPDATE tour SET tu_write_date = sysdate WHERE tu_uid = 3;

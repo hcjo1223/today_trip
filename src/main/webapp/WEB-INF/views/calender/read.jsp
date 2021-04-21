@@ -27,7 +27,7 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
 
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/CSS/calender/common.css"/>
-	<link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/img/icon.ico" >
+	<link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/IMG/icon.ico" >
 </head>
 <body>
 	<!-- header -->
