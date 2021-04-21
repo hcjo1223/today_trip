@@ -26,7 +26,7 @@
 	
 	<!-- 일정 게시판 글 목록 (페이징) : page, pageRows -->
 	<select id="selectCalenderRow" 
-		resultType="com.spring.app.domain.CalenderDTO">
+		resultType="com.spring.app.domain.CalendarDTO">
 		<![CDATA[  
 		SELECT
 			tu_uid, 

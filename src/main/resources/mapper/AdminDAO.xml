@@ -91,7 +91,7 @@
 		]]>	
 	</select>
 
-	<select id="selectHomeCalender" resultType="com.spring.app.domain.CalenderDTO">
+	<select id="selectHomeCalender" resultType="com.spring.app.domain.CalendarDTO">
 	<![CDATA[  
 		SELECT * FROM (
 			SELECT 
