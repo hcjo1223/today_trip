@@ -19,7 +19,9 @@
 		<!--Custom Font-->
 <link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 		
-
+<script type="text/javascript">
+var us_uid = ${login.us_uid};
+</script>
 <title>관리자 페이지</title>
 </head>
 <body>
