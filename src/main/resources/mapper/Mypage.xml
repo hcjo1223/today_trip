@@ -3,7 +3,7 @@
 <mapper namespace="com.spring.app.domain.UsersProfileDAO">
 
 	<select id= "selectUserCalender"
-	 resultType = "com.spring.app.domain.CalendarDTO">
+	 resultType = "com.spring.app.domain.CalenderDTO">
 		
 		SELECT
 			us_uid,
