@@ -20,6 +20,7 @@ public class UsersDAOImpl implements UsersDAO{
 	@Override
 	public void register(UsersDTO usersDTO) throws Exception {
 		session.insert(NAMESPACE + ".register",usersDTO);
+		session.insert(NAMESPACE + ".registerAuthority", usersDTO);
 	}
 	
 	
