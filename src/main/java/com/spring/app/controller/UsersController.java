@@ -67,6 +67,7 @@ public class UsersController {
 		if(usersDTO == null) {
 			return;
 		}
+		
    		model.addAttribute("users", usersDTO);
 		
 		if(loginDTO.isUseCookie()) {
