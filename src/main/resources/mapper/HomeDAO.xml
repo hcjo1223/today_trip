@@ -66,7 +66,7 @@
 						(SELECT * FROM tour ORDER BY tu_hits DESC) 
 			WHERE ROWNUM < 4) H 
 			JOIN 
-				tour_location D 
+				(SELECT * FROM tour_location WHERE TU_DAY =1) D 
 			ON 
 				H.tu_uid = D.tu_uid) J 
 		JOIN 

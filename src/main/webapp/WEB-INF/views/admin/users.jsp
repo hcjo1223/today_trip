@@ -136,8 +136,8 @@ if (userAuthority != "0") {
 </div>
 
 <div class="delPlace">
-<button id="btnGrt" class="btn btn-md btn-danger">권한부여</button>
-<button id="btnRvk" class="btn btn-md btn-info">권한삭제</button>
+<button id="btnRvk" class="btn btn-md btn-danger">권한삭제</button>
+<button id="btnGrt" class="btn btn-md btn-info">권한부여</button>
 </div>
 
 <div class="clear"></div>

@@ -124,7 +124,7 @@ CREATE TABLE place_like
 	us_uid NUMBER DEFAULT 0 NOT NULL
 );
 
-
+SELECT * FROM review;
 CREATE TABLE review
 (
 	us_uid number NOT NULL,
@@ -586,10 +586,14 @@ SELECT
 				(SELECT * FROM users ORDER BY us_uid) T) S1 JOIN USER_AUTHORITY S2 ON S1.us_uid = S2.US_UID 
 		WHERE 
 			RNUM >= 1 AND RNUM < 11;
+		
+		SELECT AVG(rv_rate) AS rateAVG 
+    	FROM review 
+    	WHERE place_uid = 195;
 
 
 
-
-
-
+		
+		
+		
 
