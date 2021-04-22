@@ -168,18 +168,25 @@
                                     
                 $(".tour-day-box").empty();
                 periodChangeFlag = 1;
+
+                // 지도
+                var container1 = [];
+                var options1 = [];
+                var map1 = [];
+                
+                
                 
                 // 여행기간(period)만큼 '장소추가', '메모추가' 버튼과 내용 생성하기
                 for (var i = 1 ; i <= period ; i++) {
                     var day_wrap = $("<div>", {id: "day-"+i, class: "mb-5 day"});
                     var day_head = $("<div>", {id: "day-head-"+i, no: 0, class: "day-head border-bottom mb-3 d-flex justify-content-center"});
                     var day_head_h5 = $("<h5>", {text: "DAY"+i});
+    
+                    // kakaoMap
+                    var day_map = $("<div>", {id: "day-map-"+i, class:"day-map mb-5", style: "width: 100%; height: 400px"});
                     
                     var day_content = $("<div>", {id: "day-content-"+i, class: "mt-5 mb-5 day-content", 'data-day':i});
                     var day_memo = $("<div>", {id: "day-memo-"+i, class: "mt-5 mb-5 memo", 'data-day':i});
-
-                    // kakaoMap
-                    var day_map = $("<div>", {id: "day-map-"+i, class:"day-map mb-5", style: "width: 100%; height: 400px"});
                     
                     var day_btn_box = $("<div>", {id: "day-btn-box-"+i, class: "day-btn-box d-flex justify-content-center"});
                     var btn_place = $("<button>", {text: "장소 추가", id: "btn-place-"+i, type: "button", "day":i, class: "btn btn-primary btn-place m-2 w-25", "data-target": "#placeModal", "data-toggle" : "modal"});
@@ -189,19 +196,33 @@
                     $("#day-" + i).append(day_head);
                     $("#day-head-" + i).append(day_head_h5);
     
+                    // kakaoMap
+                    $("#day-" + i).append(day_map);
                     
                     $("#day-" + i).append(day_content);
                     $("#day-" + i).append(day_memo);
-                    
-                    // kakaoMap
-                    $("#day-" + i).append(day_map);
                     
                     $("#day-" + i).append(day_btn_box);
                     $("#day-btn-box-" + i).append(btn_place);
                     $("#day-btn-box-" + i).append(btn_memo);
 
+                    container[i] = document.getElementById('day-map-');
+                    options[i] = {
+                        center: new kakao.maps.LatLng(33.350701, 126.570667),
+                        level: 3
+                    };
+                    map = new kakao.maps.Map(container, options);
+
+                    
                 }
 
+                // // kakaoMap
+                // var container = document.getElementById('day-map-');
+                // var options = {
+                //     center: new kakao.maps.LatLng(33.450701, 126.570667),
+                //     level: 3
+                // };
+                // var map = new kakao.maps.Map(container, options);
                 
                 // '장소 추가' 버튼 클릭 이벤트
                 $(".btn-place").on("click", function() {

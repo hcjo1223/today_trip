@@ -22,6 +22,9 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jua&display=swap" >
 	
+	<!-- kakaoMap API -->	
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9ee4f208b51c14135f869526e5b078b5"></script>
+	
 	<style>
 		.tour-wrap {
 			width: 1000px;
@@ -203,8 +206,7 @@
       
 	</div>
 
-	<!-- kakaoMap API -->	
-	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9ee4f208b51c14135f869526e5b078b5"></script>
+	
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
