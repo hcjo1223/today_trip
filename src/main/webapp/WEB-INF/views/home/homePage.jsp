@@ -153,13 +153,8 @@ $(document).ready( function() {
             <div class="layout-navigation-secondary__content">
                 <nav class="layout-navigation-secondary__menu">
                 <a class="layout-navigation-secondary__menu__item layout-navigation-secondary__menu__item--active" href="">홈</a>
-<<<<<<< HEAD
-                <a class="layout-navigation-secondary__menu__item" href="./cards/list">사진</a>
-                <a class="layout-navigation-secondary__menu__item" href="./calender">일정</a>
-=======
                 <a class="layout-navigation-secondary__menu__item" href="./cards/list.do">사진</a>
                 <a class="layout-navigation-secondary__menu__item" href="${pageContext.request.contextPath}/calender/list">일정</a>
->>>>>>> branch 'master' of https://github.com/hcjo1223/today_trip.git
                 <a class="layout-navigation-secondary__menu__item" href="./place/list">장소</a>
                 <a class="layout-navigation-secondary__menu__item" href="./advices">노하우</a>
                 <a class="layout-navigation-secondary__menu__item" href="./questions">질문과답변</a></nav>
@@ -204,11 +199,9 @@ $(document).ready( function() {
 										 	<span>${ dto.place_uid}</span>
 										 -->
 										 	<div class="imgDivOverflow">
-											 <img src="${ dto.firstimage2}">
+											 <a href="./calender/read?tu_uid=${dto.tu_uid}"><img src="${ dto.firstimage2}"></a>
 											 </div>
 											 <div class="HomeConSpace"><span>${ dto.tu_title}</span></div>
-											 	 	
-										
 										 </li>
 									</c:forEach>
 								</c:otherwise>
@@ -238,7 +231,7 @@ $(document).ready( function() {
 										 	<span>${ dto.place_uid}</span>
 										 -->
 										 	 <div class="imgDivOverflow">
-												 <img src="${ dto.pl_path}">
+												 <a href="./cards/view.do?uid=${ dto.pc_uid}"><img src="${ dto.pl_path}"></a>
 											 </div>
 											 <c:choose>
 												 <c:when test="${dto.pc_focus == 0}">
