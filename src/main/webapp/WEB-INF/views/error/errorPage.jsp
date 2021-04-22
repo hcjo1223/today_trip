@@ -56,7 +56,7 @@
 }
 .Icon {
  	width: 135px;
- 	margin: 20px auto;
+ 	margin: 26px auto;
  	
 }
 .Icon span{
@@ -70,6 +70,10 @@
 }
 .headLine{
 		margin-bottom: 150px;
+		
+}
+.headLine hr{
+	border: solid 1px rgb(237, 237, 237);
 }
 </style>
 <title>오류 페이지</title>

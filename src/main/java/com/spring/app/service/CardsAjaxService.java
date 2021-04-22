@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.spring.app.domain.CardsAjaxDAO;
 import com.spring.app.domain.CardsDTO;
+import com.spring.app.domain.CardsLikeDTO;
 import com.spring.app.domain.UsersDTO;
 import com.spring.app.domain.picLibDTO;
 
@@ -81,9 +82,29 @@ public class CardsAjaxService {
 		return dao.insertLib(LibDTO); 
 	}
 	
+	public int insertLike(int usuid, int uid) throws Exception {
+		dao = sqlSession.getMapper(CardsAjaxDAO.class);
+		return dao.insertLike(usuid, uid); 
+	}
+	
 	public int update(CardsDTO dto) throws Exception {
 		dao = sqlSession.getMapper(CardsAjaxDAO.class); // MyBatis 사용
 		return dao.update(dto);
+	}
+	
+	public int selectLike(int usuid, int uid) {
+		dao = sqlSession.getMapper(CardsAjaxDAO.class); // MyBatis 사용
+		return dao.selectLike(usuid, uid);
+	}
+	
+	public CardsLikeDTO updateLike1(int usuid, int uid) {
+		dao = sqlSession.getMapper(CardsAjaxDAO.class); // MyBatis 사용
+		return dao.updateLike1(usuid, uid);
+	}
+	
+	public CardsLikeDTO updateLike0(int usuid, int uid) {
+		dao = sqlSession.getMapper(CardsAjaxDAO.class); // MyBatis 사용
+		return dao.updateLike0(usuid, uid);
 	}
 	
 	public int deleteByUid(int uid) {

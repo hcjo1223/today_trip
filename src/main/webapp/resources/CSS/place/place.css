@@ -703,6 +703,23 @@ img {
 	font-size: 14px;
 } 
 
+.recommend_area .d00{
+    width: 300px;
+    position: absolute;
+    top: 160px;
+    left: 30%;
+	
+}
+
+.recommend_area #PlaceKeyword{
+	padding: 5px;
+	font-size: 20px;
+    border: 1px solid #ccc;
+    color: #8a8b8b;
+}
+
+
+
 
 
 

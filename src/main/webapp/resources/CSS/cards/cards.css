@@ -85,7 +85,7 @@
     -moz-flex: 1 0 auto;
     -ms-flex: 1 0 auto;
     flex: 1 0 auto;
-    margin: 0;
+    margin: 0px 200px;
     padding: 0 4px;
     min-width: 0;
     white-space: nowrap;
@@ -144,13 +144,13 @@ ul.pagination a:hover:not(.active) {
 
 .modal .modal-content {
 	background-color: #fefefe;  /* 배경은 흰색 */
-	width: 80%;   /* 화면대비 80% */
+	width: 75%;   /* 화면대비 80% */
 	margin: 5% auto 15% auto;  /* 위에서 5%,  아래에서 15%, 좌우 중앙정렬 */
 	border: 1px solid #888;  /* 테두리 */
 }
 
 .modal .container {
-	padding: 16px;
+	padding: 30px;
 	position: relative;  /* 이래야 안에 있는 absolute 들이 동작 */
     
 } 
@@ -420,7 +420,7 @@ img {vertical-align: middle;}
 
 /* Slideshow container */
 .slideshow-container {
-  max-height: 500px;
+  /* max-height: 500px; */
   position: relative;
   margin: auto;
 }
@@ -517,6 +517,9 @@ img {vertical-align: middle;}
 
 #dlg_write .slideshow-container{
   cursor: pointer;
+  display: flex;
+  max-height: 500px;
+  justify-content: center;
 }
 .txtArea{
   float: right;
@@ -599,4 +602,11 @@ img {vertical-align: middle;}
 
 .selected{
   display: flex;
+}
+.modal{
+	padding-top: 0px;
+}
+#pageinfo {
+	font-size: 24px;
+    font-weight: 300;
 }

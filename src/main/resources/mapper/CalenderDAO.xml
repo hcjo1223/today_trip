@@ -108,6 +108,7 @@
 				FROM (	
 						SELECT  *
 						FROM tour 
+						WHERE tu_del_ck = 0
 						ORDER BY tu_write_date DESC
 				) F
 		)
@@ -124,6 +125,14 @@
 		ORDER BY tu_write_date DESC -->
 		
 	</select>
+	
+	<!-- 여행게시판 글 검색하기 -->
+	<select id="tourSearch" resultType="com.spring.app.domain.CalenderDTO">
+		SELECT *
+		FROM tour
+		WHERE tu_title LIKE '%' || #{keyword} || '%'
+	</select>
+	
 	<!-- 페이징을 위한 전체 여행 게시글 갯수 -->
 	<select id="CountOfTour"  resultType="int">
 		SELECT COUNT(*)
@@ -169,6 +178,30 @@
 		SELECT COUNT(*)
 		FROM tour_like
 		WHERE tu_uid = #{tu_uid} AND tu_like_ck = 1
+	</select>
+	
+	<select id="TourLike"  parameterType="com.spring.app.domain.TourLikeDTO" resultType="com.spring.app.domain.TourLikeDTO">
+		SELECT *
+		FROM tour_like
+		WHERE tu_uid = #{tu_uid} AND us_uid = #{us_uid} 
+	</select>
+	
+	<!-- 좋아요 하기 -->
+	<select id="addTourLike" parameterType="com.spring.app.domain.TourLikeDTO">
+		INSERT INTO tour_like ( tu_like_ck
+								, tu_uid
+								, us_uid
+								)
+			VALUES ( 1
+					, #{tu_uid} 
+					, #{us_uid}
+					)
+	</select>
+	
+	<!-- 좋아요 취소하기 -->
+	<select id="delTourLike">
+		DELETE FROM tour_like
+		WHERE tu_uid = #{tu_uid} AND us_uid = #{us_uid}
 	</select>
 	
 	<!-- 조회수 -->

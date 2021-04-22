@@ -1,7 +1,21 @@
 SELECT * FROM PLACE ORDER BY PLACE_UID DESC;
 SELECT * FROM PLACE_LIKE;	
-
+SELECT us_uid, place_uid, rv_uid, RV_CONTENT , RV_RATE , TO_CHAR(RV_WRITE_DATE, 'RRRR-MM-DD HH24:MI:SS') AS "date" FROM REVIEW;
 SELECT * FROM USERS;
+
+SELECT place_uid, contentid, contenttypeid,	title, mapx, mapy, areaCode,
+	sigunguCode, addr1, tel, firstimage2, pl_viewcnt AS viewcnt FROM 
+	(SELECT ROWNUM AS RNUM, T.* FROM 
+		(SELECT * FROM PLACE WHERE TITLE LIKE '%'||'가'||'%') T) 
+WHERE RNUM >= 1 AND RNUM < 11;
+
+SELECT place_uid, contentid, contenttypeid,	title, mapx, mapy, areaCode,
+	sigunguCode, addr1, tel, firstimage2, pl_viewcnt AS viewcnt   
+FROM PLACE WHERE TITLE LIKE '%'||'품'||'%';
+
+SELECT ROWNUM AS RNUM, T.* FROM 
+	(SELECT * FROM place ORDER BY place_uid DESC) T;
+
 
 BEGIN
 FOR i IN 1..20 LOOP
@@ -67,3 +81,4 @@ SELECT AVG(RV_RATE) AS rateAVG FROM review WHERE place_uid = 195;
 
 SELECT count(*) AS likeCnt FROM PLACE_LIKE WHERE place_uid = 195;
 
+SELECT count(*) FROM place WHERE title LIKE '%'||'해변'||'%';

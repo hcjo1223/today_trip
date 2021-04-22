@@ -209,10 +209,10 @@ function updateList(jsonObj){
         $("#list_box ul").html(result); // 업데이트
 
         // 페이지 정보 업데이트
-        $("#pageinfo").text(jsonObj.page + "/" + jsonObj.totalpage + "페이지, " + jsonObj.totalcnt + "개의 글")
+        $("#pageinfo").text(jsonObj.page + " / " + jsonObj.totalpage + " 페이지, " + jsonObj.totalcnt + "개의 글")
 
         // pageRows
-        var txt = "<select id='rows' onchange='changePageRows()'>\n";
+        var txt = "<select class='form-control' id='rows' onchange='changePageRows()'>\n";
         txt += "<option " + ((window.pageRows == 6) ? "selected" : "") + " value='6'>" + "6개씩</option>\n";    
         txt += "<option " + ((window.pageRows == 12) ? "selected" : "") + " value='12'>" + "12개씩</option>\n";
         txt += "<option " + ((window.pageRows == 18) ? "selected" : "") + " value='18'>" + "18개씩</option>\n";
@@ -320,20 +320,22 @@ function setPopup(mode){
 		$("#dlg_write .btn_group_write").hide();
         if($("#usuid").val() == viewItem.usuid){
             $("#dlg_write .btn_group_view").show();
+            
         }else{
             $("#dlg_write .btn_group_view").hide();
         }
-	    
+	    $("#dlg_write .btn_group_like").show();
+       
 		
         $("#dlg_write .btn_group_update").hide();	
 		
 		$("#dlg_write #viewcnt").text("작성자: " + viewUser.userNickname + " - 조회수: " + viewItem.hits);
-		$("#dlg_write #regdate").text(viewItem.regDateTime);  // DTO 의 getRegDate() 
+		$("#dlg_write #regdate").text("작성시간: " + viewItem.regDateTime);  // DTO 의 getRegDate() 
 		
 		
         
 
-		
+		$("#dlg_write #uid").val(viewItem.uid);
 		$("#dlg_write select[name='location']").val(viewItem.location);
 		$("#dlg_write select[name='location']").attr("readonly", true);
 		$("#dlg_write select[name='location']").css("border", "none");
@@ -376,7 +378,7 @@ function setPopup(mode){
         showSlides(slideIndex);
 		$("#dlg_write textarea[name='contents']").val(viewItem.contents);
 		$("#dlg_write textarea[name='contents']").attr("readonly", true);
-		$("#dlg_write textarea[name='contents']").css("border", "none");
+		// $("#dlg_write textarea[name='contents']").css("border", "none");
         $("#dlg_write .slideshow-container").on('click',function(){
            
             ClickSlides(1);
@@ -459,7 +461,9 @@ function setPopup(mode){
 function addViewEvent(){
     $("#main .content").click(function(){
         //읽어오기
-
+        console.log("usuid ="+ $("#usuid").val());
+        console.log("pcuid ="+ $(this).attr("data-uid"));
+        if($("#usuid").val() == ""){
         $.ajax({
             url : "./" + $(this).attr("data-uid"), // url : /board/{uid}
             type : "GET",
@@ -484,6 +488,33 @@ function addViewEvent(){
                 }
             }
         }); // end $ajax
+        } else {
+            $.ajax({
+                url : "./user/" + $("#usuid").val()+"/"+ $(this).attr("data-uid"), // url : /board/{uid}
+                type : "GET",
+                cache : false,
+                success : function(data, status){
+                    if(status == "success"){
+                        if(data.status =="OK"){
+                            // 글 읽어오기 성공하면, 내부 데이터 세팅하고 팝업 대화상자 보여주기
+                            window.viewItem = data.data[0];
+                            window.viewCards = data.cards;
+                            window.viewUser = data.user[0];
+                            
+    
+                            setPopup("view"); // 글 읽기 팝업 띄우기
+                            $("#dlg_write").show();
+    
+                            // 리스트 상의 조회수도 증가
+                            $("#main [data-viewcnt='" + viewItem.uid + "']").text(viewItem.hits);
+                        } else {
+                            alert("VIEW 실패 : " + data.message);
+                        }
+                    }
+                }
+            }); // end $ajax
+        }
+
     });
 }
 
@@ -545,6 +576,7 @@ function deleteUid(uid){
 				if(data.status == "OK"){						
 					alert("DELETE성공 " + data.count + "개:");  // 설사 이미 지워져서 0개를 리턴해도 성공이다.
 					loadPage(window.page);  // 현제페이지 로딩
+                    $(".layout-navigation-bar").show();
 				} else {
 					alert("DELETE실패 " + data.message);
 					return false;
@@ -606,18 +638,18 @@ function chkUpdate(){
 }
 
 
-// function setThumbnail(event) { 
-// 	for (var image of event.target.files) { 
-// 		var reader = new FileReader(); 
-// 		reader.onload = function(event) { 
-// 			var img = document.createElement("img"); 
-// 			img.setAttribute("src", event.target.result); 
-// 			document.querySelector("div#image_container").appendChild(img); 
-// 			}; 
-// 			console.log(image);
-// 			reader.readAsDataURL(image); 
-// 			} 
-// 	}
+function setThumbnail(event) { 
+	for (var image of event.target.files) { 
+		var reader = new FileReader(); 
+		reader.onload = function(event) { 
+			var img = document.createElement("img"); 
+			img.setAttribute("src", event.target.result); 
+			document.querySelector("div#image_container").appendChild(img); 
+			}; 
+			console.log(image);
+			reader.readAsDataURL(image); 
+			} 
+	}
 
 // 사진 슬라이드
     var slideIndex = 1;
@@ -647,3 +679,38 @@ function chkUpdate(){
 	  dots[slideIndex-1].className += " active";
       
 	}
+
+    function like(){
+        if($("#usuid").val() == ""){
+            if(confirm("로그인이 필요합니다." +"로그인 하시겠습니까?")){
+                return location.href ="../Users/login";
+            } else { return false;
+            }
+        } else {
+            var data = $("#usuid").val()+"/"+ $("#uid").val();
+            var like =  $("#heart").val();
+            $.ajax({
+                url : "./like/" + data, // URL : /board
+                type : "PUT",
+                cache : false,
+                data: {},
+                success : function(){
+                            alert("좋아요 성공");
+                    }
+                
+            })
+            if(like == 1){
+                $("#heart").attr('class','far fa-heart');
+                $("#heart").val(0);
+                // like 0
+                } else {
+                $("#heart").attr('class','fa fa-heart');
+                $("#heart").val(1);
+
+                
+                // like 1
+                }
+        }
+        
+        
+    }

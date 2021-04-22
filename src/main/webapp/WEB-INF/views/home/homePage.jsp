@@ -199,11 +199,9 @@ $(document).ready( function() {
 										 	<span>${ dto.place_uid}</span>
 										 -->
 										 	<div class="imgDivOverflow">
-											 <img src="${ dto.firstimage2}">
+											 <a href="./calender/read?tu_uid=${dto.tu_uid}"><img src="${ dto.firstimage2}"></a>
 											 </div>
 											 <div class="HomeConSpace"><span>${ dto.tu_title}</span></div>
-											 	 	
-										
 										 </li>
 									</c:forEach>
 								</c:otherwise>
@@ -233,7 +231,7 @@ $(document).ready( function() {
 										 	<span>${ dto.place_uid}</span>
 										 -->
 										 	 <div class="imgDivOverflow">
-												 <img src="${ dto.pl_path}">
+												 <a href="./cards/view.do?uid=${ dto.pc_uid}"><img src="${ dto.pl_path}"></a>
 											 </div>
 											 <c:choose>
 												 <c:when test="${dto.pc_focus == 0}">

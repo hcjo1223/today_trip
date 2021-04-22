@@ -28,6 +28,12 @@ SELECT * FROM tour_location;
 SELECT * FROM tour_like;
 SELECT * FROM place;
 
+INSERT INTO tour_like (tu_like_ck, tu_uid, us_uid)
+	VALUES (1, 664, 641);
+DELETE FROM tour_like
+WHERE us_uid = 643;
+
+
 /*-------------------------------------------------------------- Create Tables --------------------------------------------------------------*/
 CREATE TABLE users
 (
@@ -141,7 +147,7 @@ ALTER TABLE tour_like
 /*-------------------------------------------------------------- 더미 데이터 --------------------------------------------------------------*/
 -- user
 BEGIN
-FOR i IN 1..50 LOOP
+FOR i IN 1..100 LOOP
 insert into users(us_uid, us_id, us_pw, us_email)
 values(us_uid_seq.nextval, CONCAT('ID',i), CONCAT('PW',i),CONCAT(i,'@google.com'));
 END LOOP;
@@ -229,3 +235,23 @@ FROM(
          ) F
    )
 WHERE NUM BETWEEN 1 AND 35;
+
+
+SELECT
+			S1.us_uid, 
+			S1.us_id, 
+			S1.us_email,
+			S1.us_nickName, 
+			S1.us_gender, 
+			S1.us_birth,
+			S1.us_join_date,
+			S1.us_exit_date,
+			S2.us_authority 
+		FROM 
+			(SELECT ROWNUM AS RNUM, T.* FROM 
+				(SELECT * FROM users ORDER BY us_uid) T) S1 JOIN USER_AUTHORITY S2 ON S1.us_uid = S2.US_UID ;
+		WHERE 
+			RNUM >= 10 AND RNUM < (10 + 10);
+			
+		
+		SELECT * FROM USERS;

@@ -42,7 +42,7 @@
 				</div>
 				
 				<div class="layout-navigation-primary__left">
-					<a class="layout-navigation-logo layout-navigation__bar__logo" aria-label="오늘의여행" href="">
+					<a class="layout-navigation-logo layout-navigation__bar__logo" aria-label="오늘의여행" href="../home">
 						<svg class="icon" width="135" height="38" viewBox="0 0 135 38" preserveAspectRatio="xMidYMid meet">
 							<g>
 								<text style="height: 40px;" xml:space="preserve" text-anchor="start" font-family="'Jal_Onuel'" font-size="30" id="svg_23" y="30" x="0" opacity="undefined" fill-opacity="null" stroke-opacity="null" stroke-dasharray="null" stroke-width="0" stroke="#000" fill="#000" >오늘의여행</text>
@@ -95,12 +95,12 @@
 			<div class="sticky-child layout-navigation-secondary" style="position: relative;">
 				<div class="layout-navigation-secondary__content">
 					<nav class="layout-navigation-secondary__menu">
-						<a class="layout-navigation-secondary__menu__item" href="">홈</a>
-						<a class="layout-navigation-secondary__menu__item" href="./cards/list.do">사진</a>
+						<a class="layout-navigation-secondary__menu__item" href="../home">홈</a>
+						<a class="layout-navigation-secondary__menu__item" href="../cards/list.do">사진</a>
 						<a class="layout-navigation-secondary__menu__item layout-navigation-secondary__menu__item--active" href="./list">일정</a>
-						<a class="layout-navigation-secondary__menu__item" href="./place/list">장소</a>
-						<a class="layout-navigation-secondary__menu__item" href="./advices">노하우</a>
-						<a class="layout-navigation-secondary__menu__item" href="./questions">질문과답변</a>
+						<a class="layout-navigation-secondary__menu__item" href="../place/list">장소</a>
+						<a class="layout-navigation-secondary__menu__item" href="#">노하우</a>
+						<a class="layout-navigation-secondary__menu__item" href="#">질문과답변</a>
 					</nav>
 				</div>
 			</div>

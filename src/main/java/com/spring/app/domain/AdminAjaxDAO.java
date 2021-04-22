@@ -90,5 +90,9 @@ public interface AdminAjaxDAO {
 	public int deleteCardsByUid(int [] uids);
 	
 	public int restoreCardsByUid(int [] uids);
+
+	public int grantUsersByUid(int [] uids);
+	
+	public int revokeUsersByUid(int [] uids);
 	
 }

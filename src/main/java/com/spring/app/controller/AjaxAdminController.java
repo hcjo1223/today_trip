@@ -772,6 +772,63 @@ public class AjaxAdminController {
 					result.setCount(count);
 					return result;	
 				}
+				
+				//유저 권한부여
+				@PutMapping("/users/grant")
+				public AjaxWriteResult grantOk(int [] uid) {
+					int count = 0;
+					// response 에 필요한 값들
+					StringBuffer message = new StringBuffer();
+					String status = "FAIL";  // 기본 FAIL
+					try {	
+						
+						count = ajaxAdminService.grantByUid(uid);
+						status = "OK";
+						
+						if(count == 0) {
+							message.append("[트랜잭션 실패: 0 update]");
+						}
+						
+					} catch (Exception e) {
+						//e.printStackTrace();				
+						message.append("[트랜잭션 에러:" + e.getMessage() + "]");
+					}
+					
+					AjaxWriteResult result = new AjaxWriteResult();
+					result.setStatus(status);
+					result.setMessage(message.toString());
+					result.setCount(count);
+					return result;	
+				}
+				
+				@PutMapping("/users/revoke")
+				public AjaxWriteResult revokeOk(int [] uid) {
+					int count = 0;
+					
+					// response 에 필요한 값들
+					StringBuffer message = new StringBuffer();
+					String status = "FAIL";  // 기본 FAIL
+					
+					try {	
+						
+						count = ajaxAdminService.revokeByUid(uid);
+						status = "OK";
+						
+						if(count == 0) {
+							message.append("[트랜잭션 실패: 0 update]");
+						}
+						
+					} catch (Exception e) {
+						//e.printStackTrace();				
+						message.append("[트랜잭션 에러:" + e.getMessage() + "]");
+					}
+					
+					AjaxWriteResult result = new AjaxWriteResult();
+					result.setStatus(status);
+					result.setMessage(message.toString());
+					result.setCount(count);
+					return result;	
+				}
 	
 	
 }
