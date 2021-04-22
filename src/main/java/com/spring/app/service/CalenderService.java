@@ -14,6 +14,7 @@ import com.spring.app.domain.CalenderDAO;
 import com.spring.app.domain.CalenderDTO;
 import com.spring.app.domain.MemoDTO;
 import com.spring.app.domain.PlaceDTO;
+import com.spring.app.domain.TourLikeDTO;
 import com.spring.app.domain.TourLocationDTO;
 
 @Service
@@ -160,6 +161,27 @@ public class CalenderService {
 		dao = sqlSession.getMapper(CalenderDAO.class);
 	
 		return dao.TourLikeCount(dto);
+	}
+	
+	// 좋아요 여부
+	public TourLikeDTO TourLike(TourLikeDTO dto) throws IllegalStateException, IOException{
+		dao = sqlSession.getMapper(CalenderDAO.class);
+	
+		return dao.TourLike(dto);
+	}
+	
+	// 좋아요 생성 
+	public int addTourLike(TourLikeDTO dto) throws IllegalStateException, IOException{
+		dao = sqlSession.getMapper(CalenderDAO.class);
+	
+		return dao.addTourLike(dto);
+	}
+	
+	// 좋아요 삭제
+	public int delTourLike(TourLikeDTO dto) throws IllegalStateException, IOException{
+		dao = sqlSession.getMapper(CalenderDAO.class);
+	
+		return dao.delTourLike(dto);
 	}
 	
 	// 조회수

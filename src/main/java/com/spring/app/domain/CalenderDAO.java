@@ -51,6 +51,18 @@ public interface CalenderDAO {
 	
 	// 좋아요
 	public abstract int TourLikeCount(CalenderDTO dto);
+	
+	// 좋아요 여부
+	public abstract TourLikeDTO TourLike(TourLikeDTO dto);
+	
+	// 좋아요 생성
+	public abstract int addTourLike(TourLikeDTO dto);
+	
+	// 좋아요 삭제
+	public abstract int delTourLike(TourLikeDTO dto);
+	
+	
+	
 	// 조회수
 	public abstract int TourHits(CalenderDTO dto);
 

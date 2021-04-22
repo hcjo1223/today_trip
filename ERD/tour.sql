@@ -28,6 +28,12 @@ SELECT * FROM tour_location;
 SELECT * FROM tour_like;
 SELECT * FROM place;
 
+INSERT INTO tour_like (tu_like_ck, tu_uid, us_uid)
+	VALUES (1, 664, 641);
+DELETE FROM tour_like
+WHERE us_uid = 643;
+
+
 /*-------------------------------------------------------------- Create Tables --------------------------------------------------------------*/
 CREATE TABLE users
 (

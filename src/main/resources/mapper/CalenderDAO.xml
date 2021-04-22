@@ -179,6 +179,30 @@
 		WHERE tu_uid = #{tu_uid} AND tu_like_ck = 1
 	</select>
 	
+	<select id="TourLike"  parameterType="com.spring.app.domain.TourLikeDTO" resultType="com.spring.app.domain.TourLikeDTO">
+		SELECT *
+		FROM tour_like
+		WHERE tu_uid = #{tu_uid} AND us_uid = #{us_uid} 
+	</select>
+	
+	<!-- 좋아요 하기 -->
+	<select id="addTourLike" parameterType="com.spring.app.domain.TourLikeDTO">
+		INSERT INTO tour_like ( tu_like_ck
+								, tu_uid
+								, us_uid
+								)
+			VALUES ( 1
+					, #{tu_uid} 
+					, #{us_uid}
+					)
+	</select>
+	
+	<!-- 좋아요 취소하기 -->
+	<select id="delTourLike">
+		DELETE FROM tour_like
+		WHERE tu_uid = #{tu_uid} AND us_uid = #{us_uid}
+	</select>
+	
 	<!-- 조회수 -->
 	<update id="TourHits" parameterType="com.spring.app.domain.CalenderDTO">
 		UPDATE tour

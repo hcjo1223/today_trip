@@ -15,6 +15,8 @@
     
             if( confirm("정말로 글올리기를 진행하시겠습니까?") ){
 
+                
+
                 // form.submit();
                 console.log($("#tour-form").serialize());
     
