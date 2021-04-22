@@ -26,6 +26,13 @@ public class UsersDAOImpl implements UsersDAO{
 	public void registerAuth(UsersDTO usersDTO) throws Exception {
 		session.insert(NAMESPACE + ".registerAuth" , usersDTO);
 	}
+	
+//	@Override
+//	public UsersDTO registerCheckId(LoginDTO loginDTO) throws Exception {
+//		return session.selectOne(NAMESPACE+ ".registerCheckId", loginDTO);
+//		
+//	}
+	
 	@Override
 	public UsersDTO login(LoginDTO loginDTO) throws Exception {
 		return session.selectOne(NAMESPACE + ".login", loginDTO);
@@ -60,6 +67,11 @@ public class UsersDAOImpl implements UsersDAO{
 		paramMap.put("userId", userId);
 		paramMap.put("userPic",userPic);
 		session.update(NAMESPACE + ".updatePicture",paramMap);
+	}
+
+	@Override
+	public int registerCheckId(String ID) throws Exception {
+		return session.selectOne(NAMESPACE + ".registerCheckId", ID);
 	}
 	
 	//사진 게시판의 사진 가져오기

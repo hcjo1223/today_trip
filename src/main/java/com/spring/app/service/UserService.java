@@ -11,6 +11,8 @@ public interface UserService {
 	
 	public void registerAuth(UsersDTO usersDTO) throws Exception;
 	
+	public int registerCheckId(String ID) throws Exception;
+	
 	public UsersDTO login(LoginDTO loginDTO) throws Exception;
 	
 	public void keepLogin(String userId, String sessionId, Date next) throws Exception;
@@ -23,5 +25,6 @@ public interface UserService {
 
 	
 	//사진 게시판의 사진 가져오기
-
+	
+	
 }

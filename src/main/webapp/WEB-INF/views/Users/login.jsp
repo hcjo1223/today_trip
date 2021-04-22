@@ -1,72 +1,90 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java"%>
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<!-- todo -->
-<!-- header file include -->
-<body class="hold-transition login-page">
-	<!-- /.login-logo -->
-	<div class="card">
-		<div class="card-body login-card-body">
-			<p class="login-box-msg">로그인</p>
-			<form action="loginPost " method="post">
-				<div class="input-group mb-3">
-					<input type="text" name="userId" class="form-control"
-						placeholder="아아디">
-					<div class="input-group-append">
-						<div class="input-group-text">
-							<span class="fas fa-exclamation"></span>
-						</div>
-					</div>
-				</div>
-				<div class="input-group mb-3">
-					<input type="password" name="userPw" class="form-control"
-						placeholder="비밀번호">
-					<div class="input-group-append">
-						<div class="input-group-text">
-							<span class="fas fa-lock"></span>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-8">
-						<div class="icheck-primary">
-							<input type="checkbox" id="remember"> <label
-								for="remember"> Remember Me </label>
-						</div>
-					</div>
-					<!-- /.col -->
-					<div class="col-4">
-						<button type="submit" class="btn btn-primary btn-block">Sign
-							In</button>
-					</div>
-					<!-- /.col -->
-				</div>
-			</form>
-			<p class="mb-1">
-				<a href="#">I forgot my password</a>
-			</p>
-			<p class="mb-0"></p>
-		</div>
-		<!-- /.login-card-body -->
-	</div>
-	<!-- /.login-box-body -->
-	</div>
-	<!-- /.login-box  -->
+<title>로그인</title>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: black;
+}
 
-	<script> 
-	var msg = "${msg}"; 
-	if (msg == "REGISTERED") { 
-		alert("회원가입이 완료되었습니다. 로그인해주세요!"); 
-	} else if (msg == "FAILURE") { 
-		alert("아이디와 비밀번호를 확인해주세요.");
-	} 
-	$(document).ready(function () { 
-		if($('#remember').is(":checked") == true) ({ 
-			checkboxClass: 'icheckbox_square-blue', 
-			radioClass: 'iradio_square-blue', 
-			increaseArea: '20%' // optional 
-			}); 
-	}); </script>
+* {
+  box-sizing: border-box;
+}
+
+/* Add padding to containers */
+.container {
+  padding: 16px;
+  background-color: white;
+}
+
+/* Full-width input fields */
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Overwrite default styles of hr */
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+
+/* Set a style for the submit button */
+.registerbtn {
+  background-color: #35c5f0;
+  color: white;
+  padding: 16px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
+
+.registerbtn:hover {
+  opacity: 1;
+}
+
+/* Add a blue text color to links */
+a {
+  color: dodgerblue;
+}
+
+</style>
+</head>
+<body>
+
+<form action="loginPost" method="post">
+  <div class="container">
+    <h1>Log in</h1>
+    <p>아이디 비밀번호 입력</p>
+    <hr>
+
+    <label for="userId"><b>아이디</b></label>
+    <input type="text" placeholder="아이디" name="userId" id="userId" required>
+
+    <label for="userPw"><b>비밀번호</b></label>
+    <input type="password" placeholder="비밀번호" name="userPw" id="userPw" required>
+
+	<hr>
+    <p>아이디가 없으세요? <a href="${pageContext.request.contextPath}/Users/register">회원가입 하기</a>.</p>
+
+    <button type="submit" class="registerbtn">로그인</button>
+  </div>
+  
+</form>
+
 </body>
 </html>

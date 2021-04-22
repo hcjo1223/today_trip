@@ -124,7 +124,7 @@ CREATE TABLE place_like
 	us_uid NUMBER DEFAULT 0 NOT NULL
 );
 
-SELECT * FROM review;
+
 CREATE TABLE review
 (
 	us_uid number NOT NULL,
@@ -563,29 +563,41 @@ SELECT
 					FROM 
 						(SELECT * FROM tour ORDER BY tu_hits DESC) 
 			WHERE ROWNUM < 4;
-SELECT * FROM TOUR_LOCATION;
-INSERT INTO USER_AUTHORITY values(10,1);
+SELECT * FROM TOUR_LOCATION;79 21 32
+INSERT INTO TOUR_LOCATION values(1,1,79,3);
 INSERT INTO TOUR_LOCATION values(2,2,21,3);
 INSERT INTO TOUR_LOCATION values(9,3,23,3);
 
 
 
-SELECT 
-			J.*, P.FIRSTIMAGE2 
-		FROM
-			(SELECT 
-				H.tu_uid, H.tu_title, H.TU_HITS, D.place_uid 
-			FROM 
-				(SELECT * 
-					FROM 
-						(SELECT * FROM tour WHERE tu_del_ck = 1
-						ORDER BY tu_hits DESC) 
-			WHERE ROWNUM < 4) H 
-			JOIN 
-				(SELECT * FROM tour_location WHERE TU_DAY =1) D 
-			ON 
-				H.tu_uid = D.tu_uid) J 
-		JOIN 
-			place P 
-		ON 
-			J.place_uid = P.place_uid;
+
+
+
+
+
+
+
+
+
+SELECT * FROM review;
+SELECT * FROM TOUR_LOCATION;
+INSERT INTO USER_AUTHORITY values(10,1);
+SELECT
+			S1.us_uid, 
+			S1.us_id, 
+			S1.us_email,
+			S1.us_nickName, 
+			S1.us_gender, 
+			S1.us_birth,
+			S1.us_join_date,
+			S1.us_exit_date,
+			S2.US_AUTHORITY 
+		FROM 
+			(SELECT ROWNUM AS RNUM, T.* FROM 
+				(SELECT * FROM users ORDER BY us_uid) T) S1 JOIN USER_AUTHORITY S2 ON S1.us_uid = S2.US_UID 
+		WHERE 
+			RNUM >= 1 AND RNUM < 11;
+		
+		SELECT AVG(rv_rate) AS rateAVG 
+    	FROM review 
+    	WHERE place_uid = 195;

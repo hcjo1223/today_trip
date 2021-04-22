@@ -120,7 +120,7 @@ $(document).ready( function() {
 						<c:if test="${not empty login}">
 							<a class="layout-navigation-bar-login__item" href="Users/logout">로그아웃</a>
 							<a class="layout-navigation-bar-login__item"
-								href="Users/Profile">마이 페이지</a>
+								href="Users/updateView">마이 페이지</a>
 						</c:if>
 					</div>
 					<div class="drop-down layout-navigation-bar-upload-button">

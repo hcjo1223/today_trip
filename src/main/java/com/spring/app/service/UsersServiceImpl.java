@@ -57,7 +57,10 @@ public class UsersServiceImpl implements UserService{
 		dao.registerAuth(usersDTO);
 		
 	}
-	
+	@Override
+	public int registerCheckId(String ID) throws Exception {
+		return dao.registerCheckId(ID);
+	}
 	//사진 게시판의 사진 가져오기
 
 }
