@@ -225,12 +225,10 @@ public class PlaceRestController {
 		try {	
 
 			count = placeService.chkPlaceLike(place_uid, us_uid);
+			status = "OK";
 			
-			if(count == 0) {
-				message.append(us_uid + "는 " + place_uid + "를 좋아요 한적 없음");
-			} else {
-				status = "OK";
-			}
+			if(count == 0) message.append(us_uid + "는 " + place_uid + "를 좋아요 한적 없음");
+	
 
 		} catch (Exception e) {
 			message.append("[트랜잭션 에러:" + e.getMessage() + "]");

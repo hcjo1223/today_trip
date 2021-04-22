@@ -45,17 +45,9 @@
     
     <select id="userList" 
 		resultType="com.spring.app.domain.AdminDTO">
-		SELECT
-			us_uid, 
-			us_id, 
-			us_email,
-			us_nickName, 
-			us_gender, 
-			us_birth
-		FROM 
-			users
-		WHERE 
-			us_uid = #{us_uid}
+		SELECT * 
+		FROM users t1 LEFT JOIN USER_AUTHORITY t2 ON (t2.US_UID = t1.US_UID)
+		WHERE t1.us_uid = #{us_uid}
 	</select>
     
 </mapper>

@@ -101,7 +101,7 @@ a { text-decoration-line: none; }
 	                <nav class="layout-navigation-secondary__menu">
 	                <a class="layout-navigation-secondary__menu__item" href="${pageContext.request.contextPath }/home">홈</a>
 	                <a class="layout-navigation-secondary__menu__item" href="${pageContext.request.contextPath }/cards/list.do">사진</a>
-	                <a class="layout-navigation-secondary__menu__item" href="${pageContext.request.contextPath }/calender">일정</a>
+	                <a class="layout-navigation-secondary__menu__item" href="${pageContext.request.contextPath }/calender/list">일정</a>
 	                <a class="layout-navigation-secondary__menu__item layout-navigation-secondary__menu__item--active" href="">장소</a>
 	                <a class="layout-navigation-secondary__menu__item" href="${pageContext.request.contextPath }/advices">노하우</a>
 	                <a class="layout-navigation-secondary__menu__item" href="${pageContext.request.contextPath }/questions">질문과답변</a></nav>

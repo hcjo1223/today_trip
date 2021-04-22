@@ -19,14 +19,7 @@ function SearchPlace(){
 	console.log("검색 완료");
 }
 
-function likeUp(place_uid){ //댓글 등록 버튼 클릭시 
-	if(!us_uid){
-		alert("로그인 하세요");
-	} else {
-		console.log("좋아요 여부 체크!");
-		checkLike(place_uid); 
-	}
-};
+
 
 // 좋아요 등록
 function insertLike(place_uid){
@@ -82,13 +75,13 @@ function checkLike(place_uid){
         success : function(data, status){
             if(status == "success"){
 				if(data.status == "OK"){
-					
-					if(data.count){
-						insertLike(place_uid);
-						alert("좋아요")
-					} else {
+					console.log("진행중");
+					if(data.count > 0){
 						deleteLike(place_uid);
 						alert("좋아요 취소")
+					} else {
+						insertLike(place_uid);
+						alert("좋아요")
 					}
 				}
 			}
@@ -133,7 +126,7 @@ function loadSearchPage(page){
 
 
 function rateCount(place_uid){
-	var item = new Object;
+	var rateCountItem = new Object;
 	$.ajax({
 		url : "./rateCount",
 		type : "get",
@@ -143,13 +136,13 @@ function rateCount(place_uid){
 		success : function(data, status){
 			if(status == "success"){
 				
-				item = data;
+				rateCountItem = data;
 				
 			}
 		}
 	});
 
-	return item;
+	return rateCountItem;
 }
 
 
@@ -209,8 +202,6 @@ function updateList(jsonObj){
 					+ "<p class='ico_type review'><span>리뷰</span><span class='reviewcount'>" + items[i].reviewcnt + "</span></p>"
 					+ "</p></dd></dl></li>"
 					
-					
-
 		}
 
 		if(totalcnt == 0){
@@ -357,6 +348,15 @@ function changeSearchPageRows(){
     window.pageRows = $("#rows").val();
     loadSearchPage(window.page);
 }
+
+function likeUp(place_uid){ //댓글 등록 버튼 클릭시 
+	if(!us_uid){
+		alert("로그인 하세요");
+	} else {
+		console.log("좋아요 여부 체크!");
+		checkLike(place_uid); 
+	}
+};
 
 var chkContentType = {
 	12 : "관광지",

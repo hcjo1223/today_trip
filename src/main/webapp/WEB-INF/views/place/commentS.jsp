@@ -1,12 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-
 <script>
 var page = 1;   //  현재 페이지
 var pageRows = 6;  // 페이지당 글의 개수
 var pl_uid = '${list[0].place_uid}'; //게시글 번호
-var us_uid = "${login.us_uid}";
+
+// 로그인 정보 <세션>
+var us_uid = '${login.us_uid}';
+if(us_uid == '') us_uid = 0;
+var us_authority = '${login.userAuthority}';
+if(us_authority == '') us_authority = 1;
+
 
 $('[name=commentInsertBtn]').click(function(){ //댓글 등록 버튼 클릭시 
 	if(us_uid != null){
@@ -70,12 +75,15 @@ function updateList(jsonObj){
         	} else {
         		result += '<img src ="../resources/IMG/star1-1.png">';
         	}
-		
+
+			if(us_uid == users.us_uid || us_authority == 0) {
         	result += '<a onclick="commentUpdate('+items[i].re_uid+',\''+items[i].content+'\');"> 수정 </a>';
-        	result += '<a onclick="chkDelete('+items[i].re_uid+');"> 삭제 </a> </div>';
-        	result += '<div class="commentContent'+items[i].re_uid+'"> <p> 내용 : '+items[i].content +'</p>';
+        	result += '<a onclick="chkDelete('+items[i].re_uid+');"> 삭제 </a>';
+			}
+        	result += '</div><div class="commentContent'+items[i].re_uid+'"> <p> 내용 : '+items[i].content +'</p>';
         	result += '</div></div>';
         }
+        
         
         $("#commentList").html(result);
         

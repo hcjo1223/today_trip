@@ -3,42 +3,88 @@
 	margin: 30px auto 0;
 	padding: 0 20px;
 }
+
+.tourView {
+	position: relative;
+}
+
 .tourView .title{
-    position: absolute;
-    background: rgba(0, 0, 0, 0.5);
+    border-radius: 10px 10px 0 0;
+    background: rgb(2 2 2 / 20%);
     width: 800px;
-    color: #f1f1f1;
-    
     box-shadow: 3px 4px 5px 0 rgb(2 2 2 / 20%);
+}
+.tourView .title #title{
+	position: absolute;
+    display: inline-block;
+    float: none;
+    left: 20px;
+    font-size: 35px;
+}
+
+.tourView .item_count_area{
+    padding-bottom: 6px;
+	margin-right: 10px;
+    font-size: 0;
+    text-align: right;
+}
+
+.tourView .item_count_area span{
+	display: block;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 14px;
+}
+
+.tourView #viewcount {
+	display: inline-block;
+	text-align: center;
+    margin-top: 10px;
+}
+
+.tourView #likecount {
+    display: inline-block;
+    text-align: center;
 }
 
 .view_ico {
-	background-image: url(../../../resources/IMG/click.png);
-	background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-	display: inline-block;
+background-image: url(../../../resources/IMG/click.png);
+    background-repeat: no-repeat;
+    background-size: 30px;
+    display: inline-block;
     float: none;
+    padding: 10px 10px 10px 40px;
+    background-position: left;
 }
 
 .like_ico1 {
 	background-image: url(../../../resources/IMG/heart1.png);
 	background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-	display: inline-block;
+    background-size: 30px;
+    display: inline-block;
     float: none;
-	
+    padding: 10px 10px 10px 40px;
+    background-position: left;
 }
 
 .like_ico2 {
 	background-image: url(../../../resources/IMG/heart2.png);
 	background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
+    background-position: top;
+    background-size: 30px;
 	display: inline-block;
     float: none;
-	
+    padding: 40px 10px 15px 15px;
+    background-repeat: no-repeat;
+    background-position: top;
+}
+
+.like_ico span{
+    display: block;
+    font-size: 12px;
+    font-weight: 400;
+    color: #535353;
+    line-height: 14px;
 }
 
 .tourView .mainImg {
@@ -82,13 +128,15 @@
   clear: both;
 }
 
-
+#imgGallery{
+    display: block;
+    border: 1px solid #ccc;
+    box-shadow: 3px 4px 5px 0 rgb(2 2 2 / 20%);
+}
 
 .containerA {
   position: relative;
-  border: 1px solid #ccc;
-  width: 798px;
-  height: 498px;
+  width: 100%;
   margin: 0 auto;
   
 }
@@ -96,7 +144,9 @@
 .containerA img {
   object-fit: cover;
   width: 100%;
-  height: 100%;
+  height: 500px;
+  position: absolute;
+  left: -1px;
 }
 
 #containerImg{
@@ -181,7 +231,11 @@
 	height: 24px;
 }
 
-.box{max-width:800px; width:100%; border:1px solid #ccc; margin:0 auto;}
+.box{
+	max-width:800px; 
+	width:100%; 
+	margin:0 auto;
+}
 
 .box ul{
   white-space:nowrap; 
@@ -238,6 +292,7 @@
   margin: 15px auto 0 auto;
   color: black;
   
+  border-radius: 10px 10px 0px 0px;
   width: 100%;
   padding: 8px 0;
   font-size: 16px;

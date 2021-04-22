@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.app.domain.AdminDTO;
@@ -185,7 +186,7 @@ public class ReviewController {
 	
 	// 유저 정보 가져오기
 	@PostMapping("/users")
-	public AjaxWriteList user(int us_uid) {
+	public AjaxWriteList user(@RequestParam int us_uid) {
 		
 		List<AdminDTO> userList = null;
 		

@@ -1,7 +1,9 @@
 SELECT * FROM PLACE ORDER BY PLACE_UID DESC;
 SELECT * FROM PLACE_LIKE;	
 SELECT us_uid, place_uid, rv_uid, RV_CONTENT , RV_RATE , TO_CHAR(RV_WRITE_DATE, 'RRRR-MM-DD HH24:MI:SS') AS "date" FROM REVIEW;
-SELECT * FROM USERS;
+SELECT * FROM users t1 LEFT JOIN USER_AUTHORITY t2 ON (t2.US_UID = t1.US_UID) WHERE t1.us_uid = 122;
+
+SELECT * FROM USER_AUTHORITY;
 
 SELECT place_uid, contentid, contenttypeid,	title, mapx, mapy, areaCode,
 	sigunguCode, addr1, tel, firstimage2, pl_viewcnt AS viewcnt FROM 
@@ -11,7 +13,7 @@ WHERE RNUM >= 1 AND RNUM < 11;
 
 SELECT place_uid, contentid, contenttypeid,	title, mapx, mapy, areaCode,
 	sigunguCode, addr1, tel, firstimage2, pl_viewcnt AS viewcnt   
-FROM PLACE WHERE TITLE LIKE '%'||'품'||'%';
+FROM PLACE WHERE TITLE LIKE '%'||'강'||'%';
 
 SELECT ROWNUM AS RNUM, T.* FROM 
 	(SELECT * FROM place ORDER BY place_uid DESC) T;

@@ -121,9 +121,9 @@ a{text-decoration:none; color:inherit;}
 	        <div class="sticky-child layout-navigation-secondary" style="position: relative;">
 	            <div class="layout-navigation-secondary__content">
 	                <nav class="layout-navigation-secondary__menu">
-	                <a class="layout-navigation-secondary__menu__item" href="../home">홈</a>
-	                <a class="layout-navigation-secondary__menu__item" href="../cards/list.do">사진</a>
-	                <a class="layout-navigation-secondary__menu__item" href="../calender">일정</a>
+	                <a class="layout-navigation-secondary__menu__item" href="${pageContext.request.contextPath }/home">홈</a>
+	                <a class="layout-navigation-secondary__menu__item" href="${pageContext.request.contextPath }/cards/list.do">사진</a>
+	                <a class="layout-navigation-secondary__menu__item" href="${pageContext.request.contextPath }/calender/list">일정</a>
 	                <a class="layout-navigation-secondary__menu__item layout-navigation-secondary__menu__item--active" href="">장소</a>
 	                <a class="layout-navigation-secondary__menu__item" href="../advices">노하우</a>
 	                <a class="layout-navigation-secondary__menu__item" href="../questions">질문과답변</a></nav>
@@ -138,10 +138,17 @@ a{text-decoration:none; color:inherit;}
 <div class="recommend_view" id="content">
 	<div class="tourView">
 		<div class="title">
-		<h2 id="tltle"> ${list[0].title } </h2>
-		<dt class="viewcount"><p class="view_ico">조회수 : ${list[0].viewCnt } </p></dt>
-		
-		<dt class="likecount"></dt>
+			<p id="title"> ${list[0].title } </p>
+				<div class='item_count_area clear'>
+				<div id="viewcount">
+					<p class="view_ico">
+					<span>${list[0].viewCnt }</span>
+					</p>
+				</div>
+			
+				<div id="likecount">
+				</div>
+			</div>
 		</div>
 	
 		<div id="commonData"></div>

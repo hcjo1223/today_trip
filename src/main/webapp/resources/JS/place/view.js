@@ -4,6 +4,7 @@ var detailIntro_url = "http://api.visitkorea.or.kr/openapi/service/rest/KorServi
 var detailImage_url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailImage?MobileOS=ETC&MobileApp=TourAPI3.0_Guide&imageYN=Y&_type=json";
 
 $(document).ready(function () {
+
 	(function () {
 				
 		var url = detailCommon_url 
@@ -60,21 +61,29 @@ $(document).ready(function () {
 	})();
 
 	
+	insertLC(place_uid);
 	
-	var likeText = '';
-	(function(){
-		if(checkLike(place_uid) == 0){
-			likeText += "<a href='javascript:insertLike(" + place_uid + ");'>"
-			likeText += "<p class='like_ico1' ><p class='like_ico2' style='display : none;'>";
-		} else {
-			likeText += "<a href='javascript:deleteLike(" + place_uid + ");'>"
-			likeText += "<p class='like_ico1' style='display : none;'><p class='like_ico2'>";
-		}
-		likeText += "<span>좋아요 : </span><span class='likeCountAll'>" + likeCount(place_uid) + "</span></p></a>"
-		$(".likecount").html(likeText)  
-	})
-
+	
 });
+
+function insert(place_uid){
+	
+	var check = $('input[name="check"]').val();
+	if(loginCheck() == 1){
+
+		
+		if(check > 0){
+			$('#like').addClass('like_ico1');
+			$('#like').removeClass('like_ico2');
+			deleteLike(place_uid);
+		} else {
+			$('#like').removeClass('like_ico1');
+			$('#like').addClass('like_ico2');
+			insertLike(place_uid);
+		}
+
+	}
+}
 
 function likeCountUp(){
 	var likecnt = likeCount(place_uid);
@@ -180,6 +189,35 @@ function parseJSON3(jsonObj){
 	$("#containerGallery").html(result);
 }
 
+function insertLC(place_uid){
+	$.ajax({
+		url : "./like/check",
+		type : "get",
+		data : {'place_uid' : place_uid, 'us_uid' : us_uid},
+		cache : false,
+		async : false,
+		success : function(data, status){
+			if(status == "success"){
+				if(data.status == "OK"){
+					var check = data.count;
+					var likeText = "";
+					likeText += "<a href='javascript:insert(" + place_uid + ")'>";
+					if(data.count > 0){
+						likeText += "<p class='like_icon like_ico2' id='like'>";
+					} else {
+						likeText += "<p class='like_icon like_ico1' id='like'>";
+					}
+					likeText += "<span class='likeCountAll'></span></p></a>";
+					likeText += '<input type="hidden" name="check" value="' + check + '"/>';
+					likeCount(place_uid)
+					$("#likecount").html(likeText);
+				}
+			}
+		}
+	}); // end $.ajax()
+} 
+
+ 
 
 
 function myFunction(imgs) {
@@ -189,82 +227,73 @@ function myFunction(imgs) {
 }
 
 function likeCount(place_uid){
-	var count = 0;
 	$.ajax({
 		url : "./like/count",
 		type : "get",
 		data : {'place_uid' : place_uid},
 		cache : false,
-		async : false,
 		success : function(data, status){
 			if(status == "success"){
 				if(data.status == "OK"){
-					count = data.count;		
+					$('.likeCountAll').html(data.count);		
 				}
 			}
 		}
 	});
-
-	return count;
 }
+
 
 
 // 좋아요 등록
 function insertLike(place_uid){
 	$.ajax({
-        url : "./like",
-        type : "post",
+		url : "./like",
+		type : "post",
 		data : {'place_uid' : place_uid, 'us_uid' : us_uid},
-        cache : false,
-        success : function(data, status){
-            if(status == "success"){
+		cache : false,
+		success : function(data, status){
+			if(status == "success"){
 				if(data.status == "OK"){
 					console.log("좋아요등록");
 					likeCountUp();
+					$('input[name="check"]').val(1);
 				}
-            }
-        }
-    });  // end $.ajax()
+			}
+		}
+	});  // end $.ajax()
 }
 
 // 좋아요 삭제
 function deleteLike(place_uid){
 	$.ajax({
-        url : "./like/delete",
-        type : "post",
+		url : "./like/delete",
+		type : "post",
 		data : {'place_uid' : place_uid, 'us_uid' : us_uid},
-        cache : false,
-        success : function(data, status){
-            if(status == "success"){
-				if(data.status == "OK"){
-					console.log("좋아요취소");
-					likeCountUp();
-				}
-            }
-        }
-    });  // end $.ajax()
-}
-
-// 좋아요 체크
-function checkLike(place_uid){
-	var count;
-	$.ajax({
-        url : "./like/check",
-        type : "get",
-		data : {'place_uid' : place_uid, 'us_uid' : us_uid},
-        cache : false,
-		async : false,
-        success : function(data, status){
-            if(status == "success"){
-				if(data.status == "OK"){
-					count = data.count;
-					
+		cache : false,
+		success : function(data, status){
+		if(status == "success"){
+			if(data.status == "OK"){
+				console.log("좋아요취소");
+				likeCountUp();
+				$('input[name="check"]').val(0);
 				}
 			}
 		}
-	}); // end $.ajax()
-	return count;
-}  
+	});  // end $.ajax()
+}
+
+// 로그인 체크
+function loginCheck(){
+	if(us_uid == ''){
+		alert("로그인하세요")
+		return 0;
+	} else {
+		console.log("로그인 상태");
+		return 1;
+	}
+}
+
+
 
 
 var chkContentType = {
@@ -324,7 +353,7 @@ var chkContent = {
 		"refundregulation" : "환불규정"
 	},
 
-	"39" : {
+	39 : {
 		"chkcreditcardfood"	: "신용카드가능 정보",
 		"discountinfofood" : "할인정보",
 		"firstmenu" : "대표 메뉴",
