@@ -1,7 +1,6 @@
 package com.spring.app.controller;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -24,6 +22,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.spring.app.domain.CardsAjaxList;
 import com.spring.app.domain.CardsAjaxResult;
 import com.spring.app.domain.CardsDTO;
+import com.spring.app.domain.CardsLikeDTO;
 import com.spring.app.domain.PicAjaxList;
 import com.spring.app.domain.PicAjaxResult;
 import com.spring.app.domain.UsersDTO;
@@ -119,7 +118,7 @@ public class CardsAjaxController {
 	
 //	 B. 글 읽기
 	@GetMapping("/{uid}")
-	public CardsAjaxList view(@PathVariable int uid) {
+	public CardsAjaxList view(@PathVariable int uid) throws Exception {
 		List<CardsDTO> list = null;
 		
 		// response 에 필요한 값들
@@ -134,8 +133,8 @@ public class CardsAjaxController {
 			} else {
 				status = "OK";					
 			}
-
-
+			
+			
 
 		} catch (NumberFormatException e) { 
 			e.printStackTrace();
@@ -144,10 +143,12 @@ public class CardsAjaxController {
 			e.printStackTrace();
 			message.append("[트랜잭션 에러:" + e.getMessage() + "]");
 		}
+		// 사진 추가 용
 		List<picLibDTO> pdto = new ArrayList<picLibDTO>();
 		CardsAjaxList result = new CardsAjaxList();
 		pdto = ajaxService.selectFileByUid(uid);
 		
+		// 유저 아이디 세팅
 		List<UsersDTO> user = new ArrayList<UsersDTO>();
 		user = ajaxService.selectUserName(uid);
 		result.setStatus(status);
@@ -677,5 +678,79 @@ public class CardsAjaxController {
 		return result;
 	}
 	
+	
+//	@GetMapping("/like/{uid}")
+//	public CardsLikeDTO like(@PathVariable int uid) {
+//		CardsLikeDTO result = null;
+//		
+//		result = ajaxService.insertLike(uid);
+//		
+//		return result;
+//
+//	}
+	
+	@GetMapping("/user/{usuid}/{uid}")
+	public CardsAjaxList userview(@PathVariable int usuid, @PathVariable int uid) throws Exception {
+		System.out.println("usuid = " + usuid);
+		List<CardsDTO> list = null;
+		
+		int like = ajaxService.insertLike(usuid, uid);
+		// response 에 필요한 값들
+		StringBuffer message = new StringBuffer();
+		String status = "FAIL";  // 기본 FAIL
+
+		try {
+			list = ajaxService.viewByUid(uid); // 조회수 증가 + 읽기
+			
+			if(list.size() == 0) { // ★
+				message.append("[해당 데이터가 없습니다]");
+			} else {
+				status = "OK";					
+			}
+			
+			
+
+		} catch (NumberFormatException e) { 
+			e.printStackTrace();
+			message.append("[유효하지 않은 parameter]");
+		} catch (Exception e) { // ★  
+			e.printStackTrace();
+			message.append("[트랜잭션 에러:" + e.getMessage() + "]");
+		}
+		// 사진 추가 용
+		List<picLibDTO> pdto = new ArrayList<picLibDTO>();
+		CardsAjaxList result = new CardsAjaxList();
+		pdto = ajaxService.selectFileByUid(uid);
+		
+		// 유저 아이디 세팅
+		List<UsersDTO> user = new ArrayList<UsersDTO>();
+		user = ajaxService.selectUserName(uid);
+		result.setStatus(status);
+		result.setMessage(message.toString());
+		
+		if(list != null) {			
+			result.setCount(list.size());
+			result.setList(list);
+			result.setArr(pdto);
+			result.setUser(user);
+		}
+		
+		return result;
+
+	}
+	
+	@PutMapping("/like/{usuid}/{uid}")
+	public void updateLike(@PathVariable int usuid, @PathVariable int uid) throws Exception {
+		CardsLikeDTO ldto = null;
+		int like = 0;
+		like = ajaxService.selectLike(usuid,uid);
+		if(like == 0) {
+			ldto = ajaxService.updateLike1(usuid, uid);
+		} else {
+			ldto = ajaxService.updateLike0(usuid, uid);
+		}
+		
+		
+	}
 }
 

@@ -22,7 +22,7 @@
 					FROM 
 						PICTURE 
 					WHERE 
-						PC_WRITE_DATE BETWEEN '${startDate}' AND '${endDate}'
+						PC_WRITE_DATE BETWEEN '${startDate}' AND '${endDate}' AND pc_del_ck = 0
 					ORDER BY 
 						PC_HITS DESC)
 				WHERE ROWNUM= 1) p 
@@ -43,6 +43,7 @@
 					(SELECT * 
 						FROM 
 							PICTURE 
+						WHERE pc_del_ck = 0
 						ORDER BY 
 							PC_HITS DESC)
 				WHERE ROWNUM< 4) p 
@@ -63,10 +64,10 @@
 			FROM 
 				(SELECT * 
 					FROM 
-						(SELECT * FROM tour ORDER BY tu_hits DESC) 
+						(SELECT * FROM tour WHERE tu_del_ck = 0 ORDER BY tu_hits DESC) 
 			WHERE ROWNUM < 4) H 
 			JOIN 
-				tour_location D 
+				(SELECT * FROM tour_location WHERE TU_DAY =1) D 
 			ON 
 				H.tu_uid = D.tu_uid) J 
 		JOIN 

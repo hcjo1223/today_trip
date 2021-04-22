@@ -2,6 +2,9 @@ package com.spring.app.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,13 +15,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.spring.app.domain.CalenderDTO;
 import com.spring.app.domain.MemoDTO;
 import com.spring.app.domain.PlaceDTO;
+import com.spring.app.domain.TourLikeDTO;
 import com.spring.app.domain.TourLocationDTO;
+import com.spring.app.domain.UsersDTO;
 import com.spring.app.service.CalenderService;
 
 @Controller
 @RequestMapping("/calender")
 public class CalenderController {
 	
+	 
 	@Autowired
 	private CalenderService calenderService;
 	
@@ -52,7 +58,7 @@ public class CalenderController {
 		List<PlaceDTO> placeList = calenderService.placeSearch(keyword, contentType);
 		
 		for (PlaceDTO place: placeList) {
-//			System.out.println(place);
+			System.out.println(place);
 		}
 		
 		if (contentType.equals("12")) {
@@ -96,18 +102,47 @@ public class CalenderController {
 	
 	// 여행게시판 글 하나 읽기
 	@RequestMapping(value = "/read", method = RequestMethod.GET)
-	public String read(Model model, CalenderDTO dto) throws Exception {
+	public String read(Model model, CalenderDTO dto, HttpSession session) throws Exception {
+		
+		UsersDTO usersDto = (UsersDTO) session.getAttribute("login");
+		
+		// 로그인 세션 가져오기 
 		
 		// 조회수 업데이트
 		calenderService.TourHits(dto);
-		int likeCount = calenderService.TourLikeCount(dto);
-		model.addAttribute("likeCount", likeCount);
-		
-		// 일정 조회 요청
 		CalenderDTO res = calenderService.selectOne(dto);
+		int likeCount = calenderService.TourLikeCount(dto);
+		
+		// 해당 게시글의 좋아요 가져오기
+		TourLikeDTO tourLikeDto = new TourLikeDTO();
+		tourLikeDto.setTu_uid(dto.getTu_uid());
+		tourLikeDto.setUs_uid(usersDto.getUs_uid());
+		
+		TourLikeDTO res2 = calenderService.TourLike(tourLikeDto);
+		
 		model.addAttribute("tour", res);
+		model.addAttribute("likeCount", likeCount);
+		model.addAttribute("tourLike", res2);
 		
 		return "calender/read";
+	}
+	
+	@RequestMapping(value = "/addTourLike", method = RequestMethod.GET)
+	public @ResponseBody String addTourLike(TourLikeDTO dto, HttpSession session) throws Exception {
+		UsersDTO usersDto = (UsersDTO) session.getAttribute("login");
+		dto.setUs_uid(usersDto.getUs_uid());
+		calenderService.addTourLike(dto);
+		
+		return "ok";
+	}
+	
+	@RequestMapping(value = "/delTourLike", method = RequestMethod.GET)
+	public @ResponseBody String delTourLike(TourLikeDTO dto, HttpSession session) throws Exception {
+		UsersDTO usersDto = (UsersDTO) session.getAttribute("login");
+		dto.setUs_uid(usersDto.getUs_uid());
+		calenderService.delTourLike(dto);
+		
+		return "ok";
 	}
 	
 	// 여행게시판 글 하나의 메모 읽기
@@ -153,7 +188,24 @@ public class CalenderController {
 		model.addAttribute("count", count);
 		model.addAttribute("startPage", startPage);
 		
+		
 		return "calender/list";
+	}
+	
+	// 여행게시판 글 검색하기
+	@RequestMapping(value = "/list/search", method = RequestMethod.GET)
+	public String tourSearch(Model model, @Param("keyword") String keyword) throws Exception {
+		List<CalenderDTO> tourList = calenderService.tourSearch(keyword);
+		
+//		System.out.println(keyword);
+		
+		for (CalenderDTO tour : tourList) {
+			System.out.println(tour);
+		}
+//		System.out.println(tourList);
+		model.addAttribute("list", tourList);
+		
+		return "calender/search";
 	}
 	
 	// 여행게시판 글 하나의 메모 및 장소 모두 삭제하기

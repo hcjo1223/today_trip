@@ -23,6 +23,4 @@ public class AdminDTO {
 	private int us_exit_ck;
 	private LocalDateTime us_exit_date;
 	private int us_authority;
-	
-		
 }

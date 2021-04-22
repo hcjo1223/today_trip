@@ -24,7 +24,7 @@ function chkwrite(){
 };
 </script>
 
-<body>
+<body style="margin:200px;">
 <h2>사진 올리기</h2>
 <br>
 <form class="form-group" name="frm" action="writeOk.do" method="post" enctype="multipart/form-data" onsubmit="return chkwrite()">

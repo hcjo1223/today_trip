@@ -8,6 +8,8 @@
 <meta name="viewport"
 	content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,viewport-fit=cover" />
 <title>오늘의여행 - 사진게시판</title>
+<link rel="stylesheet" type="text/css"
+  href="${pageContext.request.contextPath }/resources/CSS/common.css" />
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap"
 	rel="stylesheet">
@@ -19,8 +21,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" type="text/css"
-  href="${pageContext.request.contextPath }/resources/CSS/common.css" />
+  
   <link rel="shortcut icon" type="image/x-icon"
 	href="${pageContext.request.contextPath }/resources/IMG/icon.ico">
 </head>
@@ -86,14 +87,14 @@
 					</div>
 					<div class="layout-navigation-bar-login">
 						<c:if test="${empty login}">
-							<a class="layout-navigation-bar-login__item" href="Users/login">로그인</a>
+							<a class="layout-navigation-bar-login__item" href="../Users/login">로그인</a>
 							<a class="layout-navigation-bar-login__item"
-								href="Users/register">회원가입</a>
+								href="../Users/register">회원가입</a>
 						</c:if>
 						<c:if test="${not empty login}">
-							<a class="layout-navigation-bar-login__item" href="Users/logout">로그아웃</a>
+							<a class="layout-navigation-bar-login__item" href="../Users/logout">로그아웃</a>
 							<a class="layout-navigation-bar-login__item"
-								href="Users/profile">${login.userNickname} 마이 페이지</a>
+								href="../Users/profile">${login.userNickname} 마이 페이지</a>
 						</c:if>
 					</div>
 					<div class="drop-down layout-navigation-bar-upload-button">
@@ -119,12 +120,12 @@
         <div class="sticky-child layout-navigation-secondary" style="position: relative;">
             <div class="layout-navigation-secondary__content">
                 <nav class="layout-navigation-secondary__menu">
-                <a class="layout-navigation-secondary__menu__item" href="./home">홈</a>
-                <a class="layout-navigation-secondary__menu__item layout-navigation-secondary__menu__item--active" href="./cards/list">사진</a>
-                <a class="layout-navigation-secondary__menu__item" href="./calender">일정</a>
-                <a class="layout-navigation-secondary__menu__item" href="./place/list">장소</a>
-                <a class="layout-navigation-secondary__menu__item" href="./advices">노하우</a>
-                <a class="layout-navigation-secondary__menu__item" href="./questions">질문과답변</a></nav>
+                <a class="layout-navigation-secondary__menu__item" href="../home">홈</a>
+                <a class="layout-navigation-secondary__menu__item layout-navigation-secondary__menu__item--active" href="../cards/list">사진</a>
+                <a class="layout-navigation-secondary__menu__item" href="../calender">일정</a>
+                <a class="layout-navigation-secondary__menu__item" href="../place/list">장소</a>
+                <a class="layout-navigation-secondary__menu__item" href="../advices">노하우</a>
+                <a class="layout-navigation-secondary__menu__item" href="../questions">질문과답변</a></nav>
             </div>
         </div>
     </div>
@@ -221,8 +222,8 @@
 
 
  <%--글 작성 / 보기 /수정 대화상자 --%>
-<div id="dlg_write" class="modal">
-	<form class="modal-content animate" id="frmWrite" name="frmWrite" method="post" multiple="true"  enctype="multipart/form-data">
+<div id="dlg_write" class="modal" style="overflow: auto;">
+	<form class="modal-content animate"  id="frmWrite" name="frmWrite" method="post" multiple="true"  enctype="multipart/form-data">
 		<div class="container">
 			<h3 class="title">새글 작성</h3>
 			
@@ -281,11 +282,14 @@
 			</div>
 				<div class="clear"></div>
 				
-				
+				<div class="d01 btn_group_like">			
+					<span onclick="return like();">
+						<i value ="0" id="heart" class="far fa-heart" style="font-size:16px;color:red"></i>
+					</span>		
+				</div>	
 
 			</div>
 			
-			사진
 			<div id="delFiles"></div>
 			<div class="slideshow-container">
 				
@@ -323,8 +327,11 @@
 				<div class="clear"></div>
 			</div>	
 
+			<div class="d01 btn_group_like">
+				<div class="center">
 
-			
+				</div>
+			</div>
 			
 
 			

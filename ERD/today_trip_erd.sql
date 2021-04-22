@@ -579,3 +579,25 @@ INSERT INTO TOUR_LOCATION values(9,3,23,3);
 
 
 
+SELECT * FROM review;
+SELECT * FROM TOUR_LOCATION;
+INSERT INTO USER_AUTHORITY values(10,1);
+SELECT
+			S1.us_uid, 
+			S1.us_id, 
+			S1.us_email,
+			S1.us_nickName, 
+			S1.us_gender, 
+			S1.us_birth,
+			S1.us_join_date,
+			S1.us_exit_date,
+			S2.US_AUTHORITY 
+		FROM 
+			(SELECT ROWNUM AS RNUM, T.* FROM 
+				(SELECT * FROM users ORDER BY us_uid) T) S1 JOIN USER_AUTHORITY S2 ON S1.us_uid = S2.US_UID 
+		WHERE 
+			RNUM >= 1 AND RNUM < 11;
+		
+		SELECT AVG(rv_rate) AS rateAVG 
+    	FROM review 
+    	WHERE place_uid = 195;

@@ -30,6 +30,9 @@ public interface CalenderDAO {
 	
 	// 여행게시판 글 전체 읽기
 	public abstract List<CalenderDTO> selectList(CalenderDTO dto);
+
+	// 여행게시판 글 검색하기
+	public abstract List<CalenderDTO> tourSearch(String keyword) throws Exception;
 	
 	// 여행게시판 페이징
 	public abstract int CountOfTour();
@@ -48,7 +51,20 @@ public interface CalenderDAO {
 	
 	// 좋아요
 	public abstract int TourLikeCount(CalenderDTO dto);
+	
+	// 좋아요 여부
+	public abstract TourLikeDTO TourLike(TourLikeDTO dto);
+	
+	// 좋아요 생성
+	public abstract int addTourLike(TourLikeDTO dto);
+	
+	// 좋아요 삭제
+	public abstract int delTourLike(TourLikeDTO dto);
+	
+	
+	
 	// 조회수
 	public abstract int TourHits(CalenderDTO dto);
+
 	
 }

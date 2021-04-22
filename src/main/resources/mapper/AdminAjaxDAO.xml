@@ -131,17 +131,18 @@
 		resultType="com.spring.app.domain.AdminDTO">
 		<![CDATA[  
 		SELECT
-			us_uid, 
-			us_id, 
-			us_email,
-			us_nickName, 
-			us_gender, 
-			us_birth,
-			us_join_date,
-			us_exit_date
+			S1.us_uid, 
+			S1.us_id, 
+			S1.us_email,
+			S1.us_nickName, 
+			S1.us_gender, 
+			S1.us_birth,
+			S1.us_join_date,
+			S1.us_exit_date,
+			S2.us_authority 
 		FROM 
 			(SELECT ROWNUM AS RNUM, T.* FROM 
-				(SELECT * FROM users ORDER BY us_uid) T) 
+				(SELECT * FROM users ORDER BY us_uid) T) S1 JOIN USER_AUTHORITY S2 ON S1.us_uid = S2.US_UID 
 		WHERE 
 			RNUM >= #{from} AND RNUM < (#{from} + #{pageRows})
 		]]>	
@@ -262,6 +263,30 @@
 	 	  	UPDATE picture
 	 	  	SET pc_del_ck = 1
 	 	  	WHERE pc_uid IN( 
+	 	  	<foreach collection="array" item="item" index="index" separator=",">
+	 	  	${item}
+ 	  		</foreach>
+ 	  		)
+ 	  </update>
+
+	<update id="grantUsersByUid" flushCache="true"
+ 	  	parameterType="java.util.ArrayList">
+ 	  	
+	 	  	UPDATE user_authority
+	 	  	SET us_authority = 0
+	 	  	WHERE us_uid IN( 
+	 	  	<foreach collection="array" item="item" index="index" separator=",">
+	 	  	${item}
+ 	  		</foreach>
+ 	  		)
+ 	  </update>
+	
+	<update id="revokeUsersByUid" flushCache="true"
+ 	  	parameterType="java.util.ArrayList">
+ 	  	
+	 	  	UPDATE user_authority
+	 	  	SET us_authority = 1
+	 	  	WHERE us_uid IN( 
 	 	  	<foreach collection="array" item="item" index="index" separator=",">
 	 	  	${item}
  	  		</foreach>

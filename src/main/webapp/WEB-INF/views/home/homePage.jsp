@@ -120,7 +120,7 @@ $(document).ready( function() {
 						<c:if test="${not empty login}">
 							<a class="layout-navigation-bar-login__item" href="Users/logout">로그아웃</a>
 							<a class="layout-navigation-bar-login__item"
-								href="Users/Profile">마이 페이지</a>
+								href="Users/updateView">마이 페이지</a>
 						</c:if>
 					</div>
 					<div class="drop-down layout-navigation-bar-upload-button">
@@ -158,6 +158,11 @@ $(document).ready( function() {
                 <a class="layout-navigation-secondary__menu__item" href="./place/list">장소</a>
                 <a class="layout-navigation-secondary__menu__item" href="./advices">노하우</a>
                 <a class="layout-navigation-secondary__menu__item" href="./questions">질문과답변</a></nav>
+                <c:choose>
+                <c:when test="${login.userAuthority== 0}">
+                	<a style="margin-right: 50px;" class="layout-navigation-secondary__menu__item" href="./admin">관리자페이지</a></nav>
+                </c:when>
+                </c:choose>
             </div>
         </div>
     </div>
@@ -199,11 +204,9 @@ $(document).ready( function() {
 										 	<span>${ dto.place_uid}</span>
 										 -->
 										 	<div class="imgDivOverflow">
-											 <img src="${ dto.firstimage2}">
+											 <a href="./calender/read?tu_uid=${dto.tu_uid}"><img src="${ dto.firstimage2}"></a>
 											 </div>
 											 <div class="HomeConSpace"><span>${ dto.tu_title}</span></div>
-											 	 	
-										
 										 </li>
 									</c:forEach>
 								</c:otherwise>
@@ -233,7 +236,7 @@ $(document).ready( function() {
 										 	<span>${ dto.place_uid}</span>
 										 -->
 										 	 <div class="imgDivOverflow">
-												 <img src="${ dto.pl_path}">
+												 <a href="./cards/view.do?uid=${ dto.pc_uid}"><img src="${ dto.pl_path}"></a>
 											 </div>
 											 <c:choose>
 												 <c:when test="${dto.pc_focus == 0}">
