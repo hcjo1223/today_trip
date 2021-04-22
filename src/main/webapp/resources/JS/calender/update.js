@@ -294,7 +294,7 @@ $(function(){
                 var day_head_h5 = $("<h5>", {text: "DAY"+i});
 
                 // kakaoMap
-                var day_map = $("<div>", {id: "day-map-"+i, class:"day-map mb-5", style: "width: 100%; height: 400px"});
+                /*var day_map = $("<div>", {id: "day-map-"+i, class:"day-map mb-5", style: "width: 100%; height: 400px"});*/
                 
                 var day_content = $("<div>", {id: "day-content-"+i, class: "mt-5 mb-5 day-content", 'data-day':i});
                 var day_memo = $("<div>", {id: "day-memo-"+i, class: "mt-5 mb-5 memo", 'data-day':i});
@@ -308,7 +308,7 @@ $(function(){
                 $("#day-head-" + i).append(day_head_h5);
 
                 // kakaoMap
-                $("#day-" + i).append(day_map);
+                /*$("#day-" + i).append(day_map);*/
                 
                 $("#day-" + i).append(day_content);
                 $("#day-" + i).append(day_memo);
@@ -318,12 +318,12 @@ $(function(){
                 $("#day-btn-box-" + i).append(btn_memo);
 
                 // kakaoMap
-                var container = document.getElementById('day-map-'+i);
+               /* var container = document.getElementById('day-map-'+i);
                 var options = {
                     center: new kakao.maps.LatLng(33.450701, 126.570667),
                     level: 3
                 };
-                var map = new kakao.maps.Map(container, options);
+                var map = new kakao.maps.Map(container, options);*/
             }
             
             // '메모 추가' 버튼 클릭 이벤트

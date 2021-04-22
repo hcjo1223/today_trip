@@ -9,102 +9,107 @@
         var clickedDay = 0; // 장소/메모 추가 시 현재 클릭한 날짜
 
         var tuTitle = $("#tuTitle").val();
+		var tuStartDate = $("#startDate").val();
+		var tuEndDate = $("#endDate").val();
     
         // '글 올리기' 버튼 클릭 이벤트
         $(".btnRegister").on("click", function() {
     
             if( confirm("정말로 글올리기를 진행하시겠습니까?") ){
 
-                
+                if(tuTitle.length > 0 && tuStartDate.length > 0 && tuEndDate.length > 0 ){ 
 
-                // form.submit();
-                console.log($("#tour-form").serialize());
-    
-                var firstClass=$(".one-place").first();
-                $('input#tu-img-url').val(firstClass.data('img-url'));
-    
-                $.ajax({
-                    url: '/today_trip/calender/register',
-                    type: 'post',
-                    data: $("#tour-form").serialize(),
-                    success: function($tu_uid) {
-                        var promiseArr=[];
-                    
-                        $('.day').each(function(index, item) { 
-                            
-                            var dc = $(item).find('.day-content');
-                            var mm = $(item).find('.memo');
-    
-                            // var pro1 =new Promise((resolve,reject)=>{
-                            var pro1 = new Promise(function(resolve, reject) {
-                                // 메모 추가하기
-                                $.ajax({
-                                        url: '/today_trip/calender/insertMemo',
-                                        type: 'post',
-                                        data: {
-                                            tu_uid : $tu_uid,
-                                            tu_day : mm.data('day'),
-                                            memo_contents : mm.find('textarea').val()
-                                        },
-                                        success: function(res) {
-                                            resolve();
-                                        },
-                                        error: function(err) {
-                                            console.log(err);
-                                            reject();
-                                        }
-                                    });
-                                });
-                            
-                            // 메모 promise push해주기
-                            promiseArr.push(pro1);
-                            
-                            dc.each(function(index,item) {
-                                var op = $(item).find('.one-place');
-    
-                                op.each(function(index,item) {
-                                    var el = $(item);
-                                
-                                    // var pro2 = new Promise((resolve, reject)=>{
-                                    var pro2 = new Promise(function(resolve, reject) {
-                                        // 장소 추가하기
-                                        $.ajax({
-                                            url: '/today_trip/calender/insertTL',
-                                            type: 'post',
-                                            data: {
-                                                place_uid : el.data('place-uid'),
-                                                tu_uid : $tu_uid,
-                                                tu_day : el.closest('.day-content').data('day')
-                                            },
-                                            success: function(res) {
-                                                resolve();
-                                            },
-                                            error: function(err) {
-                                                console.log(err);
-                                                reject();
-                                            }
-                                        }); 						     					
-    
-                                    });
-                                
-                                    // 장소 promise push 해주기
-                                    promiseArr.push(pro2);
-                                });
-                            });
-                        });
-                        
-                        // Promise.all(promiseArr).then(values => { .catch(err=>{
-                        Promise.all(promiseArr).then(function(values) {
-                            console.log('100% 완료!');
-                            location.href='/today_trip/calender/list'
-                        }).catch(function(err) {
-                            console.log(err);
-                        });
-                    },
-                    error: function(err){
-                            
-                    }
-                });
+	                // form.submit();
+	                console.log($("#tour-form").serialize());
+	    
+	                var firstClass=$(".one-place").first();
+	                $('input#tu-img-url').val(firstClass.data('img-url'));
+	    
+	                $.ajax({
+	                    url: '/today_trip/calender/register',
+	                    type: 'post',
+	                    data: $("#tour-form").serialize(),
+	                    success: function($tu_uid) {
+	                        var promiseArr=[];
+	                    
+	                        $('.day').each(function(index, item) { 
+	                            
+	                            var dc = $(item).find('.day-content');
+	                            var mm = $(item).find('.memo');
+	    
+	                            // var pro1 =new Promise((resolve,reject)=>{
+	                            var pro1 = new Promise(function(resolve, reject) {
+	                                // 메모 추가하기
+	                                $.ajax({
+	                                        url: '/today_trip/calender/insertMemo',
+	                                        type: 'post',
+	                                        data: {
+	                                            tu_uid : $tu_uid,
+	                                            tu_day : mm.data('day'),
+	                                            memo_contents : mm.find('textarea').val()
+	                                        },
+	                                        success: function(res) {
+	                                            resolve();
+	                                        },
+	                                        error: function(err) {
+	                                            console.log(err);
+	                                            reject();
+	                                        }
+	                                    });
+	                                });
+	                            
+	                            // 메모 promise push해주기
+	                            promiseArr.push(pro1);
+	                            
+	                            dc.each(function(index,item) {
+	                                var op = $(item).find('.one-place');
+	    
+	                                op.each(function(index,item) {
+	                                    var el = $(item);
+	                                
+	                                    // var pro2 = new Promise((resolve, reject)=>{
+	                                    var pro2 = new Promise(function(resolve, reject) {
+	                                        // 장소 추가하기
+	                                        $.ajax({
+	                                            url: '/today_trip/calender/insertTL',
+	                                            type: 'post',
+	                                            data: {
+	                                                place_uid : el.data('place-uid'),
+	                                                tu_uid : $tu_uid,
+	                                                tu_day : el.closest('.day-content').data('day')
+	                                            },
+	                                            success: function(res) {
+	                                                resolve();
+	                                            },
+	                                            error: function(err) {
+	                                                console.log(err);
+	                                                reject();
+	                                            }
+	                                        }); 						     					
+	    
+	                                    });
+	                                
+	                                    // 장소 promise push 해주기
+	                                    promiseArr.push(pro2);
+	                                });
+	                            });
+	                        });
+	                        
+	                        // Promise.all(promiseArr).then(values => { .catch(err=>{
+	                        Promise.all(promiseArr).then(function(values) {
+	                            console.log('100% 완료!');
+	                            location.href='/today_trip/calender/list'
+	                        }).catch(function(err) {
+	                            console.log(err);
+	                        });
+	                    },
+	                    error: function(err){
+	                            
+	                    }
+	                });
+				} else {
+					alert('올바른 정보를 입력하세요');
+				}
                 
             } else {
                 alert("취소하였습니다.");

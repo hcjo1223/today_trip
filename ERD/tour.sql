@@ -33,6 +33,18 @@ INSERT INTO tour_like (tu_like_ck, tu_uid, us_uid)
 DELETE FROM tour_like
 WHERE us_uid = 643;
 
+UPDATE TOUR
+SET tu_title = '가나다'
+	, tu_period = 2
+	, tu_location = 2
+	, tu_with = 2
+	, tu_focus = 2
+	, tu_write_date = SYSDATE 
+	, tu_start_tour = '2021-04-22'
+	, tu_end_tour = '2021-04-23'
+	, tu_img_url = 'http://tong.visitkorea.or.kr/cms/resource/63/2480263_image2_1.jpg'
+WHERE tu_uid = 645;
+
 
 /*-------------------------------------------------------------- Create Tables --------------------------------------------------------------*/
 CREATE TABLE users
