@@ -14,16 +14,72 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
 			integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 			
-	<link rel="stylesheet" href="<c:url value="/resources/CSS/calender/calender.css" />" >
-	<link rel="stylesheet" href="<c:url value="/resources/CSS/calender/list.css" />" >
+	<%-- <link rel="stylesheet" href="<c:url value="/resources/CSS/calender/calender.css" />" > --%>
+	<%-- <link rel="stylesheet" href="<c:url value="/resources/CSS/calender/list.css" />" > --%>
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/resources/CSS/calender/common.css" />
 
 	<!-- Font Awesome -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jua&display=swap" >
 	
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/CSS/calender/common.css"/>
 	<link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/IMG/icon.ico" >
+	
+	<style>
+	#DropdownContents {
+		width: 150px;
+		height: 180px;
+		background-color: rgb(9, 173, 219, 0.8);
+		position: absolute;
+		border-radius: 4px;
+		box-shadow: 2px 2px 4px 1px rgb(137, 137, 137, 0.8);
+		display: none;
+	}
+	#DropdownContents a {
+	  color: black;
+	  padding: 12px 16px;
+	  text-decoration: none;
+	  display: block;
+	  text-align: center;
+	  color: white;
+	  
+	}
+	
+	#DropdownContents a:hover {
+		background-color: rgb(9, 173, 219);
+		cursor: pointer;
+	}
+	
+	.tour-wrap .tour-list-wrap .tour-info{
+	text-align: center;
+	}
+	
+	a {
+		text-decoration-line: none;
+	}
+	
+	a:hover {
+		text-decoration: none;
+	}
+	
+		
+	.clear {clear: both;}		
+		
+	.tour-info a {
+		position: relative;
+		display: block;
+	}
+	
+	</style>
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script type="text/javascript">
+	$(document).ready( function() {
+	    $( '#dropToggleBtn' ).click( function() {
+	      $( '#DropdownContents' ).toggle( 'slow' );
+	    });
+	  });
+	</script>
 	
 </head>
 <body>
@@ -73,8 +129,16 @@
 				</div>
                 
                 <div class="layout-navigation-bar-login">
-					<a class="layout-navigation-bar-login__item" href="">로그인</a>
-					<a class="layout-navigation-bar-login__item" href="">회원가입</a>
+					<c:if test="${empty login}">
+						<a class="layout-navigation-bar-login__item" href="../Users/login">로그인</a>
+						<a class="layout-navigation-bar-login__item"
+							href="/today_trip/Users/register">회원가입</a>
+					</c:if>
+					<c:if test="${not empty login}">
+						<a class="layout-navigation-bar-login__item" href="../Users/logout">로그아웃</a>
+						<a class="layout-navigation-bar-login__item"
+							href="/today_trip/Users/updateView">마이 페이지</a>
+					</c:if>
 				</div>
                 
 				<div class="drop-down layout-navigation-bar-upload-button">
@@ -83,6 +147,12 @@
 							<path fill="currentColor" fill-rule="evenodd" d="M2.87 4L1.33 5.5 8 12l6.67-6.5L13.13 4 8 9z"></path>
 						</svg>
 					</button>
+					<div id="DropdownContents">
+                    	<a href="/today_trip/cards/new">사진</a>
+                    	<a href="/today_trip/calender/register">일정</a>
+                    	<a href="#">노하우</a>
+                    	<a href="#">질문과 답변</a>
+                    </div>
 				</div>
 				
 			</div>
@@ -95,12 +165,18 @@
 			<div class="sticky-child layout-navigation-secondary" style="position: relative;">
 				<div class="layout-navigation-secondary__content">
 					<nav class="layout-navigation-secondary__menu">
-						<a class="layout-navigation-secondary__menu__item" href="../home">홈</a>
-						<a class="layout-navigation-secondary__menu__item" href="../cards/list.do">사진</a>
-						<a class="layout-navigation-secondary__menu__item layout-navigation-secondary__menu__item--active" href="./list">일정</a>
-						<a class="layout-navigation-secondary__menu__item" href="../place/list">장소</a>
+						<a class="layout-navigation-secondary__menu__item" href="/today_trip/home">홈</a>
+						<a class="layout-navigation-secondary__menu__item" href="/today_trip/cards/list.do">사진</a>
+						<a class="layout-navigation-secondary__menu__item layout-navigation-secondary__menu__item--active" href="/today_trip/calender/list">일정</a>
+						<a class="layout-navigation-secondary__menu__item" href="/today_trip/place/list">장소</a>
 						<a class="layout-navigation-secondary__menu__item" href="#">노하우</a>
 						<a class="layout-navigation-secondary__menu__item" href="#">질문과답변</a>
+						
+						<c:choose>
+							<c:when test="${login.userAuthority== 0}">
+								<a style="margin-right: 50px;" class="layout-navigation-secondary__menu__item" href="./admin">관리자페이지</a></nav>
+							</c:when>
+						</c:choose>
 					</nav>
 				</div>
 			</div>
@@ -125,23 +201,23 @@
 		<!-- 리스트 area -->
 		<div class="tour-list-wrap" style="width: 1255px; margin: 0 auto; padding-top: 50px;">
 			<!-- 전체 리스트 갯수 -->
-			<div class="total-count-list" style="padding-bottom: 10px;">전체 ${count}</div>
+			<div class="total-count-list" style="margin-bottom: 10px;">전체 ${count}</div>
 			<div class="tour-card row">
 				<c:forEach var="tour" items="${list}" varStatus="status">
 					<div class="col-md-4" style="padding-bottom: 30px;">
 						<div class="tour-info">
 							<a href="/today_trip/calender/read?tu_uid=${tour.tu_uid}">
-								<img src="${tour.tu_img_url}" style="width:100%; height:252px; object-fit:cover; border-radius: 5%;"/>
+								<img src="${tour.tu_img_url}" style="width:100%; height:252px; object-fit:cover; border-radius: 3%;"/>
 								<!-- 여행제목 -->
 								<!-- 번호 : ${status.count} : -->
-								<p id="p_title" style="color: #222; font-size: 20px; font-weight: 700; margin-top: 12px; margin-bottom: 5px;">${tour.tu_title}</p>
+								<p id="p_title" style="color: #222; font-size: 20px; font-weight: 700; margin: 18px 0 8px; word-wrap: break-word">${tour.tu_title}</p>
 							</a>
 							<div class="tour-user">
-								<img src="" alt="" class="tour-user-profile" style="color: #585858"/><span>오늘의 여행 에디터</span><br>
-								<div style="display: flex; justify-content: center; color: #8E8E8E; font-size: 0.8rem; font-weight: 700;">
-									<span>좋아요</span>
-									<span class="tour-likes">300</span>
-									<span>·조회</span>
+								<img src="${pageContext.request.contextPath}/resources/IMG/Profile/man.jpg" alt="" class="tour-user-profile" style="width: 20px; height: 20px; color: #585858; margin: 0 7px 7px 0; "/><span>오늘의 여행 에디터</span><br>
+								<div style="display: flex; justify-content: center; color: #8E8E8E; font-size: 0.8rem; font-weight: 700; margin-top: 5px;">
+									<span>좋아요&nbsp</span>
+									<span class="tour-likes">300&nbsp</span>
+									<span>&nbsp·&nbsp조회&nbsp</span>
 									<span class="tour-hits">${tour.tu_hits}</span>
 								</div>
 							</div>
@@ -151,12 +227,10 @@
 			</div>
 		</div>
 		
-		<div class="clear"></div>
-		
 		<!-- 페이징 area -->
-		<div class="tour-page" style="width: 1255px; margin: 0 auto; padding-top: 50px;">
+		<div class="tour-page" style="width: 1300px; margin: 0 auto; padding-top: 50px;">
 			<div align="center">
-				<ul id="pagination-demo" class="sync-pagination pagination-sm" style="display:flex; justify-content:center; height:50px;"></ul>
+				<ul id="pagination-demo" class="sync-pagination pagination-sm" style="display:flex; justify-content:center; height: 50px; "></ul>
 			</div>
 		</div>
 		

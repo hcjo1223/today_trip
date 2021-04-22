@@ -82,7 +82,7 @@ CREATE TABLE tour_memo
 	tu_day NUMBER NOT NULL,
 	memo_contents VARCHAR2(400) NULL,
 	PRIMARY KEY (memo_uid)
-)
+);
 
 ALTER TABLE tour_memo
 	ADD FOREIGN KEY (tu_uid)

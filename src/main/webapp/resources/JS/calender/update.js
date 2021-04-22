@@ -40,11 +40,11 @@ $(function(){
 											
 						     	'</div>'+
 						     	'<div id="day-memo-'+index+'" class="mt-5 mb-5 memo" data-day="'+index+'">'+	
-						     		'<button id="btn-memo-cancel-'+index+'" type="button" class="btn btn-primary">메모지우기</button>'+
+						     		'<button id="btn-memo-cancel-'+index+'" type="button" class="btn btn-primary" style="background-color: #35c5f0;">메모지우기</button>'+
 						     	'</div>'+
 								'<div id="day-btn-box'+index+'" class="day-btn-box d-flex justify-content-center">'+
-						     		'<button id="btn-place-'+index+'" type="button" day="'+index+'" class="btn btn-primary btn-place m-2 w-25" data-target="#placeModal" data-toggle="modal">장소 추가</button>'+
-						     		'<button id="btn-memo-'+index+'" type="button" day="'+index+'" class="btn btn-primary btn-memo m-2 w-25" style="display: none;">장소 추가</button>'+
+						     		'<button id="btn-place-'+index+'" type="button" day="'+index+'" class="btn btn-primary btn-place m-2 w-25" data-target="#placeModal" data-toggle="modal" style="background-color: #35c5f0;">장소 추가</button>'+
+						     		'<button id="btn-memo-'+index+'" type="button" day="'+index+'" class="btn btn-primary btn-memo m-2 w-25" style="display: none; background-color: #35c5f0;">장소 추가</button>'+
 						    	'</div>'+
 						    '</div>'
 				
