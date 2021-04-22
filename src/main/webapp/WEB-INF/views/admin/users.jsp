@@ -18,7 +18,12 @@
 		href="${pageContext.request.contextPath }/resources/CSS/admin/styles.css">
 		<!--Custom Font-->
 <link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-		
+<script type="text/javascript">
+var userAuthority = "${login.userAuthority}";
+if (userAuthority != "0") {
+	location.href="./error";
+}
+</script>	
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/JS/admin/bootstrap.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/JS/admin/easypiechart.js"></script>
@@ -27,6 +32,9 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/JS/admin/custom.js"></script>
 <script type="text/javascript" src="/today_trip/resources/JS/admin/users.js"></script>
 
+<style type="text/css">
+
+</style>
 <title>관리자 페이지(회원)</title>
 </head>
 <body>
@@ -51,7 +59,7 @@
 				<img src="http://placehold.it/50/30a5ff/fff" class="img-responsive" alt="">
 			</div>
 			<div class="profile-usertitle">
-				<div class="profile-usertitle-name">Username</div>
+				<div class="profile-usertitle-name">${login.userId }</div>
 				<div class="profile-usertitle-status"><span class="indicator label-success"></span>Online</div>
 			</div>
 			<div class="clear"></div>
@@ -90,6 +98,12 @@
 			<li><a href="../admin/stats"><img style="width: 20px" src="../resources/IMG/admin_chart.png"> 통계</a></li>
 		</ul>
 	</div><!--/.sidebar-->
+	
+<div class="adminWMI1">
+	<div class="adminWMI2">
+		<span>회원</span>
+	</div>
+</div>
 	
 <div id="list">
 	<%-- header --%>

@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import org.mybatis.spring.annotation.MapperScan;
 
 import com.spring.app.domain.CardsDTO;
+import com.spring.app.domain.CardsLikeDTO;
 
 @MapperScan
 public interface CardsAjaxDAO {
@@ -76,7 +77,13 @@ public interface CardsAjaxDAO {
 
 		public List<UsersDTO> selectUserName(int uid);
 
+		public int insertLike(int usuid, int uid);
 
+
+		public CardsLikeDTO updateLike1(int usuid, int uid);
+		public CardsLikeDTO updateLike0(int usuid, int uid);
+
+		public int selectLike(int usuid, int uid);
 
 
 

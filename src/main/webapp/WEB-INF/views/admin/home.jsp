@@ -19,7 +19,12 @@
 		<!--Custom Font-->
 <link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 		
-
+<script type="text/javascript">
+var userAuthority = "${login.userAuthority}";
+if (userAuthority != "0") {
+	location.href="./error";
+}
+</script>
 <title>관리자 페이지</title>
 </head>
 <body>
@@ -41,10 +46,10 @@
 <div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
 		<div class="profile-sidebar">
 			<div class="profile-userpic">
-				<img src="http://placehold.it/50/30a5ff/fff" class="img-responsive" alt="">
+				<img src="http://placehold.it/50/30a5ff/fff" class="img-responsive" alt=""><!-- TODO 기본이미지 처리 -->
 			</div>
 			<div class="profile-usertitle">
-				<div class="profile-usertitle-name">Username</div>
+				<div class="profile-usertitle-name">${login.userId }</div>
 				<div class="profile-usertitle-status"><span class="indicator label-success"></span>Online</div>
 			</div>
 			<div class="clear"></div>

@@ -110,6 +110,17 @@
 			(pl_uid_seq.nextval, #{pcuid}, #{name}, #{type}, #{size}, #{path} )
 	</insert>
 	
+	<insert id="insertLike" flushCache="true" parameterType="com.spring.app.domain.CardsLikeDTO">
+		INSERT INTO pic_like (
+		us_uid, pc_uid, PIC_LIKE_CK)
+		SELECT #{param1}, #{param2}, 0
+FROM dual
+WHERE NOT EXISTS (
+SELECT US_UID , PC_UID 
+FROM PIC_LIKE 
+WHERE US_UID = 5 AND PC_UID = 83);
+	</insert>
+	
 	<select id="countAll" resultType="int">
 		SELECT count(*) FROM picture 
 	</select>
@@ -144,6 +155,14 @@
 		UPDATE picture SET pc_hits = pc_hits + 1 WHERE pc_uid = #{param1}
 	</update>
 	
+	<select id="selectLike" 
+		resultType="int">
+		SELECT 
+			pic_like_ck 
+		FROM pic_like 
+		WHERE us_uid = #{param1} and pc_uid= #{param2}
+	</select>
+	
 	<update id="update" flushCache="true">
 		UPDATE picture 
 		SET pc_contents = #{contents}, pc_location = #{location}, pc_with = #{withs}, pc_focus = #{focus}
@@ -152,6 +171,13 @@
 	
 	<update id="deleteByUid" flushCache="true">
 		UPDATE picture SET pc_del_ck = 0 WHERE pc_uid = #{uid}
+	</update>
+	
+	<update id="updateLike1" flushCache="true">
+		UPDATE pic_like SET pc_del_ck = 1 WHERE us_uid = #{param1} and pc_uid = #{param2}
+	</update>
+	<update id="updateLike0" flushCache="true">
+		UPDATE pic_like SET pc_del_ck = 0 WHERE us_uid = #{param1} and pc_uid = #{param2}
 	</update>
 	
 	<!-- 파일 리스트 -->

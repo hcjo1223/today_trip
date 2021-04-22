@@ -11,7 +11,7 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/resources/CSS/place/place.css"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://kit.fontawesome.com/bb29575d31.js"></script>
-<script src="${pageContext.request.contextPath }/resources/JS/place/placepage.js"></script>
+<script src="${pageContext.request.contextPath }/resources/JS/place/list.js"></script>
 <style>
 body {
     font-size: 13px;
@@ -70,9 +70,19 @@ a { text-decoration-line: none; }
                     </div>
                 </div>
                 <div class="layout-navigation-bar-login">
-                    <a class="layout-navigation-bar-login__item" href="">로그인</a>
-                    <a class="layout-navigation-bar-login__item" href="">회원가입</a>
-                </div>
+						<c:if test="${empty login}">
+							<a class="layout-navigation-bar-login__item" 
+								href="${pageContext.request.contextPath }/Users/login">로그인</a>
+							<a class="layout-navigation-bar-login__item"
+								href="${pageContext.request.contextPath }/Users/register">회원가입</a>
+						</c:if>
+						<c:if test="${not empty login}">
+							<a class="layout-navigation-bar-login__item" 
+								href="${pageContext.request.contextPath }/Users/logout">로그아웃</a>
+							<a class="layout-navigation-bar-login__item"
+								href="${pageContext.request.contextPath }/Users/profile">마이 페이지</a>
+						</c:if>
+					</div>
                 <div class="drop-down layout-navigation-bar-upload-button">
                     <button class="layout-navigation-bar-upload-button__button" type="button">글쓰기
                         <svg class="icon" width="1em" height="1em" viewBox="0 0 16 16" preserveAspectRatio="xMidYMid meet">
@@ -89,23 +99,22 @@ a { text-decoration-line: none; }
 	        <div class="sticky-child layout-navigation-secondary" style="position: relative;">
 	            <div class="layout-navigation-secondary__content">
 	                <nav class="layout-navigation-secondary__menu">
-	                <a class="layout-navigation-secondary__menu__item" href="../home">홈</a>
-	                <a class="layout-navigation-secondary__menu__item" href="../cards/list.do">사진</a>
-	                <a class="layout-navigation-secondary__menu__item" href="../calender">일정</a>
+	                <a class="layout-navigation-secondary__menu__item" href="${pageContext.request.contextPath }/home">홈</a>
+	                <a class="layout-navigation-secondary__menu__item" href="${pageContext.request.contextPath }/cards/list.do">사진</a>
+	                <a class="layout-navigation-secondary__menu__item" href="${pageContext.request.contextPath }/calender">일정</a>
 	                <a class="layout-navigation-secondary__menu__item layout-navigation-secondary__menu__item--active" href="">장소</a>
-	                <a class="layout-navigation-secondary__menu__item" href="../advices">노하우</a>
-	                <a class="layout-navigation-secondary__menu__item" href="../questions">질문과답변</a></nav>
+	                <a class="layout-navigation-secondary__menu__item" href="${pageContext.request.contextPath }/advices">노하우</a>
+	                <a class="layout-navigation-secondary__menu__item" href="${pageContext.request.contextPath }/questions">질문과답변</a></nav>
 	            </div>
 	        </div>
 	    </div>
     </div>
 </header>
+<script type="text/javascript">
+var us_uid = '${login.us_uid}';
 
-<script>
-	var us_uid = 1; 
-	
-	
 </script>
+
 
 <%-- 글 목록 --%>
 <div class="recommend_area">
@@ -115,6 +124,9 @@ a { text-decoration-line: none; }
 		<%-- header --%>
 		<div class="theme_tit_area clear">
 			<h1>장소 게시판</h1>
+			<div class="d00">
+				<input type="search" onkeypress="javascript:if(event.keyCode==13) {SearchPlace();}" id="PlaceKeyword" placeholder="제목 검색" aria-laber="Search" aria-describedby="search-addon"/>
+			</div>
 			<div class="d01">
 				<div class="left" id="pageinfo"></div>
 				<div class="right" id="pageRows"></div>
@@ -206,6 +218,10 @@ a { text-decoration-line: none; }
         </p>
     </div>
 </footer>
+
+<script type="text/javascript">
+	
+</script>
 
 </body>
 </html>

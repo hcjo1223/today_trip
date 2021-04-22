@@ -23,6 +23,8 @@ public class UsersServiceImpl implements UserService{
 	public void register(UsersDTO usersDTO) throws Exception{
 		
 		dao.register(usersDTO);
+		System.out.println("레지스터 생성");
+		
 	}
 	
 	@Override
@@ -48,6 +50,12 @@ public class UsersServiceImpl implements UserService{
 	@Override
 	public void updateImage(String userId, String userPic) throws Exception{
 		dao.updateImage(userId, userPic);
+	}
+
+	@Override
+	public void registerAuth(UsersDTO usersDTO) throws Exception {
+		dao.registerAuth(usersDTO);
+		
 	}
 	
 	//사진 게시판의 사진 가져오기

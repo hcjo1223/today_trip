@@ -18,7 +18,12 @@
 		href="${pageContext.request.contextPath }/resources/CSS/admin/styles.css">
 		<!--Custom Font-->
 <link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-		
+<script type="text/javascript">
+var userAuthority = "${login.userAuthority}";
+if (userAuthority != "0") {
+	location.href="./error";
+}
+</script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/JS/admin/bootstrap.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/JS/admin/easypiechart.js"></script>
@@ -26,7 +31,9 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/JS/admin/bootstrap-datepicker.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/JS/admin/custom.js"></script>
 <script type="text/javascript" src="/today_trip/resources/JS/admin/place.js"></script>
+<style type="text/css">
 
+</style>
 <title>REST PLACE</title>
 <!-- 스타일, js 라이브러리 -->
 </head>
@@ -53,7 +60,7 @@
 				<img src="http://placehold.it/50/30a5ff/fff" class="img-responsive" alt="">
 			</div>
 			<div class="profile-usertitle">
-				<div class="profile-usertitle-name">Username</div>
+				<div class="profile-usertitle-name">${login.userId }</div>
 				<div class="profile-usertitle-status"><span class="indicator label-success"></span>Online</div>
 			</div>
 			<div class="clear"></div>
@@ -92,12 +99,20 @@
 			<li><a href="../stats"><img style="width: 20px" src="../../resources/IMG/admin_chart.png"> 통계</a></li>
 		</ul>
 	</div><!--/.sidebar-->
-<div class="topPlace">
-	<div class="buttonPlace">
-		<button class="btn btn-lg btn-info" onclick="location.href='../place/accommodation'">숙소</button>
-		<button class="btn btn-lg btn-info" onclick="location.href='../place/restarurant'">음식점</button>
-		<button class="btn btn-lg btn-info" onclick="location.href='../place/sights'">관광지</button>
+<div class="adminWMI1">
+	<div class="adminWMI2">
+		<span>장소</span>
 	</div>
+</div>
+<div class="adminSearchPlace1">
+	<div class="adminSearchPlace2">
+		<input type="search" onKeypress="javascript:if(event.keyCode==13) {SearchAdminPlace()}" class="form-control" id="adminPlaceKeyword" placeholder="제목 검색" aria-label="Search" aria-describedby="search-addon" />
+	</div>
+		<div class="buttonPlace">
+			<button class="btn btn-lg btn-info" onclick="location.href='../place/accommodation'">숙소</button>
+			<button class="btn btn-lg btn-info" onclick="location.href='../place/restarurant'">음식점</button>
+			<button class="btn btn-lg btn-info" onclick="location.href='../place/sights'">관광지</button>
+		</div>
 </div>
 
 <div id="list">

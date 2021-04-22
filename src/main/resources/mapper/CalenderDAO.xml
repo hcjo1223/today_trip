@@ -1,3 +1,183 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.spring.app.domain.CalenderDAO"></mapper>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.spring.app.domain.CalenderDAO">
+	
+	<!-- 여행게시판 글 쓰기 -->
+	<insert id="insert">
+		<selectKey keyProperty="tu_uid" resultType="int" order="BEFORE">
+			SELECT tu_uid_seq.nextval FROM dual
+		</selectKey>
+		INSERT INTO tour ( tu_uid
+							, us_uid
+							, tu_title
+							, tu_hits
+							, tu_period
+							, tu_location
+							, tu_with
+							, tu_focus
+							, tu_write_date
+							, tu_start_tour
+							, tu_end_tour
+							, tu_img_url
+							)
+					VALUES ( #{tu_uid}
+							, #{us_uid}
+							, #{tu_title}
+							, #{tu_hits}
+							, #{tu_period}
+							, #{tu_location}
+							, #{tu_with}
+							, #{tu_focus}
+							, sysdate
+							, #{tu_start_tour}
+							, #{tu_end_tour}
+							, #{tu_img_url}
+							)
+	</insert>
+	
+	<!-- 여행게시판 장소 검색하기 -->
+	<select id="placeSearch" resultType="com.spring.app.domain.PlaceDTO">
+		SELECT *
+		FROM place
+		WHERE title LIKE '%' || #{keyword} || '%'
+		AND contenttypeid IN (${contentType})
+		ORDER BY title ASC
+	</select>
+	
+	<!-- 여행게시판 메모 추가하기 -->
+	<insert id="insertMemo" parameterType="com.spring.app.domain.MemoDTO">
+		<selectKey keyProperty="memo_uid" resultType="int" order="BEFORE">
+			SELECT memo_uid_seq.nextval FROM dual
+		</selectKey>
+		INSERT INTO tour_memo ( memo_uid
+								, tu_uid
+								, tu_day
+								, memo_contents
+								)
+						VALUES ( #{memo_uid}
+								, #{tu_uid}
+								, #{tu_day}
+								, #{memo_contents}
+								)
+	</insert>
+	
+	<!-- 여행게시판 장소 추가하기 -->
+	<insert id="insertTL" parameterType="com.spring.app.domain.TourLocationDTO">
+		<selectKey keyProperty="lc_uid" resultType="int" order="BEFORE">
+			SELECT lc_uid_seq.nextval FROM dual
+		</selectKey>
+		INSERT INTO tour_location ( lc_uid
+								, place_uid
+								, tu_uid
+								, tu_day
+								)
+						VALUES ( #{lc_uid}
+								, #{place_uid}
+								, #{tu_uid}
+								, #{tu_day}
+								)
+	</insert>	
+	
+	<!-- 여행게시판 글 하나 읽기 -->
+	<select id="selectOne" resultType="com.spring.app.domain.CalenderDTO">
+		SELECT *
+		FROM tour
+		WHERE tu_uid = #{tu_uid}
+	</select>
+
+	<!-- 여행게시판 글 1개의 메모 읽기 -->
+	<select id="listMemo" resultType="com.spring.app.domain.MemoDTO">
+		SELECT *
+		FROM tour_memo
+		WHERE tu_uid = #{tu_uid}
+	</select>
+	
+	<!-- 여행게시판 글 1개의 장소 읽기 -->
+	<select id="listTL" resultType="com.spring.app.domain.TourLocationDTO">
+		SELECT *
+		FROM tour_location L, place P
+		WHERE L.place_uid = P.place_uid
+		AND L.tu_uid = #{tu_uid}
+	</select>
+	
+	<!-- 여행게시판 글 전체 읽기 -->
+	<select id="selectList" parameterType="com.spring.app.domain.CalenderDTO" resultType="com.spring.app.domain.CalenderDTO">
+		SELECT * 
+		FROM(
+				SELECT ROWNUM NUM, F.*
+				FROM (	
+						SELECT  *
+						FROM tour 
+						ORDER BY tu_write_date DESC
+				) F
+		)
+		WHERE NUM BETWEEN #{start} AND #{end}
+<!-- 		SELECT *
+		FROM (
+		        SELECT ROWNUM NUM, A.*
+				FROM tour A
+				ORDER BY tu_write_date ASC
+		        ) 
+		WHERE NUM BETWEEN #{start} AND #{end} -->
+		<!-- SELECT *
+		FROM tour
+		ORDER BY tu_write_date DESC -->
+		
+	</select>
+	<!-- 페이징을 위한 전체 여행 게시글 갯수 -->
+	<select id="CountOfTour"  resultType="int">
+		SELECT COUNT(*)
+		FROM tour
+	</select>
+	
+	<!-- 여행게시판 글 1개의 메모 삭제하기 -->
+	<delete id="deleteMemo" parameterType="com.spring.app.domain.MemoDTO" >
+		DELETE FROM tour_memo
+		WHERE tu_uid = #{tu_uid}
+	</delete>
+	
+	<!-- 여행게시판 글 1개의 장소 삭제하기 -->
+	<delete id="deleteTL" parameterType="com.spring.app.domain.TourLocationDTO" >
+		DELETE FROM tour_location
+		WHERE tu_uid = #{tu_uid}
+	</delete>
+	
+	<!-- 여행게시판 글 수정하기 -->
+	<update id="update">
+		UPDATE tour
+		SET tu_title = #{tu_title}
+			, tu_period = #{tu_period}
+			, tu_location = #{tu_location}
+			, tu_with = #{tu_with}
+			, tu_focus = #{tu_focus}
+			, tu_write_date = sysdate
+			, tu_start_tour = #{tu_start_tour}
+			, tu_end_tour = #{tu_end_tour}
+			, tu_img_url = #{tu_img_url}
+		WHERE tu_uid = #{tu_uid}
+	</update>
+	
+	<!-- 여행게시판 글 삭제하기 -->
+	<update id="delete">
+		UPDATE tour
+		SET tu_del_ck = 1
+		WHERE tu_uid = #{tu_uid}
+	</update>
+	
+	<!-- 좋아요 -->
+	<select id="TourLikeCount" parameterType="com.spring.app.domain.CalenderDTO" resultType="int">
+		SELECT COUNT(*)
+		FROM tour_like
+		WHERE tu_uid = #{tu_uid} AND tu_like_ck = 1
+	</select>
+	
+	<!-- 조회수 -->
+	<update id="TourHits" parameterType="com.spring.app.domain.CalenderDTO">
+		UPDATE tour
+		SET tu_hits = tu_hits + 1
+		WHERE tu_uid = #{tu_uid}
+	</update>
+	
+
+
+</mapper>

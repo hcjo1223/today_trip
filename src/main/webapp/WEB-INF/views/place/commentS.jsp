@@ -6,10 +6,15 @@
 var page = 1;   //  현재 페이지
 var pageRows = 6;  // 페이지당 글의 개수
 var pl_uid = '${list[0].place_uid}'; //게시글 번호
-console.log(pl_uid);
+var us_uid = "${login.us_uid}";
+
 $('[name=commentInsertBtn]').click(function(){ //댓글 등록 버튼 클릭시 
+	if(us_uid != null){
     var insertData = $('[name=commentInsertForm]').serialize(); //commentInsertForm의 내용을 가져옴
     commentInsert(insertData); //Insert 함수호출(아래)
+	} else {
+		alert("로그인 하세요");
+	}
 });
 
 $(document).ready(function(){
@@ -50,8 +55,10 @@ function updateList(jsonObj){
 		
         for(i = 0; i < count; i++){
         	
+			users = userList(items[i].us_uid);
+
         	result += '<div class="commentArea">';
-        	result += '<div class="commentInfo">'+'댓글번호 : '+items[i].re_uid+' / 작성자 : '+items[i].us_uid;
+        	result += '<div class="commentInfo">'+'<span>작성자 ID: ' + users.us_id + '</span>/ <span>작성자 : ' + users.us_nickname + '</span>/ <span>작성날짜 : ' + items[i].write_date + '</sapn>';
         	if(items[i].rate > 4.1){
         		result += '<img src ="../resources/IMG/star5.png">';
         	} else if (items[i].rate > 3.1){
@@ -63,8 +70,9 @@ function updateList(jsonObj){
         	} else {
         		result += '<img src ="../resources/IMG/star1-1.png">';
         	}
+		
         	result += '<a onclick="commentUpdate('+items[i].re_uid+',\''+items[i].content+'\');"> 수정 </a>';
-        	result += '<a onclick="commentDelete('+items[i].re_uid+');"> 삭제 </a> </div>';
+        	result += '<a onclick="chkDelete('+items[i].re_uid+');"> 삭제 </a> </div>';
         	result += '<div class="commentContent'+items[i].re_uid+'"> <p> 내용 : '+items[i].content +'</p>';
         	result += '</div></div>';
         }
@@ -81,7 +89,23 @@ function updateList(jsonObj){
 	}
 }
 	
+function chkDelete(uid){
+	// 삭제 여부, 다시 확인 하고 진행하기
+	var r = confirm("삭제하시겠습니까?");
+	
+	if(r){
+		commentDelete(uid);
+	}
+} 
 
+function chkUpdate(uid){
+	// 수정 여부, 다시 확인 하고 진행하기
+	var r = confirm("수정하시겠습니까?");
+	
+	if(r){
+		commentUpdateProc(uid);
+	}
+} 
 
 
 //댓글 등록
@@ -109,7 +133,7 @@ function commentUpdate(re_uid, content){
     
     a += '<div class="input-group">';
     a += '<input type="text" class="form-control" name="content_'+re_uid+'" value="'+content+'"/>';
-    a += '<span class="input-group-btn"><button class="btn btn-default" type="button" onclick="commentUpdateProc('+re_uid+');">수정</button> </span>';
+    a += '<span class="input-group-btn"><button class="btn btn-default" type="button" onclick="chkUpdate('+re_uid+');">수정</button> </span>';
     a += '</div>';
     
     $('.commentContent'+re_uid).html(a);
@@ -127,7 +151,6 @@ function commentUpdateProc(re_uid){
         success : function(data, status){
         	if(status == "success"){
 	            if(data.status == "OK") {
-	            	alert("UPDATE 성공 " + data.count + "개: " + data.status);
 	            	loadPage(window.page, pl_uid); //댓글 수정후 목록 출력 
 	            }
         	}
@@ -143,15 +166,32 @@ function commentDelete(re_uid){
         success : function(data, status){
         	if(status == "success"){
 	            if(data.status == "OK") {
-	            	alert("DELETE성공: " +   data.count + "개");
 	            	loadPage(window.page, pl_uid); //댓글 삭제후 목록 출력 
 	            }
         	}
         }
     });
 }
- 
- 
+
+// 댓글별 유저 정보
+function userList(us_uid){
+	var users = '';
+	$.ajax({
+        url : './comment/users',
+        type : 'post',
+		data : {'us_uid' : us_uid},
+		cache : false,
+		async : false,
+        success : function(data, status){
+        	if(status == "success"){
+	            if(data.status == "OK") {
+	            	users = data.Usersdata[0]
+	            }
+        	}
+        }
+    });
+	return users;
+}
  
 
  

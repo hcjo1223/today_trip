@@ -4,7 +4,8 @@
 
 <!-- 회원가입 -->
 	<insert id="register">	
-	INSERT INTO users (
+	INSERT INTO 
+	users (
 			us_uid
 			, us_id
 			, us_pw
@@ -13,7 +14,8 @@
 			, us_memo
 			, us_gender
 			, us_birth
-		) VALUES (
+		) VALUES
+		 (
 			us_uid_seq.nextval
 			, #{userId, jdbcType=VARCHAR}
 			, #{userPw, jdbcType=VARCHAR}
@@ -23,13 +25,40 @@
 			, #{gender, jdbcType=VARCHAR}	
 			, #{userBirthday, jdbcType=VARCHAR}
 		)
+			
+		</insert>
+		<insert id = "registerAuth">
+				
+	    INSERT INTO user_authority 
+		(
+			us_uid,
+			us_authority
+		)
+		VALUES 
+		(
+			(
+				SELECT * 
+				FROM
+					(
+						SELECT us_uid
+						FROM users
+						ORDER BY us_uid DESC
+					)
+					WHERE ROWNUM = 1
+				)
+			, 1
+			)
 		</insert>
 		
 <!-- 로그인 -->		
 	<select id="login" resultMap= "usersResultMap">
-	SELECT *
-	FROM users
-	WHERE us_id=#{userId} AND us_pw = #{userPw}
+	SELECT U.*, UA.us_authority 
+	FROM 
+		(SELECT *
+			FROM users
+			WHERE us_id=#{userId} AND us_pw = #{userPw}) U 
+	JOIN USER_AUTHORITY UA 
+	ON U.us_uid = UA.us_uid
 	</select>
 	
 <!-- 로그인 정보 -->	
@@ -42,6 +71,7 @@
 	<result property = "gender" column="us_gender"/>
 	<result property = "userBirthday" column="us_birth"/>
 	<result property = "userPic" column="us_pic"/>
+	<result property = "userAuthority" column="us_authority"/>
 	</resultMap>
 	
 <!-- 로그인 유지 기능 -->
@@ -53,9 +83,13 @@
 </update>	
 <!-- 세션키 검증 -->
 <select id="checkUserWithSessionKey" resultMap="usersResultMap">
-	SELECT *
-	FROM users
-	WHERE session_key = #{value}
+
+	SELECT U.us_uid , U.us_id, U.us_pw, U.us_email, U.us_nickname, U.us_gender, U.us_birth,  U.us_memo, U.us_pic, U.session_key, UA.us_authority FROM 
+		(SELECT *
+			FROM users
+			WHERE session_key = #{value}) U 
+	JOIN USER_AUTHORITY UA 
+	ON U.us_uid = UA.us_uid
 </select>
 
 <!-- 회원정보 수정  -->

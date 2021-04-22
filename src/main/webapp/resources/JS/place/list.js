@@ -1,15 +1,100 @@
 var page = 1;   //  현재 페이지
 var pageRows = 9;  // 페이지당 글의 개수
 var viewItem = undefined;   // 가장 최근에 view 한 글의 데이터
-
+var us_uid = "${login.us_uid}";
+var keyword = "";
 $(document).ready(function(){
     loadPage(page);   // 페이지 최초 로딩
-
-
-
+	console.log("page 최초로딩");
 });
 
 
+
+function SearchPlace(){
+    keyword = document.getElementById('PlaceKeyword').value;
+    
+    
+    $("#list tbody").html(" ");
+    loadSearchPage(page);
+	console.log("검색 완료");
+}
+
+function likeUp(place_uid){ //댓글 등록 버튼 클릭시 
+	if(!us_uid){
+		alert("로그인 하세요");
+	} else {
+		console.log("좋아요 여부 체크!");
+		checkLike(place_uid); 
+	}
+};
+
+// 좋아요 등록
+function insertLike(place_uid){
+	$.ajax({
+        url : "./like",
+        type : "post",
+		data : {'place_uid' : place_uid, 'us_uid' : us_uid},
+        cache : false,
+        success : function(data, status){
+            if(status == "success"){
+				if(data.status == "OK"){
+					
+					if(keyword == ""){
+						loadPage(page);   
+					} else {
+						loadSearchPage(page)
+					}
+				}
+            }
+        }
+    });  // end $.ajax()
+}
+
+// 좋아요 삭제
+function deleteLike(place_uid){
+	$.ajax({
+        url : "./like/delete",
+        type : "post",
+		data : {'place_uid' : place_uid, 'us_uid' : us_uid},
+        cache : false,
+        success : function(data, status){
+            if(status == "success"){
+				if(data.status == "OK"){
+					
+					if(!keyword){
+						loadPage(page);   
+					} else {
+						loadSearchPage(page)
+					}
+				}
+            }
+        }
+    });  // end $.ajax()
+}
+
+// 좋아요 체크
+function checkLike(place_uid){
+	$.ajax({
+        url : "./like/check",
+        type : "get",
+		data : {'place_uid' : place_uid, 'us_uid' : us_uid},
+        cache : false,
+        success : function(data, status){
+            if(status == "success"){
+				if(data.status == "OK"){
+					
+					if(data.count){
+						insertLike(place_uid);
+						alert("좋아요")
+					} else {
+						deleteLike(place_uid);
+						alert("좋아요 취소")
+					}
+				}
+			}
+		}
+	}); // end $.ajax()
+}  
 
 
 //page번째 페이지 목록 읽어오기
@@ -21,7 +106,7 @@ function loadPage(page){
         success : function(data, status){
             if(status == "success"){
                 //alert("성공했쮸?");
-
+				console.log("loadPage : " + page);
                 updateList(data)   // application/json 이면 이미 parse 되어 있다.
 
             }
@@ -29,47 +114,44 @@ function loadPage(page){
     });  // end $.ajax()
 } // end loadPage()
 
+function loadSearchPage(page){
+	word = encodeURI(keyword)
+    $.ajax({
+        url : "./" + page + "/" + pageRows + "/" + word,
+        type : "GET",
+        cache : false,
+        success : function(data, status){
+            if(status == "success"){
+                //alert("성공했쮸?");
+				console.log("loadSearchPage : " + page);
+                if(updateList(data)){   // application/json 이면 이미 parse 되어 있다.
+                }
+            }
+        }
+    });  // end $.ajax()
+} // end loadPage()
 
-function likeCount(place_uid){
-	var count = 0;
+
+function rateCount(place_uid){
+	var item = new Object;
 	$.ajax({
-		url : "./like/count",
+		url : "./rateCount",
 		type : "get",
 		data : {'place_uid' : place_uid},
 		cache : false,
 		async : false,
 		success : function(data, status){
 			if(status == "success"){
-				if(data.status == "OK"){
-					count = data.count;		
-				}
+				
+				item = data;
+				
 			}
 		}
 	});
 
-	return count;
+	return item;
 }
 
-function rateAVG(place_uid){
-	var avg = 0;
-	$.ajax({
-		url : "./review",
-		type : "get",
-		data : {'place_uid' : place_uid},
-		cache : false,
-		async : false,
-		success : function(data, status){
-			if(status == "success"){
-				if(data.status == "OK"){
-					
-					avg = data.count;		
-				}
-			}
-		}
-	});
-
-	return avg;
-}
 
 function updateList(jsonObj){
 
@@ -77,7 +159,7 @@ function updateList(jsonObj){
 
     if(jsonObj.status == "OK"){
         var count = jsonObj.count;
-
+		var totalcnt = jsonObj.totalcnt;
         window.page = jsonObj.page;
         window.pageRows = jsonObj.pagerows; 
 		
@@ -87,16 +169,17 @@ function updateList(jsonObj){
 
 
 		for(var i = 0; i < count; i++){
-
-			var abcde = rateAVG(items[i].place_uid);
-
-			if(abcde > 4.1){
+			var data = rateCount(items[i].place_uid) 
+			var likeCnt = data['likeCnt'];
+			var rateAVG = data['rateAVG'];
+			
+			if(rateAVG > 4.1){
 				avg = '<img src ="../resources/IMG/star4.png">';
-			} else if (abcde > 3.1){
+			} else if (rateAVG > 3.1){
 				avg = '<img src ="../resources/IMG/star4.png">';
-			} else if (abcde > 2.1) {
+			} else if (rateAVG > 2.1) {
 				avg = '<img src ="../resources/IMG/star3.png">';
-			} else if (abcde > 1.1) {
+			} else if (rateAVG > 1.1) {
 				avg = '<img src ="../resources/IMG/star2.png">';
 			} else {
 				avg = '<img src ="../resources/IMG/star1-1.png">';
@@ -120,9 +203,8 @@ function updateList(jsonObj){
                     + "<p class='s_theme'>" + chkareaCode[items[i].areacode] + "&gt;" + sigunguArr[1] + "</p>"
 					+ "</a></dt>\n"
 					+ "<dd class='item_count_area clear'>\n"
-					+ "<a href='javascript:void(0);'>"
-					
-					+ "<p class='ico_type like' ><span>좋아요</span><span class='likecount' name='likecount" + items[i].place_uid + "'>" + likeCount(items[i].place_uid) + "</span></p></a>"
+					+ "<a href='javascript:likeUp(" + items[i].place_uid + ");'>"
+					+ "<p class='ico_type like' ><span>좋아요</span><span class='likecount' name='likecount" + items[i].place_uid + "'>" + likeCnt + "</span></p></a>"
 					+ "<p class='ico_type zzim'><span>조회수</span><span class='viewcount'>" + items[i].viewcnt + "</span></p>"
 					+ "<p class='ico_type review'><span>리뷰</span><span class='reviewcount'>" + items[i].reviewcnt + "</span></p>"
 					+ "</p></dd></dl></li>"
@@ -131,15 +213,22 @@ function updateList(jsonObj){
 
 		}
 
-		"<a href='javascript:void(0);'><p class='ico_type zzim '><span>찜하기</span><span class='count'>736</span></p></a>"
+		if(totalcnt == 0){
+			result = "<h3>검색 결과가 없습니다.</h3>"
+		}
+
         
         $(".item_list").html(result);  // 업데이트
 
         // 페이지 정보 업데이트
         $("#pageinfo").text(jsonObj.page + "/" + jsonObj.totalpage + "페이지, " + jsonObj.totalcnt + "개의 글");
 
-        // pageRows
-        var txt = "<select class='custom-select' id='rows' style='width:100px;' onchange='changePageRows()'>\n";
+        // pageRows 
+		if(keyword == ""){
+            var txt = "<select id='rows' class='form-control' onchange='changePageRows()'>\n";
+        } else {
+            var txt = "<select id='rows' class='form-control' onchange='changeSearchPageRows()'>\n";
+        }
         txt += "<option " + ((window.pageRows == 9) ? "selected" : "") + " value='9'>" + "3줄</option>\n";
         txt += "<option " + ((window.pageRows == 15) ? "selected" : "") + " value='15'>" + "5줄</option>\n";
         txt += "<option " + ((window.pageRows == 24) ? "selected" : "") + " value='24'>" + "8줄</option>\n";
@@ -148,11 +237,17 @@ function updateList(jsonObj){
         $("#pageRows").html(txt);
 
         // [페이징 정보 업데이트]
-        var pagination = buildPagination(jsonObj.writepages, jsonObj.totalpage, jsonObj.page, jsonObj.pagerows);
+        if(keyword == ""){
+            var pagination = buildPagination(jsonObj.writepages, jsonObj.totalpage, jsonObj.page, jsonObj.pagerows);
+        } else {
+            var pagination = buildSearchPagination(jsonObj.writepages, jsonObj.totalpage, jsonObj.page, jsonObj.pagerows);
+        }
         $("#pagination").html(pagination);
 
+
+
         return true;  // 목록 업데이트 성공하면 true 리턴
-    } else {
+	} else {
         alert("내용이 없습니다.");
         return false;
     }
@@ -209,12 +304,59 @@ function buildPagination(writePages, totalPage, curPage, pageRows){
     return str;
 } // end buildPagination();
 
+function buildSearchPagination(writePages, totalPage, curPage, pageRows){
+	var str = "";   // 최종적으로 페이징에 나타날 HTML 문자열 <li> 태그로 구성
+	
+	// 페이징에 보여질 숫자들 (시작숫자 start_page ~ 끝숫자 end_page)
+    var start_page = ( (parseInt( (curPage - 1 ) / writePages ) ) * writePages ) + 1;
+    var end_page = start_page + writePages - 1;
+
+    if (end_page >= totalPage){
+    	end_page = totalPage;
+    }
+    
+  //■ << 표시 여부
+	if(curPage > 1){
+		str += "<li><a onclick='loadSearchPage(" + 1 + ")' class='tooltip-top' title='처음'><i class='fas fa-angle-double-left'></i></a></li>\n";
+	}
+	
+  	//■  < 표시 여부
+    if (start_page > 1) 
+    	str += "<li><a onclick='loadSearchPage(" + (start_page - 1) + ")' class='tooltip-top' title='이전'><i class='fas fa-angle-left'></i></a></li>\n";
+    
+    //■  페이징 안의 '숫자' 표시	
+	if (totalPage > 1) {
+	    for (var k = start_page; k <= end_page; k++) {
+	        if (curPage != k)
+	            str += "<li><a onclick='loadSearchPage(" + k + ")'>" + k + "</a></li>\n";
+	        else
+	            str += "<li><a class='active tooltip-top' title='현재페이지'>" + k + "</a></li>\n";
+	    }
+	}
+	
+	//■ > 표시
+    if (totalPage > end_page){
+    	str += "<li><a onclick='loadSearchPage(" + (end_page + 1) + ")' class='tooltip-top' title='처음'><i class='fas fa-angle-double-left'></i></a></li>\n";
+    }
+
+	//■ >> 표시
+    if (curPage < totalPage) {
+        str += "<li><a onclick='loadSearchPage(" + totalPage + ")' class='tooltip-top' title='맨끝'><i class='fas fa-angle-double-right'></i></a></li>\n";
+    }
+
+    return str;
+} // end buildPagination();
+
 //<select> 에서 pageRows 값 변경할때마다
 function changePageRows(){
     window.pageRows = $("#rows").val();
     loadPage(window.page);
 }
 
+function changeSearchPageRows(){
+    window.pageRows = $("#rows").val();
+    loadSearchPage(window.page);
+}
 
 var chkContentType = {
 	12 : "관광지",

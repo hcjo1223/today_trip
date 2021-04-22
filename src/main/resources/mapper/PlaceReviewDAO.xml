@@ -9,7 +9,8 @@
     <select id="reviewList" resultType="com.spring.app.domain.ReviewDTO">
         <![CDATA[ 
         SELECT  
-        	us_uid, place_uid, rv_uid "re_uid", rv_content "content", rv_rate "rate", rv_write_date "write_date"
+        	us_uid, place_uid, rv_uid "re_uid", rv_content "content", rv_rate "rate",
+        	TO_CHAR(RV_WRITE_DATE, 'RRRR-MM-DD HH24:MI:SS') AS "write_date"
         FROM 
         	(SELECT ROWNUM AS RNUM, T.* FROM 
 				(SELECT * FROM review WHERE place_uid = #{place_uid} ORDER BY rv_uid DESC) T) 
@@ -29,7 +30,7 @@
         INSERT INTO review
 			(us_uid, place_uid, rv_uid, rv_content, rv_rate , rv_write_date)
         VALUES
-			(1, #{place_uid}, rv_uid_seq.nextval, #{content}, #{rate}, SYSDATE)
+			(#{us_uid}, #{place_uid}, rv_uid_seq.nextval, #{content}, #{rate}, SYSDATE)
     </insert>
     
     <update id="reviewUpdate" parameterType="com.spring.app.domain.ReviewDTO">
@@ -41,5 +42,20 @@
     <delete id="reviewDelete" parameterType="com.spring.app.domain.ReviewDTO">
         DELETE FROM review WHERE rv_uid = #{re_uid}
     </delete>
+    
+    <select id="userList" 
+		resultType="com.spring.app.domain.AdminDTO">
+		SELECT
+			us_uid, 
+			us_id, 
+			us_email,
+			us_nickName, 
+			us_gender, 
+			us_birth
+		FROM 
+			users
+		WHERE 
+			us_uid = #{us_uid}
+	</select>
     
 </mapper>
