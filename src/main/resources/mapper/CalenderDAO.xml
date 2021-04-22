@@ -108,6 +108,7 @@
 				FROM (	
 						SELECT  *
 						FROM tour 
+						WHERE tu_del_ck = 0
 						ORDER BY tu_write_date DESC
 				) F
 		)

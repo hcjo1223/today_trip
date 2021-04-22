@@ -114,10 +114,12 @@
 		      // $("#day-content-" + day).append(placeTitle);
 		      // $("#day-content-" + day).append(placeDiv);
 		      
+		      
+		      
 		      var htmlPlace = '<div class="one-place" data-no="'+no+'" data-place-uid="'+uid+'" data-img-url="'+img_url+'">'+
 								'<input type="hidden" name="placeUid" value="0">'+
 		                        '<span class="mr-5">'+no+'</span>'+
-		                        '<span>' + title +'</span>'+
+		                        '<span>' + title + mapx + ' ' + mapy +'</span>'+
 		                        '<i class="fas fa-times-circle" style="color:#999;margin-left:6px;cursor:pointer;"></i>'+
 		                        '<input type="hidden" name="placeMapX-'+day+'" value="'+mapx+'">'+
 		                        '<input type="hidden" name="placeMapY-'+day+'" value="'+mapy+'">'+
@@ -128,6 +130,14 @@
 		      $("#day-content-"+day).append(htmlPlace);
 		      $("#btnModalCancel").trigger("click");
 		      $(".modal-backdrop").removeClass("show");
+		      
+              // kakaoMap
+              var container = document.getElementById('day-map-');
+              var options = {
+                  center: new kakao.maps.LatLng(33.450701, 126.570667),
+                  level: 3
+              };
+              var map = new kakao.maps.Map(container, options);
 		
 		   });
 		   
