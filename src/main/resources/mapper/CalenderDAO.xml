@@ -124,6 +124,14 @@
 		ORDER BY tu_write_date DESC -->
 		
 	</select>
+	
+	<!-- 여행게시판 글 검색하기 -->
+	<select id="tourSearch" resultType="com.spring.app.domain.CalenderDTO">
+		SELECT *
+		FROM tour
+		WHERE tu_title LIKE '%' || #{keyword} || '%'
+	</select>
+	
 	<!-- 페이징을 위한 전체 여행 게시글 갯수 -->
 	<select id="CountOfTour"  resultType="int">
 		SELECT COUNT(*)

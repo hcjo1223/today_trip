@@ -114,6 +114,13 @@ public class CalenderService {
 		return dao.selectList(dto);
 	}
 	
+	// 여행게시판 글 검색하기
+	public List<CalenderDTO> tourSearch(String keyword) throws Exception {
+		dao = sqlSession.getMapper(CalenderDAO.class);
+		
+		return dao.tourSearch(keyword);
+	}
+	
 	// 여행게시판 페이징
 	public int CountOfTour() throws IllegalStateException, IOException {
 		dao = sqlSession.getMapper(CalenderDAO.class);

@@ -2,6 +2,9 @@ package com.spring.app.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -52,7 +55,7 @@ public class CalenderController {
 		List<PlaceDTO> placeList = calenderService.placeSearch(keyword, contentType);
 		
 		for (PlaceDTO place: placeList) {
-//			System.out.println(place);
+			System.out.println(place);
 		}
 		
 		if (contentType.equals("12")) {
@@ -96,7 +99,7 @@ public class CalenderController {
 	
 	// 여행게시판 글 하나 읽기
 	@RequestMapping(value = "/read", method = RequestMethod.GET)
-	public String read(Model model, CalenderDTO dto) throws Exception {
+	public String read(Model model, CalenderDTO dto, HttpSession session) throws Exception {
 		
 		// 조회수 업데이트
 		calenderService.TourHits(dto);
@@ -153,7 +156,24 @@ public class CalenderController {
 		model.addAttribute("count", count);
 		model.addAttribute("startPage", startPage);
 		
+		
 		return "calender/list";
+	}
+	
+	// 여행게시판 글 검색하기
+	@RequestMapping(value = "/list/search", method = RequestMethod.GET)
+	public String tourSearch(Model model, @Param("keyword") String keyword) throws Exception {
+		List<CalenderDTO> tourList = calenderService.tourSearch(keyword);
+		
+//		System.out.println(keyword);
+		
+		for (CalenderDTO tour : tourList) {
+			System.out.println(tour);
+		}
+//		System.out.println(tourList);
+		model.addAttribute("list", tourList);
+		
+		return "calender/search";
 	}
 	
 	// 여행게시판 글 하나의 메모 및 장소 모두 삭제하기
