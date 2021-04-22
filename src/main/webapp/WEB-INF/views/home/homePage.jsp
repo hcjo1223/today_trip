@@ -158,6 +158,11 @@ $(document).ready( function() {
                 <a class="layout-navigation-secondary__menu__item" href="./place/list">장소</a>
                 <a class="layout-navigation-secondary__menu__item" href="./advices">노하우</a>
                 <a class="layout-navigation-secondary__menu__item" href="./questions">질문과답변</a></nav>
+                <c:choose>
+                <c:when test="${login.userAuthority== 0}">
+                	<a style="margin-right: 50px;" class="layout-navigation-secondary__menu__item" href="./admin">관리자페이지</a></nav>
+                </c:when>
+                </c:choose>
             </div>
         </div>
     </div>
