@@ -22,5 +22,5 @@ public class AdminDTO {
 	private String us_pic;
 	private int us_exit_ck;
 	private LocalDateTime us_exit_date;
-		
+	private int us_authority;
 }

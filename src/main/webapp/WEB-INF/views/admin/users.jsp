@@ -56,7 +56,7 @@ if (userAuthority != "0") {
 <div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
 		<div class="profile-sidebar">
 			<div class="profile-userpic">
-				<img src="http://placehold.it/50/30a5ff/fff" class="img-responsive" alt="">
+				<img src="../resources/IMG/man.png" class="img-responsive" alt="">
 			</div>
 			<div class="profile-usertitle">
 				<div class="profile-usertitle-name">${login.userId }</div>
@@ -124,7 +124,8 @@ if (userAuthority != "0") {
 				<th>성별</th>
 				<th>생년월일</th>
 				<th>가입날짜</th>
-				<th>회원탈퇴여부</th>
+				<th>권한</th>
+				<th>선택</th>
 			</thead>
 			<tbody>
 			
@@ -132,6 +133,11 @@ if (userAuthority != "0") {
 		</table>
 	</form>
 	
+</div>
+
+<div class="delPlace">
+<button id="btnGrt" class="btn btn-md btn-danger">권한부여</button>
+<button id="btnRvk" class="btn btn-md btn-info">권한삭제</button>
 </div>
 
 <div class="clear"></div>

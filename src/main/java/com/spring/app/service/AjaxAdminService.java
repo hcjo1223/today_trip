@@ -130,6 +130,16 @@ public class AjaxAdminService {
 		} else {
 			return dao.restoreCardsByUid(uids);
 		}
+	}
+	
+	public int grantByUid(int [] uids) {
+		dao = sqlSession.getMapper(AdminAjaxDAO.class); // MyBatis 사용
+			return dao.grantUsersByUid(uids);
+	}
+		
+	public int revokeByUid(int [] uids) {
+		dao = sqlSession.getMapper(AdminAjaxDAO.class);
+			return dao.revokeUsersByUid(uids);
 		
 	}
 

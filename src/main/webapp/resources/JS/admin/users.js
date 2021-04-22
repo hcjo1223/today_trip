@@ -5,6 +5,14 @@ var keyword = "";
 // 페이지 최초 로딩되면 게시글 목록 첫페이지분 로딩
 $(document).ready(function(){
     loadPage(page);   // 페이지 최초 로딩
+
+    $("#btnGrt").click(function(){
+        chkGrant();
+    });
+
+    $("#btnRvk").click(function(){
+        chkRevoke();
+    });
 });
 
 function SearchAdminUsers(){
@@ -83,12 +91,14 @@ function updateList(jsonObj){
             } else {
                 result += "<td>" + dateFo(items[i].us_join_date) + "</td>\n"
             }
-            if(items[i].us_exit_ck == 1){
-                result += '<td class="W30"> </td>\n'
+            if(items[i].us_authority == 1){
+                result += '<td class="W30">일반</td>\n'
             } else {
-                result += '<td class="W30">O</td>\n'
+                result += '<td class="W30">관리자</td>\n'
             }
+            result += "<td><input type='checkbox' name='uid' value='" + items[i].us_uid + "'>" + "</td>\n";
             result += "</tr>\n";
+            
         }
         $("#list tbody").html(result);  // 업데이트
 
@@ -228,34 +238,87 @@ function changeSearchPageRows(){
     loadSearchPage(window.page);
 }
 
-// 글 수정 처리
-function chkUpdate(){
+// 권한 부여
+function chkGrant(){
+    var uids = [];  // check 된 uid  들을 담을 배열 준비
 
-    var data = $("#frmWrite").serialize();
-
-    $.ajax({
-        url : ".",   // URL : /board
-        type : "PUT",
-        cache : false,
-        data : data,
-        success : function(data, status){
-            if(status == "success"){
-                if(data.status == "OK"){
-                    alert("UPDATE 성공 " + data.count + "개:" +  data.status);
-                    loadPage(window.page);  // 현재페이지 리로딩
-                } else {
-                    alert("UPDATE 실패 " + data.status + " : " + data.message);
-                }
-
-                // 현재 팝업 닫기
-                $("#dlg_write").hide();
-            }
+    $("#list tbody input[name=uid]").each(function(){
+        if($(this).is(":checked")){   // jQuery에서 checked 여부 확인함수
+            uids.push(parseInt($(this).val()));   // 배열에 uid 값 추가
         }
     });
 
+    if(uids.length == 0){
+        alert("회원을 선택해 주세요");
+    } else {
+        if(!confirm(uids.length + "명 에게 권한을 부여 하시겠습니까?")) return false;
 
-} // end chkUpdate();
+        var data = $("#frmList").serialize();
+        data += "&type=1"//calender 확인
+        // alert(data);    // uid=10&uid=20  
 
+        $.ajax({
+            url : "./users/grant",    // URL : /board
+            type : "PUT",
+            data : data,
+            cache : false,
+            success : function(data, status){
+                if(status == "success"){
+                    if(data.status == "OK"){
+                        alert("Grant성공: " +   data.count + "명");
+                        loadPage(window.page);  // 현재 페이지 목록 다시 로딩
+                    } else {
+                        alert("Grant실패: " +  data.message);
+                        return false;
+                    }
+                }
+            }
+        });
+    } // end if
+
+    return true;
+} // end chkGrant()
+
+// 권한 삭제
+function chkRevoke(){
+    var uids = [];  // check 된 uid  들을 담을 배열 준비
+
+    $("#list tbody input[name=uid]").each(function(){
+        if($(this).is(":checked")){   // jQuery에서 checked 여부 확인함수
+            uids.push(parseInt($(this).val()));   // 배열에 uid 값 추가
+        }
+    });
+
+    if(uids.length == 0){
+        alert("회원을 선택해 주세요");
+    } else {
+        if(!confirm(uids.length + "명의 권한을 삭제 하시겠습니까?")) return false;
+
+        var data = $("#frmList").serialize();
+        data += "&type=1"//calender 확인
+        // alert(data);    // uid=10&uid=20  
+
+        $.ajax({
+            url : "./users/revoke",    // URL : /board
+            type : "PUT",
+            data : data,
+            cache : false,
+            success : function(data, status){
+                if(status == "success"){
+                    if(data.status == "OK"){
+                        alert("Revoke성공: " +   data.count + "명");
+                        loadPage(window.page);  // 현재 페이지 목록 다시 로딩
+                    } else {
+                        alert("Revoke실패: " +  data.message);
+                        return false;
+                    }
+                }
+            }
+        });
+    } // end if
+
+    return true;
+} // end chkRevoke()
 function dateFo(date){
     result = date[0] + "-" + date[1] + "-" +date[2] + " " + date[3] + ":" + date[4] + ":" + date[5];
      return result;
