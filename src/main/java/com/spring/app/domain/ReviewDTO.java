@@ -1,6 +1,5 @@
 package com.spring.app.domain;
 
-import java.util.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,6 +13,6 @@ public class ReviewDTO {
 	int re_uid;
 	String content;
 	int rate;
-	Date write_date;
+	String write_date;
 	float rateAVG;
 }

@@ -139,16 +139,18 @@ a{text-decoration:none; color:inherit;}
 	<div class="tourView">
 		<div class="title">
 		<h2 id="tltle"> ${list[0].title } </h2>
-		조회수 : ${list[0].viewCnt }
+		<dt class="viewcount"><p class="view_ico">조회수 : ${list[0].viewCnt } </p></dt>
 		
-		<span class="likecount"></span>
+		<dt class="likecount"></dt>
 		</div>
 	
 		<div id="commonData"></div>
 		
 		<div id="txtData"></div>
 		
-		<button id='tit5' onclick='toggle3();'>이미지 정보</button>
+		<button id='tit5' onclick='toggle3();'>이미지 정보
+		<svg class="icon" width="1em" height="1em" viewBox="0 0 16 16" preserveAspectRatio="xMidYMid meet">
+		<path fill="currentColor" fill-rule="evenodd" d="M2.87 4L1.33 5.5 8 12l6.67-6.5L13.13 4 8 9z"></path></svg></button>
 		<div id="imgGallery">
 			<div id="containerImg">
 				<div class="container">
@@ -181,7 +183,7 @@ a{text-decoration:none; color:inherit;}
 	               <span class="usImg"><img id="usImg" src="../resources/IMG/man.png"></span>
 	               <input type="text" class="form-control" id="content" name="content" placeholder="내용을 입력하세요.">
 	               <span class="input-group-btn">
-	                    <button class="btn default" type="button" name="commentInsertBtn">등록</button>
+	                    <button class="btn insert" type="button" name="commentInsertBtn">등록</button>
 	               </span>
 	              </div>
 	        </form>

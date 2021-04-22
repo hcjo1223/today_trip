@@ -33,4 +33,11 @@ public interface PlaceDAO {
 
 	// 특정 uid 글 조회수 증가
 	int incViewCnt(int uid);
+	
+	List<PlaceDTO> searchList(
+			@Param("from") int from,
+			@Param("pageRows") int pageRows,
+			@Param("keyword") String keyword);
+
+	int searchCount(String keyword);
 }

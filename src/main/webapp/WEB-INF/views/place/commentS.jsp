@@ -72,7 +72,7 @@ function updateList(jsonObj){
         	}
 		
         	result += '<a onclick="commentUpdate('+items[i].re_uid+',\''+items[i].content+'\');"> 수정 </a>';
-        	result += '<a onclick="commentDelete('+items[i].re_uid+');"> 삭제 </a> </div>';
+        	result += '<a onclick="chkDelete('+items[i].re_uid+');"> 삭제 </a> </div>';
         	result += '<div class="commentContent'+items[i].re_uid+'"> <p> 내용 : '+items[i].content +'</p>';
         	result += '</div></div>';
         }
@@ -89,7 +89,23 @@ function updateList(jsonObj){
 	}
 }
 	
+function chkDelete(uid){
+	// 삭제 여부, 다시 확인 하고 진행하기
+	var r = confirm("삭제하시겠습니까?");
+	
+	if(r){
+		commentDelete(uid);
+	}
+} 
 
+function chkUpdate(uid){
+	// 수정 여부, 다시 확인 하고 진행하기
+	var r = confirm("수정하시겠습니까?");
+	
+	if(r){
+		commentUpdateProc(uid);
+	}
+} 
 
 
 //댓글 등록
@@ -117,7 +133,7 @@ function commentUpdate(re_uid, content){
     
     a += '<div class="input-group">';
     a += '<input type="text" class="form-control" name="content_'+re_uid+'" value="'+content+'"/>';
-    a += '<span class="input-group-btn"><button class="btn btn-default" type="button" onclick="commentUpdateProc('+re_uid+');">수정</button> </span>';
+    a += '<span class="input-group-btn"><button class="btn btn-default" type="button" onclick="chkUpdate('+re_uid+');">수정</button> </span>';
     a += '</div>';
     
     $('.commentContent'+re_uid).html(a);

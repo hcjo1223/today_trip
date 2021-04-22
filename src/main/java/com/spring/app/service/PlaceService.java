@@ -1,5 +1,6 @@
 package com.spring.app.service;
 
+import java.awt.SplashScreen;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -49,6 +50,15 @@ public class PlaceService {
 		return dao.selectByUid(contentId);
 	}
 	
+	public int serachCount(String keyword) {
+		dao = sqlSession.getMapper(PlaceDAO.class);
+		return dao.searchCount(keyword);
+	}
+	
+	public List<PlaceDTO> searchList(int from, int pageRows, String keyword){
+		dao = sqlSession.getMapper(PlaceDAO.class);
+		return dao.searchList(from,pageRows,keyword);
+	}	
 	
 	ReviewDAO dao2;
 	

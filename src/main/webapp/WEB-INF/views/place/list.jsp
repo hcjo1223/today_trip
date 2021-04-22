@@ -112,6 +112,7 @@ a { text-decoration-line: none; }
 </header>
 <script type="text/javascript">
 var us_uid = '${login.us_uid}';
+
 </script>
 
 
@@ -123,6 +124,9 @@ var us_uid = '${login.us_uid}';
 		<%-- header --%>
 		<div class="theme_tit_area clear">
 			<h1>장소 게시판</h1>
+			<div class="d00">
+				<input type="search" onkeypress="javascript:if(event.keyCode==13) {SearchPlace();}" id="PlaceKeyword" placeholder="제목 검색" aria-laber="Search" aria-describedby="search-addon"/>
+			</div>
 			<div class="d01">
 				<div class="left" id="pageinfo"></div>
 				<div class="right" id="pageRows"></div>
