@@ -49,7 +49,13 @@
 			, 1
 			)
 		</insert>
-		
+<!-- 회원가입 아이디 중복검사-->		
+	<select id="registerCheckId" resultType="int">
+	SELECT
+		COUNT(*) AS chkId
+	FROM users
+	WHERE  us_id=#{userId}
+	</select>
 <!-- 로그인 -->		
 	<select id="login" resultMap= "usersResultMap">
 	SELECT U.*, UA.us_authority 

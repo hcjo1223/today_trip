@@ -8,6 +8,8 @@ public interface UsersDAO {
 	public void register(UsersDTO usersDTO) throws Exception;
 	
 	public void registerAuth(UsersDTO usersDTO) throws Exception;
+	
+	public int registerCheckId(String ID) throws Exception;
 	// 로그인
 	public UsersDTO login(LoginDTO loginDTO) throws Exception;
 	
@@ -24,5 +26,5 @@ public interface UsersDAO {
 	public void updateImage(String userId, String userPic) throws Exception;
 	
 	//사진 게시판의 사진 가져오기
-
+	
 }

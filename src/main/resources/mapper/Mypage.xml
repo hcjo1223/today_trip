@@ -22,7 +22,8 @@
 		SELECT
 			us_uid,
 			pc_uid,
-			pc_contents
+			pc_contents,
+			pc_focus
 		FROM PICTURE
 		WHERE
 		us_uid = #{userUid}
