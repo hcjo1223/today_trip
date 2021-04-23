@@ -28,7 +28,35 @@ ul {
 }
 ul,ol {list-style:none;}
 a { text-decoration-line: none; }
+
+#DropdownContents {
+	width: 150px;
+	height: 180px;
+	background-color: rgb(9, 173, 219, 0.8);
+	position: absolute;
+	border-radius: 4px;
+	box-shadow: 2px 2px 4px 1px rgb(137, 137, 137, 0.8);
+	display: none;
+	right: 35px;
+  	top: 70px;
+}
+#DropdownContents a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: center;
+  color: white;
+  font-size: 16px;
+  
+}
+
+#DropdownContents a:hover {
+	background-color: rgb(9, 173, 219);
+	cursor: pointer;
+}
 </style>
+
 </head>
 <body>
 <header class="layout-navigation-bar">
@@ -89,6 +117,13 @@ a { text-decoration-line: none; }
                             <path fill="currentColor" fill-rule="evenodd" d="M2.87 4L1.33 5.5 8 12l6.67-6.5L13.13 4 8 9z"></path>
                         </svg>
                     </button>
+                    <div id="DropdownContents">
+                    	<a href="${pageContext.request.contextPath }/cards/new">사진</a>
+                    	<a href="${pageContext.request.contextPath }/calender/register">일정</a>
+                    	<a href="#">노하우</a>
+                    	<a href="#">질문과 답변</a>
+                    </div>
+                    
                 </div>
             </div>
         </div>

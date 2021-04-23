@@ -2,16 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-
-<c:choose>
-<c:when test="${empty list || fn:length(list) == 0 }"> 
-	<script>
-		alert("해당 정보가 삭제되거나 없습니다");
-		history.back();
-	</script>
-</c:when>
-	
-<c:otherwise>
 	
 <!DOCTYPE html>
 <html lang="ko">
@@ -29,10 +19,10 @@ img {
     border: 0px;
 }
 body {
-    margin: 0px;
+    margin: 8px;
     padding: 0px;
-    font: normal 13px/1.5 "나눔고딕", NanumGothic, NGNormal, "돋움", Dotum, Arial, Tahoma , Geneva, Verdana;
-    color: #666;
+    color: #333;
+   -webkit-text-size-adjust: none;
 }
 
 
@@ -40,7 +30,32 @@ body {
 ul{list-style:none;}
 a{text-decoration:none; color:inherit;}
 
+#DropdownContents {
+	width: 150px;
+	height: 180px;
+	background-color: rgb(9, 173, 219, 0.8);
+	position: absolute;
+	border-radius: 4px;
+	box-shadow: 2px 2px 4px 1px rgb(137, 137, 137, 0.8);
+	display: none;
+	right: 35px;
+  	top: 70px;
+}
+#DropdownContents a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: center;
+  color: white;
+  font-size: 16px;
+  
+}
 
+#DropdownContents a:hover {
+	background-color: rgb(9, 173, 219);
+	cursor: pointer;
+}
 
 </style>
 <script type="text/javascript">
@@ -50,6 +65,7 @@ a{text-decoration:none; color:inherit;}
     var us_uid = "${login.us_uid}";
 
 </script> 
+
 </head>
 
 
@@ -111,6 +127,12 @@ a{text-decoration:none; color:inherit;}
                             <path fill="currentColor" fill-rule="evenodd" d="M2.87 4L1.33 5.5 8 12l6.67-6.5L13.13 4 8 9z"></path>
                         </svg>
                     </button>
+                     <div id="DropdownContents">
+                    	<a href="${pageContext.request.contextPath }/cards/new">사진</a>
+                    	<a href="${pageContext.request.contextPath }/calender/register">일정</a>
+                    	<a href="#">노하우</a>
+                    	<a href="#">질문과 답변</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -124,7 +146,7 @@ a{text-decoration:none; color:inherit;}
 	                <a class="layout-navigation-secondary__menu__item" href="${pageContext.request.contextPath }/home">홈</a>
 	                <a class="layout-navigation-secondary__menu__item" href="${pageContext.request.contextPath }/cards/list.do">사진</a>
 	                <a class="layout-navigation-secondary__menu__item" href="${pageContext.request.contextPath }/calender/list">일정</a>
-	                <a class="layout-navigation-secondary__menu__item layout-navigation-secondary__menu__item--active" href="">장소</a>
+	                <a class="layout-navigation-secondary__menu__item layout-navigation-secondary__menu__item--active" href="${pageContext.request.contextPath }/place/list">장소</a>
 	                <a class="layout-navigation-secondary__menu__item" href="../advices">노하우</a>
 	                <a class="layout-navigation-secondary__menu__item" href="../questions">질문과답변</a></nav>
 	            </div>
@@ -286,8 +308,3 @@ a{text-decoration:none; color:inherit;}
 	
 </body>
 </html>
-
-	
-		
-</c:otherwise>
-</c:choose>
