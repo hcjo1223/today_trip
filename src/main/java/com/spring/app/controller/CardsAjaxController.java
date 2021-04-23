@@ -57,6 +57,7 @@ public class CardsAjaxController {
 		int totalPage = 0; // 총 몇 '페이지' 분량인가? 
 		int totalCnt = 0;  // 글은 총 몇개인가?
 		int uid = 0;
+		int totalLike = 0;
 		try {
 			// 글 전체 개수 구하기
 			totalCnt = ajaxService.count();
@@ -95,7 +96,8 @@ public class CardsAjaxController {
 			System.out.println("pdto = " + pdto);
 			a.setList(pdto);
 //			result.setArr(pdto); // 배열을 입력시키는데 마지막 배열값이들어감 내가 원하는건 배열의 배열들이 들어가야됨
-			
+			totalLike = ajaxService.countLike(uid);
+			a.setTotalLike(totalLike);
 			System.out.println("result pic= " + result);
 			
 		}
@@ -120,7 +122,8 @@ public class CardsAjaxController {
 	@GetMapping("/{uid}")
 	public CardsAjaxList view(@PathVariable int uid) throws Exception {
 		List<CardsDTO> list = null;
-		
+		int totalLike = 0;
+		totalLike = ajaxService.countLike(uid);
 		// response 에 필요한 값들
 		StringBuffer message = new StringBuffer();
 		String status = "FAIL";  // 기본 FAIL
@@ -739,18 +742,46 @@ public class CardsAjaxController {
 
 	}
 	
-	@PutMapping("/like/{usuid}/{uid}")
+	@GetMapping("/like/{usuid}/{uid}")
+	public CardsLikeDTO checkLike(@PathVariable int usuid, @PathVariable int uid) throws Exception {
+		CardsLikeDTO ldto = new CardsLikeDTO();
+		int like = 0;
+		like = ajaxService.selectLike(usuid,uid);
+//		if(like == 0) {
+//			update1Like(usuid, uid);
+//		} else {
+//			update2Like(usuid, uid);
+//		}
+		
+		ldto.setLike(like);
+		ldto.setPcuid(uid);
+		ldto.setUsuid(usuid);
+		
+		return ldto;
+		
+		
+	}
+	
+	@PutMapping("/likes/{usuid}/{uid}")
 	public void updateLike(@PathVariable int usuid, @PathVariable int uid) throws Exception {
-		CardsLikeDTO ldto = null;
+		
 		int like = 0;
 		like = ajaxService.selectLike(usuid,uid);
 		if(like == 0) {
-			ldto = ajaxService.updateLike1(usuid, uid);
+			ajaxService.updateLike1(usuid, uid);
 		} else {
-			ldto = ajaxService.updateLike0(usuid, uid);
+			ajaxService.updateLike0(usuid, uid);
 		}
 		
 		
+		
+	}
+	
+	public void update1Like(int usuid, int uid) {
+		ajaxService.updateLike1(usuid, uid);
+	}
+	public void update2Like(int usuid, int uid) {
+		ajaxService.updateLike0(usuid, uid);
 	}
 }
 

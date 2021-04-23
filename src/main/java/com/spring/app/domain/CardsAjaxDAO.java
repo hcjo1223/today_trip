@@ -43,6 +43,7 @@ public interface CardsAjaxDAO {
 			);
 	// 전체 글의 개수
 	public int countAll();
+	public int countLike(int uid);
 	public int countLocation(@Param("search") int search);
 	public int countWiths(@Param("search") int search);
 	public int countFocus(@Param("search") int search);
@@ -80,8 +81,8 @@ public interface CardsAjaxDAO {
 		public int insertLike(int usuid, int uid);
 
 
-		public CardsLikeDTO updateLike1(int usuid, int uid);
-		public CardsLikeDTO updateLike0(int usuid, int uid);
+		public void updateLike1(int usuid, int uid);
+		public void updateLike0(int usuid, int uid);
 
 		public int selectLike(int usuid, int uid);
 

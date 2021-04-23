@@ -10,7 +10,11 @@
 	</c:when>
 	<c:otherwise>
 		<script>
-			alert("삭제 성공");
+			swal({
+				title:"삭제 성공!!",
+				text:"리스트를 출력합니다.",
+				icon: "success",
+			})
 			location.href = "list.do";
 		</script>
 	</c:otherwise>

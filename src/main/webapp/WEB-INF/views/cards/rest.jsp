@@ -21,9 +21,41 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <link rel="shortcut icon" type="image/x-icon"
 	href="${pageContext.request.contextPath }/resources/IMG/icon.ico">
+	<style>
+#DropdownContents {
+	width: 150px;
+	height: 180px;
+	background-color: rgb(9, 173, 219, 0.8);
+	position: absolute;
+	border-radius: 4px;
+	box-shadow: 2px 2px 4px 1px rgb(137, 137, 137, 0.8);
+	display: none;
+}
+#DropdownContents a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: center;
+  color: white;
+  
+}
+
+#DropdownContents a:hover {
+	background-color: rgb(9, 173, 219);
+	cursor: pointer;
+}
+</style>
+<script type="text/javascript">
+$(document).ready( function() {
+    $( '#dropToggleBtn' ).click( function() {
+      $( '#DropdownContents' ).toggle( 'slow' );
+    });
+  });
+</script>
 </head>
 <body>
 	<header class="layout-navigation-bar">
@@ -98,7 +130,7 @@
 						</c:if>
 					</div>
 					<div class="drop-down layout-navigation-bar-upload-button">
-						<button class="layout-navigation-bar-upload-button__button"
+						<button id="dropToggleBtn" class="layout-navigation-bar-upload-button__button"
 							type="button">
 							글쓰기
 							<svg class="icon" width="1em" height="1em" viewBox="0 0 16 16"
@@ -108,6 +140,12 @@
 									d="M2.87 4L1.33 5.5 8 12l6.67-6.5L13.13 4 8 9z"></path>
                         </svg>
                     </button>
+                    <div id="DropdownContents">
+                    	<a href="../cards/new">사진</a>
+                    	<a href="../calender/register">일정</a>
+                    	<a href="#">노하우</a>
+                    	<a href="#">질문과 답변</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -187,7 +225,7 @@
 	<div class="clear"></div>
 	
 	
-	<hr>
+	
 	
 	<%-- 목록 --%>
 	<div class="row">
@@ -198,16 +236,6 @@
 			</div>
 	</div>
 			
-	
-
-
-
-	<%-- bottom --%>
-		<div class="d01">
-			<div class="right">
-				<button type="button" onclick="location.href = 'new'" id="btnWrite" class="btn success">글작성</button>
-			</div>
-		</div>
 	
 
 	<div class="clear"></div>
@@ -238,7 +266,13 @@
 				<div class="right">
 					<p id="regdate"></p>
 				</div>
-				<br>
+				<div class="d01 btn_group_like" style="text-align: center;">			
+					<span onclick="return like();">
+						<i  id="heart" value ="0" class="far fa-heart" style="font-size:16px;color:red"></i>
+					</span>
+							
+				</div>	
+
 			<div class="select-box">
 				<select name="location">
 					<option value="0">지역</option>
@@ -282,11 +316,7 @@
 			</div>
 				<div class="clear"></div>
 				
-				<div class="d01 btn_group_like">			
-					<span onclick="return like();">
-						<i value ="0" id="heart" class="far fa-heart" style="font-size:16px;color:red"></i>
-					</span>		
-				</div>	
+				
 
 			</div>
 			

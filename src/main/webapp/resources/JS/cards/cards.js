@@ -7,6 +7,7 @@ var search = 1;
 // 페이지 최초 로딩되면 게시글 목록 첫페이지분 로딩
 
 $(document).ready(function(){
+		
     loadPage(page); // 페이지 최초 로딩
 
     $("#location").on('change',function(){
@@ -42,7 +43,9 @@ $(document).ready(function(){
     // 모달 대화상자 close 버튼 누르면
     $(".modal .close").click(function(){
         $(this).parents(".modal").hide();
+        
         $(".layout-navigation-bar").show();
+        loadPage(page);
     });
 
     // //'글작성' 폼 submit 되면
@@ -93,6 +96,8 @@ function loadPage(page){
                     // alert("성공했쮸?")
     
                     if(updateList(data)){ // application/json 이면 이미 parse 되어 있따.
+                        
+                        
                         // 업데이트 된 list 에 view  동작 이벤트 가동
                         addViewEvent();
                         // ***** 만약 위 코드를 $(document).ready() 에 두면 동작 안할것이다!!
@@ -115,6 +120,8 @@ function loadLocationPage(page,search){
                 // alert("성공했쮸?")
 
                 if(updateList(data)){ // application/json 이면 이미 parse 되어 있따.
+                    
+                    
                     // 업데이트 된 list 에 view  동작 이벤트 가동
                     addViewEvent();
                     // ***** 만약 위 코드를 $(document).ready() 에 두면 동작 안할것이다!!
@@ -183,8 +190,8 @@ function updateList(jsonObj){
         window.pageRows = jsonObj.pagerows;
 
         var items = jsonObj.data; // 배열
-      
         
+            
             for(var i = 0; i < count; i++){
                 result += '<div class="column" >';
                     result += '<div class="content" data-uid="'+ items[i].uid+ '" style="cursor:pointer;">'
@@ -200,7 +207,8 @@ function updateList(jsonObj){
                     result += '</div>\n';
                     result += '<div class="txt">';
                             result += '<h4>'+ items[i].contents; + '</h4>';
-                            result += '<p>조회수 :<span data-viewcnt="' + items[i].uid + '"> ' + items[i].hits; + '</span></p>';
+                            result += '<p>조회수 : '+ items[i].hits; +'<span data-viewcnt="' + items[i].uid + '"></span></p>';
+                            result += '<span><i class="fa fa-heart" style="font-size:16px;color:red"></i> :' + items[i].totallike; + '</span>';
                     result += '</div>\n';
                         
                     result += '</div>\n';
@@ -313,6 +321,8 @@ function setPopup(mode){
 
     	// 글 읽기
 	if(mode == "view"){
+        slideIndex = 1;
+        
         $(".layout-navigation-bar").hide();
         $('#frmWrite')[0].reset();
 		$("#dlg_write .title").text("사진 읽기");
@@ -324,9 +334,12 @@ function setPopup(mode){
         }else{
             $("#dlg_write .btn_group_view").hide();
         }
-	    $("#dlg_write .btn_group_like").show();
-       
-		
+      
+ 
+        
+	    
+        $("#dlg_write #uid").val(viewItem.uid);
+        $("#dlg_write .btn_group_like").show();
         $("#dlg_write .btn_group_update").hide();	
 		
 		$("#dlg_write #viewcnt").text("작성자: " + viewUser.userNickname + " - 조회수: " + viewItem.hits);
@@ -335,7 +348,7 @@ function setPopup(mode){
 		
         
 
-		$("#dlg_write #uid").val(viewItem.uid);
+		
 		$("#dlg_write select[name='location']").val(viewItem.location);
 		$("#dlg_write select[name='location']").attr("readonly", true);
 		$("#dlg_write select[name='location']").css("border", "none");
@@ -354,7 +367,7 @@ function setPopup(mode){
         $("#dlg_write .slideshow-container *").remove();
         $("#dlg_write .slideshow-container").off();
         var cards = "";
-        var slideIndex = 1;
+       
         for(i = 0; i < viewCards.length ; i++){
             // alert(viewCards[i].plUid);
             cards += '<div class="mySlides fade">';
@@ -401,12 +414,45 @@ function setPopup(mode){
         $("#dlg_write select[name='withs']").attr("readonly", false);
         $("#dlg_write select[name='focus']").attr("readonly", false);
 
-
+        // swal({
+        //     title: "글을 삭제하시겠습니까?",
+        //     text: "삭제하면 글을 복구 할수 없습니다.",
+        //     icon: "warning",
+        //     buttons: true,
+        //     dangerMode: true,
+        //   })
+        //   .then((willDelete) => {
+        //     if (willDelete) {
+               						
+        //                         swal("글이 삭제되었습니다.", {
+        //                             icon: "success",
+        //                           });
+                               
+        //             }
+        //         });
+                
 		$(".pic").click(function(){
-            if(confirm("이미지를 삭제할까요??") == true){
-                deleteFiles($('input[name="pluid"]').val());
-            $(this).hide();
-            }
+            swal({
+                title: "사진을 삭제 하시겠습니까?",
+                text: "삭제하면 사진을 복구 할수 없습니다.",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+              })
+              .then((willDelete) => {
+                if (willDelete) {
+                    deleteFiles($('input[name="pluid"]').val());
+                                    swal("사진이 삭제되었습니다.", {
+                                        icon: "success",
+                                      });
+                                      $(this).hide();
+                                   
+                        }
+                    });
+            // if(confirm("이미지를 삭제할까요??") == true){
+            //     deleteFiles($('input[name="pluid"]').val());
+            // $(this).hide();
+            // }
             
         });
 		function deleteFiles(fileUid) {
@@ -463,8 +509,12 @@ function addViewEvent(){
         //읽어오기
         console.log("usuid ="+ $("#usuid").val());
         console.log("pcuid ="+ $(this).attr("data-uid"));
-        if($("#usuid").val() == ""){
+        if($("#usuid").val() == "" ){
+
+           window.check = 0;
         $.ajax({
+            
+            
             url : "./" + $(this).attr("data-uid"), // url : /board/{uid}
             type : "GET",
             cache : false,
@@ -489,6 +539,17 @@ function addViewEvent(){
             }
         }); // end $ajax
         } else {
+            window.check = 1;
+            $.ajax({
+                url : "./like/" + $("#usuid").val()+"/"+ $(".content").attr("data-uid"), // url : /board/{uid}
+                type : "GET",
+                cache : false,
+                success : function(like){
+                            window.viewLike = like;
+                }
+            });
+            
+            
             $.ajax({
                 url : "./user/" + $("#usuid").val()+"/"+ $(this).attr("data-uid"), // url : /board/{uid}
                 type : "GET",
@@ -512,7 +573,9 @@ function addViewEvent(){
                         }
                     }
                 }
-            }); // end $ajax
+            });
+            
+           // end $ajax
         }
 
     });
@@ -563,27 +626,45 @@ function addViewEvent(){
 // // 특정 uid 의 글 삭제하기
 function deleteUid(uid){
 		
-	if(!confirm(uid + "글을 삭제하시겠습니까?")) return false;
+	// if(!confirm(uid + "글을 삭제하시겠습니까?")) return false;
 	
+    swal({
+        title: "글을 삭제하시겠습니까?",
+        text: "삭제하면 글을 복구 할수 없습니다.",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+            $.ajax({
+                url : ".",  // URL: /board
+                type : "DELETE",
+                data : "uid=" + uid,			
+                cache : false,
+                success : function(data, status){
+                    if(status == "success"){
+                        if(data.status == "OK"){						
+                            swal("글이 삭제되었습니다.", {
+                                icon: "success",
+                              });
+                            // alert("DELETE성공 " + data.count + "개:");  // 설사 이미 지워져서 0개를 리턴해도 성공이다.
+                            loadPage(window.page);  // 현제페이지 로딩
+                            $(".layout-navigation-bar").show();
+                        } else {
+                            alert("DELETE실패 " + data.message);
+                            return false;
+                        }
+                    }
+                }
+            });
+            
+        } else {
+          return false;
+        }
+      });
 	// DELETE 방식
-	$.ajax({
-		url : ".",  // URL: /board
-		type : "DELETE",
-		data : "uid=" + uid,			
-		cache : false,
-		success : function(data, status){
-			if(status == "success"){
-				if(data.status == "OK"){						
-					alert("DELETE성공 " + data.count + "개:");  // 설사 이미 지워져서 0개를 리턴해도 성공이다.
-					loadPage(window.page);  // 현제페이지 로딩
-                    $(".layout-navigation-bar").show();
-				} else {
-					alert("DELETE실패 " + data.message);
-					return false;
-				}
-			}
-		}
-	});
+	
 	
 	return true;
 } // end deleteUid(uid)
@@ -604,7 +685,10 @@ function chkUpdate(){
             if(status == "success"){
                 if(data.status == "OK"){
                     console.log(data);
-                    alert("UPDATE 성공 " + data.count + "개:" + data.status);
+                    swal("수정 성공", {
+                        icon: "success",
+                      })
+                    // alert("UPDATE 성공 " + data.count + "개:" + data.status);
                     loadPage(window.page); // 현재페이지 리로딩
                 } else {
                     alert("UPDATE 실패 " + data.status + " : " + data.message);
@@ -619,7 +703,6 @@ function chkUpdate(){
 
     var formData = new FormData($('#frmWrite')[0]);
     console.log(formData);
-    alert($("#uid").val());
     $.ajax({
         
         url : "fileUpload/" + $("#uid").val(), // URL : /board
@@ -630,7 +713,7 @@ function chkUpdate(){
         processData: false,
         contentType: false,
         success : function(html){
-            alert("파일 업로드하였습니다.")
+            // alert("파일 업로드하였습니다.")
         }
     })
 
@@ -690,22 +773,22 @@ function setThumbnail(event) {
             var data = $("#usuid").val()+"/"+ $("#uid").val();
             var like =  $("#heart").val();
             $.ajax({
-                url : "./like/" + data, // URL : /board
+                url : "./likes/" + data, // URL : /board
                 type : "PUT",
                 cache : false,
                 data: {},
                 success : function(){
-                            alert("좋아요 성공");
+                           
                     }
                 
             })
-            if(like == 1){
+            if(like == '1'){
                 $("#heart").attr('class','far fa-heart');
-                $("#heart").val(0);
+                $("#heart").val('0');
                 // like 0
                 } else {
                 $("#heart").attr('class','fa fa-heart');
-                $("#heart").val(1);
+                $("#heart").val('1');
 
                 
                 // like 1
@@ -714,3 +797,5 @@ function setThumbnail(event) {
         
         
     }
+
+    

@@ -26,8 +26,18 @@ public class CardsDTO extends picLibDTO{
 	public int getUsuid() {
 		return usuid;
 	}
+	
+	public int getTotalLike() {
+		return totalLike;
+	}
 
 
+	public void setTotalLike(int totalLike) {
+		this.totalLike = totalLike;
+	}
+
+	@JsonProperty("totallike")
+	private int totalLike;
 	@JsonProperty("cards") // 제이슨 이름 변경
 	List<picLibDTO> list; // 데이터 목록
 	

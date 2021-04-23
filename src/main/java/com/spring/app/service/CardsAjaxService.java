@@ -49,6 +49,12 @@ public class CardsAjaxService {
 		dao = sqlSession.getMapper(CardsAjaxDAO.class); // MyBatis 사용
 		return dao.countAll();
 	}
+	public int countLike(int uid) {
+		dao = sqlSession.getMapper(CardsAjaxDAO.class); // MyBatis 사용
+		return dao.countLike(uid);
+	}
+	
+
 	
 	public int countLocation(int search) {
 		dao = sqlSession.getMapper(CardsAjaxDAO.class); // MyBatis 사용
@@ -97,14 +103,14 @@ public class CardsAjaxService {
 		return dao.selectLike(usuid, uid);
 	}
 	
-	public CardsLikeDTO updateLike1(int usuid, int uid) {
+	public void updateLike1(int usuid, int uid) {
 		dao = sqlSession.getMapper(CardsAjaxDAO.class); // MyBatis 사용
-		return dao.updateLike1(usuid, uid);
+		dao.updateLike1(usuid, uid);
 	}
 	
-	public CardsLikeDTO updateLike0(int usuid, int uid) {
+	public void updateLike0(int usuid, int uid) {
 		dao = sqlSession.getMapper(CardsAjaxDAO.class); // MyBatis 사용
-		return dao.updateLike0(usuid, uid);
+		dao.updateLike0(usuid, uid);
 	}
 	
 	public int deleteByUid(int uid) {

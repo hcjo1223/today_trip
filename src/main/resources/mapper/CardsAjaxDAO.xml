@@ -114,15 +114,19 @@
 		INSERT INTO pic_like (
 		us_uid, pc_uid, PIC_LIKE_CK)
 		SELECT #{param1}, #{param2}, 0
-FROM dual
-WHERE NOT EXISTS (
-SELECT US_UID , PC_UID 
-FROM PIC_LIKE 
-WHERE US_UID = 5 AND PC_UID = 83);
+		FROM dual
+		WHERE NOT EXISTS (
+		SELECT US_UID , PC_UID 
+		FROM PIC_LIKE 
+		WHERE US_UID = #{param1} AND PC_UID = #{param2})
 	</insert>
 	
 	<select id="countAll" resultType="int">
 		SELECT count(*) FROM picture 
+	</select>
+	
+	<select id="countLike" resultType="int">
+		SELECT count(*) FROM pic_like WHERE  pc_uid = #{param1} and pic_like_ck = 1
 	</select>
 	<select id="countLocation" resultType="int">
 		SELECT count(*) FROM picture WHERE pc_location = #{search}
@@ -173,11 +177,11 @@ WHERE US_UID = 5 AND PC_UID = 83);
 		UPDATE picture SET pc_del_ck = 0 WHERE pc_uid = #{uid}
 	</update>
 	
-	<update id="updateLike1" flushCache="true">
-		UPDATE pic_like SET pc_del_ck = 1 WHERE us_uid = #{param1} and pc_uid = #{param2}
+	<update id="updateLike1" flushCache="true" >
+		UPDATE pic_like SET pic_like_ck = 1 WHERE us_uid = #{param1} and pc_uid = #{param2}
 	</update>
 	<update id="updateLike0" flushCache="true">
-		UPDATE pic_like SET pc_del_ck = 0 WHERE us_uid = #{param1} and pc_uid = #{param2}
+		UPDATE pic_like SET pic_like_ck = 0 WHERE us_uid = #{param1} and pc_uid = #{param2}
 	</update>
 	
 	<!-- 파일 리스트 -->

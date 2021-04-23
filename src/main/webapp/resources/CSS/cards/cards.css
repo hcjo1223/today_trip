@@ -126,7 +126,11 @@ ul.pagination a:hover:not(.active) {
 	cursor:pointer;
 	}
 
-
+@media (min-width: 1200px) {
+  .modal .modal-content{
+    width: 60%;
+  }
+}
 /* 모달 팝업 */
 .modal {   /* 모달 전체 적용 */	
 	background-color: rgba(0, 0, 0, 0.4);
@@ -145,7 +149,7 @@ ul.pagination a:hover:not(.active) {
 .modal .modal-content {
 	background-color: #fefefe;  /* 배경은 흰색 */
 	width: 75%;   /* 화면대비 80% */
-	margin: 5% auto 15% auto;  /* 위에서 5%,  아래에서 15%, 좌우 중앙정렬 */
+	margin: 20px auto 15% auto;  /* 위에서 5%,  아래에서 15%, 좌우 중앙정렬 */
 	border: 1px solid #888;  /* 테두리 */
 }
 
@@ -609,4 +613,10 @@ img {vertical-align: middle;}
 #pageinfo {
 	font-size: 24px;
     font-weight: 300;
+}
+p{
+  margin-top: 8px;
+  display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
 }
