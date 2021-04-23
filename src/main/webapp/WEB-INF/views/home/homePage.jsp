@@ -16,31 +16,7 @@
 	href="${pageContext.request.contextPath }/resources/CSS/common.css" />
 <link rel="shortcut icon" type="image/x-icon"
 	href="${pageContext.request.contextPath }/resources/IMG/icon.ico">
-<style>
-#DropdownContents {
-	width: 150px;
-	height: 180px;
-	background-color: rgb(9, 173, 219, 0.8);
-	position: absolute;
-	border-radius: 4px;
-	box-shadow: 2px 2px 4px 1px rgb(137, 137, 137, 0.8);
-	display: none;
-}
-#DropdownContents a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-  text-align: center;
-  color: white;
-  
-}
 
-#DropdownContents a:hover {
-	background-color: rgb(9, 173, 219);
-	cursor: pointer;
-}
-</style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
 $(document).ready( function() {
@@ -50,7 +26,34 @@ $(document).ready( function() {
   });
 </script>
 </head>
+<style>
+#DropdownContents {
+	width: 150px;
+	height: 180px;
+	background-color: rgb(9, 173, 219, 0.8);
+	position: absolute;
+	border-radius: 4px;
+	box-shadow: 2px 2px 4px 1px rgb(137, 137, 137, 0.8);
+	display: none;
+	right: 35px;
+  	top: 70px;
+}
+#DropdownContents a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: center;
+  color: white;
 
+  
+}
+
+#DropdownContents a:hover {
+	background-color: rgb(9, 173, 219);
+	cursor: pointer;
+}
+</style>
 <body>
 	<header class="layout-navigation-bar">
 		<div data-sticky-enabled="false" data-sticky-disabled="false"
@@ -120,7 +123,7 @@ $(document).ready( function() {
 						<c:if test="${not empty login}">
 							<a class="layout-navigation-bar-login__item" href="Users/logout">로그아웃</a>
 							<a class="layout-navigation-bar-login__item"
-								href="Users/Profile">마이 페이지</a>
+								href="Users/updateView">마이 페이지</a>
 						</c:if>
 					</div>
 					<div class="drop-down layout-navigation-bar-upload-button">
@@ -155,9 +158,14 @@ $(document).ready( function() {
                 <a class="layout-navigation-secondary__menu__item layout-navigation-secondary__menu__item--active" href="">홈</a>
                 <a class="layout-navigation-secondary__menu__item" href="./cards/list.do">사진</a>
                 <a class="layout-navigation-secondary__menu__item" href="${pageContext.request.contextPath}/calender/list">일정</a>
-                <a class="layout-navigation-secondary__menu__item" href="./place/list">장소</a>
+                <a class="layout-navigation-secondary__menu__item" href="${pageContext.request.contextPath}/place/list">장소</a>
                 <a class="layout-navigation-secondary__menu__item" href="./advices">노하우</a>
                 <a class="layout-navigation-secondary__menu__item" href="./questions">질문과답변</a></nav>
+                <c:choose>
+                <c:when test="${login.userAuthority== 0}">
+                	<a style="margin-right: 50px;" class="layout-navigation-secondary__menu__item" href="./admin">관리자페이지</a></nav>
+                </c:when>
+                </c:choose>
             </div>
         </div>
     </div>
