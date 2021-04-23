@@ -45,6 +45,8 @@
 		border-radius: 4px;
 		box-shadow: 2px 2px 4px 1px rgb(137, 137, 137, 0.8);
 		display: none;
+		right: 35px;
+  		top: 70px;
 	}
 	#DropdownContents a {
 	  color: black;
