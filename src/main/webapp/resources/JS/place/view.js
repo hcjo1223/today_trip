@@ -64,11 +64,6 @@ $(document).ready(function () {
 	insertLC(place_uid);
 
 
-	$( '#dropToggleBtn' ).click( function() {
-		$( '#DropdownContents' ).toggle( 'slow' );
-	});
-
-	
 	
 });
 

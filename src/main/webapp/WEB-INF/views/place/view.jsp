@@ -13,6 +13,13 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://kit.fontawesome.com/bb29575d31.js"></script>
 <script src="${pageContext.request.contextPath }/resources/JS/place/view.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(document).ready( function() {
+    $( '#dropToggleBtn' ).click( function() {
+      $( '#DropdownContents' ).toggle( 'slow' );
+    });
+  });
+</script>
 <style>
 img {
     vertical-align: middle;
@@ -122,7 +129,7 @@ a{text-decoration:none; color:inherit;}
 						</c:if>
 					</div>
                 <div class="drop-down layout-navigation-bar-upload-button">
-                    <button class="layout-navigation-bar-upload-button__button" type="button">글쓰기
+                    <button id="dropToggleBtn" class="layout-navigation-bar-upload-button__button" type="button">글쓰기
                         <svg class="icon" width="1em" height="1em" viewBox="0 0 16 16" preserveAspectRatio="xMidYMid meet">
                             <path fill="currentColor" fill-rule="evenodd" d="M2.87 4L1.33 5.5 8 12l6.67-6.5L13.13 4 8 9z"></path>
                         </svg>
