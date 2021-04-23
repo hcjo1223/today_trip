@@ -16,6 +16,7 @@
 	href="${pageContext.request.contextPath }/resources/CSS/common.css" />
 <link rel="shortcut icon" type="image/x-icon"
 	href="${pageContext.request.contextPath }/resources/IMG/icon.ico">
+	
 <style>
 #DropdownContents {
 	width: 150px;

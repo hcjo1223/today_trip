@@ -8,16 +8,20 @@
                                     // 1 ==> 변경됨
         var clickedDay = 0; // 장소/메모 추가 시 현재 클릭한 날짜
 
-        var tuTitle = $("#tuTitle").val();
-		var tuStartDate = $("#startDate").val();
-		var tuEndDate = $("#endDate").val();
-    
+        
+        
         // '글 올리기' 버튼 클릭 이벤트
         $(".btnRegister").on("click", function() {
-    
+            
+            var tuTitle = $("#tuTitle").val();
+            var tuStartDate = $("#startDate").val();
+            var tuEndDate = $("#endDate").val();
+            var memoText = $("#memo_Text").val();
+            alert(memoText);
+            
             if( confirm("정말로 글올리기를 진행하시겠습니까?") ){
 
-                if(tuTitle.length > 0 && tuStartDate.length > 0 && tuEndDate.length > 0 ){ 
+                if(tuTitle.length > 0 && tuStartDate > 0 && tuEndDate > 0) { 
 
 	                // form.submit();
 	                console.log($("#tour-form").serialize());
@@ -225,7 +229,7 @@
                 $(".btn-memo").on("click", function() {
                     var day = $(this).attr("day");
                     
-                    var memoTextArea = $("<textarea>", {rows: 10, cols: 100, name: "memoText", class: "w-100"});
+                    var memoTextArea = $("<textarea>", {rows: 10, cols: 100, name: "memoText", id:"memo_Text", class: "w-100"});
                     var memoCancelBtn = $("<button>", {id: "btn-memo-cancel-"+day, type: "button", class: "btn btn-primary", style: "background-color: #35c5f0", text: "메모지우기"});
                     
                     $("#day-memo-" + day).append(memoTextArea);

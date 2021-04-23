@@ -11,12 +11,12 @@
 	<title>여행일정 쓰기</title>
 	
 	<!-- Bootstrap CSS -->
-<<<<<<< HEAD
+<!-- <<<<<<< HEAD -->
 	<link rel="stylesheet" href="<c:url value="/resources/CSS/calender/calender.css" /> ">
-=======
+<!-- ======= -->
 	<%-- <link rel="stylesheet" href="<c:url value="/resources/CSS/calender/calender.css" /> "> --%>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/resources/CSS/common.css" />
->>>>>>> branch 'master' of https://github.com/hcjo1223/today_trip.git
+<!-- >>>>>>> branch 'master' of https://github.com/hcjo1223/today_trip.git -->
 	
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
 			integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">

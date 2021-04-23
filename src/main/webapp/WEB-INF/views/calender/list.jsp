@@ -14,14 +14,14 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
 			integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 			
+			
 	<%-- <link rel="stylesheet" href="<c:url value="/resources/CSS/calender/calender.css" />" > --%>
-<<<<<<< HEAD
-	<link rel="stylesheet" href="<c:url value="/resources/CSS/calender/list.css" />" >
-	<link rel="stylesheet" href="<c:url value="/resources/CSS/calender/common.css" /> ">
-=======
+<!-- <<<<<<< HEAD -->
 	<%-- <link rel="stylesheet" href="<c:url value="/resources/CSS/calender/list.css" />" > --%>
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/resources/CSS/calender/common.css" />
->>>>>>> branch 'master' of https://github.com/hcjo1223/today_trip.git
+	<%-- <link rel="stylesheet" href="<c:url value="/resources/CSS/common.css" /> "> --%>
+<!-- ======= -->
+	<%-- <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/resources/CSS/calender/common.css" /> --%>
+<!-- >>>>>>> branch 'master' of https://github.com/hcjo1223/today_trip.git -->
 
 	<!-- Font Awesome -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
@@ -29,8 +29,14 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jua&display=swap" >
 	
 	<link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/IMG/icon.ico" >
+	<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath }/resources/CSS/common.css" />
 	
 	<style>
+	body {
+		margin: 8px;
+	}
+	
 	#DropdownContents {
 		width: 150px;
 		height: 180px;
@@ -147,7 +153,7 @@
 				</div>
                 
 				<div class="drop-down layout-navigation-bar-upload-button">
-					<button class="layout-navigation-bar-upload-button__button" type="button">글쓰기
+					<button id="dropToggleBtn" class="layout-navigation-bar-upload-button__button" type="button">글쓰기
 						<svg class="icon" width="1em" height="1em" viewBox="0 0 16 16" preserveAspectRatio="xMidYMid meet">
 							<path fill="currentColor" fill-rule="evenodd" d="M2.87 4L1.33 5.5 8 12l6.67-6.5L13.13 4 8 9z"></path>
 						</svg>

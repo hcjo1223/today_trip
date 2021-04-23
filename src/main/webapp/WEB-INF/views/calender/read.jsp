@@ -19,11 +19,10 @@
 
 	<%-- <link rel="stylesheet" href="<c:url value="/resources/CSS/calender/calender.css" />" > --%>
 	<link rel="stylesheet" href="<c:url value="/resources/CSS/calender/read.css" />" >
-<<<<<<< HEAD
-	<link rel="stylesheet" href="<c:url value="/resources/CSS/calender/common.css" /> ">
-=======
+<!-- <<<<<<< HEAD -->
+<!-- ======= -->
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/resources/CSS/common.css" />
->>>>>>> branch 'master' of https://github.com/hcjo1223/today_trip.git
+<!-- >>>>>>> branch 'master' of https://github.com/hcjo1223/today_trip.git -->
 
 	<!-- Font Awesome -->			
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" />
@@ -33,6 +32,33 @@
 
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/CSS/calender/common.css"/>
 	<link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/IMG/icon.ico" >
+	
+	<style>
+		#DropdownContents {
+			width: 150px;
+			height: 180px;
+			background-color: rgb(9, 173, 219, 0.8);
+			position: absolute;
+			border-radius: 4px;
+			box-shadow: 2px 2px 4px 1px rgb(137, 137, 137, 0.8);
+			display: none;
+		}
+		#DropdownContents a {
+		  color: black;
+		  padding: 12px 16px;
+		  text-decoration: none;
+		  display: block;
+		  text-align: center;
+		  color: white;
+		  
+		}
+		
+		#DropdownContents a:hover {
+			background-color: rgb(9, 173, 219);
+			cursor: pointer;
+		}
+	</style>
+	
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script type="text/javascript">
