@@ -19,7 +19,11 @@
 
 	<%-- <link rel="stylesheet" href="<c:url value="/resources/CSS/calender/calender.css" />" > --%>
 	<link rel="stylesheet" href="<c:url value="/resources/CSS/calender/read.css" />" >
+<<<<<<< HEAD
 	<link rel="stylesheet" href="<c:url value="/resources/CSS/calender/common.css" /> ">
+=======
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/resources/CSS/common.css" />
+>>>>>>> branch 'master' of https://github.com/hcjo1223/today_trip.git
 
 	<!-- Font Awesome -->			
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" />
@@ -29,6 +33,15 @@
 
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/CSS/calender/common.css"/>
 	<link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/IMG/icon.ico" >
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script type="text/javascript">
+	$(document).ready( function() {
+	    $( '#dropToggleBtn' ).click( function() {
+	      $( '#DropdownContents' ).toggle( 'slow' );
+	    });
+	  });
+	</script>
 </head>
 <body>
 	<!-- header -->
@@ -77,8 +90,16 @@
 				</div>
                 
                 <div class="layout-navigation-bar-login">
-					<a class="layout-navigation-bar-login__item" href="">로그인</a>
-					<a class="layout-navigation-bar-login__item" href="">회원가입</a>
+					<c:if test="${empty login}">
+						<a class="layout-navigation-bar-login__item" href="../Users/login">로그인</a>
+						<a class="layout-navigation-bar-login__item"
+							href="/today_trip/Users/register">회원가입</a>
+					</c:if>
+					<c:if test="${not empty login}">
+						<a class="layout-navigation-bar-login__item" href="../Users/logout">로그아웃</a>
+						<a class="layout-navigation-bar-login__item"
+							href="/today_trip/Users/updateView">마이 페이지</a>
+					</c:if>
 				</div>
                 
 				<div class="drop-down layout-navigation-bar-upload-button">
@@ -87,6 +108,12 @@
 							<path fill="currentColor" fill-rule="evenodd" d="M2.87 4L1.33 5.5 8 12l6.67-6.5L13.13 4 8 9z"></path>
 						</svg>
 					</button>
+					<div id="DropdownContents">
+                    	<a href="/today_trip/cards/new">사진</a>
+                    	<a href="/today_trip/calender/register">일정</a>
+                    	<a href="#">노하우</a>
+                    	<a href="#">질문과 답변</a>
+                    </div>
 				</div>
 				
 			</div>
@@ -99,10 +126,10 @@
 			<div class="sticky-child layout-navigation-secondary" style="position: relative;">
 				<div class="layout-navigation-secondary__content">
 					<nav class="layout-navigation-secondary__menu">
-						<a class="layout-navigation-secondary__menu__item" href="../home">홈</a>
-						<a class="layout-navigation-secondary__menu__item" href="../cards/list.do">사진</a>
-						<a class="layout-navigation-secondary__menu__item layout-navigation-secondary__menu__item--active" href="./list">일정</a>
-						<a class="layout-navigation-secondary__menu__item" href="../place/list">장소</a>
+						<a class="layout-navigation-secondary__menu__item" href="/today_trip/home">홈</a>
+						<a class="layout-navigation-secondary__menu__item" href="/today_trip/cards/list.do">사진</a>
+						<a class="layout-navigation-secondary__menu__item layout-navigation-secondary__menu__item--active" href="/today_trip/calender/list">일정</a>
+						<a class="layout-navigation-secondary__menu__item" href="/today_trip/place/list">장소</a>
 						<a class="layout-navigation-secondary__menu__item" href="#">노하우</a>
 						<a class="layout-navigation-secondary__menu__item" href="#">질문과답변</a>
 					</nav>
@@ -125,33 +152,34 @@
 				
 					<!-- 여행 제목 입력하기 -->
 					<!-- <label for="input-t" class="form-label"><mark>여행 제목</mark></label> -->
-					<div class="input-title row mb-3">
+					<div class="input-title row mb-3" style="justify-content: center;">
 						<h1>${tour.tu_title }</h1>
 						<%-- <input type="text" name="tu_title" value="${tour.tu_title}" class="form-control" readonly /> --%>
 					</div>
 					
-					<!-- 작성자 -->
-					<div class="tour-user-profile">
-						<i class="fas fa-smile fa-4x" style="float: left; padding-right: 10px;"></i>
-						<span style="font-weight: 700; font-size: 16px; float: left; margin-bottom: 5px">오늘의 여행 에디터</span>
-						<div style="font-size: 16px;">${tour.tu_write_date}</div>
+<%-- 					<!-- 작성자 -->
+					<div class="tour-user-profile" style="justify-content: center; height: 80px; padding-bottom: 50px;">
+						<i class="fas fa-smile fa-4x" style="justify-content: center; padding-right: 10px;"></i><br>
+						<span style="justify-content: center; font-weight: 700; font-size: 16px; float: left; margin-bottom: 5px">오늘의 여행 에디터</span><br>
+						<span style="justify-content: center; font-weight: 700; font-size: 16px; float: left; margin-bottom: 5px">${fn:split(tour.tu_write_date,' ')[0]}</span>
 						
-					</div>
+					</div> --%>
 					
 					<!-- 여행 시작날짜 및 종료날짜 입력하기 -->
-					<label for="input-d" class="form-label"><mark>여행 기간</mark></label>
-					<div class="input-date row mb-3">
-						<div class="col-md-8 row">
-							<input type="text" name="tu_start_tour" id="startDate" value="${fn:split(tour.tu_start_tour,' ')[0]}" class="form-control col-md-4 mr-3" readonly/>
-							<input type="text" name="tu_end_tour" id="endDate" value="${fn:split(tour.tu_end_tour,' ')[0]}" class="form-control col-md-4 mr-3" readonly/>
-						</div>
-						<div class="col-md-4">
-						
-						</div>
+					<div style="margin-top: 30px; padding-top: 20px;">
+						<label for="input-d" class="form-label" style="font-weight: 700; font-size: 18px;">여행 날짜</label>
+						<div class="input-date mb-3">
+							<div class="row">
+								<input type="text" name="tu_start_tour" id="startDate" value="${fn:split(tour.tu_start_tour,' ')[0]}" class="form-control col-md-4 mr-3" readonly/>
+								<input type="text" name="tu_end_tour" id="endDate" value="${fn:split(tour.tu_end_tour,' ')[0]}" class="form-control col-md-4 mr-3" readonly/>
+							</div>
+							<div class="">
+					</div>	
+							</div>
 					</div>
 					
 					<!-- 여행 카테고리 입력하기-->
-					<label for="input-c" class="form-label"><mark>여행 카테고리</mark></label>
+					<label for="input-c" class="form-label" style="font-weight: 700; font-size: 18px;">여행 카테고리</label>
 					<div class="input-category row mb-3">
 						<select name="tu_location" class="form-control col-md-2 mr-4">
 							<option disabled="disabled" <c:if test="${tour.tu_location eq 1}">selected</c:if>>서울</option>
@@ -203,9 +231,9 @@
 				</div>
 	
 				<!-- 여행 태그 입력하기 -->
-				<div class="tour-tag row mt-5 mb-5">
+				<!-- <div class="tour-tag row mt-5 mb-5">
 					<input type="text" name="tu_tag" placeholder=" ','를 구분으로 입력해주세요." class="form-control" />
-				</div>
+				</div> -->
 				
 				<!-- 수정하기 & 삭제하기 버튼 -->
 				<div class="tour-btn-box row">
@@ -214,16 +242,16 @@
 					</div>
 					<div class="col-md-8" align="center">
 						<span id="like-count-txt123">조회수 : ${tour.tu_hits}</span><br>
-						<span id="like-count-txt">따봉 수 : ${likeCount}</span>
+						<%-- <span id="like-count-txt">따봉 수 : ${likeCount}</span>
 						<i id="like-btn" style="font-size:25px;cursor:pointer;"
 							class="<c:if test="${!empty tour_like}">fas</c:if>
 									<c:if test="${empty tour_like}">far</c:if> fa-heart 
 									<c:if test="${!empty tour_like}">active</c:if>
 									<c:if test="${empty tour_like}">inactive</c:if>">
-						</i>
+						</i> --%>
 					</div>
 					<div class="col-md-2">
-						<button id="delete-btn" type="button" class="btn btn-primary" data-tu-uid="${tour.tu_uid}">삭제하기</button>
+						<button id="delete-btn" type="button" class="btn btn-primary" data-tu-uid="${tour.tu_uid}" style="background-color: #35c5f0;">삭제하기</button>
 					</div>
 				</div>
 		</form>

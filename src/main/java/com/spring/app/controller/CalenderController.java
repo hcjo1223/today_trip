@@ -104,46 +104,46 @@ public class CalenderController {
 	@RequestMapping(value = "/read", method = RequestMethod.GET)
 	public String read(Model model, CalenderDTO dto, HttpSession session) throws Exception {
 		
-		UsersDTO usersDto = (UsersDTO) session.getAttribute("login");
+//		UsersDTO usersDto = (UsersDTO) session.getAttribute("login");
 		
 		// 로그인 세션 가져오기 
 		
 		// 조회수 업데이트
 		calenderService.TourHits(dto);
 		CalenderDTO res = calenderService.selectOne(dto);
-		int likeCount = calenderService.TourLikeCount(dto);
+//		int likeCount = calenderService.TourLikeCount(dto);
 		
 		// 해당 게시글의 좋아요 가져오기
-		TourLikeDTO tourLikeDto = new TourLikeDTO();
-		tourLikeDto.setTu_uid(dto.getTu_uid());
-		tourLikeDto.setUs_uid(usersDto.getUs_uid());
+//		TourLikeDTO tourLikeDto = new TourLikeDTO();
+//		tourLikeDto.setTu_uid(dto.getTu_uid());
+//		tourLikeDto.setUs_uid(usersDto.getUs_uid());
 		
-		TourLikeDTO res2 = calenderService.TourLike(tourLikeDto);
+//		TourLikeDTO res2 = calenderService.TourLike(tourLikeDto);
 		
 		model.addAttribute("tour", res);
-		model.addAttribute("likeCount", likeCount);
-		model.addAttribute("tourLike", res2);
+//		model.addAttribute("likeCount", likeCount);
+//		model.addAttribute("tourLike", res2);
 		
 		return "calender/read";
 	}
 	
-	@RequestMapping(value = "/addTourLike", method = RequestMethod.GET)
-	public @ResponseBody String addTourLike(TourLikeDTO dto, HttpSession session) throws Exception {
-		UsersDTO usersDto = (UsersDTO) session.getAttribute("login");
-		dto.setUs_uid(usersDto.getUs_uid());
-		calenderService.addTourLike(dto);
-		
-		return "ok";
-	}
-	
-	@RequestMapping(value = "/delTourLike", method = RequestMethod.GET)
-	public @ResponseBody String delTourLike(TourLikeDTO dto, HttpSession session) throws Exception {
-		UsersDTO usersDto = (UsersDTO) session.getAttribute("login");
-		dto.setUs_uid(usersDto.getUs_uid());
-		calenderService.delTourLike(dto);
-		
-		return "ok";
-	}
+//	@RequestMapping(value = "/addTourLike", method = RequestMethod.GET)
+//	public @ResponseBody String addTourLike(TourLikeDTO dto, HttpSession session) throws Exception {
+//		UsersDTO usersDto = (UsersDTO) session.getAttribute("login");
+//		dto.setUs_uid(usersDto.getUs_uid());
+//		calenderService.addTourLike(dto);
+//		
+//		return "ok";
+//	}
+//	
+//	@RequestMapping(value = "/delTourLike", method = RequestMethod.GET)
+//	public @ResponseBody String delTourLike(TourLikeDTO dto, HttpSession session) throws Exception {
+//		UsersDTO usersDto = (UsersDTO) session.getAttribute("login");
+//		dto.setUs_uid(usersDto.getUs_uid());
+//		calenderService.delTourLike(dto);
+//		
+//		return "ok";
+//	}
 	
 	// 여행게시판 글 하나의 메모 읽기
 	@RequestMapping(value = "/listMemo", method = RequestMethod.GET)

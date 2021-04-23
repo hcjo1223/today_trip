@@ -110,7 +110,8 @@ $(function(){
 					tu_uid:global_tu_uid
 				},
 				success:function(res){
-					alert(res);
+					alert('123res');
+					console.log(res);
 				},
 				error:function(err){
 					
@@ -126,7 +127,8 @@ $(function(){
 					tu_uid:global_tu_uid
 				},
 				success:function(res){
-					alert(res);
+					alert('123res1');
+					console.log(res);
 				},
 				error:function(err){
 					

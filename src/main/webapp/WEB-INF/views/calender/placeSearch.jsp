@@ -46,8 +46,8 @@
 					</td>
 					<td>
 						<div>
-							<button type="button" class="btn btn-primary btnSelect btn-sm px-3 <c:out value='${contentType}' />" 
-									uid="<c:out value='${place.place_uid}' />"  title="<c:out value='${place.title}' />" mapx="<c:out value='${place.mapx}' />" mapy="<c:out value='${place.mapy}' />"  data-dismiss="modal">
+							<button type="button" class="btn btn-primary btnSelect btn-sm px-3 <c:out value='${contentType}' />" style="background-color: #35c5f0" 
+									uid="<c:out value='${place.place_uid}' />"  title="<c:out value='${place.title}' />" addr="<c:out value='${place.addr1}'/>"  mapx="<c:out value='${place.mapx}' />" mapy="<c:out value='${place.mapy}' />"  data-dismiss="modal">
 							선택
 							</button>
 						</div>
@@ -84,6 +84,7 @@
 		
 		      // console.log("123123123");
 		      var title = $(this).attr("title");
+		      var addr = $(this).attr("addr");
 		      var uid = $(this).attr("uid");
 		      var img_url = $(this).closest('tr').find('th > a').attr('href');
 		      
@@ -91,6 +92,7 @@
 		      mapy = $(this).attr("mapy");
 		      
 		      console.log("title : " + title);
+		      console.log("addr: " + addr);
 		      console.log("uid : " + uid);
 		      console.log("img_url : " + img_url);
 		      
@@ -119,7 +121,8 @@
 		      var htmlPlace = '<div class="one-place" data-no="'+no+'" data-place-uid="'+uid+'" data-img-url="'+img_url+'">'+
 								'<input type="hidden" name="placeUid" value="0">'+
 		                        '<span class="mr-5">'+no+'</span>'+
-		                        '<span>' + title + mapx + ' ' + mapy +'</span>'+
+		                        '<span style="font-weight: 700;">' + title +'</span>'+ '<br>' +
+		                        '<span class="ml-5" style="font-size: 0.8rem">' + addr +'</span>'+
 		                        '<i class="fas fa-times-circle" style="color:#999;margin-left:6px;cursor:pointer;"></i>'+
 		                        '<input type="hidden" name="placeMapX-'+day+'" value="'+mapx+'">'+
 		                        '<input type="hidden" name="placeMapY-'+day+'" value="'+mapy+'">'+

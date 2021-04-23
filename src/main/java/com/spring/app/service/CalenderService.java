@@ -156,33 +156,33 @@ public class CalenderService {
 		return dao.delete(dto);
 	}
 	
-	// 좋아요
-	public int TourLikeCount(CalenderDTO dto) throws IllegalStateException, IOException {
-		dao = sqlSession.getMapper(CalenderDAO.class);
+//	// 좋아요
+//	public int TourLikeCount(CalenderDTO dto) throws IllegalStateException, IOException {
+//		dao = sqlSession.getMapper(CalenderDAO.class);
+//	
+//		return dao.TourLikeCount(dto);
+//	}
+//	
+//	// 좋아요 여부
+//	public TourLikeDTO TourLike(TourLikeDTO dto) throws IllegalStateException, IOException{
+//		dao = sqlSession.getMapper(CalenderDAO.class);
+//	
+//		return dao.TourLike(dto);
+//	}
+//	
+//	// 좋아요 생성 
+//	public int addTourLike(TourLikeDTO dto) throws IllegalStateException, IOException{
+//		dao = sqlSession.getMapper(CalenderDAO.class);
+//	
+//		return dao.addTourLike(dto);
+//	}
 	
-		return dao.TourLikeCount(dto);
-	}
-	
-	// 좋아요 여부
-	public TourLikeDTO TourLike(TourLikeDTO dto) throws IllegalStateException, IOException{
-		dao = sqlSession.getMapper(CalenderDAO.class);
-	
-		return dao.TourLike(dto);
-	}
-	
-	// 좋아요 생성 
-	public int addTourLike(TourLikeDTO dto) throws IllegalStateException, IOException{
-		dao = sqlSession.getMapper(CalenderDAO.class);
-	
-		return dao.addTourLike(dto);
-	}
-	
-	// 좋아요 삭제
-	public int delTourLike(TourLikeDTO dto) throws IllegalStateException, IOException{
-		dao = sqlSession.getMapper(CalenderDAO.class);
-	
-		return dao.delTourLike(dto);
-	}
+//	// 좋아요 삭제
+//	public int delTourLike(TourLikeDTO dto) throws IllegalStateException, IOException{
+//		dao = sqlSession.getMapper(CalenderDAO.class);
+//	
+//		return dao.delTourLike(dto);
+//	}
 	
 	// 조회수
 	public int TourHits(CalenderDTO dto) throws IllegalStateException, IOException{

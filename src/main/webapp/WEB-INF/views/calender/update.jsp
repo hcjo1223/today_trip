@@ -86,13 +86,13 @@
 	
 		<div class="tour-write_head row mt-5 mb-5 p-3 border-bottom">
 			<!-- 로고 및 홈페이지로 가는 링크 -->
-			<div class="col-md-10">
+			<!-- <div class="col-md-10">
 				<a href="#"><img src="" alt="logo" /></a>
-			</div>
+			</div> -->
 			<!-- 글 올리기 버튼 -->
-			<div class="col-md-2">
+			<!-- <div class="col-md-2">
 				<button type="button" class="btn btn-primary btnRegister">글 올리기</button>
-			</div>
+			</div> -->
 		</div>
    
 		<div class="tour-edit">
@@ -175,9 +175,9 @@
 		 		</div>
 				
 				<!-- 여행 태그 입력하기 -->
-				<div class="tour-tag row mt-5 mb-5">
+			<!-- 	<div class="tour-tag row mt-5 mb-5">
 					<input type="text" name="tu_tag" placeholder=" ','를 구분으로 입력해주세요." class="form-control" />
-				</div>
+				</div> -->
 				
 				<!-- 취소하기 & 등록하기 버튼 -->
 				<div class="tour-btn-box row">
@@ -188,7 +188,7 @@
 					
 					</div>
 					<div class="col-md-2">
-						<button type="button" class="btn btn-primary btnRegister">글 올리기</button>
+						<button type="button" class="btn btn-primary btnRegister" style="background-color: #35c5f0">글 올리기</button>
 					</div>
 				</div>
 				
