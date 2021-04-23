@@ -98,45 +98,45 @@ $(function(){
 	});
 
 	// 좋아요 버튼 이벤트
-	$('#like-btn').on('click',function() {
-		var isActive = $(this).hasClass('active');
-		if(isActive){
-			// ajax -> 내가 한 좋아요 해제 / #like-btn-count -1 처리
-			$('#like-btn').attr('class','far fa-heart inactive');
-			$.ajax({
-				url:'/today_trip/calender/delTourLike',
-				type:'get',
-				data:{
-					tu_uid:global_tu_uid
-				},
-				success:function(res){
-					alert('123res');
-					console.log(res);
-				},
-				error:function(err){
+	// $('#like-btn').on('click',function() {
+	// 	var isActive = $(this).hasClass('active');
+	// 	if(isActive){
+	// 		// ajax -> 내가 한 좋아요 해제 / #like-btn-count -1 처리
+	// 		$('#like-btn').attr('class','far fa-heart inactive');
+	// 		$.ajax({
+	// 			url:'/today_trip/calender/delTourLike',
+	// 			type:'get',
+	// 			data:{
+	// 				tu_uid:global_tu_uid
+	// 			},
+	// 			success:function(res){
+	// 				alert('123res');
+	// 				console.log(res);
+	// 			},
+	// 			error:function(err){
 					
-				}
-			});
-		}else {
-			// ajax -> 내가 한 좋아요 추가 / #like-btn-count +1 처리
-			$('#like-btn').attr('class','fas fa-heart active');
-			$.ajax({
-				url:'/today_trip/calender/addTourLike',
-				type:'get',
-				data:{
-					tu_uid:global_tu_uid
-				},
-				success:function(res){
-					alert('123res1');
-					console.log(res);
-				},
-				error:function(err){
+	// 			}
+	// 		});
+	// 	}else {
+	// 		// ajax -> 내가 한 좋아요 추가 / #like-btn-count +1 처리
+	// 		$('#like-btn').attr('class','fas fa-heart active');
+	// 		$.ajax({
+	// 			url:'/today_trip/calender/addTourLike',
+	// 			type:'get',
+	// 			data:{
+	// 				tu_uid:global_tu_uid
+	// 			},
+	// 			success:function(res){
+	// 				alert('123res1');
+	// 				console.log(res);
+	// 			},
+	// 			error:function(err){
 					
-				}
-			});
+	// 			}
+	// 		});
 			
-		}
-	});
+	// 	}
+	// });
 
 });
 
