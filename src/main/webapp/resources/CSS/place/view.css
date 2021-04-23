@@ -18,8 +18,11 @@
 	position: absolute;
     display: inline-block;
     float: none;
+    font-family: Jal_Onuel;
     left: 20px;
-    font-size: 35px;
+    top: 10px;
+    font-size: 25px;
+    margin: 0;
 }
 
 .tourView .item_count_area{
@@ -70,13 +73,11 @@ background-image: url(../../../resources/IMG/click.png);
 .like_ico2 {
 	background-image: url(../../../resources/IMG/heart2.png);
 	background-repeat: no-repeat;
-    background-position: top;
     background-size: 30px;
-	display: inline-block;
+    display: inline-block;
     float: none;
-    padding: 40px 10px 15px 15px;
-    background-repeat: no-repeat;
-    background-position: top;
+    padding: 10px 10px 10px 40px;
+    background-position: left;
 }
 
 .like_ico span{

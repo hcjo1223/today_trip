@@ -86,7 +86,6 @@
 		<interceptor>
 		<mapping path = "/cards/new"/>
 		<mapping path = "/cards/write.do"/>
-		<mapping path = "/place/view.do"/>
 		<beans:ref bean="authInterceptor"/>
 		</interceptor>
 		

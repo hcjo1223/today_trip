@@ -6,6 +6,7 @@ var keyword = "";
 $(document).ready(function(){
     loadPage(page);   // 페이지 최초 로딩
 	console.log("page 최초로딩");
+    
 });
 
 

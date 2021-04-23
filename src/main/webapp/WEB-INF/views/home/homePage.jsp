@@ -16,7 +16,6 @@
 	href="${pageContext.request.contextPath }/resources/CSS/common.css" />
 <link rel="shortcut icon" type="image/x-icon"
 	href="${pageContext.request.contextPath }/resources/IMG/icon.ico">
-	
 <style>
 #DropdownContents {
 	width: 150px;
@@ -121,7 +120,7 @@ $(document).ready( function() {
 						<c:if test="${not empty login}">
 							<a class="layout-navigation-bar-login__item" href="Users/logout">로그아웃</a>
 							<a class="layout-navigation-bar-login__item"
-								href="Users/updateView">마이 페이지</a>
+								href="Users/Profile">마이 페이지</a>
 						</c:if>
 					</div>
 					<div class="drop-down layout-navigation-bar-upload-button">
@@ -159,11 +158,6 @@ $(document).ready( function() {
                 <a class="layout-navigation-secondary__menu__item" href="./place/list">장소</a>
                 <a class="layout-navigation-secondary__menu__item" href="./advices">노하우</a>
                 <a class="layout-navigation-secondary__menu__item" href="./questions">질문과답변</a></nav>
-                <c:choose>
-                <c:when test="${login.userAuthority== 0}">
-                	<a style="margin-right: 50px;" class="layout-navigation-secondary__menu__item" href="./admin">관리자페이지</a></nav>
-                </c:when>
-                </c:choose>
             </div>
         </div>
     </div>
