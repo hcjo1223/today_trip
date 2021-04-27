@@ -61,9 +61,9 @@ function updateList(jsonObj){
         for(i = 0; i < count; i++){
         	
 			users = userList(items[i].us_uid);
-
+			console.log(users);
         	result += '<div class="commentArea">';
-        	result += '<div class="commentInfo">'+'<span>작성자 ID: ' + users.us_id + '</span>/ <span>작성자 : ' + users.us_nickname + '</span>/ <span>작성날짜 : ' + items[i].write_date + '</sapn>';
+        	result += '<div class="commentInfo">'+'<span>작성자 ID: ' + users.us_id + '</span>/ <span>작성자 : ' + users.us_nickName + '</span>/ <span>작성날짜 : ' + items[i].write_date + '</sapn>';
         	if(items[i].rate > 4.1){
         		result += '<img src ="../resources/IMG/star5.png">';
         	} else if (items[i].rate > 3.1){
@@ -105,7 +105,7 @@ function chkDelete(uid){
 		commentDelete(uid);
 	}
 } 
-
+ 
 function chkUpdate(uid){
 	// 수정 여부, 다시 확인 하고 진행하기
 	var r = confirm("수정하시겠습니까?");

@@ -7,8 +7,26 @@ public class picLibDTO {
 	private long size;
 	private String path;
 	private int pcuid;
+	private String pl_name;
 	
 	
+	
+	public int getPcuid() {
+		return pcuid;
+	}
+
+	public void setPcuid(int pcuid) {
+		this.pcuid = pcuid;
+	}
+
+	public String getPl_name() {
+		return pl_name;
+	}
+
+	public void setPl_name(String pl_name) {
+		this.pl_name = pl_name;
+	}
+
 	public int getPcUid() {
 		return pcuid;
 	}

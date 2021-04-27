@@ -225,7 +225,7 @@
  	  	parameterType="java.util.ArrayList">
  	  	
 	 	  	UPDATE tour
-	 	  	SET tu_del_ck = 0
+	 	  	SET tu_del_ck = 1
 	 	  	WHERE tu_uid IN( 
 	 	  	<foreach collection="array" item="item" index="index" separator=",">
 	 	  	${item}
@@ -237,7 +237,7 @@
  	  	parameterType="java.util.ArrayList">
  	  	
 	 	  	UPDATE tour
-	 	  	SET tu_del_ck = 1
+	 	  	SET tu_del_ck = 0
 	 	  	WHERE tu_uid IN( 
 	 	  	<foreach collection="array" item="item" index="index" separator=",">
 	 	  	${item}

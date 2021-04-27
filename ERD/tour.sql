@@ -267,3 +267,24 @@ SELECT
 			
 		
 		SELECT * FROM USERS;
+		
+	SELECT 
+			pl.PC_UID ,pl.PL_PATH, pc_focus,pl_name
+		FROM 
+			(SELECT * 
+				FROM
+					(SELECT * 
+						FROM 
+							PICTURE 
+						WHERE pc_del_ck = 1
+						ORDER BY 
+							PC_HITS DESC)
+				WHERE ROWNUM< 4) p 
+			JOIN 
+				PIC_LIB pl 
+			ON 
+				p.PC_UID = pl.PC_UID
+			WHERE ROWNUM< 4;
+				
+			
+SELECT * FROM PICTURE;

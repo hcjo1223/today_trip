@@ -39,9 +39,9 @@
 		parameterType="com.spring.app.domain.CardsDTO"
 		keyProperty="uid" useGeneratedKeys="true" keyColumn="pc_uid">
 		INSERT INTO picture
-			(pc_uid, us_uid, pc_contents, pc_location, pc_focus, pc_with, pc_write_date, pc_del_ck  )
+			(pc_uid, us_uid, pc_contents, pc_hits, pc_location, pc_focus, pc_with, pc_write_date, pc_del_ck  )
 		VALUES
-			(pc_uid_seq.nextval,#{usuid}, #{contents}, #{location}, #{focus}, #{withs}, SYSDATE, 1)
+			(pc_uid_seq.nextval,#{usuid}, #{contents}, 0,#{location}, #{focus}, #{withs}, SYSDATE, 1)
 		
 	</insert>
 	

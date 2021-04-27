@@ -179,17 +179,13 @@
 				<div class="layout-navigation-secondary__content">
 					<nav class="layout-navigation-secondary__menu">
 						<a class="layout-navigation-secondary__menu__item" href="/today_trip/home">홈</a>
-						<a class="layout-navigation-secondary__menu__item" href="/today_trip/cards/list.do">사진</a>
+						<a class="layout-navigation-secondary__menu__item" href="/today_trip/cards/list">사진</a>
 						<a class="layout-navigation-secondary__menu__item layout-navigation-secondary__menu__item--active" href="/today_trip/calender/list">일정</a>
 						<a class="layout-navigation-secondary__menu__item" href="/today_trip/place/list">장소</a>
 						<a class="layout-navigation-secondary__menu__item" href="#">노하우</a>
 						<a class="layout-navigation-secondary__menu__item" href="#">질문과답변</a>
 						
-						<c:choose>
-							<c:when test="${login.userAuthority== 0}">
-								<a style="margin-right: 50px;" class="layout-navigation-secondary__menu__item" href="./admin">관리자페이지</a></nav>
-							</c:when>
-						</c:choose>
+					
 					</nav>
 				</div>
 			</div>

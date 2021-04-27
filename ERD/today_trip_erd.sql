@@ -50,7 +50,7 @@ CREATE TABLE picture
 (
 	pc_uid number NOT NULL,
 	us_uid number NOT NULL,
-	pc_contents varchar2(400),
+	pc_contents varchar2(1000),
 	pc_hits number,
 	pc_location NUMBER DEFAULT 0,
 	pc_focus number DEFAULT 0,
@@ -76,10 +76,10 @@ CREATE TABLE pic_lib
 (
 	pl_uid number NOT NULL,
 	pc_uid number NOT NULL,
-	pl_name varchar2(20),
-	pl_type varchar2(10) NOT NULL,
+	pl_name varchar2(200),
+	pl_type varchar2(200) NOT NULL,
 	pl_size number,
-	pl_path varchar2(20) NOT NULL,
+	pl_path varchar2(200) NOT NULL,
 	PRIMARY KEY (pl_uid)
 );
 
@@ -601,3 +601,24 @@ SELECT
 		SELECT AVG(rv_rate) AS rateAVG 
     	FROM review 
     	WHERE place_uid = 195;
+    
+    SELECT * FROM USERS;
+
+   
+   SELECT 
+			pl.PC_UID "pcuid" ,pl.PL_PATH "path", pl.pl_name
+		FROM 
+			(SELECT * 
+				FROM
+				(SELECT * 
+					FROM 
+						PICTURE 
+					WHERE 
+						 pc_del_ck = 1
+					ORDER BY 
+						PC_HITS DESC)
+				WHERE ROWNUM= 1) p 
+			JOIN 
+				PIC_LIB pl 
+			ON 
+				p.PC_UID = pl.PC_UID;

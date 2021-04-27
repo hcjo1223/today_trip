@@ -156,11 +156,11 @@ $(document).ready( function() {
             <div class="layout-navigation-secondary__content">
                 <nav class="layout-navigation-secondary__menu">
                 <a class="layout-navigation-secondary__menu__item layout-navigation-secondary__menu__item--active" href="">홈</a>
-                <a class="layout-navigation-secondary__menu__item" href="./cards/list.do">사진</a>
+                <a class="layout-navigation-secondary__menu__item" href="./cards/list">사진</a>
                 <a class="layout-navigation-secondary__menu__item" href="${pageContext.request.contextPath}/calender/list">일정</a>
                 <a class="layout-navigation-secondary__menu__item" href="${pageContext.request.contextPath}/place/list">장소</a>
-                <a class="layout-navigation-secondary__menu__item" href="./advices">노하우</a>
-                <a class="layout-navigation-secondary__menu__item" href="./questions">질문과답변</a></nav>
+                <a class="layout-navigation-secondary__menu__item" href="#">노하우</a>
+                <a class="layout-navigation-secondary__menu__item" href="#">질문과답변</a></nav>
                 <c:choose>
                 <c:when test="${login.userAuthority== 0}">
                 	<a style="margin-right: 50px;" class="layout-navigation-secondary__menu__item" href="./admin">관리자페이지</a></nav>
@@ -181,7 +181,7 @@ $(document).ready( function() {
                     <div style="width: 100%; border-bottom: 1px solid #ededed;">
                     	<div class="HomePopImgSpace">
                     		<div class="HomePopHSpace"><span>월간 인기 사진</span></div>
-                    		<img class="story-entry__image" src="${listPopularPic[0].path}" style="border-radius: 4px; display: block; margin: 0 auto; margin-bottom: 20px">
+                    		<img class="story-entry__image" src="http://localhost:8099/pic/0ebb7de3578044989f318c905f7ec173.jpg" style="border-radius: 4px; display: block; margin: 0 auto; margin-bottom: 20px">
                     		<div class="goToImgDiv">
                     			<button class="goToImg" onclick="location.href='./cards/view.do?uid=${listPopularPic[0].pcUid}'">보러가기</button>
                     		</div>
@@ -239,7 +239,7 @@ $(document).ready( function() {
 										 	<span>${ dto.place_uid}</span>
 										 -->
 										 	 <div class="imgDivOverflow">
-												 <a href="./cards/view.do?uid=${ dto.pc_uid}"><img src="${ dto.pl_path}"></a>
+												 <a href="./cards/view.do?uid=${ dto.pc_uid}"><img src= "http://localhost:8099/pic/${ dto.pl_name}"></a>
 											 </div>
 											 <c:choose>
 												 <c:when test="${dto.pc_focus == 0}">

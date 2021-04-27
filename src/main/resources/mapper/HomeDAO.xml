@@ -14,7 +14,7 @@
 	<select id="selectPopularPic" resultType="com.spring.app.domain.picLibDTO">
 	<![CDATA[  	
 		SELECT 
-			pl.PC_UID "pcuid" ,pl.PL_PATH "path"
+			pl.PC_UID "pcuid" ,pl.PL_PATH "path", pl.pl_name
 		FROM 
 			(SELECT * 
 				FROM
@@ -22,7 +22,7 @@
 					FROM 
 						PICTURE 
 					WHERE 
-						PC_WRITE_DATE BETWEEN '${startDate}' AND '${endDate}' AND pc_del_ck = 0
+						PC_WRITE_DATE BETWEEN '${startDate}' AND '${endDate}' AND pc_del_ck = 1
 					ORDER BY 
 						PC_HITS DESC)
 				WHERE ROWNUM= 1) p 
@@ -36,14 +36,14 @@
 	<select id="selectHomePic" resultType="com.spring.app.domain.HomeDTO">
 	<![CDATA[  	
 		SELECT 
-			pl.PC_UID ,pl.PL_PATH, pc_focus
+			pl.PC_UID ,pl.PL_PATH, pc_focus,pl_name
 		FROM 
 			(SELECT * 
 				FROM
 					(SELECT * 
 						FROM 
 							PICTURE 
-						WHERE pc_del_ck = 0
+						WHERE pc_del_ck = 1
 						ORDER BY 
 							PC_HITS DESC)
 				WHERE ROWNUM< 4) p 
@@ -51,6 +51,7 @@
 				PIC_LIB pl 
 			ON 
 				p.PC_UID = pl.PC_UID
+				WHERE ROWNUM< 4
 		]]>	
 	</select>
 
@@ -65,7 +66,7 @@
 				(SELECT * 
 					FROM 
 						(SELECT * FROM tour WHERE tu_del_ck = 0 ORDER BY tu_hits DESC) 
-			WHERE ROWNUM < 4) H 
+			) H 
 			JOIN 
 				(SELECT * FROM tour_location WHERE TU_DAY =1) D 
 			ON 
@@ -74,6 +75,8 @@
 			place P 
 		ON 
 			J.place_uid = P.place_uid
+		WHERE ROWNUM < 4
+
 		]]>	
 	</select>
 

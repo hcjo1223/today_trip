@@ -18,4 +18,5 @@ public class HomeDTO {
 	private int pc_uid;
 	private String pl_path;
 	private int pc_focus;
+	String pl_name;
 }
