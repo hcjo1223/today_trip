@@ -4,6 +4,10 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.text.DecimalFormat;
 import java.util.Calendar;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Locale;
+import java.util.Set;
 import java.util.UUID;
 
 import javax.imageio.ImageIO;
@@ -14,27 +18,28 @@ import org.slf4j.LoggerFactory;
 import org.springframework.util.FileCopyUtils;
 
 public class UploadFileUtils {
-	public static final Logger logger = LoggerFactory.getLogger(UploadFileUtils.class);
+        public static final Logger logger = LoggerFactory.getLogger(UploadFileUtils.class);
+
+        private static final Set<String> IMAGE_EXTENSIONS = new HashSet<>(
+                        Arrays.asList("jpg", "jpeg", "png", "gif", "bmp"));
 	
 	
-	public static String uploadFile(String uploadPath, String originalName, byte[] fileData) throws Exception{
-		UUID uuid = UUID.randomUUID();
-		
-		String savedName = uuid.toString() + "_" + originalName; 
-		
-		String savedPath = calcPath(uploadPath);
-		
-		File target = new File(uploadPath + savedPath,savedName);
-		
-		FileCopyUtils.copy(fileData, target);
-		
-		// 파일 확장자 추출
-		String formatName = originalName.substring(originalName.lastIndexOf(".") + 1);
-	
-		String uploadFileName = null;
-		
-		return uploadFileName;
-	}
+        public static String uploadFile(String uploadPath, String originalName, byte[] fileData) throws Exception {
+                UUID uuid = UUID.randomUUID();
+
+                String savedName = uuid + "_" + originalName;
+                String savedPath = calcPath(uploadPath);
+
+                File target = new File(uploadPath + savedPath, savedName);
+                FileCopyUtils.copy(fileData, target);
+
+                String extension = getExtension(originalName);
+                if (isImageType(extension)) {
+                        return makeThumbnail(uploadPath, savedPath, savedName);
+                }
+
+                return toRelativePath(savedPath + File.separator + savedName);
+        }
 	
 	private static String calcPath(String uploadPath) {
 		Calendar calendar = Calendar.getInstance();
@@ -65,8 +70,8 @@ public class UploadFileUtils {
 		
 	}
 	
-	public static String makeThumbnail(String uploadPath, String path, String fileName) throws Exception{
-		BufferedImage sourceImg = ImageIO.read(new File(uploadPath + path, fileName));
+        public static String makeThumbnail(String uploadPath, String path, String fileName) throws Exception{
+                BufferedImage sourceImg = ImageIO.read(new File(uploadPath + path, fileName));
 		
 		BufferedImage destImg = Scalr.resize(sourceImg, Scalr.Method.AUTOMATIC, Scalr.Mode.FIT_TO_HEIGHT, 100);
 		
@@ -80,9 +85,26 @@ public class UploadFileUtils {
 		return thumbnailName.substring(uploadPath.length()).replace(File.separatorChar,'/');
 	}
 	
-	public static void removeFile(String uploadPath, String fileName) {
-		
-	new File(uploadPath + fileName.replace('/', File.separatorChar)).delete();
-	}
+        public static void removeFile(String uploadPath, String fileName) {
+
+        new File(uploadPath + fileName.replace('/', File.separatorChar)).delete();
+        }
+
+        private static String getExtension(String filename) {
+                int dotIndex = filename.lastIndexOf('.');
+                if (dotIndex < 0 || dotIndex + 1 >= filename.length()) {
+                        return "";
+                }
+
+                return filename.substring(dotIndex + 1).toLowerCase(Locale.ROOT);
+        }
+
+        private static boolean isImageType(String extension) {
+                return IMAGE_EXTENSIONS.contains(extension);
+        }
+
+        private static String toRelativePath(String path) {
+                return path.replace(File.separatorChar, '/');
+        }
 	
 }
