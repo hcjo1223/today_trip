@@ -39,7 +39,7 @@ export default async function RootLayout({
       lang="ko"
       className={`${notoSansKr.variable} ${notoSerifKr.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col pb-16 md:pb-0">
         <Navbar currentUser={activeUser} demoUsers={demoUsers} />
         <main className="flex-1">{children}</main>
         <Footer />

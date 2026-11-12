@@ -40,42 +40,42 @@ export default async function HomePage() {
   const topPlaces = places.slice(0, 4);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-16">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-8 space-y-12 sm:space-y-16">
       {/* 1. Editorial Hero & Monthly Popular Photo (월간 인기 사진 + 빠른 탐색) */}
-      <section className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+      <section className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-stretch">
         {featuredPic && (
-          <div className="lg:col-span-8 relative rounded-2xl overflow-hidden border border-[#e7e2da] bg-stone-900 min-h-[420px] flex flex-col justify-end group">
+          <div className="lg:col-span-8 relative rounded-2xl overflow-hidden border border-[#e7e2da] bg-stone-900 min-h-[360px] sm:min-h-[430px] flex flex-col justify-end group">
             <img
               src={featuredPic.images[0]}
               alt={featuredPic.title}
               className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-            <div className="relative z-10 p-6 sm:p-8 text-white">
-              <div className="flex flex-wrap items-center gap-2 text-xs font-medium text-teal-200 mb-2">
-                <span className="px-2.5 py-1 rounded-md bg-black/45 backdrop-blur-xs border border-white/15">
+            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/45 to-black/10" />
+            <div className="relative z-10 p-5 sm:p-8 text-white">
+              <div className="flex flex-wrap items-center gap-2 text-xs font-medium text-teal-200 mb-2.5">
+                <span className="px-2.5 py-1 rounded-md bg-black/55 backdrop-blur-xs border border-white/15 whitespace-nowrap">
                   월간 인기 사진 1위
                 </span>
                 <span>·</span>
-                <span>{REGIONS[featuredPic.location] || "대한민국"}</span>
+                <span className="whitespace-nowrap">{REGIONS[featuredPic.location] || "대한민국"}</span>
                 <span>·</span>
-                <span>{TRAVEL_STYLES[featuredPic.focus] || "자연과 함께"}</span>
+                <span className="whitespace-nowrap">{TRAVEL_STYLES[featuredPic.focus] || "자연과 함께"}</span>
               </div>
-              <h1 className="text-2xl sm:text-4xl font-serif font-bold tracking-tight text-white max-w-2xl">
+              <h1 className="text-xl sm:text-3xl lg:text-4xl font-serif font-bold tracking-tight text-white leading-snug max-w-2xl break-keep">
                 {featuredPic.title}
               </h1>
-              <p className="mt-2.5 text-sm sm:text-base text-stone-200 line-clamp-2 max-w-2xl">
+              <p className="mt-2 text-xs sm:text-base text-stone-200 line-clamp-2 max-w-2xl leading-relaxed break-keep">
                 {featuredPic.contents}
               </p>
-              <div className="mt-5 flex flex-wrap items-center justify-between gap-4">
-                <div className="flex items-center gap-4 text-xs text-stone-300">
-                  <span className="font-medium text-white">
+              <div className="mt-4 sm:mt-5 flex flex-wrap items-center justify-between gap-3">
+                <div className="flex items-center gap-3 sm:gap-4 text-xs text-stone-300">
+                  <span className="font-medium text-white whitespace-nowrap">
                     by {featuredPic.nickname}
                   </span>
-                  <span className="flex items-center gap-1">
+                  <span className="flex items-center gap-1 whitespace-nowrap">
                     <Eye className="w-3.5 h-3.5" /> {featuredPic.hits}
                   </span>
-                  <span className="flex items-center gap-1">
+                  <span className="flex items-center gap-1 whitespace-nowrap">
                     <Heart className="w-3.5 h-3.5 text-rose-400 fill-rose-400" />{" "}
                     {featuredPic.likeCnt}
                   </span>
@@ -83,10 +83,10 @@ export default async function HomePage() {
                 <Link
                   href={`/cards?highlight=${featuredPic.pcUid}`}
                   id="hero-view-photo-btn"
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-white text-stone-900 hover:bg-stone-100 text-xs sm:text-sm font-semibold transition-colors"
+                  className="inline-flex items-center gap-1.5 px-3.5 sm:px-4 py-2 rounded-lg bg-white text-stone-900 hover:bg-stone-100 text-xs sm:text-sm font-semibold whitespace-nowrap transition-colors"
                 >
                   <span>스토리 보러가기</span>
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight className="w-4 h-4 shrink-0" />
                 </Link>
               </div>
             </div>
@@ -95,26 +95,26 @@ export default async function HomePage() {
 
         {/* Right Side Quick Planner & Curated Stats */}
         <div className="lg:col-span-4 flex flex-col justify-between gap-4">
-          <div className="surface-card p-6 flex-1 flex flex-col justify-between">
+          <div className="surface-card p-5 sm:p-6 flex-1 flex flex-col justify-between">
             <div>
               <span className="text-xs font-semibold uppercase tracking-wider text-teal-800">
                 Trip Curation &amp; Planner
               </span>
-              <h2 className="mt-1.5 text-xl font-serif font-bold text-stone-900">
+              <h2 className="mt-1.5 text-lg sm:text-xl font-serif font-bold text-stone-900 break-keep">
                 어디로 떠날지 고민되시나요?
               </h2>
-              <p className="mt-2 text-sm text-stone-600 leading-relaxed">
+              <p className="mt-2 text-xs sm:text-sm text-stone-600 leading-relaxed break-keep">
                 한국관광공사 TourAPI 기반 명소·숙소·맛집 데이터를 조합해 나만의 일차별 여행 코스를 설계해 보세요.
               </p>
             </div>
 
-            <div className="mt-6 grid grid-cols-2 gap-2.5">
+            <div className="mt-5 grid grid-cols-2 gap-2.5">
               <Link
                 href="/places?type=12"
                 className="p-3 rounded-xl bg-[#faf8f5] hover:bg-stone-200/50 border border-[#e7e2da] transition-colors"
               >
-                <p className="text-xs text-stone-500">관광 명소</p>
-                <p className="text-sm font-semibold text-stone-900 mt-0.5">
+                <p className="text-[11px] text-stone-500">관광 명소</p>
+                <p className="text-xs sm:text-sm font-semibold text-stone-900 mt-0.5 whitespace-nowrap">
                   전국 인기 관광지 →
                 </p>
               </Link>
@@ -122,8 +122,8 @@ export default async function HomePage() {
                 href="/places?type=32"
                 className="p-3 rounded-xl bg-[#faf8f5] hover:bg-stone-200/50 border border-[#e7e2da] transition-colors"
               >
-                <p className="text-xs text-stone-500">감성 스테이</p>
-                <p className="text-sm font-semibold text-stone-900 mt-0.5">
+                <p className="text-[11px] text-stone-500">감성 스테이</p>
+                <p className="text-xs sm:text-sm font-semibold text-stone-900 mt-0.5 whitespace-nowrap">
                   독채·한옥 숙소 →
                 </p>
               </Link>
@@ -131,8 +131,8 @@ export default async function HomePage() {
                 href="/places?type=39"
                 className="p-3 rounded-xl bg-[#faf8f5] hover:bg-stone-200/50 border border-[#e7e2da] transition-colors"
               >
-                <p className="text-xs text-stone-500">로컬 미식</p>
-                <p className="text-sm font-semibold text-stone-900 mt-0.5">
+                <p className="text-[11px] text-stone-500">로컬 미식</p>
+                <p className="text-xs sm:text-sm font-semibold text-stone-900 mt-0.5 whitespace-nowrap">
                   현지인 추천 맛집 →
                 </p>
               </Link>
@@ -140,24 +140,24 @@ export default async function HomePage() {
                 href="/tours/new"
                 className="p-3 rounded-xl bg-teal-900/5 hover:bg-teal-900/10 border border-teal-800/20 transition-colors"
               >
-                <p className="text-xs text-teal-800">일정 설계</p>
-                <p className="text-sm font-semibold text-teal-950 mt-0.5">
+                <p className="text-[11px] text-teal-800">일정 설계</p>
+                <p className="text-xs sm:text-sm font-semibold text-teal-950 mt-0.5 whitespace-nowrap">
                   새 여행 계획 쓰기 →
                 </p>
               </Link>
             </div>
           </div>
 
-          <div className="surface-card p-5 bg-[#f3efe9]/70 flex items-center justify-between">
+          <div className="surface-card p-4 sm:p-5 bg-[#f3efe9]/70 flex items-center justify-between gap-2">
             <div>
               <p className="text-xs text-stone-500">오늘의여행 아카이브</p>
-              <p className="text-sm font-semibold text-stone-900 mt-0.5">
+              <p className="text-xs sm:text-sm font-semibold text-stone-900 mt-0.5 whitespace-nowrap">
                 장소 {places.length}곳 · 일정 {tours.length}건 · 사진 {pictures.length}장
               </p>
             </div>
             <Link
               href="/places"
-              className="text-xs font-semibold text-teal-800 hover:text-teal-950 underline underline-offset-4"
+              className="text-xs font-semibold text-teal-800 hover:text-teal-950 underline underline-offset-4 whitespace-nowrap shrink-0"
             >
               전체 탐색
             </Link>
