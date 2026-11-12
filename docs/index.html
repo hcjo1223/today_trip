@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>오늘의여행 (Today's Trip) — 대한민국 감성 여행 일정 & 포토 커뮤니티</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <style>
+    @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      background-color: #FAF7F2;
+      color: #18221F;
+    }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col pb-20 md:pb-0">
+  <!-- Top Header -->
+  <header class="sticky top-0 z-40 bg-[#FAF7F2]/95 backdrop-blur-md border-b border-stone-200/80">
+    <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+      <button onclick="switchTab('home')" class="flex items-center gap-2.5 text-left">
+        <div class="w-9 h-9 rounded-xl bg-[#0F4C3A] text-white flex items-center justify-center font-bold text-sm shadow-sm">
+          오늘
+        </div>
+        <div>
+          <span class="font-bold text-lg tracking-tight text-stone-900 block leading-none">오늘의여행</span>
+          <span class="text-[10px] text-stone-500 font-mono tracking-wider">TODAY'S TRIP · NEXT.JS 16</span>
+        </div>
+      </button>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden md:flex items-center gap-1">
+        <button onclick="switchTab('home')" id="nav-home" class="px-3.5 py-2 rounded-lg text-sm font-medium transition">홈</button>
+        <button onclick="switchTab('places')" id="nav-places" class="px-3.5 py-2 rounded-lg text-sm font-medium transition">장소 탐색</button>
+        <button onclick="switchTab('tours')" id="nav-tours" class="px-3.5 py-2 rounded-lg text-sm font-medium transition">여행 일정</button>
+        <button onclick="switchTab('cards')" id="nav-cards" class="px-3.5 py-2 rounded-lg text-sm font-medium transition">여행사진</button>
+        <button onclick="switchTab('admin')" id="nav-admin" class="px-3.5 py-2 rounded-lg text-sm font-medium transition">관리자·계정</button>
+      </nav>
+
+      <!-- Active User Pill -->
+      <button onclick="switchTab('admin')" class="flex items-center gap-2 bg-white border border-stone-200 px-3 py-1.5 rounded-full shadow-xs hover:border-[#0F4C3A] transition">
+        <span class="w-2 h-2 rounded-full bg-emerald-600"></span>
+        <span id="header-user-name" class="text-xs font-semibold text-stone-800">조호철 (총괄 디렉터)</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main id="app-root" class="flex-1 max-w-6xl w-full mx-auto px-4 py-6"></main>
+
+  <!-- Modal Container -->
+  <div id="modal-backdrop" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs hidden items-center justify-center p-4 overflow-y-auto">
+    <div id="modal-content" class="bg-white rounded-2xl max-w-2xl w-full max-h-[88vh] overflow-y-auto shadow-2xl border border-stone-200"></div>
+  </div>
+
+  <!-- Mobile Bottom Navigation -->
+  <nav class="md:hidden fixed bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur-md border-t border-stone-200 grid grid-cols-5 h-16">
+    <button onclick="switchTab('home')" id="mnav-home" class="flex flex-col items-center justify-center gap-0.5 text-xs font-medium">
+      <span>🏠</span><span>홈</span>
+    </button>
+    <button onclick="switchTab('places')" id="mnav-places" class="flex flex-col items-center justify-center gap-0.5 text-xs font-medium">
+      <span>📍</span><span>장소</span>
+    </button>
+    <button onclick="switchTab('tours')" id="mnav-tours" class="flex flex-col items-center justify-center gap-0.5 text-xs font-medium">
+      <span>🗺️</span><span>일정</span>
+    </button>
+    <button onclick="switchTab('cards')" id="mnav-cards" class="flex flex-col items-center justify-center gap-0.5 text-xs font-medium">
+      <span>📸</span><span>사진</span>
+    </button>
+    <button onclick="switchTab('admin')" id="mnav-admin" class="flex flex-col items-center justify-center gap-0.5 text-xs font-medium">
+      <span>⚙️</span><span>관리·계정</span>
+    </button>
+  </nav>
+
+  <script>
+    const IMG_BASE = "https://raw.githubusercontent.com/hcjo1223/today_trip/master/public";
+
+    const AREA_MAP = {
+      1: "서울", 2: "인천", 3: "대전", 4: "대구", 5: "광주", 6: "부산",
+      7: "울산", 8: "세종", 9: "경기", 10: "강원", 13: "경북", 17: "제주"
+    };
+    const TYPE_MAP = { 12: "관광지", 32: "숙박", 39: "음식점" };
+    const WITH_MAP = { 1: "나홀로", 2: "친구와", 3: "연인과", 4: "가족과" };
+    const FOCUS_MAP = { 1: "유명명소", 2: "SNS핫플", 3: "힐링·휴식", 5: "역사·문화", 6: "자연·풍경", 7: "미식탐방" };
+
+    const state = {
+      activeTab: "home",
+      placeTypeFilter: 0,
+      placeAreaFilter: 0,
+      placeKeyword: "",
+      tourAreaFilter: 0,
+      currentUser: {
+        usUid: 1,
+        userId: "admin",
+        nickname: "조호철 (총괄 디렉터)",
+        email: "admin@todaytrip.kr",
+        role: "ADMIN",
+        memo: "오늘의여행 장소 큐레이션 및 플랫폼 총괄 에디터입니다."
+      },
+      users: [
+        { usUid: 1, userId: "admin", nickname: "조호철 (총괄 디렉터)", email: "admin@todaytrip.kr", role: "ADMIN", joinDate: "2026-01-10", memo: "오늘의여행 장소 큐레이션 및 플랫폼 총괄 에디터입니다." },
+        { usUid: 2, userId: "mingyu", nickname: "이민규 (트래블 에디터)", email: "mingyu@todaytrip.kr", role: "ADMIN", joinDate: "2026-02-01", memo: "전국 숨은 로컬 명소와 감성 숙소를 기록합니다." },
+        { usUid: 3, userId: "donghyuk", nickname: "임동혁 (일정 플래너)", email: "donghyuk@todaytrip.kr", role: "USER", joinDate: "2026-02-14", memo: "동선 낭비 없는 완벽한 2박 3일 여행 코스를 설계합니다." },
+        { usUid: 4, userId: "mincheol", nickname: "정민철 (포토그래퍼)", email: "mincheol@todaytrip.kr", role: "USER", joinDate: "2026-03-01", memo: "필름 카메라로 한국의 사계절 풍경을 담는 여행가입니다." },
+        { usUid: 5, userId: "dogyun", nickname: "김도균 (미식 탐험가)", email: "dogyun@todaytrip.kr", role: "USER", joinDate: "2026-03-12", memo: "현지인만 아는 노포와 제철 식재료 맛집을 찾아다닙니다." }
+      ],
+      places: [
+        {
+          placeUid: 1, contentId: 126508, contentTypeId: 12,
+          title: "성산일출봉 & 섭지코지 해안산책로",
+          areaCode: 17, addr1: "제주특별자치도 서귀포시 성산읍 일출로 284-12", tel: "064-783-0959",
+          firstImage2: IMG_BASE + "/images/jeju.jpg",
+          overview: "유네스코 세계자연유산으로 등재된 화산체로, 유채꽃이 만발한 해안 산책로와 에메랄드빛 제주 동부 바다의 일출이 어우러지는 제주 대표 명소입니다.",
+          viewCnt: 1420, likeCnt: 4, likedByMe: true, rateAvg: 5.0,
+          reviews: [
+            { rvUid: 1, nickname: "임동혁 (일정 플래너)", rate: 5, writeDate: "2026-10-28", content: "일출 시간 맞춰서 오전 6시 반에 올라갔는데 유채꽃 산책로와 바다 색감이 정말 비현실적으로 아름다웠습니다!" },
+            { rvUid: 2, nickname: "정민철 (포토그래퍼)", rate: 5, writeDate: "2026-11-02", content: "필름 카메라 한 롤을 다 쓸 만큼 해안 절벽과 파도 풍경이 압도적입니다." }
+          ]
+        },
+        {
+          placeUid: 2, contentId: 126512, contentTypeId: 12,
+          title: "경복궁 경회루와 고궁 단풍길",
+          areaCode: 1, addr1: "서울특별시 종로구 사직로 161", tel: "02-3700-3900",
+          firstImage2: IMG_BASE + "/images/seoul.jpg",
+          overview: "조선 왕조 법궁의 품격을 간직한 경복궁과 연못 위로 비치는 경회루의 반영이 아름다운 서울 도심 속 역사 산책 코스입니다.",
+          viewCnt: 1180, likeCnt: 3, likedByMe: false, rateAvg: 5.0,
+          reviews: [
+            { rvUid: 3, nickname: "이민규 (트래블 에디터)", rate: 5, writeDate: "2026-11-04", content: "가을 단풍이 절정일 때 경회루 연못 주변을 걸으니 도심 한복판이라는 게 믿기지 않을 만큼 고즈넉했습니다." }
+          ]
+        },
+        {
+          placeUid: 3, contentId: 126535, contentTypeId: 12,
+          title: "광안리 해변 & 광안대교 선셋 테라스",
+          areaCode: 6, addr1: "부산광역시 수영구 광안해변로 219", tel: "051-610-4744",
+          firstImage2: IMG_BASE + "/images/busan.jpg",
+          overview: "노을빛으로 물드는 바다 위로 광안대교의 야경이 켜지는 부산 최고의 오션뷰 산책로이자 로컬 로스터리 카페 거리입니다.",
+          viewCnt: 985, likeCnt: 5, likedByMe: false, rateAvg: 4.9,
+          reviews: []
+        },
+        {
+          placeUid: 4, contentId: 126590, contentTypeId: 12,
+          title: "경주 월정교 & 동궁과 월지 야경",
+          areaCode: 13, addr1: "경상북도 경주시 교동 274", tel: "054-779-8795",
+          firstImage2: IMG_BASE + "/images/gyeongju.jpg",
+          overview: "신라 천년의 왕경 문화를 복원한 목조 교량 월정교와 남천 위로 드리워지는 황홀한 야간 반영이 인상적인 역사 유적지입니다.",
+          viewCnt: 890, likeCnt: 3, likedByMe: false, rateAvg: 4.8,
+          reviews: []
+        },
+        {
+          placeUid: 5, contentId: 320101, contentTypeId: 32,
+          title: "강릉 솔향 고택 한옥 스테이",
+          areaCode: 10, addr1: "강원특별자치도 강릉시 죽헌길 142-8", tel: "033-642-8120",
+          firstImage2: IMG_BASE + "/images/gangneung.jpg",
+          overview: "백년 소나무 정원과 넓은 대청마루에서 수제 다과와 전통 차를 즐기며 온전한 쉼을 경험할 수 있는 프라이빗 한옥 독채 스테이입니다.",
+          viewCnt: 760, likeCnt: 6, likedByMe: true, rateAvg: 5.0,
+          reviews: [
+            { rvUid: 4, nickname: "조호철 (총괄 디렉터)", rate: 5, writeDate: "2026-11-06", content: "대청마루에 앉아 소나무 정원을 바라보며 마신 수제 쑥차와 개성주악이 아직도 기억에 남습니다." }
+          ]
+        },
+        {
+          placeUid: 6, contentId: 320102, contentTypeId: 32,
+          title: "서귀포 바당 돌담 프라이빗 풀빌라",
+          areaCode: 17, addr1: "제주특별자치도 서귀포시 표선면 해안도로 512", tel: "064-787-3310",
+          firstImage2: IMG_BASE + "/images/jeju.jpg",
+          overview: "현무암 돌담 너머로 제주 남쪽 바다가 한눈에 펼쳐지는 감성 숙소로, 사계절 온수 자쿠지와 조식 바스켓을 제공합니다.",
+          viewCnt: 640, likeCnt: 2, likedByMe: false, rateAvg: 4.7,
+          reviews: []
+        },
+        {
+          placeUid: 7, contentId: 390201, contentTypeId: 39,
+          title: "애월 해안가 참숯 흑돼지 & 전복 한상",
+          areaCode: 17, addr1: "제주특별자치도 제주시 애월읍 애월해안로 682", tel: "064-799-8821",
+          firstImage2: IMG_BASE + "/images/dining.jpg",
+          overview: "제주 바다를 바라보며 두툼하게 숙성한 제주산 흑돼지 오겹살과 활전복 버터구이, 당일 공수한 제철 해산물을 맛볼 수 있는 대표 미식 공간입니다.",
+          viewCnt: 1120, likeCnt: 5, likedByMe: true, rateAvg: 4.9,
+          reviews: [
+            { rvUid: 5, nickname: "김도균 (미식 탐험가)", rate: 5, writeDate: "2026-11-08", content: "창가 좌석에서 노을 지는 애월 바다를 보며 먹는 흑돼지 근고기와 전복구이 조합이 완벽했습니다." }
+          ]
+        },
+        {
+          placeUid: 8, contentId: 390202, contentTypeId: 39,
+          title: "서촌 고택 제철 한정식 & 전통 다원",
+          areaCode: 1, addr1: "서울특별시 종로구 자하문로 89", tel: "02-734-5512",
+          firstImage2: IMG_BASE + "/images/gangneung.jpg",
+          overview: "경복궁 서측 한옥 골목에 자리한 다이닝 공간으로, 전국 산지에서 공수한 제철 나물 반상과 수제 약과·한과 디저트 코스를 선보입니다.",
+          viewCnt: 590, likeCnt: 3, likedByMe: false, rateAvg: 4.8,
+          reviews: []
+        }
+      ],
+      tours: [
+        {
+          tuUid: 1, nickname: "임동혁 (일정 플래너)",
+          title: "제주 동쪽에서 서쪽까지, 유채꽃 해안길과 흑돼지 미식 2박 3일",
+          summary: "성산일출봉 아침 산책부터 서귀포 돌담 스테이, 애월 오션뷰 흑돼지 만찬까지 실패 없는 제주 핵심 코스",
+          hits: 342, period: 3, location: 17, withWho: 3, focus: 6,
+          startDate: "2026-11-15", endDate: "2026-11-17",
+          coverImage: IMG_BASE + "/images/jeju.jpg",
+          tags: ["제주도", "성산일출봉", "애월맛집", "감성숙소", "커플여행"],
+          likeCnt: 8, likedByMe: true, isDeleted: 0,
+          days: [
+            { day: 1, placeTitle: "성산일출봉 & 섭지코지 해안산책로", memo: "오전 7시 성산일출봉 매표소 도착 후 해안 산책로 따라 1시간 반 여유롭게 트레킹. 점심은 성산항 갈치조림 추천!" },
+            { day: 2, placeTitle: "서귀포 바당 돌담 프라이빗 풀빌라", memo: "표선 해안도로 드라이브 후 오후 3시 풀빌라 체크인. 일몰 시간에 맞춰 야외 자쿠지 이용하기." },
+            { day: 3, placeTitle: "애월 해안가 참숯 흑돼지 & 전복 한상", memo: "공항 가기 전 애월 해안도로에서 흑돼지 오겹살 & 전복구이 이른 저녁 식사 후 렌터카 반납." }
+          ]
+        },
+        {
+          tuUid: 2, nickname: "이민규 (트래블 에디터)",
+          title: "가을 고궁 단풍 산책과 서촌 한옥 다원 하루 코스",
+          summary: "경복궁 경회루의 아침 풍경을 감상하고 서촌 골목의 고택에서 제철 다과를 즐기는 여유로운 서울 도심 여행",
+          hits: 218, period: 2, location: 1, withWho: 2, focus: 5,
+          startDate: "2026-11-20", endDate: "2026-11-21",
+          coverImage: IMG_BASE + "/images/seoul.jpg",
+          tags: ["서울여행", "경복궁", "서촌한옥", "가을단풍"],
+          likeCnt: 5, likedByMe: false, isDeleted: 0,
+          days: [
+            { day: 1, placeTitle: "경복궁 경회루와 고궁 단풍길", memo: "오전 9시 개장 직후 경복궁 입장하여 경회루 연못 반영 촬영. 오후에는 국립고궁박물관 관람." },
+            { day: 2, placeTitle: "서촌 고택 제철 한정식 & 전통 다원", memo: "서촌 골목 독립서점 투어 후 고택 다원에서 전통 차와 약과 플레이트로 마무리." }
+          ]
+        },
+        {
+          tuUid: 3, nickname: "정민철 (포토그래퍼)",
+          title: "부산 광안리 노을부터 경주 월정교 야경까지 영남 감성 일주",
+          summary: "바다와 천년 고도의 야경을 함께 담는 사진작가 추천 2박 3일 출사 & 힐링 루트",
+          hits: 276, period: 3, location: 6, withWho: 1, focus: 2,
+          startDate: "2026-11-25", endDate: "2026-11-27",
+          coverImage: IMG_BASE + "/images/busan.jpg",
+          tags: ["부산광안리", "경주야경", "월정교", "출사여행"],
+          likeCnt: 6, likedByMe: false, isDeleted: 0,
+          days: [
+            { day: 1, placeTitle: "광안리 해변 & 광안대교 선셋 테라스", memo: "오후 5시 광안리 해변 도착, 매직아워 시간에 광안대교 점등 순간 촬영 및 해변 테라스 카페 휴식." },
+            { day: 2, placeTitle: "경주 월정교 & 동궁과 월지 야경", memo: "경주로 이동하여 교촌한옥마을 산책 후 해 질 녘 월정교 남천 징검다리에서 야경 촬영." },
+            { day: 3, placeTitle: "강릉 솔향 고택 한옥 스테이", memo: "동해안 7번 국도를 따라 올라가며 고택 한옥에서 다도 체험." }
+          ]
+        }
+      ],
+      pictures: [
+        {
+          pcUid: 1, nickname: "정민철 (포토그래퍼)",
+          title: "유채꽃이 물든 제주 성산의 아침 빛",
+          contents: "해가 막 떠오른 직후 성산일출봉 아래 해안 산책로를 걸으며 담은 장면입니다. 현무암 너머로 부서지는 파도와 노란 유채꽃의 대비가 오래도록 마음에 남았습니다.",
+          location: 17, focus: 6, withWho: 1, writeDate: "2026-11-02",
+          image: IMG_BASE + "/images/jeju.jpg",
+          tags: ["제주도", "성산일출봉", "필름사진"],
+          likeCnt: 12, likedByMe: true,
+          comments: [
+            { nickname: "이민규 (트래블 에디터)", contents: "색감이 정말 따뜻하네요! 몇 시쯤 촬영하신 사진인가요?", writeDate: "2026-11-03" },
+            { nickname: "정민철 (포토그래퍼)", contents: "오전 7시경 해 뜨고 직후 산책로 초입에서 촬영했습니다 :)", writeDate: "2026-11-03" }
+          ]
+        },
+        {
+          pcUid: 2, nickname: "이민규 (트래블 에디터)",
+          title: "강릉 한옥 대청마루에서 맞이한 오후의 차 한 잔",
+          contents: "소나무 그림자가 마당에 길게 드리워지는 오후, 따뜻한 호지차와 수제 약과를 곁들이며 보낸 고요한 시간이었습니다.",
+          location: 10, focus: 3, withWho: 3, writeDate: "2026-11-04",
+          image: IMG_BASE + "/images/gangneung.jpg",
+          tags: ["강릉여행", "한옥스테이", "다도", "힐링여행"],
+          likeCnt: 9, likedByMe: false,
+          comments: [
+            { nickname: "임동혁 (일정 플래너)", contents: "대청마루 뷰가 예술이네요. 다음 강릉 일정에 꼭 넣어야겠습니다.", writeDate: "2026-11-05" }
+          ]
+        },
+        {
+          pcUid: 3, nickname: "조호철 (총괄 디렉터)",
+          title: "가을 단풍이 내려앉은 경복궁 경회루 반영",
+          contents: "바람 한 점 없던 가을 아침, 경회루 연못 수면 위로 단청과 오색 단풍이 거울처럼 비치던 순간을 기록했습니다.",
+          location: 1, focus: 5, withWho: 2, writeDate: "2026-11-06",
+          image: IMG_BASE + "/images/seoul.jpg",
+          tags: ["서울고궁", "경복궁", "경회루", "가을여행"],
+          likeCnt: 11, likedByMe: true,
+          comments: []
+        },
+        {
+          pcUid: 4, nickname: "임동혁 (일정 플래너)",
+          title: "광안리 해변의 노을과 카페 테라스의 온기",
+          contents: "보랏빛과 주황빛으로 물드는 부산 광안리 해변. 광안대교에 조명이 하나둘 켜질 때 해변을 따라 걷는 것만으로도 완벽한 저녁이 됩니다.",
+          location: 6, focus: 2, withWho: 3, writeDate: "2026-11-07",
+          image: IMG_BASE + "/images/busan.jpg",
+          tags: ["부산여행", "광안리", "광안대교", "선셋"],
+          likeCnt: 8, likedByMe: false,
+          comments: []
+        },
+        {
+          pcUid: 5, nickname: "김도균 (미식 탐험가)",
+          title: "애월 바다 앞 숯불 흑돼지와 전복구이 한 상",
+          contents: "파도 소리가 들리는 창가 자리에서 굽는 제주 흑돼지 오겹살과 고소한 전복 버터구이는 제주 여행의 이유 그 자체입니다.",
+          location: 17, focus: 7, withWho: 2, writeDate: "2026-11-09",
+          image: IMG_BASE + "/images/dining.jpg",
+          tags: ["제주맛집", "애월흑돼지", "전복구이"],
+          likeCnt: 14, likedByMe: true,
+          comments: []
+        },
+        {
+          pcUid: 6, nickname: "정민철 (포토그래퍼)",
+          title: "신라의 밤을 걷다, 경주 월정교의 황금빛 반영",
+          contents: "어둠이 내려앉은 남천 위로 월정교의 고운 조명빛이 물결치는 밤. 경주에서만 만날 수 있는 깊고 우아한 야경입니다.",
+          location: 13, focus: 5, withWho: 1, writeDate: "2026-11-10",
+          image: IMG_BASE + "/images/gyeongju.jpg",
+          tags: ["경주여행", "월정교", "야경명소"],
+          likeCnt: 10, likedByMe: false,
+          comments: []
+        }
+      ]
+    };
+
+    function updateNavStyles() {
+      const tabs = ["home", "places", "tours", "cards", "admin"];
+      tabs.forEach((t) => {
+        const dBtn = document.getElementById("nav-" + t);
+        const mBtn = document.getElementById("mnav-" + t);
+        const active = state.activeTab === t;
+        if (dBtn) {
+          dBtn.className = active
+            ? "px-3.5 py-2 rounded-lg text-sm font-semibold bg-[#0F4C3A] text-white"
+            : "px-3.5 py-2 rounded-lg text-sm font-medium text-stone-600 hover:bg-stone-200/60";
+        }
+        if (mBtn) {
+          mBtn.className = active
+            ? "flex flex-col items-center justify-center gap-0.5 text-xs font-bold text-[#0F4C3A]"
+            : "flex flex-col items-center justify-center gap-0.5 text-xs font-medium text-stone-500";
+        }
+      });
+      const userEl = document.getElementById("header-user-name");
+      if (userEl) userEl.textContent = state.currentUser.nickname;
+    }
+
+    function switchTab(tab) {
+      state.activeTab = tab;
+      updateNavStyles();
+      render();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function openModal(html) {
+      const backdrop = document.getElementById("modal-backdrop");
+      const content = document.getElementById("modal-content");
+      content.innerHTML = html;
+      backdrop.classList.remove("hidden");
+      backdrop.classList.add("flex");
+    }
+
+    function closeModal() {
+      const backdrop = document.getElementById("modal-backdrop");
+      backdrop.classList.add("hidden");
+      backdrop.classList.remove("flex");
+    }
+
+    document.getElementById("modal-backdrop").addEventListener("click", (e) => {
+      if (e.target.id === "modal-backdrop") closeModal();
+    });
+
+    function togglePlaceLike(placeUid, event) {
+      if (event) event.stopPropagation();
+      const p = state.places.find((x) => x.placeUid === placeUid);
+      if (!p) return;
+      p.likedByMe = !p.likedByMe;
+      p.likeCnt += p.likedByMe ? 1 : -1;
+      render();
+    }
+
+    function openPlaceDetail(placeUid) {
+      const p = state.places.find((x) => x.placeUid === placeUid);
+      if (!p) return;
+      p.viewCnt += 1;
+
+      const reviewsHtml = p.reviews.length > 0
+        ? p.reviews.map((r) => `
+            <div class="p-3.5 rounded-xl bg-stone-50 border border-stone-200/80 space-y-1">
+              <div class="flex items-center justify-between text-xs">
+                <span class="font-semibold text-stone-900">${r.nickname}</span>
+                <span class="text-amber-600 font-mono">★ ${r.rate}.0 · ${r.writeDate}</span>
+              </div>
+              <p class="text-sm text-stone-700 leading-relaxed">${r.content}</p>
+            </div>
+          `).join("")
+        : `<p class="text-xs text-stone-500 py-3">아직 등록된 리뷰가 없습니다. 첫 번째 리뷰를 남겨보세요!</p>`;
+
+      openModal(`
+        <div class="relative">
+          <img src="${p.firstImage2}" alt="${p.title}" class="w-full h-56 object-cover rounded-t-2xl" />
+          <button onclick="closeModal()" class="absolute top-3 right-3 bg-black/60 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">✕</button>
+          <span class="absolute bottom-3 left-3 px-2.5 py-1 rounded-full text-xs font-semibold bg-[#0F4C3A] text-white">
+            ${TYPE_MAP[p.contentTypeId]} · ${AREA_MAP[p.areaCode] || "전국"}
+          </span>
+        </div>
+        <div class="p-5 space-y-4">
+          <div class="flex items-start justify-between gap-3">
+            <div>
+              <h3 class="text-xl font-bold text-stone-900">${p.title}</h3>
+              <p class="text-xs text-stone-500 mt-1">📍 ${p.addr1} · 📞 ${p.tel}</p>
+            </div>
+            <button onclick="togglePlaceLike(${p.placeUid}); openPlaceDetail(${p.placeUid})" class="px-3 py-1.5 rounded-full text-xs font-semibold border ${p.likedByMe ? "bg-rose-50 border-rose-300 text-rose-700" : "border-stone-300 text-stone-700"}">
+              ♥ ${p.likeCnt}
+            </button>
+          </div>
+          <p class="text-sm text-stone-700 leading-relaxed bg-stone-100/70 p-3.5 rounded-xl">${p.overview}</p>
+          <div class="border-t border-stone-200 pt-4 space-y-3">
+            <h4 class="text-sm font-bold text-stone-900">방문자 리뷰 (${p.reviews.length})</h4>
+            <div class="space-y-2">${reviewsHtml}</div>
+            <form onsubmit="submitPlaceReview(event, ${p.placeUid})" class="space-y-2 pt-2">
+              <div class="flex gap-2">
+                <select id="rv-rate" class="border border-stone-300 rounded-lg px-2.5 py-2 text-xs bg-white">
+                  <option value="5">★★★★★ (5점)</option>
+                  <option value="4">★★★★☆ (4점)</option>
+                  <option value="3">★★★☆☆ (3점)</option>
+                </select>
+                <input id="rv-content" required placeholder="${state.currentUser.nickname}님, 방문 소감을 남겨주세요..." class="flex-1 border border-stone-300 rounded-lg px-3 py-2 text-xs" />
+                <button type="submit" class="bg-[#0F4C3A] text-white px-3.5 py-2 rounded-lg text-xs font-semibold">등록</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      `);
+    }
+
+    function submitPlaceReview(e, placeUid) {
+      e.preventDefault();
+      const rate = Number(document.getElementById("rv-rate").value || 5);
+      const content = document.getElementById("rv-content").value.trim();
+      if (!content) return;
+      const p = state.places.find((x) => x.placeUid === placeUid);
+      if (!p) return;
+      p.reviews.unshift({
+        rvUid: Date.now(),
+        nickname: state.currentUser.nickname,
+        rate,
+        writeDate: "2026-11-12",
+        content
+      });
+      openPlaceDetail(placeUid);
+      render();
+    }
+
+    function openTourDetail(tuUid) {
+      const t = state.tours.find((x) => x.tuUid === tuUid);
+      if (!t) return;
+      t.hits += 1;
+
+      const daysHtml = t.days.map((d) => `
+        <div class="relative pl-6 pb-4 border-l-2 border-[#0F4C3A]/30 last:pb-0">
+          <div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-[#0F4C3A] text-white text-[10px] flex items-center justify-center font-bold">${d.day}</div>
+          <div class="bg-stone-50 border border-stone-200/80 rounded-xl p-3.5 space-y-1">
+            <div class="text-xs font-bold text-[#0F4C3A]">DAY ${d.day} · ${d.placeTitle}</div>
+            <p class="text-xs text-stone-700 leading-relaxed">${d.memo}</p>
+          </div>
+        </div>
+      `).join("");
+
+      openModal(`
+        <div class="relative">
+          <img src="${t.coverImage}" alt="${t.title}" class="w-full h-52 object-cover rounded-t-2xl" />
+          <button onclick="closeModal()" class="absolute top-3 right-3 bg-black/60 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">✕</button>
+          <div class="absolute bottom-3 left-3 flex gap-1.5">
+            <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-[#0F4C3A] text-white">${AREA_MAP[t.location] || "전국"} · ${t.period - 1}박 ${t.period}일</span>
+            <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-black/60 text-white">${WITH_MAP[t.withWho] || "함께"} · ${FOCUS_MAP[t.focus] || "여행"}</span>
+          </div>
+        </div>
+        <div class="p-5 space-y-4">
+          <div>
+            <h3 class="text-lg font-bold text-stone-900">${t.title}</h3>
+            <p class="text-xs text-stone-500 mt-1">작성자: ${t.nickname} · 여행기간: ${t.startDate} ~ ${t.endDate} · 조회 ${t.hits}</p>
+          </div>
+          <p class="text-sm text-stone-700 bg-stone-100/70 p-3 rounded-xl">${t.summary}</p>
+          <div class="space-y-2">
+            <h4 class="text-sm font-bold text-stone-900">일자별 타임라인 & 메모</h4>
+            <div class="mt-2 space-y-2">${daysHtml}</div>
+          </div>
+        </div>
+      `);
+    }
+
+    function openNewTourModal() {
+      const placeOptions = state.places.map((p) => `<option value="${p.title}">${p.title} (${AREA_MAP[p.areaCode]})</option>`).join("");
+      openModal(`
+        <div class="p-5 space-y-4">
+          <div class="flex items-center justify-between border-b border-stone-200 pb-3">
+            <h3 class="text-lg font-bold text-stone-900">새 여행 일정 코스 만들기</h3>
+            <button onclick="closeModal()" class="text-stone-400 hover:text-stone-700 font-bold">✕</button>
+          </div>
+          <form onsubmit="submitNewTour(event)" class="space-y-3 text-xs">
+            <div>
+              <label class="font-semibold text-stone-700 block mb-1">일정 제목</label>
+              <input id="nt-title" required placeholder="예: 가을 강릉 한옥 스테이 & 커피거리 1박 2일" class="w-full border border-stone-300 rounded-lg px-3 py-2" />
+            </div>
+            <div>
+              <label class="font-semibold text-stone-700 block mb-1">한줄 요약</label>
+              <input id="nt-summary" required placeholder="일정의 핵심 포인트를 소개해 주세요" class="w-full border border-stone-300 rounded-lg px-3 py-2" />
+            </div>
+            <div class="grid grid-cols-3 gap-2">
+              <div>
+                <label class="font-semibold text-stone-700 block mb-1">지역</label>
+                <select id="nt-loc" class="w-full border border-stone-300 rounded-lg px-2 py-2 bg-white">
+                  <option value="17">제주</option>
+                  <option value="1">서울</option>
+                  <option value="6">부산</option>
+                  <option value="10">강원</option>
+                  <option value="13">경북</option>
+                </select>
+              </div>
+              <div>
+                <label class="font-semibold text-stone-700 block mb-1">누구와</label>
+                <select id="nt-with" class="w-full border border-stone-300 rounded-lg px-2 py-2 bg-white">
+                  <option value="3">연인과</option>
+                  <option value="2">친구와</option>
+                  <option value="1">나홀로</option>
+                  <option value="4">가족과</option>
+                </select>
+              </div>
+              <div>
+                <label class="font-semibold text-stone-700 block mb-1">스타일</label>
+                <select id="nt-focus" class="w-full border border-stone-300 rounded-lg px-2 py-2 bg-white">
+                  <option value="3">힐링·휴식</option>
+                  <option value="6">자연·풍경</option>
+                  <option value="7">미식탐방</option>
+                  <option value="5">역사·문화</option>
+                </select>
+              </div>
+            </div>
+            <div class="space-y-2 border-t border-stone-200 pt-3">
+              <label class="font-semibold text-stone-700 block">DAY 1 경유지 & 메모</label>
+              <select id="nt-day1-place" class="w-full border border-stone-300 rounded-lg px-2.5 py-2 bg-white">${placeOptions}</select>
+              <input id="nt-day1-memo" required placeholder="DAY 1 동선 및 팁 메모" class="w-full border border-stone-300 rounded-lg px-3 py-2" />
+            </div>
+            <div class="space-y-2">
+              <label class="font-semibold text-stone-700 block">DAY 2 경유지 & 메모</label>
+              <select id="nt-day2-place" class="w-full border border-stone-300 rounded-lg px-2.5 py-2 bg-white">${placeOptions}</select>
+              <input id="nt-day2-memo" required placeholder="DAY 2 동선 및 팁 메모" class="w-full border border-stone-300 rounded-lg px-3 py-2" />
+            </div>
+            <button type="submit" class="w-full bg-[#0F4C3A] text-white py-2.5 rounded-xl font-bold text-sm">일정 발행하기</button>
+          </form>
+        </div>
+      `);
+    }
+
+    function submitNewTour(e) {
+      e.preventDefault();
+      const title = document.getElementById("nt-title").value.trim();
+      const summary = document.getElementById("nt-summary").value.trim();
+      const location = Number(document.getElementById("nt-loc").value);
+      const withWho = Number(document.getElementById("nt-with").value);
+      const focus = Number(document.getElementById("nt-focus").value);
+      const d1Place = document.getElementById("nt-day1-place").value;
+      const d1Memo = document.getElementById("nt-day1-memo").value.trim();
+      const d2Place = document.getElementById("nt-day2-place").value;
+      const d2Memo = document.getElementById("nt-day2-memo").value.trim();
+
+      state.tours.unshift({
+        tuUid: Date.now(),
+        nickname: state.currentUser.nickname,
+        title,
+        summary,
+        hits: 1,
+        period: 2,
+        location,
+        withWho,
+        focus,
+        startDate: "2026-11-20",
+        endDate: "2026-11-21",
+        coverImage: IMG_BASE + "/images/gangneung.jpg",
+        tags: [AREA_MAP[location] || "여행", FOCUS_MAP[focus] || "추천코스"],
+        likeCnt: 1,
+        likedByMe: true,
+        isDeleted: 0,
+        days: [
+          { day: 1, placeTitle: d1Place, memo: d1Memo },
+          { day: 2, placeTitle: d2Place, memo: d2Memo }
+        ]
+      });
+      closeModal();
+      switchTab("tours");
+    }
+
+    function openPicDetail(pcUid) {
+      const pic = state.pictures.find((x) => x.pcUid === pcUid);
+      if (!pic) return;
+
+      const cmtsHtml = pic.comments.length > 0
+        ? pic.comments.map((c) => `
+            <div class="p-2.5 rounded-lg bg-stone-50 border border-stone-200/80 text-xs">
+              <span class="font-bold text-stone-900">${c.nickname}</span>
+              <span class="text-stone-400 ml-1.5">${c.writeDate}</span>
+              <p class="text-stone-700 mt-1">${c.contents}</p>
+            </div>
+          `).join("")
+        : `<p class="text-xs text-stone-400">첫 댓글을 남겨보세요.</p>`;
+
+      openModal(`
+        <img src="${pic.image}" alt="${pic.title}" class="w-full h-64 object-cover rounded-t-2xl" />
+        <div class="p-5 space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-semibold text-[#0F4C3A]">${AREA_MAP[pic.location] || "전국"} · ${FOCUS_MAP[pic.focus] || "스냅"}</span>
+            <button onclick="closeModal()" class="text-xs text-stone-400 font-bold">✕ 닫기</button>
+          </div>
+          <h3 class="text-lg font-bold text-stone-900">${pic.title}</h3>
+          <p class="text-xs text-stone-500">📸 ${pic.nickname} · ${pic.writeDate}</p>
+          <p class="text-sm text-stone-700 leading-relaxed">${pic.contents}</p>
+          <div class="border-t border-stone-200 pt-3 space-y-2">
+            <h4 class="text-xs font-bold text-stone-800">댓글 (${pic.comments.length})</h4>
+            <div class="space-y-1.5">${cmtsHtml}</div>
+            <form onsubmit="submitPicComment(event, ${pic.pcUid})" class="flex gap-2 pt-2">
+              <input id="pc-cmt" required placeholder="사진에 대한 감상을 남겨주세요..." class="flex-1 border border-stone-300 rounded-lg px-3 py-2 text-xs" />
+              <button type="submit" class="bg-[#0F4C3A] text-white px-3.5 py-2 rounded-lg text-xs font-semibold">등록</button>
+            </form>
+          </div>
+        </div>
+      `);
+    }
+
+    function submitPicComment(e, pcUid) {
+      e.preventDefault();
+      const val = document.getElementById("pc-cmt").value.trim();
+      if (!val) return;
+      const pic = state.pictures.find((x) => x.pcUid === pcUid);
+      if (!pic) return;
+      pic.comments.push({
+        nickname: state.currentUser.nickname,
+        contents: val,
+        writeDate: "2026-11-12"
+      });
+      openPicDetail(pcUid);
+      render();
+    }
+
+    function switchDemoUser(usUid) {
+      const u = state.users.find((x) => x.usUid === usUid);
+      if (!u) return;
+      state.currentUser = u;
+      updateNavStyles();
+      render();
+    }
+
+    function renderHome() {
+      const topPlaces = state.places.slice(0, 4);
+      const topTours = state.tours.slice(0, 3);
+      const topPics = state.pictures.slice(0, 3);
+
+      return `
+        <div class="space-y-10">
+          <!-- Hero -->
+          <section class="relative rounded-3xl overflow-hidden bg-stone-900 text-white shadow-lg">
+            <img src="${IMG_BASE}/images/jeju.jpg" alt="제주 성산일출봉" class="w-full h-72 md:h-96 object-cover opacity-75" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/35 to-transparent flex flex-col justify-end p-6 md:p-10">
+              <span class="inline-block w-fit px-3 py-1 rounded-full text-xs font-semibold bg-[#D96B43] text-white mb-3">
+                오늘의 큐레이션 · 대한민국 사계절 여행기
+              </span>
+              <h1 class="text-2xl md:text-4xl font-bold tracking-tight leading-tight">
+                설레는 오늘의 여행,<br/>나만의 동선과 사진으로 기록하세요
+              </h1>
+              <p class="text-xs md:text-sm text-stone-200 mt-2 max-w-xl">
+                한국관광공사 TourAPI 기반 명소 탐색부터 일차별 여행 코스 빌더, 포토 커뮤니티까지 TypeScript + Next.js 16 아키텍처로 새롭게 태어났습니다.
+              </p>
+              <div class="flex flex-wrap gap-2.5 mt-5">
+                <button onclick="switchTab('places')" class="px-4 py-2.5 rounded-xl bg-white text-stone-900 font-bold text-xs md:text-sm shadow-sm">
+                  📍 전국 명소 탐색하기
+                </button>
+                <button onclick="openNewTourModal()" class="px-4 py-2.5 rounded-xl bg-[#0F4C3A] text-white font-bold text-xs md:text-sm shadow-sm">
+                  + 나만의 여행 일정 만들기
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- Featured Tours -->
+          <section class="space-y-4">
+            <div class="flex items-center justify-between">
+              <div>
+                <h2 class="text-lg md:text-xl font-bold text-stone-900">에디터 추천 여행 코스</h2>
+                <p class="text-xs text-stone-500">일자별 동선과 현지 팁이 담긴 검증된 여행 일정</p>
+              </div>
+              <button onclick="switchTab('tours')" class="text-xs font-semibold text-[#0F4C3A] hover:underline">전체보기 →</button>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              ${topTours.map((t) => `
+                <article onclick="openTourDetail(${t.tuUid})" class="cursor-pointer bg-white rounded-2xl border border-stone-200/90 overflow-hidden shadow-xs hover:shadow-md transition flex flex-col">
+                  <div class="relative h-44">
+                    <img src="${t.coverImage}" alt="${t.title}" class="w-full h-full object-cover" />
+                    <span class="absolute top-3 left-3 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-black/65 text-white">
+                      ${AREA_MAP[t.location] || "전국"} · ${t.period - 1}박 ${t.period}일
+                    </span>
+                  </div>
+                  <div class="p-4 flex-1 flex flex-col justify-between space-y-3">
+                    <div>
+                      <h3 class="font-bold text-sm text-stone-900 line-clamp-2">${t.title}</h3>
+                      <p class="text-xs text-stone-500 mt-1 line-clamp-2">${t.summary}</p>
+                    </div>
+                    <div class="flex items-center justify-between text-[11px] text-stone-500 pt-2 border-t border-stone-100">
+                      <span>✍️ ${t.nickname}</span>
+                      <span>♥ ${t.likeCnt} · 조회 ${t.hits}</span>
+                    </div>
+                  </div>
+                </article>
+              `).join("")}
+            </div>
+          </section>
+
+          <!-- Popular Places -->
+          <section class="space-y-4">
+            <div class="flex items-center justify-between">
+              <div>
+                <h2 class="text-lg md:text-xl font-bold text-stone-900">인기 여행지 & 미식 공간</h2>
+                <p class="text-xs text-stone-500">관광지 · 감성 숙소 · 로컬 맛집 큐레이션</p>
+              </div>
+              <button onclick="switchTab('places')" class="text-xs font-semibold text-[#0F4C3A] hover:underline">더보기 →</button>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              ${topPlaces.map((p) => `
+                <div onclick="openPlaceDetail(${p.placeUid})" class="cursor-pointer bg-white rounded-2xl border border-stone-200/90 overflow-hidden shadow-xs hover:shadow-md transition">
+                  <div class="relative h-36">
+                    <img src="${p.firstImage2}" alt="${p.title}" class="w-full h-full object-cover" />
+                    <span class="absolute top-2.5 left-2.5 px-2 py-0.5 rounded-md text-[10px] font-semibold bg-[#0F4C3A] text-white">
+                      ${TYPE_MAP[p.contentTypeId]}
+                    </span>
+                  </div>
+                  <div class="p-3.5 space-y-1.5">
+                    <h3 class="font-bold text-sm text-stone-900 truncate">${p.title}</h3>
+                    <p class="text-xs text-stone-500 truncate">${p.addr1}</p>
+                    <div class="flex items-center justify-between text-xs pt-1">
+                      <span class="text-amber-600 font-semibold">★ ${p.rateAvg} (${p.reviews.length})</span>
+                      <span class="text-rose-600 font-semibold">♥ ${p.likeCnt}</span>
+                    </div>
+                  </div>
+                </div>
+              `).join("")}
+            </div>
+          </section>
+
+          <!-- Photo Stories -->
+          <section class="space-y-4">
+            <div class="flex items-center justify-between">
+              <div>
+                <h2 class="text-lg md:text-xl font-bold text-stone-900">여행사진 커뮤니티</h2>
+                <p class="text-xs text-stone-500">여행자들이 직접 기록한 계절의 조각</p>
+              </div>
+              <button onclick="switchTab('cards')" class="text-xs font-semibold text-[#0F4C3A] hover:underline">전체 사진 →</button>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              ${topPics.map((pic) => `
+                <div onclick="openPicDetail(${pic.pcUid})" class="cursor-pointer bg-white rounded-2xl border border-stone-200/90 overflow-hidden shadow-xs hover:shadow-md transition">
+                  <img src="${pic.image}" alt="${pic.title}" class="w-full h-44 object-cover" />
+                  <div class="p-4 space-y-1.5">
+                    <div class="text-[11px] font-semibold text-[#0F4C3A]">${AREA_MAP[pic.location]} · ${FOCUS_MAP[pic.focus]}</div>
+                    <h3 class="font-bold text-sm text-stone-900">${pic.title}</h3>
+                    <p class="text-xs text-stone-600 line-clamp-2">${pic.contents}</p>
+                  </div>
+                </div>
+              `).join("")}
+            </div>
+          </section>
+        </div>
+      `;
+    }
+
+    function renderPlaces() {
+      const filtered = state.places.filter((p) => {
+        if (state.placeTypeFilter && p.contentTypeId !== state.placeTypeFilter) return false;
+        if (state.placeAreaFilter && p.areaCode !== state.placeAreaFilter) return false;
+        if (state.placeKeyword && !p.title.includes(state.placeKeyword) && !p.addr1.includes(state.placeKeyword)) return false;
+        return true;
+      });
+
+      return `
+        <div class="space-y-5">
+          <div class="bg-white p-4 rounded-2xl border border-stone-200 space-y-3">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <h2 class="text-lg font-bold text-stone-900">전국 여행 장소 탐색 (${filtered.length})</h2>
+              <div class="flex gap-1.5">
+                ${[
+                  { id: 0, label: "전체" },
+                  { id: 12, label: "🏞️ 관광지" },
+                  { id: 32, label: "🏡 감성숙소" },
+                  { id: 39, label: "🍲 맛집·카페" }
+                ].map((tab) => `
+                  <button onclick="state.placeTypeFilter=${tab.id}; render()" class="px-3 py-1.5 rounded-lg text-xs font-semibold ${state.placeTypeFilter === tab.id ? "bg-[#0F4C3A] text-white" : "bg-stone-100 text-stone-700"}">
+                    ${tab.label}
+                  </button>
+                `).join("")}
+              </div>
+            </div>
+            <div class="flex gap-2">
+              <select onchange="state.placeAreaFilter=Number(this.value); render()" class="border border-stone-300 rounded-xl px-3 py-2 text-xs bg-white">
+                <option value="0" ${state.placeAreaFilter === 0 ? "selected" : ""}>전체 지역</option>
+                <option value="1" ${state.placeAreaFilter === 1 ? "selected" : ""}>서울</option>
+                <option value="6" ${state.placeAreaFilter === 6 ? "selected" : ""}>부산</option>
+                <option value="10" ${state.placeAreaFilter === 10 ? "selected" : ""}>강원</option>
+                <option value="13" ${state.placeAreaFilter === 13 ? "selected" : ""}>경북(경주)</option>
+                <option value="17" ${state.placeAreaFilter === 17 ? "selected" : ""}>제주</option>
+              </select>
+              <input
+                value="${state.placeKeyword}"
+                oninput="state.placeKeyword=this.value; render()"
+                placeholder="장소명 또는 지역 검색 (예: 제주, 경복궁, 한옥)..."
+                class="flex-1 border border-stone-300 rounded-xl px-3.5 py-2 text-xs"
+              />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            ${filtered.map((p) => `
+              <div onclick="openPlaceDetail(${p.placeUid})" class="cursor-pointer bg-white rounded-2xl border border-stone-200 overflow-hidden shadow-xs hover:shadow-md transition flex flex-col">
+                <div class="relative h-44">
+                  <img src="${p.firstImage2}" alt="${p.title}" class="w-full h-full object-cover" />
+                  <span class="absolute top-3 left-3 px-2.5 py-1 rounded-full text-xs font-semibold bg-[#0F4C3A] text-white">
+                    ${TYPE_MAP[p.contentTypeId]} · ${AREA_MAP[p.areaCode]}
+                  </span>
+                  <button onclick="togglePlaceLike(${p.placeUid}, event)" class="absolute top-3 right-3 px-2.5 py-1 rounded-full text-xs font-bold ${p.likedByMe ? "bg-rose-600 text-white" : "bg-white/90 text-stone-800"}">
+                    ♥ ${p.likeCnt}
+                  </button>
+                </div>
+                <div class="p-4 flex-1 flex flex-col justify-between space-y-2">
+                  <div>
+                    <h3 class="font-bold text-base text-stone-900">${p.title}</h3>
+                    <p class="text-xs text-stone-500 mt-0.5">${p.addr1}</p>
+                    <p class="text-xs text-stone-600 mt-2 line-clamp-2">${p.overview}</p>
+                  </div>
+                  <div class="flex items-center justify-between text-xs pt-2 border-t border-stone-100">
+                    <span class="text-amber-600 font-semibold">★ ${p.rateAvg} · 리뷰 ${p.reviews.length}개</span>
+                    <span class="text-stone-400">조회 ${p.viewCnt}</span>
+                  </div>
+                </div>
+              </div>
+            `).join("")}
+          </div>
+        </div>
+      `;
+    }
+
+    function renderTours() {
+      return `
+        <div class="space-y-5">
+          <div class="bg-white p-4 rounded-2xl border border-stone-200 flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <h2 class="text-lg font-bold text-stone-900">여행 일정 코스 (${state.tours.length})</h2>
+              <p class="text-xs text-stone-500">카드를 탭하면 일차별 방문 장소와 상세 메모를 확인할 수 있습니다.</p>
+            </div>
+            <button onclick="openNewTourModal()" class="px-4 py-2.5 rounded-xl bg-[#0F4C3A] text-white text-xs font-bold shadow-xs">
+              + 새 여행 일정 만들기
+            </button>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            ${state.tours.map((t) => `
+              <div onclick="openTourDetail(${t.tuUid})" class="cursor-pointer bg-white rounded-2xl border border-stone-200 overflow-hidden shadow-xs hover:shadow-md transition flex flex-col">
+                <div class="relative h-48">
+                  <img src="${t.coverImage}" alt="${t.title}" class="w-full h-full object-cover" />
+                  <span class="absolute top-3 left-3 px-2.5 py-1 rounded-full text-xs font-semibold bg-[#0F4C3A] text-white">
+                    ${AREA_MAP[t.location] || "전국"} · ${t.period - 1}박 ${t.period}일
+                  </span>
+                </div>
+                <div class="p-4 flex-1 flex flex-col justify-between space-y-3">
+                  <div>
+                    <div class="flex flex-wrap gap-1 mb-2">
+                      ${t.tags.map((tag) => `<span class="text-[10px] px-2 py-0.5 rounded-full bg-stone-100 text-stone-600">#${tag}</span>`).join("")}
+                    </div>
+                    <h3 class="font-bold text-base text-stone-900">${t.title}</h3>
+                    <p class="text-xs text-stone-600 mt-1 line-clamp-2">${t.summary}</p>
+                  </div>
+                  <div class="space-y-1.5 pt-2 border-t border-stone-100 text-xs text-stone-500">
+                    <div class="font-semibold text-stone-800">총 ${t.days.length}개 일차 코스 포함</div>
+                    <div class="flex justify-between">
+                      <span>✍️ ${t.nickname}</span>
+                      <span>♥ ${t.likeCnt} · 조회 ${t.hits}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            `).join("")}
+          </div>
+        </div>
+      `;
+    }
+
+    function renderCards() {
+      return `
+        <div class="space-y-5">
+          <div class="bg-white p-4 rounded-2xl border border-stone-200 flex items-center justify-between">
+            <div>
+              <h2 class="text-lg font-bold text-stone-900">여행사진 커뮤니티 (${state.pictures.length})</h2>
+              <p class="text-xs text-stone-500">사진을 탭하여 촬영 스토리와 댓글을 확인해 보세요.</p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            ${state.pictures.map((pic) => `
+              <div onclick="openPicDetail(${pic.pcUid})" class="cursor-pointer bg-white rounded-2xl border border-stone-200 overflow-hidden shadow-xs hover:shadow-md transition">
+                <div class="relative h-52">
+                  <img src="${pic.image}" alt="${pic.title}" class="w-full h-full object-cover" />
+                  <span class="absolute bottom-3 left-3 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-black/65 text-white">
+                    ${AREA_MAP[pic.location]} · ${FOCUS_MAP[pic.focus]}
+                  </span>
+                </div>
+                <div class="p-4 space-y-2">
+                  <h3 class="font-bold text-sm text-stone-900">${pic.title}</h3>
+                  <p class="text-xs text-stone-600 line-clamp-2">${pic.contents}</p>
+                  <div class="flex items-center justify-between text-xs text-stone-500 pt-2 border-t border-stone-100">
+                    <span>📸 ${pic.nickname}</span>
+                    <span>♥ ${pic.likeCnt} · 💬 ${pic.comments.length}</span>
+                  </div>
+                </div>
+              </div>
+            `).join("")}
+          </div>
+        </div>
+      `;
+    }
+
+    function renderAdmin() {
+      return `
+        <div class="space-y-6">
+          <!-- Account Switcher -->
+          <div class="bg-white p-5 rounded-2xl border border-stone-200 space-y-3">
+            <h2 class="text-base font-bold text-stone-900">원클릭 데모 계정 전환 (현재: ${state.currentUser.nickname})</h2>
+            <p class="text-xs text-stone-500">계정을 전환한 뒤 장소 리뷰나 여행 일정을 작성하면 해당 작성자 이름으로 즉시 기록됩니다.</p>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+              ${state.users.map((u) => `
+                <button onclick="switchDemoUser(${u.usUid})" class="p-3 rounded-xl border text-left transition ${state.currentUser.usUid === u.usUid ? "border-[#0F4C3A] bg-[#0F4C3A]/5" : "border-stone-200 hover:border-stone-400"}">
+                  <div class="flex items-center justify-between">
+                    <span class="font-bold text-xs text-stone-900">${u.nickname}</span>
+                    <span class="text-[10px] px-2 py-0.5 rounded-full ${u.role === "ADMIN" ? "bg-emerald-100 text-emerald-800" : "bg-stone-100 text-stone-600"}">${u.role}</span>
+                  </div>
+                  <p class="text-[11px] text-stone-500 mt-1 truncate">${u.memo}</p>
+                </button>
+              `).join("")}
+            </div>
+          </div>
+
+          <!-- KPI Cards -->
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <div class="bg-white p-4 rounded-2xl border border-stone-200">
+              <span class="text-xs text-stone-500">등록된 명소·맛집</span>
+              <p class="text-2xl font-bold text-stone-900 mt-1 font-mono">${state.places.length}</p>
+            </div>
+            <div class="bg-white p-4 rounded-2xl border border-stone-200">
+              <span class="text-xs text-stone-500">여행 일정 코스</span>
+              <p class="text-2xl font-bold text-[#0F4C3A] mt-1 font-mono">${state.tours.length}</p>
+            </div>
+            <div class="bg-white p-4 rounded-2xl border border-stone-200">
+              <span class="text-xs text-stone-500">포토 스토리</span>
+              <p class="text-2xl font-bold text-stone-900 mt-1 font-mono">${state.pictures.length}</p>
+            </div>
+            <div class="bg-white p-4 rounded-2xl border border-stone-200">
+              <span class="text-xs text-stone-500">활동 회원수</span>
+              <p class="text-2xl font-bold text-stone-900 mt-1 font-mono">${state.users.length}</p>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function render() {
+      const root = document.getElementById("app-root");
+      if (state.activeTab === "home") root.innerHTML = renderHome();
+      else if (state.activeTab === "places") root.innerHTML = renderPlaces();
+      else if (state.activeTab === "tours") root.innerHTML = renderTours();
+      else if (state.activeTab === "cards") root.innerHTML = renderCards();
+      else if (state.activeTab === "admin") root.innerHTML = renderAdmin();
+    }
+
+    updateNavStyles();
+    render();
+  </script>
+</body>
+</html>
