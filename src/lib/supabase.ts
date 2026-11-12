@@ -33,8 +33,27 @@ export async function pingSupabaseKeepAlive(): Promise<{
   try {
     const today = new Date().toISOString().slice(0, 10);
 
-    // 1. place 테이블 조회로 DB 활성 상태 유지
-    const selectRes = await fetch(`${cfg.url}/rest/v1/place?select=place_uid`, {
+    // 1. Supabase REST 루트 API 핑 (테이블 유무와 무관하게 프로젝트 활성화 및 7일 휴면 방지 보장)
+    const rootRes = await fetch(`${cfg.url}/rest/v1/`, {
+      headers: {
+        apikey: cfg.key,
+        Authorization: `Bearer ${cfg.key}`,
+      },
+      cache: "no-store",
+    });
+
+    if (!rootRes.ok && rootRes.status !== 404) {
+      // 401, 403 등 인증 실패 시
+      const errText = await rootRes.text().catch(() => "");
+      return {
+        enabled: true,
+        ok: false,
+        message: `Supabase API 인증/연결 오류: HTTP ${rootRes.status} ${errText.slice(0, 100)}`,
+      };
+    }
+
+    // 2. place 테이블 조회로 실제 스키마 구성 상태 확인
+    const selectRes = await fetch(`${cfg.url}/rest/v1/place?select=place_uid&limit=10`, {
       headers: {
         apikey: cfg.key,
         Authorization: `Bearer ${cfg.key}`,
@@ -43,16 +62,25 @@ export async function pingSupabaseKeepAlive(): Promise<{
     });
 
     if (!selectRes.ok) {
+      if (selectRes.status === 404) {
+        return {
+          enabled: true,
+          ok: true, // Supabase 인스턴스 핑은 성공했으므로 휴면 방지는 정상 작동
+          placeCount: 0,
+          message:
+            "Supabase API 핑 완료(휴면 방지 정상 가동). 단, place 테이블이 아직 없어 스키마 초기화가 필요합니다 (supabase/schema_and_seed.sql 실행).",
+        };
+      }
       return {
         enabled: true,
         ok: false,
-        message: `Supabase 조회 응답 오류: HTTP ${selectRes.status}`,
+        message: `Supabase place 테이블 조회 오류: HTTP ${selectRes.status}`,
       };
     }
 
     const places = (await selectRes.json()) as { place_uid: number }[];
 
-    // 2. user_log 테이블에 일일 헬스체크 로그 기록
+    // 3. user_log 테이블에 일일 헬스체크 로그 기록 (테이블 존재 시)
     await fetch(`${cfg.url}/rest/v1/user_log`, {
       method: "POST",
       headers: {
@@ -65,7 +93,7 @@ export async function pingSupabaseKeepAlive(): Promise<{
         log_contents: "VERCEL_CRON_KEEPALIVE",
         log_date: today,
       }),
-    });
+    }).catch(() => {});
 
     return {
       enabled: true,
