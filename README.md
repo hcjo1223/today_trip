@@ -1,6 +1,8 @@
 # 오늘의여행 (Today's Trip) — Modern TypeScript Edition
 
-> **Legacy Java 8 / Spring MVC / JSP / Oracle** 프로젝트를 **TypeScript + Next.js 16 (App Router) + React 19 + Tailwind CSS 4 + SQLite (`node:sqlite`)** 풀스택 아키텍처로 전면 마이그레이션한 대한민국 감성 여행 일정 & 포토 커뮤니티 플랫폼입니다.
+> **Legacy Java 8 / Spring MVC / JSP / Oracle** 프로젝트를 **TypeScript + Next.js 16 (App Router) + React 19 + Tailwind CSS 4 + SQLite / Supabase (PostgreSQL)** 풀스택 아키텍처로 전면 마이그레이션한 대한민국 감성 여행 일정 & 포토 커뮤니티 플랫폼입니다.
+
+- **모바일·외부 즉시 시연 URL**: **https://hcjo1223.github.io/today_trip/**
 
 ---
 
@@ -20,35 +22,27 @@
 
 ---
 
-## 기술 스택
+## 무료 배포 가이드 (Vercel + Supabase Free Tier)
 
-| 영역 | 레거시 (Before — `legacy/`) | 모던 아키텍처 (After) |
-| :--- | :--- | :--- |
-| **언어 & 런타임** | Java 8 (JDK 1.8) | **TypeScript 5 + Node.js 24 LTS** |
-| **프레임워크** | Spring MVC 5.1 + JSP + Tiles | **Next.js 16 (App Router) + React 19** |
-| **스타일링** | Bootstrap 4 + jQuery | **Tailwind CSS 4 + Lucide Icons** |
-| **데이터베이스** | Oracle 11g + MyBatis XML | **SQLite (`node:sqlite` 내장 모듈, WAL 모드)** |
+### 1단계: Supabase 무료 DB 생성 및 스키마 적용
+1. [Supabase](https://supabase.com)에서 무료 프로젝트를 생성합니다.
+2. 좌측 메뉴 **SQL Editor** → **New Query**를 열고 [`supabase/schema_and_seed.sql`](supabase/schema_and_seed.sql) 파일 내용을 붙여넣은 뒤 **Run**을 클릭합니다. (13개 정규화 테이블과 초기 시드 데이터가 한 번에 생성됩니다.)
+
+### 2단계: Vercel 무료 호스팅 연결
+1. [Vercel](https://vercel.com)에서 **Add New Project** → GitHub `hcjo1223/today_trip` 저장소를 Import 합니다.
+2. **Environment Variables**에 [`.env.example`](.env.example)에 안내된 3개 값을 입력하고 **Deploy**를 누릅니다:
+   - `NEXT_PUBLIC_SUPABASE_URL`
+   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+   - `SUPABASE_SERVICE_ROLE_KEY`
+3. [`vercel.json`](vercel.json)에 설정된 일일 Cron Job(`/api/cron/keepalive`)이 매일 자동으로 Supabase DB를 깨워 **7일 미사용 시 일시 중지(Pause)되는 현상을 방지**합니다.
+   - *(환경 변수를 설정하기 전에도 Vercel 서버리스 `/tmp` SQLite 폴백을 통해 즉시 배포·동작합니다.)*
 
 ---
 
-## 빠른 시작 (로컬 실행 & 외부 시연 터널링)
+## 로컬 실행 & 외부 시연 터널링
 
-### 1. 의존성 설치 및 개발 서버 실행
 ```bash
 npm install
-npm run dev
-```
-- 실행 시 `data/today_trip.db` SQLite 데이터베이스와 초기 시드 데이터가 자동으로 생성됩니다.
-
-### 2. 시연·테스트용 외부 접속 주소 즉시 생성 (Cloudflare Tunnel)
-외부 스마트폰이나 타 PC에서 접속할 수 있는 `https://*.trycloudflare.com` 주소를 즉시 발급합니다:
-```bash
-npm run demo
-```
-(이미 서버가 실행 중일 때는 `npm run tunnel`만 실행하면 됩니다.)
-
-### 3. Docker 컨테이너 배포
-영구 볼륨(`today_trip_data`)이 연결된 프로덕션 컨테이너를 실행합니다:
-```bash
-docker compose up -d --build
+npm run dev     # 로컬 개발 서버 (http://localhost:3000)
+npm run demo    # Cloudflare Quick Tunnel 외부 공유 링크 즉시 생성
 ```

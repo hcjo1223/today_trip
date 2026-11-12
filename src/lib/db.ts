@@ -13,7 +13,9 @@ import type {
   User,
 } from "./types";
 
-const DB_DIR = path.join(process.cwd(), "data");
+const DB_DIR = process.env.VERCEL
+  ? path.join("/tmp", "today_trip_data")
+  : path.join(process.cwd(), "data");
 const DB_PATH = path.join(DB_DIR, "today_trip.db");
 
 declare global {
