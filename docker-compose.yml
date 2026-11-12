@@ -1,0 +1,17 @@
+services:
+  today-trip:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: today-trip
+    ports:
+      - "3000:3000"
+    volumes:
+      - today_trip_data:/app/data
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+    restart: unless-stopped
+
+volumes:
+  today_trip_data:

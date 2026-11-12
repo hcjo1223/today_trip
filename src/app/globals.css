@@ -1,0 +1,49 @@
+@import "tailwindcss";
+
+:root {
+  --bg-canvas: #faf8f5;
+  --bg-surface: #ffffff;
+  --bg-muted: #f3efe9;
+  --text-primary: #191817;
+  --text-secondary: #57534e;
+  --text-muted: #78716c;
+  --accent-primary: #0f766e;
+  --accent-hover: #115e59;
+  --accent-warm: #c2410c;
+  --border-subtle: #e7e2da;
+}
+
+@theme inline {
+  --color-background: var(--bg-canvas);
+  --color-foreground: var(--text-primary);
+  --font-sans: var(--font-noto-sans-kr), system-ui, -apple-system, sans-serif;
+  --font-serif: var(--font-noto-serif-kr), Georgia, serif;
+}
+
+body {
+  background-color: var(--bg-canvas);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  letter-spacing: -0.01em;
+}
+
+h1, h2, .font-editorial {
+  font-family: var(--font-serif);
+  letter-spacing: -0.025em;
+}
+
+.surface-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 0.875rem;
+  box-shadow: 0 2px 10px -2px rgba(25, 24, 23, 0.04);
+  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.2s ease;
+}
+
+.surface-card:hover {
+  box-shadow: 0 10px 24px -6px rgba(25, 24, 23, 0.08);
+  border-color: #d6cfc2;
+}
